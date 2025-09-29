@@ -1,5 +1,5 @@
 class CategoryModel {
-  String categoryId;
+  int categoryId;
   String categoryNameAr;
   String? categoryNameEn;
   String categoryThumbPath;

@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:logix_market_place/common/nav/page_routes.dart';
+import 'package:logix_market_place/common/theme/colors.dart';
 
 import 'common/lang/app_translations.dart';
 import 'common/localization/localization_controller.dart';
 import 'features/home/home_screen.dart';
+import 'features/home/main_home_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,7 +20,6 @@ class MyApp extends StatelessWidget {
   MyApp({super.key});
 
   final LocalizationController localizationController = Get.put(LocalizationController());
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -26,15 +29,21 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
             theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+              // scaffoldBackgroundColor: primaryColor,
+              appBarTheme: const AppBarTheme(
+                backgroundColor: primaryColor,
+                foregroundColor: Colors.white,
+                elevation: 0,
+              ),
+              colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),
               useMaterial3: true,
             ),
-            // 🌍 Setup translations
             translations: AppTranslations(),
             locale: localizationController.locale.value,
             fallbackLocale: const Locale('en', 'US'),
-
-            home: const HomeScreen(),
+            initialRoute: RouteNames.mainHomePage,
+            getPages: routePages ,
+            // home:  MainHomeScreen()
           );
         });
   }
