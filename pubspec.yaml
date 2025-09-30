@@ -13,6 +13,7 @@ dependencies:
   get: ^4.6.6
   shared_preferences: ^2.2.2
   http: ^1.5.0
+  flutter_launcher_icons: ^0.14.4
 
 dev_dependencies:
   flutter_test:
@@ -25,3 +26,8 @@ flutter:
     - assets/
     - icons/
     - assets_mock/
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/logo.png"

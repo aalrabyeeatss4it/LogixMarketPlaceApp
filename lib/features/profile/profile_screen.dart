@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../common/nav/app_bar_custom.dart';
+import '../../common/nav/bottom_nav_bar_custom.dart';
 import '../../controllers/category_controller.dart';
 
 class ProfileScreen extends StatelessWidget{
@@ -24,16 +25,16 @@ class ProfileScreen extends StatelessWidget{
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
                       Center(child: Text('profile'.tr),),
                       SizedBox(height: 10.h),
-                    ],
-                  ),
+                    ]
+                  )
                 )
-              ],
-            ),
-          ),
+              ]
+            )
+          )
         ),
+        bottomNavigationBar: BottomNavBarCustom(currentPage: 3,),
       );
     }
   }

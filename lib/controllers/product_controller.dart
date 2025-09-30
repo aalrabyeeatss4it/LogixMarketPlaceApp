@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
 import 'package:logix_market_place/services/product_service.dart';
 
 import '../mock/mock_product_service.dart';

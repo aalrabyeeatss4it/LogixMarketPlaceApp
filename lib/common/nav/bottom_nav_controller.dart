@@ -6,16 +6,8 @@ import 'package:logix_market_place/features/categories/categories_screen.dart';
 import 'package:logix_market_place/features/home/home_screen.dart';
 import 'package:logix_market_place/features/profile/profile_screen.dart';
 
-class BottomNavController extends GetxController{
+class BottomNavController extends GetxController {
   var selectedIndex = 0.obs;
-
-  // final List<String> pages = [
-  //   RouteNames.homePage,
-  //   RouteNames.categoriesPage,
-  //   RouteNames.cartPage,
-  //   RouteNames.profilePage
-  // ];
-
 
   final List<Widget> pages = [
     HomeScreen(),
@@ -23,9 +15,16 @@ class BottomNavController extends GetxController{
     CartScreen(),
     ProfileScreen()
   ];
-  void changeTap(int index){
-    if(selectedIndex.value == index ) return;
+
+  final List<String> _pages = [
+  RouteNames.homePage,
+  RouteNames.categoriesPage,
+  RouteNames.cartPage,
+  RouteNames.profilePage,
+  ];
+  void changeTap(int index) {
+    // if (selectedIndex.value == index) return;
     selectedIndex.value = index;
-    // Get.offNamed(pages[index]);
+    Get.offNamed(_pages[index]);
   }
 }

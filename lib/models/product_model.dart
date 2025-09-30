@@ -1,25 +1,29 @@
 class ProductModel {
   int productId;
   int categoryId;
-  String productNameAr;
-  String productNameEn;
+  String productName;
+  String productDesc;
   String productThumbPath;
+  List<Attribute>? attributes;
 
   ProductModel(
       {required this.productId,
       required this.categoryId,
-      required this.productNameAr,
-      required this.productNameEn,
-      required this.productThumbPath});
+      required this.productName,
+      required this.productDesc,
+      required this.productThumbPath,
+      this.attributes});
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
         productId: json['productId'],
         categoryId: json['categoryId'],
-        productNameAr: json['productNameAr'],
-        productNameEn: json['productNameEn'],
-        productThumbPath: json['productThumbPath']);
+        productName: json['productName'],
+        productDesc: json['productDesc'],
+        productThumbPath: json['productThumbPath']
+    );
   }
+
   static List<ProductModel> fromJsonList(List<dynamic> jsonList) {
     return jsonList.map((item) => ProductModel.fromJson(item)).toList();
   }
@@ -28,9 +32,15 @@ class ProductModel {
     return {
       'productId': productId,
       'categoryId': categoryId,
-      'productNameAr': productNameAr,
-      'productNameEn': productNameEn,
+      'productName': productName,
+      'productDesc': productDesc,
       'productThumbPath': productThumbPath
     };
   }
+}
+
+class Attribute {
+  String? label;
+  String? value;
+  Attribute({this.label, this.value});
 }

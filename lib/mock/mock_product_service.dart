@@ -9,14 +9,14 @@ class MockProductService implements ProductService {
       ProductModel(
           productId: 1,
           categoryId: 1,
-          productNameAr: 'خلّاط مغسلة مرتفع – ذهبي لامع',
-          productNameEn: 'خلّاط مغسلة مرتفع – ذهبي لامع',
+          productName: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
+          productDesc: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
           productThumbPath: 'assets_mock/product1.png'),
       ProductModel(
           productId: 2,
           categoryId: 1,
-          productNameAr: 'خلّاط مغسلة مرتفع – أسود مطفي',
-          productNameEn: 'خلّاط مغسلة مرتفع – أسود مطفي',
+          productName: 'خلّاط مغسلة مرتفع – أسود مطفي',
+          productDesc: 'خلّاط مغسلة مرتفع – أسود مطفي',
           productThumbPath: 'assets_mock/product2.png')
     ];
     return products;

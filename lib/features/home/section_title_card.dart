@@ -7,8 +7,9 @@ import '../../common/theme/colors.dart';
 class SectionTitleCard extends StatelessWidget{
   final String title;
   final bool showMore;
+  final double fontSize;
 
-  const SectionTitleCard({super.key, required this.title, this.showMore = false});
+  const SectionTitleCard({super.key, required this.title, this.showMore = false, this.fontSize = 16});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -19,7 +20,7 @@ class SectionTitleCard extends StatelessWidget{
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
+              Text(title, style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.w900)),
               showMore?
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),

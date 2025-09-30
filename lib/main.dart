@@ -41,9 +41,8 @@ class MyApp extends StatelessWidget {
             translations: AppTranslations(),
             locale: localizationController.locale.value,
             fallbackLocale: const Locale('en', 'US'),
-            initialRoute: RouteNames.mainHomePage,
+            initialRoute: RouteNames.homePage,
             getPages: routePages ,
-            // home:  MainHomeScreen()
           );
         });
   }

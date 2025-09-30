@@ -6,27 +6,35 @@ import 'package:logix_market_place/common/theme/colors.dart';
 import 'bottom_nav_controller.dart';
 
 class BottomNavBarCustom extends StatelessWidget {
+  final int currentPage;
+  BottomNavBarCustom({super.key, this.currentPage = 0,this.actionRow});
   final BottomNavController navController = Get.put(BottomNavController());
-
-  BottomNavBarCustom({super.key});
+  final Widget? actionRow;
   @override
   Widget build(BuildContext context) {
-    return Obx(()=> Theme(
-        data: Theme.of(context).copyWith(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-        ),
-        child: BottomNavigationBar(
-          currentIndex: navController.selectedIndex.value,
-          onTap: navController.changeTap,
-          items: barItems,
-          selectedItemColor: primaryColor,
-          unselectedItemColor: Colors.grey,
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.white,
-          showUnselectedLabels: true,
-        ),
-      ),
+    navController.selectedIndex.value = currentPage;
+    return Obx(()=> Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        actionRow?? const SizedBox(),
+        Theme(
+            data: Theme.of(context).copyWith(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+            ),
+            child: BottomNavigationBar(
+              currentIndex: navController.selectedIndex.value,
+              onTap: navController.changeTap,
+              items: barItems,
+              selectedItemColor: primaryColor,
+              unselectedItemColor: Colors.grey,
+              type: BottomNavigationBarType.fixed,
+              backgroundColor: Colors.white,
+              showUnselectedLabels: true,
+            ),
+          ),
+      ],
+    ),
     );
   }
 

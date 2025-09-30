@@ -1,55 +1,39 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../common/nav/app_bar_custom.dart';
+import '../../common/nav/bottom_nav_bar_custom.dart';
 import '../../controllers/category_controller.dart';
-import '../home/category_card.dart';
+import '../home/home_category_card.dart';
+import 'category_card.dart';
 
-class CategoriesScreen extends StatelessWidget{
+class CategoriesScreen extends StatelessWidget {
   final CategoryController categoryController = Get.put(CategoryController());
   CategoriesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarCustom(title: "home"),
-      body: SingleChildScrollView(
-        child: Card(
-          elevation: 0,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.all(16.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Obx(() {
-                      if(categoryController.list.isEmpty){
-                        return const Center(child: CircularProgressIndicator());
-                      }
-                      return SizedBox(
-                        height: 110,
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: categoryController.list.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return CategoryCard(
-                                  category: categoryController.list[index]);
-                            }),
-                      );
-                    }
-                    ),
-                    SizedBox(height: 10.h),
-                  ],
-                ),
-              )
-            ],
-          ),
+        appBar: AppBarCustom(title: "home"),
+        body: Obx(() {
+          if (categoryController.list.isEmpty) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return GridView.builder(
+              padding: const EdgeInsets.all(8),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3, // 2 items per row
+                crossAxisSpacing: 5,
+                mainAxisSpacing: 5,
+                childAspectRatio: 0.85,
+              ),
+              itemCount: categoryController.list.length,
+              itemBuilder: (BuildContext context, int index) {
+                return CategoryCard(category: categoryController.list[index]);
+              });
+        }
         ),
-      ),
+      bottomNavigationBar: BottomNavBarCustom(currentPage: 1,),
     );
   }
 }
