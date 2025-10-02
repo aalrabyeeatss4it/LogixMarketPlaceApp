@@ -20,11 +20,11 @@ class BottomNavController extends GetxController {
   RouteNames.homePage,
   RouteNames.categoriesPage,
   RouteNames.cartPage,
-  RouteNames.profilePage,
+  RouteNames.favPage,
   ];
   void changeTap(int index) {
     // if (selectedIndex.value == index) return;
     selectedIndex.value = index;
-    Get.offNamed(_pages[index]);
+    Get.offAllNamed(_pages[index],predicate: (route) => route.isFirst);
   }
 }

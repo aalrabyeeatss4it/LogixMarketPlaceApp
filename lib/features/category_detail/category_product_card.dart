@@ -2,13 +2,21 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:logix_market_place/models/product_model.dart';
 
 import '../../common/theme/colors.dart';
+import '../../controllers/cart_controller.dart';
+import '../../controllers/fav_controller.dart';
+import '../../models/cart_item_model.dart';
 
 class CategoryProductCard extends StatelessWidget {
-  const CategoryProductCard({super.key, required this.product});
+  CategoryProductCard({super.key, required this.product});
   final ProductModel product;
+  final CartController cartController = Get.find<CartController>();
+  final FavController favController = Get.find<FavController>();
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -51,48 +59,67 @@ class CategoryProductCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text('500'+'ريال', style: TextStyle(fontSize: 14,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
-                        ]),
+                        ]
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        ElevatedButton(
-                            onPressed: (){},
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: primaryColor,
-                              foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)
-                              )
-                            ),
-                            child: const Text('أضف إلى السلة')
+                        Obx(() {
+                          bool added = cartController.inCart(product.productId);
+                          return ElevatedButton(
+                              onPressed: (){
+                                if(!added){
+                                  CartItemModel item = CartItemModel(product: product);
+                                  cartController.addItem(item);
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor:  added? primaryColor.withOpacity(0.5): primaryColor,
+                                  foregroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10)
+                                  )
+                              ),
+                              child: Text(added?'added to cart'.tr : 'add to cart'.tr  )
+                          );
+                        }
                         ),
                         const SizedBox(width: 10),
                         SizedBox(
                           width: 50,
-                          child: ElevatedButton(
-                              onPressed: (){},
-                              style: ElevatedButton.styleFrom(
-                                padding: EdgeInsets.all(5),
-                                backgroundColor: secondaryAccentColor,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)
-                                )
-                              ),
-                              child: Image.asset('icons/fav.png', width: 30,)
-                          ),
+                          child: Obx(() {
+                            bool added = favController.inFav(product.productId);
+                            return ElevatedButton(
+                                onPressed: (){
+                                  if(added){
+                                    favController.removeItem(product);
+                                  }
+                                  else{
+                                    favController.addItem(product);
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.all(5),
+                                    backgroundColor: secondaryAccentColor,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10)
+                                    )
+                                ),
+                                child: Image.asset(added? 'icons/fav-checked.png' : 'icons/fav.png', width: 30,)
+                            );
+                          }
+                          )
                         )
-
-                      ],
+                      ]
                     )
-
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+                  ]
+                )
+              )
+            )
+          ]
+        )
+      )
     );
   }
 }

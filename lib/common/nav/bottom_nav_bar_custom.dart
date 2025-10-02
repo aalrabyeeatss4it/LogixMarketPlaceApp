@@ -7,12 +7,19 @@ import 'bottom_nav_controller.dart';
 
 class BottomNavBarCustom extends StatelessWidget {
   final int currentPage;
-  BottomNavBarCustom({super.key, this.currentPage = 0,this.actionRow});
-  final BottomNavController navController = Get.put(BottomNavController());
   final Widget? actionRow;
+  final BottomNavController navController = Get.put(BottomNavController());
+
+  BottomNavBarCustom({super.key, this.currentPage = 0, this.actionRow}) {
+    // navController.selectedIndex.value = currentPage;
+  }
+
   @override
   Widget build(BuildContext context) {
-    navController.selectedIndex.value = currentPage;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      navController.selectedIndex.value = currentPage;
+    });
+
     return Obx(()=> Column(
       mainAxisSize: MainAxisSize.min,
       children: [

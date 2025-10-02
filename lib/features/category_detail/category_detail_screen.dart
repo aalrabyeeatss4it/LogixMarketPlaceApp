@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../../common/nav/app_bar_custom.dart';
 import '../../common/nav/bottom_nav_bar_custom.dart';
 import '../../controllers/product_controller.dart';
-import '../home/section_title_card.dart';
+import '../../common/widgets/section_title_card.dart';
 import 'category_product_card.dart';
 
 class CategoryDetailScreen extends StatelessWidget{
@@ -21,7 +21,7 @@ class CategoryDetailScreen extends StatelessWidget{
           children: [
             const SizedBox(height: 10),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -30,18 +30,27 @@ class CategoryDetailScreen extends StatelessWidget{
                 ],
               ),
             ),
-            Obx(() {
-              if (productController.list.isEmpty) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              return ListView.builder(
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.all(8),
-                  itemCount: productController.list.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return CategoryProductCard(product: productController.list[index]);
-                  });
-            }),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Obx(() {
+                      if (productController.list.isEmpty) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                      return ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          padding: const EdgeInsets.all(8),
+                          itemCount: productController.list.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return CategoryProductCard(product: productController.list[index]);
+                          });
+                    }),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       bottomNavigationBar: BottomNavBarCustom(currentPage: 1,),

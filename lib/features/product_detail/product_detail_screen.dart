@@ -6,7 +6,9 @@ import 'package:logix_market_place/features/product_detail/attribute_card.dart';
 import '../../common/nav/app_bar_custom.dart';
 import '../../common/nav/bottom_nav_bar_custom.dart';
 import '../../common/theme/colors.dart';
+import '../../controllers/cart_controller.dart';
 import '../../controllers/product_detail_controller.dart';
+import '../../models/cart_item_model.dart';
 import '../home/home_product_card.dart';
 
 class ProductDetailScreen extends StatefulWidget {
@@ -18,6 +20,7 @@ class ProductDetailScreen extends StatefulWidget {
 class ProductDetailScreenState extends State<ProductDetailScreen>{
   late final int productId ;
   final ProductDetailController _productController = Get.put(ProductDetailController());
+  final CartController cartController = Get.find<CartController>();
 
   @override
   void initState() {
@@ -25,7 +28,6 @@ class ProductDetailScreenState extends State<ProductDetailScreen>{
     final args = Get.arguments as Map<String,dynamic>;
     productId = args['productId'];
     _productController.getProduct(productId);
-    // _productController.getRelatedProducts();
   }
 
 
@@ -98,7 +100,8 @@ class ProductDetailScreenState extends State<ProductDetailScreen>{
               ),
               Padding(
                 padding: EdgeInsets.all(16.w),
-                child: Wrap(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       mainAxisSize: MainAxisSize.min,
@@ -166,17 +169,26 @@ class ProductDetailScreenState extends State<ProductDetailScreen>{
                     height: 55,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 3),
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: secondaryAccentColor,
-                            foregroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)
-                            )
-                        ),
-                        child: const Text('اشترِ الآن'),
-                      ),
+                      child: Obx(() {
+                        bool added = cartController.inCart(_productController.product.value.productId);
+                        return !added?ElevatedButton(
+                            onPressed: (){
+                              if(!added){
+                                CartItemModel item = CartItemModel(product: _productController.product.value);
+                                cartController.addItem(item);
+                              }
+                            },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: secondaryAccentColor,
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)
+                              )
+                          ),
+                          child: const Text('اشترِ الآن'),
+                        ):const SizedBox();
+                      }
+                      )
                     ),
                   ),
                   Expanded(
@@ -184,16 +196,31 @@ class ProductDetailScreenState extends State<ProductDetailScreen>{
                       height: 55,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 3),
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: primaryColor,
-                              foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)
-                              )
-                          ),
-                          child: const Text('أضف إلى السلة'),
+                        child: Obx(() {
+                          bool added = cartController.inCart(_productController.product.value.productId);
+                          if(added){
+                            WidgetsBinding.instance.addPostFrameCallback((_) {
+                              _productController.setQty(cartController.getQty(_productController.product.value.productId));
+                            });
+                          }
+                          return ElevatedButton(
+                              onPressed: (){
+                                if(!added){
+                                  CartItemModel item = CartItemModel(product: _productController.product.value);
+                                  item.quantity.value = _productController.quantity.value;
+                                  cartController.addItem(item);
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor:  added? primaryColor.withOpacity(0.5): primaryColor,
+                                  foregroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10)
+                                  )
+                              ),
+                              child: Text(added?'added to cart'.tr : 'add to cart'.tr  )
+                          );
+                        }
                         ),
                       ),
                     ),

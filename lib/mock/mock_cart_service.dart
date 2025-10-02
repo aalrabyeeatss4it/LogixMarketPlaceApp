@@ -1,50 +1,28 @@
 import 'package:logix_market_place/models/cart_item_model.dart';
 import 'package:logix_market_place/models/product_model.dart';
 import 'package:logix_market_place/services/cart_service.dart';
+import '../services/service_result.dart';
 
-import '../services/product_service.dart';
-
-class MockProductService implements CartService {
-  //
-  // Future<List<ProductModel>> getList() async {
-  //   List<ProductModel> products = [
-  //     ProductModel(
-  //         productId: 1,
-  //         categoryId: 1,
-  //         productName: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
-  //         productDesc: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
-  //         productThumbPath: 'assets_mock/product1.png'),
-  //     ProductModel(
-  //         productId: 2,
-  //         categoryId: 1,
-  //         productName: 'خلّاط مغسلة مرتفع – أسود مطفي',
-  //         productDesc: 'خلّاط مغسلة مرتفع – أسود مطفي',
-  //         productThumbPath: 'assets_mock/product2.png')
-  //   ];
-  //   return products;
-  // }
+class MockCartService implements CartService {
 
   @override
-  Future<void> addItem(CartItemModel item) {
-    // TODO: implement addItem
-    throw UnimplementedError();
+  Future<ServiceResult> addItem(CartItemModel item) async {
+    return SuccessStatus();
   }
 
   @override
-  Future<void> removeItem(CartItemModel item) {
-    // TODO: implement removeItem
-    throw UnimplementedError();
+  Future<ServiceResult> removeItem(CartItemModel item)  async {
+    return SuccessStatus();
   }
 
   @override
-  Future<void> decrementQuantity(CartItemModel item) {
-    // TODO: implement decrementQuantity
-    throw UnimplementedError();
+  Future<ServiceResult> decrementQuantity(CartItemModel item)  async {
+    return SuccessStatus();
   }
 
   @override
-  Future<void> incrementQuantity(CartItemModel item) {
-    throw UnimplementedError();
+  Future<ServiceResult> incrementQuantity(CartItemModel item)  async {
+    return SuccessStatus();
   }
 
   @override
@@ -56,16 +34,16 @@ class MockProductService implements CartService {
               categoryId: 1,
               productName: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
               productDesc: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
-              productThumbPath: 'assets_mock/product1.png'),
-          quantity: 1),
+              productThumbPath: 'assets_mock/product1.png')
+      ),
       CartItemModel(
           product: ProductModel(
               productId: 2,
               categoryId: 1,
               productName: 'خلّاط مغسلة مرتفع – أسود مطفي',
               productDesc: 'خلّاط مغسلة مرتفع – أسود مطفي',
-              productThumbPath: 'assets_mock/product2.png'),
-          quantity: 1)
+              productThumbPath: 'assets_mock/product2.png')
+      )
     ];
     return items;
   }

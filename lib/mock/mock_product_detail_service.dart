@@ -18,7 +18,7 @@ class MockProductDetailService implements ProductDetailService {
       Attribute(label: ' مناسب للاستخدام اليومي المكثف'),
     ];
     ProductModel product = ProductModel(
-        productId: 1,
+        productId: productID,
         categoryId: 1,
         productName: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع',
         productDesc:

@@ -1,14 +1,18 @@
+import 'package:get/get.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:logix_market_place/models/product_model.dart';
 
 class CartItemModel {
   ProductModel product;
-  int quantity;
-  CartItemModel({required this.product, required this.quantity});
+  RxInt quantity = 1.obs;
+  RxBool selected = false.obs;
+
+  CartItemModel({required this.product});
 
   factory CartItemModel.fromJson(Map<String, dynamic> json) {
-    return CartItemModel(
-        product: ProductModel.fromJson(json['product']),
-        quantity: json['quantity']);
+    var item=  CartItemModel(product: ProductModel.fromJson(json['product']));
+    item.quantity.value = json['quantity'];
+    return item;
   }
 
   static List<CartItemModel> fromJsonList(List<dynamic> jsonList){

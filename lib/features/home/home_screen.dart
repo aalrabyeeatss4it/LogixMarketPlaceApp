@@ -2,19 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:logix_market_place/common/nav/drawer_custom.dart';
+import 'package:logix_market_place/controllers/cart_controller.dart';
 import 'package:logix_market_place/controllers/product_controller.dart';
 import 'package:logix_market_place/features/home/home_category_card.dart';
 import 'package:logix_market_place/features/home/home_product_card.dart';
-import 'package:logix_market_place/features/home/section_title_card.dart';
+import 'package:logix_market_place/common/widgets/section_title_card.dart';
 import 'package:logix_market_place/services/category_service.dart';
 import '../../common/nav/app_bar_custom.dart';
 import '../../common/nav/bottom_nav_bar_custom.dart';
+import '../../common/nav/page_routes.dart';
 import '../../common/theme/colors.dart';
 import '../../controllers/category_controller.dart';
 
 class HomeScreen extends StatelessWidget {
   final CategoryController categoryController = Get.put(CategoryController());
   final ProductController productController = Get.put(ProductController());
+  final CartController cartController = Get.find<CartController>();
 
   HomeScreen({super.key});
 
@@ -32,7 +35,9 @@ class HomeScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: SizedBox(width: 1.sw, height: 0.25.sh,child: Image.asset("assets/home.png", fit: BoxFit.contain)),
               ),
-              SectionTitleCard(title: "categories".tr, showMore: true),
+              SectionTitleCard(title: "categories".tr, showMore: true, showMoreAction: (){
+                Get.offAllNamed(RouteNames.categoriesPage);
+              },),
               Padding(
                 padding: EdgeInsets.all(16.w),
                 child: Obx(() {
