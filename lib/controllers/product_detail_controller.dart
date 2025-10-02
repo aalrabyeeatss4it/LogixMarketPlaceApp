@@ -5,11 +5,14 @@ import '../models/product_model.dart';
 
 class ProductDetailController extends GetxController {
   late Rx<ProductModel> product = Rx<ProductModel>(ProductModel(
-    productId: 0,
-    productName: '',
-    productDesc: '',
+    id: 0,
+    name: '',
+    desc: '',
+    price: 0,
+    discountPercentage: '',
+    preDiscountPrice: 0,
     categoryId: 0,
-    productThumbPath: '',
+    thumbPath: '',
   ));
   RxBool loading = true.obs;
   RxInt quantity = 1.obs;

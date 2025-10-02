@@ -49,13 +49,13 @@ class ProductDetailScreenState extends State<ProductDetailScreen>{
                 child: Wrap(
                     children: [
                       const SizedBox(height: 10),
-                      Text(_productController.product.value.productName,
+                      Text(_productController.product.value.name,
                           style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
                           softWrap: true,
                           overflow: TextOverflow.visible,
                           maxLines: null
                       ),
-                      Text(_productController.product.value.productDesc,
+                      Text(_productController.product.value.desc,
                           style: const TextStyle(fontSize: 14),
                           softWrap: true,
                           overflow: TextOverflow.visible,
@@ -72,7 +72,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen>{
                   child: Column(
                       children:
                       [
-                        Center(child: SizedBox( width: 120, height: 120, child: Image.asset(_productController.product.value.productThumbPath,fit: BoxFit.fill))),
+                        Center(child: SizedBox( width: 120, height: 120, child: Image.asset(_productController.product.value.thumbPath,fit: BoxFit.fill))),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -107,12 +107,12 @@ class ProductDetailScreenState extends State<ProductDetailScreen>{
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const Text('- 12% ', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700,color: secondaryColor)),
-                        const Text('126.50', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color:  primaryColor)),
+                        Text(_productController.product.value.discountPercentage, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700,color: secondaryColor)),
+                        Text(_productController.product.value.price.toString(), style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color:  primaryColor)),
                         Image.asset('icons/riyal.png' ,width: 12,),
                       ]
                     ),
-                    const Text('500'+'ريال', style: TextStyle(fontSize: 16,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
+                    Text(_productController.product.value.preDiscountPrice.toString()+'ريال', style: TextStyle(fontSize: 16,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
                     const Text('متوفر', style: TextStyle(fontSize: 16,fontWeight: FontWeight.w700,color: successAccentColor)),
                     const Divider(),
                     const Text('تفاصيل المنتج', style: TextStyle(fontSize: 18,fontWeight: FontWeight.w900)),
@@ -170,7 +170,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen>{
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 3),
                       child: Obx(() {
-                        bool added = cartController.inCart(_productController.product.value.productId);
+                        bool added = cartController.inCart(_productController.product.value.id);
                         return !added?ElevatedButton(
                             onPressed: (){
                               if(!added){
@@ -197,10 +197,10 @@ class ProductDetailScreenState extends State<ProductDetailScreen>{
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 3),
                         child: Obx(() {
-                          bool added = cartController.inCart(_productController.product.value.productId);
+                          bool added = cartController.inCart(_productController.product.value.id);
                           if(added){
                             WidgetsBinding.instance.addPostFrameCallback((_) {
-                              _productController.setQty(cartController.getQty(_productController.product.value.productId));
+                              _productController.setQty(cartController.getQty(_productController.product.value.id));
                             });
                           }
                           return ElevatedButton(

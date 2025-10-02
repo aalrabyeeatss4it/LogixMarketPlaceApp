@@ -25,6 +25,7 @@ class CartController extends GetxController {
     for (var item in items) {
       item.selected.value = false;
     }
+    selectedItemsCount.value = 0;
   }
   void updateSelectedCount(bool selected){
     if(selected){
@@ -33,6 +34,8 @@ class CartController extends GetxController {
     else{
       selectedItemsCount.value = selectedItemsCount.value -1;
     }
+    print('selected:'+selected.toString());
+    print('selectedItemsCount:'+selectedItemsCount.value.toString());
   }
 
   Future<void> addItem(CartItemModel item) async {
@@ -47,11 +50,11 @@ class CartController extends GetxController {
   }
 
   bool inCart(int productId) {
-    return items.any((item) => item.product.productId == productId);
+    return items.any((item) => item.product.id == productId);
   }
 
   int getQty(int productId) {
-    int index = items.indexWhere((item) => item.product.productId == productId);
+    int index = items.indexWhere((item) => item.product.id == productId);
     return items[index].quantity.value;
   }
 

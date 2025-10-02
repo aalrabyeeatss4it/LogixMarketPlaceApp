@@ -35,7 +35,7 @@ class CartProductCard extends StatelessWidget {
               InkWell(
                 onTap: () {
                   cartItem.selected.value = !cartItem.selected.value;
-                  cartController.updateSelectedCount(!cartItem.selected.value);
+                  cartController.updateSelectedCount(cartItem.selected.value);
                 },
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,13 +48,13 @@ class CartProductCard extends StatelessWidget {
                                 elevation: 0,
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Image.asset(cartItem.product.productThumbPath,fit: BoxFit.contain)
+                                  child: Image.asset(cartItem.product.thumbPath,fit: BoxFit.contain)
                                 )
                             )
                         ),
                         Positioned(child: Checkbox(value: cartItem.selected.value, onChanged: (val) {
                           cartItem.selected.value = val?? false;
-                          cartController.updateSelectedCount(!cartItem.selected.value);
+                          cartController.updateSelectedCount(cartItem.selected.value);
                         },
                           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                           visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
@@ -67,7 +67,7 @@ class CartProductCard extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(cartItem.product.productName, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700), softWrap: true,
+                            Text(cartItem.product.name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700), softWrap: true,
                               overflow: TextOverflow.visible,
                               maxLines: null
                             ),
@@ -84,12 +84,12 @@ class CartProductCard extends StatelessWidget {
                                 mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Text('- 12% ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700,color: secondaryColor)),
-                                  Text('126.50', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color:  primaryColor)),
+                                  Text(cartItem.product.discountPercentage.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700,color: secondaryColor)),
+                                  Text(cartItem.product.price.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color:  primaryColor)),
                                   Image.asset('icons/riyal.png' ,width: 12,),
                                 ]
                             ),
-                            Text('500'+'ريال', style: TextStyle(fontSize: 14,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
+                            Text(cartItem.product.preDiscountPrice.toString()+'ريال', style: TextStyle(fontSize: 14,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
 
                           ],
                         ),
@@ -157,7 +157,7 @@ class CartProductCard extends StatelessWidget {
                     ),
                   SizedBox(width: 10),
                   Obx(() {
-                    bool added = favController.inFav(cartItem.product.productId);
+                    bool added = favController.inFav(cartItem.product.id);
                     return ElevatedButton(
                         onPressed: (){
                           if(!added){

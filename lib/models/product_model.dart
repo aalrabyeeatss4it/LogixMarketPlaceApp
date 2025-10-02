@@ -1,26 +1,35 @@
 class ProductModel {
-  int productId;
+  int id;
   int categoryId;
-  String productName;
-  String productDesc;
-  String productThumbPath;
+  String name;
+  String discountPercentage;
+  double price;
+  double preDiscountPrice;
+  String desc;
+  String thumbPath;
   List<Attribute>? attributes;
 
   ProductModel(
-      {required this.productId,
+      {required this.id,
       required this.categoryId,
-      required this.productName,
-      required this.productDesc,
-      required this.productThumbPath,
+      required this.name,
+      required this.desc,
+      required this.thumbPath,
+      required this.discountPercentage,
+      required this.preDiscountPrice,
+      required this.price,
       this.attributes});
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
-        productId: json['productId'],
+        id: json['id'],
         categoryId: json['categoryId'],
-        productName: json['productName'],
-        productDesc: json['productDesc'],
-        productThumbPath: json['productThumbPath']
+        name: json['name'],
+        desc: json['desc'],
+        price: json['price'],
+        discountPercentage: json['discountPercentage'],
+        preDiscountPrice: json['preDiscountPrice'],
+        thumbPath: json['thumbPath']
     );
   }
 
@@ -30,11 +39,11 @@ class ProductModel {
 
   Map<String, dynamic> toJson() {
     return {
-      'productId': productId,
+      'id': id,
       'categoryId': categoryId,
-      'productName': productName,
-      'productDesc': productDesc,
-      'productThumbPath': productThumbPath
+      'name': name,
+      'desc': desc,
+      'thumbPath': thumbPath
     };
   }
 }

@@ -35,7 +35,7 @@ class FavProductCard extends StatelessWidget {
                               elevation: 0,
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Image.asset(product.productThumbPath,fit: BoxFit.contain)
+                                child: Image.asset(product.thumbPath,fit: BoxFit.contain)
                               )
                           )
                       )
@@ -47,7 +47,7 @@ class FavProductCard extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(product.productName, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700), softWrap: true,
+                          Text(product.name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700), softWrap: true,
                             overflow: TextOverflow.visible,
                             maxLines: null
                           ),
@@ -64,12 +64,12 @@ class FavProductCard extends StatelessWidget {
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Text('- 12% ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700,color: secondaryColor)),
-                                Text('126.50', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color:  primaryColor)),
+                                Text(product.discountPercentage.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700,color: secondaryColor)),
+                                Text(product.price.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color:  primaryColor)),
                                 Image.asset('icons/riyal.png' ,width: 12,),
                               ]
                           ),
-                          Text('500'+'ريال', style: TextStyle(fontSize: 14,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
+                          Text(product.preDiscountPrice.toString()+'ريال', style: TextStyle(fontSize: 14,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
 
                         ],
                       ),
@@ -110,7 +110,7 @@ class FavProductCard extends StatelessWidget {
                       height: 50,
                       child: Obx(()
                       {
-                        bool added = cartController.inCart(product.productId);
+                        bool added = cartController.inCart(product.id);
                         return ElevatedButton(
                             onPressed: (){
                               if(!added){

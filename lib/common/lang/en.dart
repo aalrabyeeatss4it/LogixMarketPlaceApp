@@ -9,5 +9,7 @@ Map<String, String> english = {
   'added to cart': 'Added to Cart',
   'empty cart': 'Shopping cart is empty',
   'empty fav': 'Fav list is empty',
-'Start adding items':'Start adding items'
+'Start adding items':'Start adding items',
+  'saved in fav list':'تم الحفظ لوقت لاحق',
+  'product':'product'
 };

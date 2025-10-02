@@ -25,14 +25,14 @@ class CategoryProductCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox( width: 120, height: 120, child: Card(child: Image.asset(product.productThumbPath,fit: BoxFit.contain))),
+            SizedBox( width: 120, height: 120, child: Card(child: Image.asset(product.thumbPath,fit: BoxFit.contain))),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(product.productName, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700), softWrap: true,
+                    Text(product.name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700), softWrap: true,
                       overflow: TextOverflow.visible,
                       maxLines: null
                     ),
@@ -49,16 +49,16 @@ class CategoryProductCard extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text('- 12% ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700,color: secondaryColor)),
-                          Text('126.50', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color:  primaryColor)),
+                          Text(product.discountPercentage.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700,color: secondaryColor)),
+                          Text(product.price.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color:  primaryColor)),
                           Image.asset('icons/riyal.png' ,width: 12,),
                         ]
                     ),
-                    const Row(
+                    Row(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text('500'+'ريال', style: TextStyle(fontSize: 14,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
+                          Text(product.preDiscountPrice.toString()+'ريال', style: TextStyle(fontSize: 14,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
                         ]
                     ),
                     Row(
@@ -66,7 +66,7 @@ class CategoryProductCard extends StatelessWidget {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Obx(() {
-                          bool added = cartController.inCart(product.productId);
+                          bool added = cartController.inCart(product.id);
                           return ElevatedButton(
                               onPressed: (){
                                 if(!added){
@@ -89,7 +89,7 @@ class CategoryProductCard extends StatelessWidget {
                         SizedBox(
                           width: 50,
                           child: Obx(() {
-                            bool added = favController.inFav(product.productId);
+                            bool added = favController.inFav(product.id);
                             return ElevatedButton(
                                 onPressed: (){
                                   if(added){

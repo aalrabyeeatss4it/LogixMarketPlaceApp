@@ -30,19 +30,25 @@ class MockCartService implements CartService {
     List<CartItemModel> items = [
       CartItemModel(
           product: ProductModel(
-              productId: 1,
+              id: 1,
               categoryId: 1,
-              productName: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
-              productDesc: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
-              productThumbPath: 'assets_mock/product1.png')
+              price: 126.5,
+              preDiscountPrice: 126.5,
+              discountPercentage: '- 12% ',
+              name: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
+              desc: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
+              thumbPath: 'assets_mock/product1.png')
       ),
       CartItemModel(
           product: ProductModel(
-              productId: 2,
+              id: 2,
               categoryId: 1,
-              productName: 'خلّاط مغسلة مرتفع – أسود مطفي',
-              productDesc: 'خلّاط مغسلة مرتفع – أسود مطفي',
-              productThumbPath: 'assets_mock/product2.png')
+              price: 126.5,
+              preDiscountPrice: 320,
+              discountPercentage: '- 12% ',
+              name: 'خلّاط مغسلة مرتفع – أسود مطفي',
+              desc: 'خلّاط مغسلة مرتفع – أسود مطفي',
+              thumbPath: 'assets_mock/product2.png')
       )
     ];
     return items;

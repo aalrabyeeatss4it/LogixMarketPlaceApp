@@ -18,12 +18,15 @@ class MockProductDetailService implements ProductDetailService {
       Attribute(label: ' مناسب للاستخدام اليومي المكثف'),
     ];
     ProductModel product = ProductModel(
-        productId: productID,
+        id: productID,
         categoryId: 1,
-        productName: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع',
-        productDesc:
+        price: 126.5,
+        preDiscountPrice: 500,
+        discountPercentage: '- 12% ',
+        name: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع',
+        desc:
             'تصميم عصري أنيق ومقاوم للصدأ مصنوع من خامات عالية الجودة لمقاومة الصدأ والتآكل، مع طبقة تشطيب ذهبية تحافظ على اللمعان لفترة طويلة. التصميم العصري بخطوطه المستقيمة يضيف لمسة جمالية راقية تناسب الحمامات الحديثة والكلاسيكية على حد سواء.',
-        productThumbPath: 'assets_mock/product1.png',
+        thumbPath: 'assets_mock/product1.png',
         attributes: att);
     return product;
   }
@@ -32,17 +35,23 @@ class MockProductDetailService implements ProductDetailService {
     await Future.delayed(const Duration(milliseconds: 500));
     List<ProductModel> products = [
       ProductModel(
-          productId: 1,
+          id: 1,
           categoryId: 1,
-          productName: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
-          productDesc: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
-          productThumbPath: 'assets_mock/product1.png'),
+          price: 126.5,
+          preDiscountPrice: 500,
+          discountPercentage: '- 12% ',
+          name: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
+          desc: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
+          thumbPath: 'assets_mock/product1.png'),
       ProductModel(
-          productId: 2,
+          id: 2,
           categoryId: 1,
-          productName: 'خلّاط مغسلة مرتفع – أسود مطفي',
-          productDesc: 'خلّاط مغسلة مرتفع – أسود مطفي',
-          productThumbPath: 'assets_mock/product2.png')
+          price: 126.5,
+          preDiscountPrice: 300,
+          discountPercentage: '- 12% ',
+          name: 'خلّاط مغسلة مرتفع – أسود مطفي',
+          desc: 'خلّاط مغسلة مرتفع – أسود مطفي',
+          thumbPath: 'assets_mock/product2.png')
     ];
     return products;
   }

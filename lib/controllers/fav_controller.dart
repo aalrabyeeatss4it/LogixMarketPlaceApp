@@ -21,7 +21,7 @@ class FavController extends GetxController {
   }
 
   bool inFav(int productId) {
-    return items.any((item) => item.productId == productId);
+    return items.any((item) => item.id == productId);
   }
 
 

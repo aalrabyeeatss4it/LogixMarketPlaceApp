@@ -9,5 +9,7 @@ Map<String, String> arabic = {
   'added to cart': 'تم الإضافة في السلة',
   'empty cart': 'سلة التسوق الخاصة بك فارغة',
   'empty fav': 'قائمة المفضلة الخاصة بك فارغة',
-  'Start adding items':'ابدأ بإضافة المنتجات الآن'
+  'Start adding items':'ابدأ بإضافة المنتجات الآن',
+  'saved in fav list':'تم الحفظ لوقت لاحق',
+  'product':'منتج'
 };
