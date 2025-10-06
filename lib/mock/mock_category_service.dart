@@ -6,14 +6,14 @@ class MockCategoryService implements CategoryService{
   Future<List<CategoryModel>> getList() async {
     await Future.delayed(const Duration(milliseconds: 500));
     List<CategoryModel> categories = [
-      CategoryModel(categoryThumbPath: "assets_mock/cat1.png", categoryNameAr: "الرخام الصناعي", categoryId: 1),
-      CategoryModel(categoryThumbPath: "assets_mock/cat2.png", categoryNameAr: "بديل الرخام", categoryId: 2),
-      CategoryModel(categoryThumbPath: "assets_mock/cat3.png", categoryNameAr: "الخلاطات", categoryId: 3),
-      CategoryModel(categoryThumbPath: "assets_mock/cat4.png", categoryNameAr: "المغاسل الجاهزة", categoryId: 4),
-      CategoryModel(categoryThumbPath: "assets_mock/cat1.png", categoryNameAr: "الرخام الصناعي", categoryId: 5),
-      CategoryModel(categoryThumbPath: "assets_mock/cat2.png", categoryNameAr: "بديل الرخام", categoryId: 6),
-      CategoryModel(categoryThumbPath: "assets_mock/cat3.png", categoryNameAr: "الخلاطات", categoryId: 7),
-      CategoryModel(categoryThumbPath: "assets_mock/cat4.png", categoryNameAr: "المغاسل الجاهزة", categoryId: 8),
+      CategoryModel(thumbPath: "assets_mock/cat1.png", nameAr: "الرخام الصناعي", id: 1),
+      CategoryModel(thumbPath: "assets_mock/cat2.png", nameAr: "بديل الرخام", id: 2),
+      CategoryModel(thumbPath: "assets_mock/cat3.png", nameAr: "الخلاطات", id: 3),
+      CategoryModel(thumbPath: "assets_mock/cat4.png", nameAr: "المغاسل الجاهزة", id: 4),
+      CategoryModel(thumbPath: "assets_mock/cat1.png", nameAr: "الرخام الصناعي", id: 5),
+      CategoryModel(thumbPath: "assets_mock/cat2.png", nameAr: "بديل الرخام", id: 6),
+      CategoryModel(thumbPath: "assets_mock/cat3.png", nameAr: "الخلاطات", id: 7),
+      CategoryModel(thumbPath: "assets_mock/cat4.png", nameAr: "المغاسل الجاهزة", id: 8),
     ];
     return categories;
   }

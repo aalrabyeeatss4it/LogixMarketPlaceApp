@@ -1,21 +1,23 @@
+import 'package:logix_market_place/common/api_paths.dart';
+
 class CategoryModel {
-  int categoryId;
-  String categoryNameAr;
-  String? categoryNameEn;
-  String categoryThumbPath;
+  int id;
+  String nameAr;
+  String? nameEn;
+  String? thumbPath;
 
   CategoryModel(
-      {required this.categoryId,
-      required this.categoryNameAr,
-      this.categoryNameEn,
-      required this.categoryThumbPath});
+      {required this.id,
+      required this.nameAr,
+      this.nameEn,
+      required this.thumbPath});
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) {
     return CategoryModel(
-        categoryId: json['categoryId'],
-        categoryNameAr: json['categoryNameAr'],
-        categoryNameEn: json['categoryNameEn'],
-        categoryThumbPath: json['categoryThumbPath']);
+        id: json['id'],
+        nameAr: json['nameAr'],
+        nameEn: json['nameEn'],
+        thumbPath: json['thumbPath']);
   }
 
   static List<CategoryModel> fromJsonList(List<dynamic> jsonList) {
@@ -24,10 +26,17 @@ class CategoryModel {
 
   Map<String, dynamic> toJson() {
     return {
-      'categoryId': categoryId,
-      'categoryNameAr': categoryNameAr,
-      'categoryNameEn': categoryNameEn,
-      'categoryThumbPath': categoryThumbPath
+      'id': id,
+      'nameAr': nameAr,
+      'nameEn': nameEn,
+      'thumbPath': thumbPath
     };
+  }
+  String getThumbPath(){
+    String path = thumbPath??"no_image.jpg";
+    if(path.isEmpty){
+      path = "no_image.jpg";
+    }
+    return erpUrl()+imagesDirPath()+path;
   }
 }

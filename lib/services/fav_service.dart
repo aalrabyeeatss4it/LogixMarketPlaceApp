@@ -8,7 +8,7 @@ import 'package:logix_market_place/services/service_result.dart';
 
 class FavService {
   Future<ServiceResult> addItem(ProductModel item) async {
-    Response response = await post(Uri.parse(baseUrl + categoryPath));
+    Response response = await post(Uri.parse(baseUrl + categoriesPath));
     if (response.statusCode == 200) {
       return SuccessStatus();
     }
@@ -16,7 +16,7 @@ class FavService {
   }
 
   Future<ServiceResult> removeItem(ProductModel item) async {
-    Response response = await post(Uri.parse(baseUrl + categoryPath));
+    Response response = await post(Uri.parse(baseUrl + categoriesPath));
     if (response.statusCode == 200) {
       return SuccessStatus();
     }
@@ -24,7 +24,7 @@ class FavService {
   }
 
   Future<List<ProductModel>> getList() async {
-    Response response = await get(Uri.parse(baseUrl + categoryPath));
+    Response response = await get(Uri.parse(baseUrl + categoriesPath));
     if (response.statusCode == 200) {
       var list = ProductModel.fromJsonList(jsonDecode(response.body));
       return list;

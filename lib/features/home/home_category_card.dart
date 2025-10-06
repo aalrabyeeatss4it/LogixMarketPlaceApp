@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logix_market_place/models/category_model.dart';
@@ -15,8 +16,8 @@ class HomeCategoryCard extends StatelessWidget{
         Get.offNamedUntil(RouteNames.categoryDetailPage,
                 (route) => route.settings.name == RouteNames.homePage,
             arguments: {
-            'categoryId': category.categoryId,
-            'categoryName': category.categoryNameAr
+            'categoryId': category.id,
+            'categoryName': category.nameAr
           });
       },
       child: Card(
@@ -32,14 +33,58 @@ class HomeCategoryCard extends StatelessWidget{
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
                         child: Padding(
                           padding: const EdgeInsets.all(4.0),
-                          child: CircleAvatar(
-                            radius: 30,
-                            backgroundImage: AssetImage(category.categoryThumbPath)
+                          child: ClipOval(
+                            child: SizedBox(
+                              width: 60,
+                              height: 60,
+                              child: Image.network(
+                                category.getThumbPath(),
+                                fit: BoxFit.cover,
+                                loadingBuilder: (context, child, loadingProgress) {
+                                  if (loadingProgress == null) return child; // image loaded
+                                  return Center(
+                                    child: CircularProgressIndicator(
+                                      value: loadingProgress.expectedTotalBytes != null
+                                          ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1)
+                                          : null,
+                                    ),
+                                  );
+                                },
+                                errorBuilder: (context, error, stackTrace) {
+                                  // return default image if network image fails
+                                  return Image.asset(
+                                    'assets/logo.png',
+                                    fit: BoxFit.cover,
+                                  );
+                                },
+                              )
+                            ),
                           ),
                         ),
-                      )
+                      ),
+                      // Card(
+                      //   elevation: 5,
+                      //   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                      //   child: Padding(
+                      //     padding: const EdgeInsets.all(4.0),
+                      //     child: CircleAvatar(
+                      //       radius: 30,
+                      //       backgroundImage: AssetImage(category.getThumbPath())
+                      //     ),
+                      //   ),
+                      // )
                   ),
-                  Text(category.categoryNameAr,style: Theme.of(context).textTheme.titleSmall),
+                  SizedBox(
+                    width: 80,
+                    child: Text(
+                      category.nameAr,
+                      style: Theme.of(context).textTheme.titleSmall,
+                      textAlign: TextAlign.center,
+                      softWrap: true,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                 ],
               ),
             ),

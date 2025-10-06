@@ -7,7 +7,7 @@ import 'package:logix_market_place/services/service_result.dart';
 
 class CartService {
   Future<ServiceResult> addItem(CartItemModel item) async {
-    Response response = await post(Uri.parse(baseUrl + categoryPath));
+    Response response = await post(Uri.parse(baseUrl + categoriesPath));
     if (response.statusCode == 200) {
       return SuccessStatus();
     }
@@ -15,7 +15,7 @@ class CartService {
   }
 
   Future<ServiceResult> removeItem(CartItemModel item) async {
-    Response response = await post(Uri.parse(baseUrl + categoryPath));
+    Response response = await post(Uri.parse(baseUrl + categoriesPath));
     if (response.statusCode == 200) {
       return SuccessStatus();
     }
@@ -23,7 +23,7 @@ class CartService {
   }
 
   Future<ServiceResult> incrementQuantity(CartItemModel item) async {
-    Response response = await post(Uri.parse(baseUrl + categoryPath));
+    Response response = await post(Uri.parse(baseUrl + categoriesPath));
     if (response.statusCode == 200) {
       return SuccessStatus();
     }
@@ -31,7 +31,7 @@ class CartService {
   }
 
   Future<ServiceResult> decrementQuantity(CartItemModel item) async {
-    Response response = await post(Uri.parse(baseUrl + categoryPath));
+    Response response = await post(Uri.parse(baseUrl + categoriesPath));
     if (response.statusCode == 200) {
       return SuccessStatus();
     }
@@ -39,7 +39,7 @@ class CartService {
   }
 
   Future<List<CartItemModel>> getList() async {
-    Response response = await get(Uri.parse(baseUrl + categoryPath));
+    Response response = await get(Uri.parse(baseUrl + categoriesPath));
     if (response.statusCode == 200) {
       var list = CartItemModel.fromJsonList(jsonDecode(response.body));
       return list;

@@ -15,8 +15,8 @@ class CategoryCard extends StatelessWidget{
     return InkWell(
       onTap: (){
         Get.offNamed(RouteNames.categoryDetailPage, arguments: {
-          'categoryId': category.categoryId,
-          'categoryName': category.categoryNameAr
+          'categoryId': category.id,
+          'categoryName': category.nameAr
         });
       },
       child: Padding(
@@ -32,18 +32,42 @@ class CategoryCard extends StatelessWidget{
               child: SizedBox(
                 width: 100,
                 height: 100,
-                child: Image.asset(
-                  category.categoryThumbPath,
-                  fit: BoxFit.contain,
+                child: Image.network(
+                  category.getThumbPath(),
+                  fit: BoxFit.cover,
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child; // image loaded
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1)
+                            : null,
+                      ),
+                    );
+                  },
+                  errorBuilder: (context, error, stackTrace) {
+                    // return default image if network image fails
+                    return Image.asset(
+                      'assets/logo.png',
+                      fit: BoxFit.cover,
+                    );
+                  },
                 ),
               ),
             ),
-            const SizedBox(height: 10,),
-            Text(
-              category.categoryNameAr,
-              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800,color: primaryColor),
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
+            Flexible(
+              child: Text(
+                category.nameAr,
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w800,
+                  color: primaryColor,
+                ),
+                textAlign: TextAlign.center,
+                softWrap: true,
+                maxLines: 2, // no limit
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           ],
         ),

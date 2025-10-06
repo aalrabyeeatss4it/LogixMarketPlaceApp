@@ -6,7 +6,7 @@ import 'package:logix_market_place/models/product_model.dart';
 
 class ProductDetailService {
   Future<ProductModel?> getProduct(int productID) async {
-    Response response = await get(Uri.parse(baseUrl + categoryPath));
+    Response response = await get(Uri.parse(baseUrl + productsByIdPath));
     if (response.statusCode == 200) {
       var product = ProductModel.fromJson(jsonDecode(response.body));
       return product;
@@ -15,7 +15,7 @@ class ProductDetailService {
   }
 
   Future<List<ProductModel>> getRelatedProducts() async {
-    Response response = await get(Uri.parse(baseUrl + categoryPath));
+    Response response = await get(Uri.parse(baseUrl + relatedProductsByIdPath));
     if (response.statusCode == 200) {
       var list = ProductModel.fromJsonList(jsonDecode(response.body));
       return list;

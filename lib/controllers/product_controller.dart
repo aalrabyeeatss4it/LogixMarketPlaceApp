@@ -7,14 +7,19 @@ import '../models/product_model.dart';
 
 class ProductController extends GetxController {
   RxList<ProductModel> list = <ProductModel>[].obs;
+  RxList<ProductModel> categoryProducts = <ProductModel>[].obs;
   ProductService productService = Get.put(MockProductService());
   @override
   void onInit() {
     super.onInit();
-    getList();
+    getAll();
   }
 
-  Future<void> getList() async {
-    list.value = await productService.getList();
+  Future<void> getAll() async {
+    list.value = await productService.getAll();
+  }
+
+  Future<void> getByCategory(int categoryId) async {
+    list.value = await productService.getByCategory(categoryId);
   }
 }

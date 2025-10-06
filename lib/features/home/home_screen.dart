@@ -39,13 +39,13 @@ class HomeScreen extends StatelessWidget {
                 Get.offAllNamed(RouteNames.categoriesPage);
               },),
               Padding(
-                padding: EdgeInsets.all(16.w),
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: Obx(() {
                   if(categoryController.list.isEmpty){
                     return const Center(child: CircularProgressIndicator());
                   }
                   return SizedBox(
-                    height: 130,
+                    height:190.h,
                     child: ListView.builder(
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
@@ -58,7 +58,6 @@ class HomeScreen extends StatelessWidget {
                 }
                 ),
               ),
-              SizedBox(height: 10.h),
               SectionTitleCard(title: "recently added".tr),
               Padding(
                 padding: EdgeInsets.all(16.w),
