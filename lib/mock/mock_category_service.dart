@@ -3,7 +3,7 @@ import 'package:logix_market_place/services/category_service.dart';
 
 class MockCategoryService implements CategoryService{
   @override
-  Future<List<CategoryModel>> getList() async {
+  Future<List<CategoryModel>> getAll() async {
     await Future.delayed(const Duration(milliseconds: 500));
     List<CategoryModel> categories = [
       CategoryModel(thumbPath: "assets_mock/cat1.png", nameAr: "الرخام الصناعي", id: 1),

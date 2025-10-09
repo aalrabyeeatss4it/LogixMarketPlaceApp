@@ -43,5 +43,4 @@ class SectionTitleCard extends StatelessWidget{
       ),
     );
   }
-
 }

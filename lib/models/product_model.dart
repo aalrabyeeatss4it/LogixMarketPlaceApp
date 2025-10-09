@@ -1,3 +1,5 @@
+import '../common/api_paths.dart';
+
 class ProductModel {
   int id;
   int categoryId;
@@ -27,7 +29,8 @@ class ProductModel {
         name: json['name'],
         desc: json['desc'],
         price: json['price'],
-        discountPercentage: json['discountPercentage'],
+        // discountPercentage: json['discountPercentage'],
+        discountPercentage: '- 12% ',
         preDiscountPrice: json['preDiscountPrice'],
         thumbPath: json['thumbPath']
     );
@@ -45,6 +48,14 @@ class ProductModel {
       'desc': desc,
       'thumbPath': thumbPath
     };
+  }
+
+  String getThumbPath(){
+    String path = thumbPath??"no_image.jpg";
+    if(path.isEmpty){
+      path = "no_image.jpg";
+    }
+    return erpUrl()+imagesDirPath()+path;
   }
 }
 

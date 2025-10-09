@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:logix_market_place/services/category_service.dart';
-
 import '../models/category_model.dart';
 
 class CategoryController extends GetxController{
@@ -10,10 +9,10 @@ class CategoryController extends GetxController{
   @override
   void onInit() {
     super.onInit();
-    getList();
+    list = <CategoryModel>[].obs;
   }
 
-  Future<void> getList() async {
-    list.value = await  service.getList();
+  Future<void> getAll() async {
+    list.value = await  service.getAll();
   }
 }

@@ -3,18 +3,32 @@ import 'package:get/get.dart';
 import '../../common/nav/app_bar_custom.dart';
 import '../../common/nav/bottom_nav_bar_custom.dart';
 import '../../controllers/product_controller.dart';
-import '../../common/widgets/section_title_card.dart';
 import 'category_product_card.dart';
 
-class CategoryDetailScreen extends StatelessWidget{
-  final ProductController productController = Get.put(ProductController());
+class CategoryDetailScreen extends StatefulWidget {
+  const CategoryDetailScreen({super.key});
 
-  CategoryDetailScreen({super.key});
+  @override
+  State<CategoryDetailScreen> createState() => _CategoryDetailScreenState();
+}
+
+class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
+  final ProductController productController = Get.put(ProductController());
+  late final int categoryId;
+  late final String categoryName;
+  @override
+  void initState() {
+    super.initState();
+    final args = Get.arguments as Map<String, dynamic>;
+    categoryId = args['categoryId'];
+    categoryName = args['categoryName'];
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      productController.getByCategory(categoryId);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final args = Get.arguments as Map<String,dynamic>;
-    final categoryId = args['categoryId'];
-    final categoryName = args['categoryName'];
     return Scaffold(
         appBar: AppBarCustom(title: "home"),
         body: Column(
@@ -25,30 +39,32 @@ class CategoryDetailScreen extends StatelessWidget{
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SectionTitleCard(title: categoryName, fontSize: 20,),
+                  Expanded(child: Text(categoryName,
+                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
+                    softWrap: true,
+                  )),
                   Image.asset('icons/filter.png',width: 30,height: 30,)
                 ],
               ),
             ),
             Expanded(
               child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Obx(() {
-                      if (productController.list.isEmpty) {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-                      return ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          padding: const EdgeInsets.all(8),
-                          itemCount: productController.list.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return CategoryProductCard(product: productController.list[index]);
-                          });
-                    }),
-                  ],
-                ),
+                child: Obx(() {
+                  if (productController.isLoading.value) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (productController.list.isEmpty) {
+                    return const Center(child: Text("No products"));
+                  }
+                  return ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      padding: const EdgeInsets.all(8),
+                      itemCount: productController.list.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return CategoryProductCard(product: productController.list[index]);
+                      });
+                }),
               ),
             ),
           ],

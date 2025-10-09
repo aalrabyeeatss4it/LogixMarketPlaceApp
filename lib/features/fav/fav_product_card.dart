@@ -35,7 +35,27 @@ class FavProductCard extends StatelessWidget {
                               elevation: 0,
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Image.asset(product.thumbPath,fit: BoxFit.contain)
+                                child: Image.network(
+                                  product.getThumbPath(),
+                                  fit: BoxFit.cover,
+                                  loadingBuilder: (context, child, loadingProgress) {
+                                    if (loadingProgress == null) return child; // image loaded
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                        value: loadingProgress.expectedTotalBytes != null
+                                            ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1)
+                                            : null,
+                                      ),
+                                    );
+                                  },
+                                  errorBuilder: (context, error, stackTrace) {
+                                    // return default image if network image fails
+                                    return Image.asset(
+                                      'assets/logo.png',
+                                      fit: BoxFit.cover,
+                                    );
+                                  },
+                                ),
                               )
                           )
                       )

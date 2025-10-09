@@ -38,7 +38,29 @@ class HomeProductCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Card(elevation: 0,child: SizedBox(height: 180.h,width: 280.w, child: Image.asset(product.thumbPath,fit: BoxFit.contain))),
+                  Card(elevation: 0,child: SizedBox(height: 180.h,width: 280.w,
+                    child: Image.network(
+                      product.getThumbPath(),
+                      fit: BoxFit.cover,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child; // image loaded
+                        return Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1)
+                                : null,
+                          ),
+                        );
+                      },
+                      errorBuilder: (context, error, stackTrace) {
+                        // return default image if network image fails
+                        return Image.asset(
+                          'assets/logo.png',
+                          fit: BoxFit.cover,
+                        );
+                      },
+                    ),
+                  )),
                 ],
               ),
               SizedBox(width: 280.w,child: Text(product.name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700))),

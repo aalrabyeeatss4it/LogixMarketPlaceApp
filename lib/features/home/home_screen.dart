@@ -1,25 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:logix_market_place/common/nav/drawer_custom.dart';
 import 'package:logix_market_place/controllers/cart_controller.dart';
 import 'package:logix_market_place/controllers/product_controller.dart';
 import 'package:logix_market_place/features/home/home_category_card.dart';
 import 'package:logix_market_place/features/home/home_product_card.dart';
 import 'package:logix_market_place/common/widgets/section_title_card.dart';
-import 'package:logix_market_place/services/category_service.dart';
 import '../../common/nav/app_bar_custom.dart';
 import '../../common/nav/bottom_nav_bar_custom.dart';
 import '../../common/nav/page_routes.dart';
-import '../../common/theme/colors.dart';
 import '../../controllers/category_controller.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<StatefulWidget> createState()=> HomeScreenState();
+}
+
+class HomeScreenState extends State<HomeScreen> {
+
   final CategoryController categoryController = Get.put(CategoryController());
   final ProductController productController = Get.put(ProductController());
   final CartController cartController = Get.find<CartController>();
 
-  HomeScreen({super.key});
+  @override
+  void initState() {
+    super.initState();
+    productController.getRecentlyArrived();
+    categoryController.getAll();
+  }
 
   @override
   Widget build(BuildContext context) {

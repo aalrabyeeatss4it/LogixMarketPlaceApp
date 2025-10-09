@@ -25,7 +25,33 @@ class CategoryProductCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox( width: 120, height: 120, child: Card(child: Image.asset(product.thumbPath,fit: BoxFit.contain))),
+            SizedBox(
+                width: 120,
+                height: 120,
+                child: Card(
+                    child: Image.network(
+                        product.getThumbPath(),
+                        fit: BoxFit.cover,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Center(
+                              child: CircularProgressIndicator(
+                                value: loadingProgress.expectedTotalBytes != null
+                                    ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1)
+                                    : null,
+                              )
+                          );
+                    },
+                    errorBuilder: (context, error, stackTrace) {
+                      // return default image if network image fails
+                      return Image.asset(
+                        'assets/logo.png',
+                        fit: BoxFit.cover,
+                      );
+                    }
+                    )
+                )
+            ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),

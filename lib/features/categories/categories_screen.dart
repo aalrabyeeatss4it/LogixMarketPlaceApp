@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../common/nav/app_bar_custom.dart';
 import '../../common/nav/bottom_nav_bar_custom.dart';
 import '../../controllers/category_controller.dart';
-import '../home/home_category_card.dart';
 import 'category_card.dart';
 
 class CategoriesScreen extends StatelessWidget {

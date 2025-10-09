@@ -1,25 +1,35 @@
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 import 'package:logix_market_place/services/product_service.dart';
-
-import '../mock/mock_product_service.dart';
 import '../models/product_model.dart';
 
+
 class ProductController extends GetxController {
+  var isLoading = false.obs;
   RxList<ProductModel> list = <ProductModel>[].obs;
   RxList<ProductModel> categoryProducts = <ProductModel>[].obs;
-  ProductService productService = Get.put(MockProductService());
-  @override
-  void onInit() {
-    super.onInit();
-    getAll();
+  ProductService productService = Get.put(ProductService());
+
+  Future<void> getRecentlyArrived() async {
+    list.value = await productService.getRecentlyArrived();
   }
 
-  Future<void> getAll() async {
-    list.value = await productService.getAll();
+  Future<void> getMostRequested() async {
+    list.value = await productService.getRecentlyArrived();
   }
 
   Future<void> getByCategory(int categoryId) async {
-    list.value = await productService.getByCategory(categoryId);
+    isLoading.value = true;
+    list.clear();
+    try {
+      var result = await productService.getByCategory(categoryId);
+      list.assignAll(result);
+    }
+    catch(ex){
+      isLoading.value = false;
+    }
+    finally {
+      isLoading.value = false;
+    }
+
   }
 }
