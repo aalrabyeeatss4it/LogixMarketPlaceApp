@@ -116,11 +116,11 @@ class CartScreen extends StatelessWidget{
                     }),
                     Obx((){
                       if (favController.items.isEmpty) {
-                        return SizedBox();
+                        return const SizedBox();
                       }
                       return Column(
                         children: [
-                          SizedBox(height: 20,),
+                          const SizedBox(height: 20,),
                           const Divider(),
                           (favController.items.isNotEmpty)?Row(
                             children: [

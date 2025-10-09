@@ -118,13 +118,11 @@ class MockProductService implements ProductService {
 
   @override
   Future<List<ProductModel>> getMostRequested() {
-    // TODO: implement getMostRequested
     throw UnimplementedError();
   }
 
   @override
   Future<List<ProductModel>> getRelated() {
-    // TODO: implement getRelated
     throw UnimplementedError();
   }
 }

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:logix_market_place/common/nav/page_routes.dart';
 import 'package:logix_market_place/common/theme/colors.dart';
 import 'common/lang/app_translations.dart';
@@ -10,10 +11,10 @@ import 'common/localization/localization_controller.dart';
 import 'common/nav/app_wrapper.dart';
 import 'controllers/app_bindings.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // Apply the override globally
   HttpOverrides.global = MyHttpOverrides();
+  await GetStorage.init();
 
   runApp(MyApp());
 }

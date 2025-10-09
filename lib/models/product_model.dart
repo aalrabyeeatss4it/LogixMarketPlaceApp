@@ -46,7 +46,10 @@ class ProductModel {
       'categoryId': categoryId,
       'name': name,
       'desc': desc,
-      'thumbPath': thumbPath
+      'thumbPath': thumbPath,
+      'price': price,
+      'discountPercentage': discountPercentage,
+      'preDiscountPrice': preDiscountPrice
     };
   }
 

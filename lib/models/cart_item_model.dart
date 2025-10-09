@@ -10,9 +10,16 @@ class CartItemModel {
   CartItemModel({required this.product});
 
   factory CartItemModel.fromJson(Map<String, dynamic> json) {
-    var item=  CartItemModel(product: ProductModel.fromJson(json['product']));
+    var item =  CartItemModel(product: ProductModel.fromJson(json['product']));
     item.quantity.value = json['quantity'];
     return item;
+  }
+
+  toJson() {
+    var itemJson = {};
+    itemJson["quantity"] = quantity.value;
+    itemJson["product"] = product.toJson();
+    return itemJson;
   }
 
   static List<CartItemModel> fromJsonList(List<dynamic> jsonList){
