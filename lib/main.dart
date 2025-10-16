@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:logix_market_place/common/nav/page_routes.dart';
 import 'package:logix_market_place/common/theme/colors.dart';
+import 'package:logix_market_place/controllers/login_controller.dart';
 import 'common/lang/app_translations.dart';
 import 'common/localization/localization_controller.dart';
 import 'common/nav/app_wrapper.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
   MyApp({super.key});
 
   final LocalizationController localizationController = Get.put(LocalizationController());
+  final LoginController loginController = Get.put(LoginController());
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -46,7 +48,7 @@ class MyApp extends StatelessWidget {
               translations: AppTranslations(),
               locale: localizationController.locale.value,
               fallbackLocale: const Locale('en', 'US'),
-              initialRoute: RouteNames.homePage,
+              initialRoute:(loginController.isLoggedIn.value)? RouteNames.homePage: RouteNames.loginPage,
               getPages: routePages ,
             ),
           );
