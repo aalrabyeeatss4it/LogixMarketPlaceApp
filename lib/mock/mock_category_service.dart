@@ -1,3 +1,4 @@
+import 'package:get_storage/src/storage_impl.dart';
 import 'package:logix_market_place/models/category_model.dart';
 import 'package:logix_market_place/services/category_service.dart';
 
@@ -17,5 +18,9 @@ class MockCategoryService implements CategoryService{
     ];
     return categories;
   }
+
+  @override
+  // TODO: implement box
+  GetStorage get box => throw UnimplementedError();
 
 }

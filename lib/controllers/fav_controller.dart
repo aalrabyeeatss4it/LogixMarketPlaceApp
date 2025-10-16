@@ -1,45 +1,43 @@
+import 'dart:convert';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:logix_market_place/models/product_model.dart';
-import 'package:logix_market_place/services/fav_service.dart';
-import 'package:logix_market_place/services/service_result.dart';
-import '../mock/mock_fav_service.dart';
 
 class FavController extends GetxController {
+  final box = GetStorage();
   RxList<ProductModel> items = <ProductModel>[].obs;
-  FavService favService = Get.put(MockFavService());
-  RxBool loading = true.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    loadFav();
+  }
+
+  saveFav(){
+    var jsonList = items.map((item)=> item.toJson()).toList();
+    box.write("fav", jsonEncode(jsonList));
+  }
+
+  loadFav(){
+    var jsonList = box.read("fav");
+    if(jsonList != null){
+      final List decoded = jsonDecode(jsonList);
+      var favItems = decoded.map((json)=> ProductModel.fromJson(json)).toList();
+      items.assignAll(favItems);
+    }
+  }
 
   Future<void> addItem(ProductModel item) async {
-    loading.value = true;
-    var result = await favService.addItem(item);
-    if (result is SuccessStatus) {
-      items.add(item);
-    }
-    else{
-    }
-    loading.value = false;
+    items.add(item);
+    saveFav();
+  }
+
+  Future<void> removeItem(ProductModel item) async {
+    items.remove(item);
+    saveFav();
   }
 
   bool inFav(int productId) {
     return items.any((item) => item.id == productId);
-  }
-
-
-  Future<void> removeItem(ProductModel item) async {
-    loading.value = true;
-    items.remove(item);
-    var result = favService.removeItem(item);
-    if (result is SuccessStatus) {
-      items.remove(item);
-    }
-    loading.value = false;
-  }
-
-
-  Future<void> getList() async {
-    loading.value = true;
-    var list = await favService.getList();
-    items.value = list;
-    loading.value = false;
   }
 }

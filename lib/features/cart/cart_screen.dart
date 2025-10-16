@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:logix_market_place/common/nav/page_routes.dart';
 import 'package:logix_market_place/controllers/cart_controller.dart';
 import 'package:logix_market_place/features/cart/cart_product_card.dart';
 import '../../common/nav/app_bar_custom.dart';
@@ -160,19 +161,14 @@ class CartScreen extends StatelessWidget{
                             child: TextButton(
                                 style: ElevatedButton.styleFrom(
                                     elevation: 0,
-                                    padding: EdgeInsets.all(5),
+                                    padding: const EdgeInsets.all(5),
                                     backgroundColor: secondaryAccentColor,
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10)
                                     )
                                 ),
                                 onPressed: () {
-                                  if(cartController.selectedItemsCount.value==0){
-                                    cartController.selectAll();
-                                  }
-                                  else{
-                                    cartController.deSelectAll();
-                                  }
+                                  Get.offAllNamed(RouteNames.checkoutPage,predicate: (route) => route.isFirst);
                                 },
                                 child: const Text('تابع للدفع الآمن',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 16))),
                           ),
