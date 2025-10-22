@@ -9,7 +9,7 @@ class BottomNavController extends GetxController {
   RouteNames.homePage,
   RouteNames.categoriesPage,
   RouteNames.cartPage,
-  RouteNames.orderTrackingPage,
+  RouteNames.profilePage,
   ];
   void changeTap(int index) {
     // if (selectedIndex.value == index) return;

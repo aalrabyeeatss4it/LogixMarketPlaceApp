@@ -8,6 +8,7 @@ class OrderModel{
   String? shipmentMethod;
   String? trackingId;
   String? paymentMethod;
+  String? paymentMethodId;
   String? orderStatus;
   String? deliveryAddressId;
   String? expectedDeliveryDate;
@@ -22,6 +23,7 @@ class OrderModel{
     this.shipmentMethod,
     this.trackingId,
     this.paymentMethod,
+    this.paymentMethodId,
     this.orderStatus,
     this.deliveryAddressId,
     this.expectedDeliveryDate,
@@ -38,6 +40,7 @@ class OrderModel{
       shipmentMethod: json['shipmentMethod']?.toString() ?? '',
       trackingId: json['trackingId']?.toString() ?? '',
       paymentMethod: json['paymentMethod']?.toString() ?? '',
+      paymentMethodId: json['paymentMethodId']?.toString() ?? '',
       orderStatus: json['orderStatus']?.toString() ?? '',
       deliveryAddressId: json['deliveryAddressId']?.toString() ?? '0',
       expectedDeliveryDate: json['expectedDeliveryDate']?.toString() ?? '',
@@ -49,6 +52,9 @@ class OrderModel{
     );
   }
 
+  static List<OrderModel> fromJsonList(List<dynamic> jsonList) {
+    return jsonList.map((o)=> OrderModel.fromJson(o)).toList();
+  }
   Map<String, dynamic> toJson() {
     return {
       'subTotal': subTotal,

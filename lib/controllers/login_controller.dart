@@ -3,6 +3,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:logix_market_place/services/login_service.dart';
 import 'package:logix_market_place/services/service_result.dart';
 
+import '../common/nav/page_routes.dart';
 import '../models/authorized_user_model.dart';
 import '../models/user_cred_model.dart';
 
@@ -18,10 +19,15 @@ class LoginController extends GetxController{
     if(serviceResult is SuccessStatus<AuthorizedUserModel>){
       final userModel = serviceResult.data!;
       box.write("token", userModel.token);
+      Get.offAllNamed(RouteNames.homePage,predicate: (route) => route.isFirst);
     }
     else{
 
     }
+  }
+  void logout(){
+    box.write("token", null);
+    Get.offAllNamed(RouteNames.loginPage,predicate: (route) => route.isFirst);
   }
   checkLoggedIn(){
     var token = box.read("token");

@@ -91,8 +91,7 @@ class CartScreen extends StatelessWidget{
                               ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          mainAxisSize: MainAxisSize.max
-                            ,
+                            mainAxisSize: MainAxisSize.max,
                             children: [
                               const Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 18.0,vertical: 8),
@@ -162,7 +161,7 @@ class CartScreen extends StatelessWidget{
                                 style: ElevatedButton.styleFrom(
                                     elevation: 0,
                                     padding: const EdgeInsets.all(5),
-                                    backgroundColor: secondaryAccentColor,
+                                    backgroundColor: secondaryColor,
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10)
                                     )

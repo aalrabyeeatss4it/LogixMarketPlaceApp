@@ -9,6 +9,7 @@ import '../../common/nav/bottom_nav_bar_custom.dart';
 import '../../common/theme/colors.dart';
 import '../../common/widgets/section_title_card.dart';
 import '../../controllers/cart_controller.dart';
+import '../../models/order_model.dart';
 import '../checkout/checkout_product_card.dart';
 import '../new_address/new_address_form.dart';
 import 'order_status_card.dart';
@@ -19,6 +20,7 @@ class OrderTrackingScreen extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    final order = Get.arguments as OrderModel;
     return Scaffold(
       appBar: AppBarCustom(title: "home"),
       body: Form(
@@ -147,14 +149,14 @@ class OrderTrackingScreen extends StatelessWidget{
                       shape: RoundedRectangleBorder(side: BorderSide(color: Colors.grey,width: 1),borderRadius: BorderRadius.circular(10)),
                       child: Column(
                         children: [
-                          const Padding(
+                          Padding(
                             padding: EdgeInsets.symmetric(horizontal: 18.0,vertical: 2),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Text('رقم الطلب',style: TextStyle(fontSize: 16)),
-                                Text('#258963',style: TextStyle(fontSize: 16),)
+                                Text('#${order.orderId?? ""}',style: TextStyle(fontSize: 16),)
                               ],
                             ),
                           ),
@@ -167,7 +169,7 @@ class OrderTrackingScreen extends StatelessWidget{
                                 Text('السلع',style: TextStyle(fontSize: 16)),
                                 Row(
                                   children: [
-                                    Text('9,572.00',style: TextStyle(fontSize: 16),),
+                                    Text(order.subTotal?? "0",style: TextStyle(fontSize: 16),),
                                     Padding(
                                       padding: const EdgeInsets.symmetric(horizontal: 4),
                                       child: Image.asset('icons/riyal.png' ,width: 12,),
@@ -186,9 +188,9 @@ class OrderTrackingScreen extends StatelessWidget{
                                 Text('التسليم والشحن',style: TextStyle(fontSize: 16)),
                                 Row(
                                   children: [
-                                    const Padding(
+                                    Padding(
                                       padding: EdgeInsets.symmetric(horizontal: 4.0,vertical: 8),
-                                      child: Text('50.00',style: TextStyle(fontSize: 16),),
+                                      child: Text(order.deliveryFee?? "0",style: TextStyle(fontSize: 16),),
                                     ),
                                     Image.asset('icons/riyal.png' ,width: 12,)
                                   ],
@@ -196,22 +198,23 @@ class OrderTrackingScreen extends StatelessWidget{
                               ],
                             ),
                           ),
-                          const Padding(
+                          Padding(
                             padding: EdgeInsets.symmetric(horizontal: 18.0,vertical: 2),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                Text('الحالة',style: TextStyle(fontSize: 16),),
+                                const Text('الحالة',style: TextStyle(fontSize: 16),),
                                 Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(Radius.circular(10))
-                                  ),
-                                  color: primaryColor,
+                                    shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(10))
+                                    ),
+                                    color: (order.paymentMethodId=="4")?secondaryColor : primaryColor,
                                     child: Padding(
-                                      padding: EdgeInsets.all(6.0),
-                                      child: Text('مدفوع',style: TextStyle(fontSize: 16,color: Colors.white),),
-                                    )),
+                                      padding: EdgeInsets.symmetric(horizontal: 12,vertical: 7),
+                                      child: Text(order.paymentMethod??"",style: TextStyle(fontSize: 16,color: Colors.white,fontWeight: FontWeight.bold),),
+                                    )
+                                ),
                               ],
                             ),
                           ),
@@ -224,9 +227,9 @@ class OrderTrackingScreen extends StatelessWidget{
                                 Text('إجمالي الطلب الكلي',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w900),),
                                 Row(
                                   children: [
-                                    const Padding(
+                                    Padding(
                                       padding: EdgeInsets.symmetric(horizontal: 4.0,vertical: 8),
-                                      child: Text('9,622.00',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w900),),
+                                      child: Text(order.total?? "",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w900),),
                                     ),
                                     Image.asset('icons/riyal.png' ,width: 12,)
                                   ],

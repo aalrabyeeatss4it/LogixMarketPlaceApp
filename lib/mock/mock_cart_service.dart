@@ -31,6 +31,8 @@ class MockCartService implements CartService {
       CartItemModel(
           product: ProductModel(
               id: 1,
+              vat: 1,
+              unitId: 1,
               categoryId: 1,
               price: 126.5,
               preDiscountPrice: 126.5,
@@ -42,6 +44,8 @@ class MockCartService implements CartService {
       CartItemModel(
           product: ProductModel(
               id: 2,
+              vat: 2,
+              unitId: 2,
               categoryId: 1,
               price: 126.5,
               preDiscountPrice: 320,

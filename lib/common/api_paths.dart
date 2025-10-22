@@ -7,7 +7,7 @@ const relatedProductsByIdPath = '/products/related/{id}';
 const recentlyArrivedPath = '/products/recently-arrived';
 const mostRequestedPath = '/products/most-requested';
 const relatedPath = '/products/related/{id}';
-const newOrderPath = '/orders';
+const ordersPath = '/orders';
 const loginPath = '/users/login';
 
 erpUrl(){

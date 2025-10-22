@@ -6,6 +6,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:logix_market_place/controllers/delivery_address_controller.dart';
 import 'package:logix_market_place/features/checkout/checkout_product_card.dart';
 import 'package:logix_market_place/features/new_address/new_address_screen.dart';
+import 'package:logix_market_place/models/order_item_model.dart';
 
 import '../../common/nav/app_bar_custom.dart';
 import '../../common/nav/bottom_nav_bar_custom.dart';
@@ -252,7 +253,6 @@ class CheckoutScreen extends StatelessWidget {
                                               )
                                           ),
                                         ),
-
                                         Positioned(
                                             child: Radio(
                                                 value: 3,
@@ -378,6 +378,9 @@ class CheckoutScreen extends StatelessWidget {
                                 )
                             ),
                             onPressed: () {
+                              showOrderConfirmBottomSheet(title: 'متابعة بالدفع الآجل؟', buttonLabel: 'تأكيد الطلب' + " ("+'9,622.00'+") ", onConfirm: () {
+                                orderController.createOrder(addressController.defaultAddress.value!.id!);
+                              });
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -406,4 +409,75 @@ class CheckoutScreen extends StatelessWidget {
         ),),
     );
   }
+}
+
+void showOrderConfirmBottomSheet({
+  required String title,
+  required String buttonLabel,
+  required VoidCallback onConfirm,
+}) {
+  Get.bottomSheet(
+    Container(
+      padding: const EdgeInsets.all(20),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            height: 4,
+            width: 40,
+            margin: const EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 40),
+          Row(
+            children: [
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Get.back();
+                    onConfirm();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: primaryColor,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                          buttonLabel,
+                          style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 16)
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: Image.asset('icons/riyal.png' ,width: 16,color: Colors.white,),
+                      )
+                    ],
+                  )
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
+    ),
+    isScrollControlled: true,
+  );
 }

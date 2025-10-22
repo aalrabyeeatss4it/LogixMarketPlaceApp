@@ -12,6 +12,7 @@ class DeliveryAddressController extends GetxController {
 
   Future<void> getAddresses() async {
     defaultAddress.value =  DeliveryAddressModel(
+      id: "100",
       recipientName: "محمد حرب",
       streetName: "شارع 11",
       buildingName: "فيلا 90",

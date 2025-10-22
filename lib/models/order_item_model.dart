@@ -1,9 +1,15 @@
+import 'package:logix_market_place/models/cart_item_model.dart';
+
+import '../common/api_paths.dart';
+
 class OrderItemModel{
   int productId;
   int unitId;
   double price;
   dynamic quantity;
-  String vat;
+  double vat;
+  String? productName;
+  String? thumbPath;
 
   OrderItemModel({
     required this.productId,
@@ -11,6 +17,8 @@ class OrderItemModel{
     required this.price,
     required this.quantity,
     required this.vat,
+    this.productName,
+    this.thumbPath,
   });
 
   factory OrderItemModel.fromJson(Map<String, dynamic> json) {
@@ -19,10 +27,28 @@ class OrderItemModel{
       unitId: json['unitId'] ?? 0,
       price: json['price'],
       quantity: json['quantity'],
-      vat: json['vat']?.toString() ?? '0',
+      vat: json['vat'] ?? 0,
+      productName: json['productName'] ?? "",
+      thumbPath: json['thumbPath'] ?? "",
+    );
+  }
+  factory OrderItemModel.fromCartItem(CartItemModel item) {
+    return OrderItemModel(
+      productId: item.product.id,
+      unitId: item.product.unitId,
+      price: item.product.price,
+      quantity: item.quantity.value,
+      vat: item.product.vat,
     );
   }
 
+  String getThumbPath(){
+    String path = thumbPath??"no_image.jpg";
+    if(path.isEmpty){
+      path = "no_image.jpg";
+    }
+    return erpUrl()+imagesDirPath()+path;
+  }
   Map<String, dynamic> toJson() {
     return {
       'productId': productId,

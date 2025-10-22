@@ -81,7 +81,7 @@ class LoginScreen extends StatelessWidget{
                       ),
                       const SizedBox(height: 6,),
                       InkWell(
-                          child: const Text("هل نسيت كلمة المرور؟",style: TextStyle(decoration: TextDecoration.underline,color: primaryColor,fontSize: 16,fontWeight: FontWeight.bold)),
+                          child: const Text("هل نسيت كلمة المرور؟",style: TextStyle(decoration: TextDecoration.underline,color: primaryAccentColor,fontSize: 16,fontWeight: FontWeight.bold)),
                           onTap: (){
 
                           }
@@ -120,7 +120,7 @@ class LoginScreen extends StatelessWidget{
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text("ليس لديك حساب؟",style: TextStyle(decoration: TextDecoration.underline,color: Colors.grey,fontSize: 16,fontWeight: FontWeight.bold)),
-                              Text("إنشاء حساب جديد",style: TextStyle(decoration: TextDecoration.underline,color: primaryColor,fontSize: 16,fontWeight: FontWeight.bold)),
+                              Text("إنشاء حساب جديد",style: TextStyle(decoration: TextDecoration.underline,color: primaryAccentColor,fontSize: 16,fontWeight: FontWeight.bold)),
                             ],
                           ),
                           onTap: (){

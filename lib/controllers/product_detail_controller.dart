@@ -9,6 +9,8 @@ class ProductDetailController extends GetxController {
     name: '',
     desc: '',
     price: 0,
+    vat: 0,
+    unitId: 0,
     discountPercentage: '',
     preDiscountPrice: 0,
     categoryId: 0,

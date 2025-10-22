@@ -179,7 +179,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen>{
                               }
                             },
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: secondaryAccentColor,
+                              backgroundColor: secondaryColor,
                               foregroundColor: Colors.white,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)

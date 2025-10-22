@@ -5,9 +5,21 @@ import '../../common/nav/bottom_nav_bar_custom.dart';
 import '../../controllers/category_controller.dart';
 import 'category_card.dart';
 
-class CategoriesScreen extends StatelessWidget {
+class CategoriesScreen extends StatefulWidget {
+  const CategoriesScreen({super.key});
+
+  @override
+  State<StatefulWidget> createState()=> _CategoriesScreenState();
+
+}
+class _CategoriesScreenState extends State<CategoriesScreen>{
   final CategoryController categoryController = Get.put(CategoryController());
-  CategoriesScreen({super.key});
+
+  @override
+  void initState() {
+    super.initState();
+    categoryController.getAll();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -3,9 +3,11 @@ import '../common/api_paths.dart';
 class ProductModel {
   int id;
   int categoryId;
+  int unitId;
   String name;
   String discountPercentage;
   double price;
+  double vat;
   double preDiscountPrice;
   String desc;
   String thumbPath;
@@ -14,12 +16,14 @@ class ProductModel {
   ProductModel(
       {required this.id,
       required this.categoryId,
+      required this.unitId,
       required this.name,
       required this.desc,
       required this.thumbPath,
       required this.discountPercentage,
       required this.preDiscountPrice,
       required this.price,
+      required this.vat,
       this.attributes});
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
@@ -29,6 +33,8 @@ class ProductModel {
         name: json['name'],
         desc: json['desc'],
         price: json['price'],
+        vat: json['vaT_Rate'],
+        unitId: json['unitId'],
         // discountPercentage: json['discountPercentage'],
         discountPercentage: '- 12% ',
         preDiscountPrice: json['preDiscountPrice'],
@@ -45,6 +51,8 @@ class ProductModel {
       'id': id,
       'categoryId': categoryId,
       'name': name,
+      'vaT_Rate': vat,
+      'unitId': unitId,
       'desc': desc,
       'thumbPath': thumbPath,
       'price': price,

@@ -116,7 +116,7 @@ class HomeProductCard extends StatelessWidget {
                           },
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.all(5),
-                            backgroundColor: secondaryAccentColor,
+                            backgroundColor: secondaryColor,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)
                             )

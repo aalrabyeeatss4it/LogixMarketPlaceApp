@@ -26,7 +26,7 @@ class AuthorizedUserModel {
       token: json['token'] ?? '',
       branchId: json['branchId'] ?? '',
       facilityID: json['facility_ID'] ?? '',
-      customerID: json['customerID'] ?? '',
+      customerID: json['customerID'].toString() ?? '',
       customerName: json['customerName'] ?? '',
       customerPhone: json['customerPhone'] ?? '',
     );

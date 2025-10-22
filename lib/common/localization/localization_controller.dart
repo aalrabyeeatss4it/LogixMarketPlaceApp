@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 
 class LocalizationController extends GetxController {
-  Rx<Locale> locale = const Locale('en', 'US').obs;
+  Rx<Locale> locale = const Locale('ar', 'SA').obs;
 
   @override
   void onInit() {

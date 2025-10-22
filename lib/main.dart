@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
               ),
               translations: AppTranslations(),
               locale: localizationController.locale.value,
-              fallbackLocale: const Locale('en', 'US'),
+              fallbackLocale: const Locale('ar', 'SA'),
               initialRoute:(loginController.isLoggedIn.value)? RouteNames.homePage: RouteNames.loginPage,
               getPages: routePages ,
             ),

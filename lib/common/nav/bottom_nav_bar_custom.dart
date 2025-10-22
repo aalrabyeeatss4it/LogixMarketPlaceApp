@@ -46,9 +46,9 @@ class BottomNavBarCustom extends StatelessWidget {
   }
 
   final List<BottomNavigationBarItem> barItems = [
-    BottomNavigationBarItem(label: "الرئيسية",icon: Image.asset('icons/home.png',width: 28),activeIcon: Image.asset('icons/home-active.png',width: 28)),
-    BottomNavigationBarItem(label: "التصنيفات",icon: Image.asset('icons/cats.png',width: 28),activeIcon: Image.asset('icons/cats-active.png',width: 28)),
-    BottomNavigationBarItem(label: "السلة",icon: Image.asset('icons/cart.png',width: 28),activeIcon: Image.asset('icons/cart-active.png',width: 28)),
-    BottomNavigationBarItem(label: "حسابي",icon: Image.asset('icons/profile.png',width: 28),activeIcon: Image.asset('icons/profile-active.png',width: 28)),
+    BottomNavigationBarItem(label: "الرئيسية",icon: Image.asset('icons/home.png',width: 28),activeIcon: Image.asset('icons/home-active.png',width: 28,color: primaryColor,)),
+    BottomNavigationBarItem(label: "التصنيفات",icon: Image.asset('icons/cats.png',width: 28),activeIcon: Image.asset('icons/cats-active.png',width: 28,color: primaryColor,)),
+    BottomNavigationBarItem(label: "السلة",icon: Image.asset('icons/cart.png',width: 28),activeIcon: Image.asset('icons/cart-active.png',width: 28,color: primaryColor,)),
+    BottomNavigationBarItem(label: "حسابي",icon: Image.asset('icons/profile.png',width: 28),activeIcon: Image.asset('icons/profile-active.png',width: 28,color: primaryColor,)),
   ];
 }

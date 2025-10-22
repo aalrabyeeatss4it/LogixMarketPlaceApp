@@ -1,4 +1,5 @@
 class DeliveryAddressModel {
+  String? id;
   String? streetName;
   String? buildingName;
   String? floorNo;
@@ -9,6 +10,7 @@ class DeliveryAddressModel {
   String? recipientName;
   String? recipientMobileNo;
   DeliveryAddressModel({
+    this.id,
     this.streetName,
     this.buildingName,
     this.floorNo,
