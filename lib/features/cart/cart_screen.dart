@@ -9,7 +9,7 @@ import '../../common/nav/bottom_nav_bar_custom.dart';
 import '../../common/theme/colors.dart';
 import '../../common/widgets/section_title_card.dart';
 import '../../controllers/fav_controller.dart';
-import '../fav/fav_product_card.dart';
+import '../my_fav/fav_product_card.dart';
 
 class CartScreen extends StatelessWidget{
     final CartController cartController = Get.put(CartController());
@@ -24,30 +24,30 @@ class CartScreen extends StatelessWidget{
         body: Column(
           children: [
             SizedBox(height: 16.h),
-            Obx((){
-              if (cartController.items.isNotEmpty) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TextButton(
-                          onPressed: () {
-                            if(cartController.selectedItemsCount.value==0){
-                              cartController.selectAll();
-                            }
-                            else{
-                              cartController.deSelectAll();
-                            }
-                          },
-                          child: Text((cartController.selectedItemsCount.value==0)? 'تحديد كافة المنتجات':'إلغاء تحديد كافة المنتجات',style: TextStyle(color: Colors.indigo,fontWeight: FontWeight.w700))),
-                    ],
-                  ),
-                );
-              }
-              return const SizedBox();
-            }
-            ),
+            // Obx((){
+            //   if (cartController.items.isNotEmpty) {
+            //     return Padding(
+            //       padding: const EdgeInsets.symmetric(horizontal: 16),
+            //       child: Row(
+            //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //         children: [
+            //           TextButton(
+            //               onPressed: () {
+            //                 if(cartController.selectedItemsCount.value==0){
+            //                   cartController.selectAll();
+            //                 }
+            //                 else{
+            //                   cartController.deSelectAll();
+            //                 }
+            //               },
+            //               child: Text((cartController.selectedItemsCount.value==0)? 'تحديد كافة المنتجات':'إلغاء تحديد كافة المنتجات',style: TextStyle(color: Colors.indigo,fontWeight: FontWeight.w700))),
+            //         ],
+            //       ),
+            //     );
+            //   }
+            //   return const SizedBox();
+            // }
+            // ),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
@@ -99,9 +99,9 @@ class CartScreen extends StatelessWidget{
                               ),
                               Row(
                                 children: [
-                                  const Padding(
+                                  Padding(
                                     padding: EdgeInsets.symmetric(horizontal: 4.0,vertical: 8),
-                                    child: Text('9,622.00',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w900),),
+                                    child: Obx(()=>Text(cartController.total.value.toString(),style: TextStyle(fontSize: 16),)),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 20.0),
@@ -146,7 +146,7 @@ class CartScreen extends StatelessWidget{
               ),
             ),
             Obx((){
-              if (cartController.selectedItemsCount>0) {
+              if (cartController.items.isNotEmpty) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Row(

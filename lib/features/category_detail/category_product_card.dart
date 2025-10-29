@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
@@ -62,21 +63,21 @@ class CategoryProductCard extends StatelessWidget {
                       overflow: TextOverflow.visible,
                       maxLines: null
                     ),
-                    const Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text('الخيارات:'),
-                          SizedBox(width: 5),
-                          Text('2 مقاسات', style: TextStyle(fontSize: 16,color: primaryColor)),
-                        ]
-                    ),
+                    // const Row(
+                    //     mainAxisSize: MainAxisSize.min,
+                    //     mainAxisAlignment: MainAxisAlignment.start,
+                    //     children: [
+                    //       Text('الخيارات:'),
+                    //       SizedBox(width: 5),
+                    //       Text('2 مقاسات', style: TextStyle(fontSize: 16,color: primaryColor)),
+                    //     ]
+                    // ),
                     Row(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(product.discountPercentage.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700,color: secondaryColor)),
-                          Text(product.price.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color:  primaryColor)),
+                          Text(product.getDiscountRate(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700,color: secondaryColor)),
+                          Text(product.getPrice(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color:  primaryColor)),
                           Image.asset('icons/riyal.png' ,width: 12,),
                         ]
                     ),
@@ -84,15 +85,54 @@ class CategoryProductCard extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(product.preDiscountPrice.toString()+'ريال', style: TextStyle(fontSize: 14,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
+                          Text(product.getPreDiscountPrice(), style: TextStyle(fontSize: 14,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
                         ]
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       mainAxisSize: MainAxisSize.max,
                       children: [
+
                         Obx(() {
                           bool added = cartController.inCart(product.id);
+                          CartItemModel? item = cartController.getItem(product.id);
+                          if(added){
+                            return Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Container(
+                                width: 210.w,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                    border: Border.all(width: 1.5,color: secondaryColor),
+                                    borderRadius: BorderRadius.circular(20)
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    InkWell(
+                                      onTap: (){
+                                        cartController.decrementQuantity(item);
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                        child: Image.asset((item!.quantity.value<=1)?'icons/trash.png':'icons/minus.png', width: 20,),
+                                      ),
+                                    ),
+                                    Obx(() => Text(item.quantity.value.toString())),
+                                    InkWell(
+                                      onTap: (){
+                                        cartController.incrementQuantity(item);
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                        child: Image.asset('icons/plus.png', width: 20,),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
+                          }
                           return ElevatedButton(
                               onPressed: (){
                                 if(!added){
@@ -101,13 +141,13 @@ class CategoryProductCard extends StatelessWidget {
                                 }
                               },
                               style: ElevatedButton.styleFrom(
-                                  backgroundColor:  added? primaryColor.withOpacity(0.5): primaryColor,
+                                  backgroundColor:  primaryColor,
                                   foregroundColor: Colors.white,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10)
                                   )
                               ),
-                              child: Text(added?'added to cart'.tr : 'add to cart'.tr  )
+                              child: Text('add to cart'.tr)
                           );
                         }
                         ),
@@ -119,7 +159,7 @@ class CategoryProductCard extends StatelessWidget {
                             return ElevatedButton(
                                 onPressed: (){
                                   if(added){
-                                    favController.removeItem(product);
+                                    favController.removeById(product.id);
                                   }
                                   else{
                                     favController.addItem(product);

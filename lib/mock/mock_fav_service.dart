@@ -24,8 +24,8 @@ class MockFavService implements FavService {
           price: 126.5,
           vat: 15,
           unitId: 15,
-          preDiscountPrice: 500,
-          discountPercentage: '- 12% ',
+          // preDiscountPrice: 500,
+          discountPercentage: 10,
           name:
               'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
           desc:
@@ -37,8 +37,8 @@ class MockFavService implements FavService {
           price: 126.5,
           vat: 15,
           unitId: 15,
-          preDiscountPrice: 500,
-          discountPercentage: '- 12% ',
+          // preDiscountPrice: 500,
+          discountPercentage: 10,
           name: 'خلّاط مغسلة مرتفع – أسود مطفي',
           desc: 'خلّاط مغسلة مرتفع – أسود مطفي',
           thumbPath: 'assets_mock/product2.png')

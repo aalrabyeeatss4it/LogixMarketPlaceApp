@@ -107,12 +107,12 @@ class ProductDetailScreenState extends State<ProductDetailScreen>{
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(_productController.product.value.discountPercentage, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700,color: secondaryColor)),
-                        Text(_productController.product.value.price.toString(), style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color:  primaryColor)),
+                        Text(_productController.product.value.getDiscountRate(), style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700,color: secondaryColor)),
+                        Text(_productController.product.value.getPrice(), style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color:  primaryColor)),
                         Image.asset('icons/riyal.png' ,width: 12,),
                       ]
                     ),
-                    Text(_productController.product.value.preDiscountPrice.toString()+'ريال', style: TextStyle(fontSize: 16,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
+                    Text(_productController.product.value.getPreDiscountPrice(), style: TextStyle(fontSize: 16,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
                     const Text('متوفر', style: TextStyle(fontSize: 16,fontWeight: FontWeight.w700,color: successAccentColor)),
                     const Divider(),
                     const Text('تفاصيل المنتج', style: TextStyle(fontSize: 18,fontWeight: FontWeight.w900)),

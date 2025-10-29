@@ -84,12 +84,12 @@ class FavProductCard extends StatelessWidget {
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Text(product.discountPercentage.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700,color: secondaryColor)),
-                                Text(product.price.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color:  primaryColor)),
+                                Text(product.getDiscountRate(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700,color: secondaryColor)),
+                                Text(product.getPrice(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color:  primaryColor)),
                                 Image.asset('icons/riyal.png' ,width: 12,),
                               ]
                           ),
-                          Text(product.preDiscountPrice.toString()+'ريال', style: TextStyle(fontSize: 14,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
+                          Text(product.getPreDiscountPrice(), style: TextStyle(fontSize: 14,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
 
                         ],
                       ),

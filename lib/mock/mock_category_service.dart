@@ -20,7 +20,6 @@ class MockCategoryService implements CategoryService{
   }
 
   @override
-  // TODO: implement box
   GetStorage get box => throw UnimplementedError();
 
 }

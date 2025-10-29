@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:logix_market_place/common/widgets/section_title_card.dart';
 import 'package:logix_market_place/features/new_address/new_address_form.dart';
 import '../../common/nav/app_bar_custom.dart';
-import '../../common/theme/colors.dart';
 import '../../controllers/cart_controller.dart';
 
 
@@ -13,7 +12,7 @@ class NewAddressScreen extends StatelessWidget{
 
   NewAddressScreen({super.key});
 
-  final bool isDefaultAddress = false; // state for checkbox
+  final bool isDefaultAddress = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

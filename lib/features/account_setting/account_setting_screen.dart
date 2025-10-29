@@ -1,23 +1,26 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import '../../common/nav/app_bar_custom.dart';
 import '../../common/nav/bottom_nav_bar_custom.dart';
 import '../../common/nav/page_routes.dart';
 import '../../common/theme/colors.dart';
 import '../../controllers/login_controller.dart';
-import '../profile/profile_screen.dart';
 
 class AccountSettingScreen extends StatelessWidget{
   final List<SettingOption> options = [
     SettingOption(title: 'معلومات الحساب', onTap: (){
-      // Get.offAllNamed(RouteNames.ordersPage,predicate: (route) => route.isFirst);
+      Get.offAllNamed(RouteNames.accountInfoPage,predicate: (route) => route.isFirst);
     }),
-    SettingOption(title: 'تغيير البريد الإلكتروني', onTap: (){}),
-    SettingOption(title: 'تغيير كلمة المرور', onTap: (){},),
-    SettingOption(title: 'اللغة', onTap: (){},),
+    SettingOption(title: 'تغيير البريد الإلكتروني', onTap: (){
+      Get.offAllNamed(RouteNames.changeEmailPage,predicate: (route) => route.isFirst);
+    }),
+    SettingOption(title: 'تغيير كلمة المرور', onTap: (){
+      Get.offAllNamed(RouteNames.changePasswordPage,predicate: (route) => route.isFirst);
+    }),
+    SettingOption(title: 'اللغة', onTap: (){
+      Get.offAllNamed(RouteNames.changeLangPage,predicate: (route) => route.isFirst);
+    }),
   ];
 
   final LoginController loginController = Get.find<LoginController>();

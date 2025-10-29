@@ -37,6 +37,11 @@ class FavController extends GetxController {
     saveFav();
   }
 
+  Future<void> removeById(int productId) async {
+    items.removeWhere((item) => item.id == productId);
+    saveFav();
+  }
+
   bool inFav(int productId) {
     return items.any((item) => item.id == productId);
   }

@@ -5,11 +5,16 @@ Map<String, String> english = {
   'categories': 'Categories',
   'show more': 'Show more',
   'recently added': 'recently added',
+  'most requested': 'most requested',
   'add to cart': 'Add to Cart',
   'added to cart': 'Added to Cart',
   'empty cart': 'Shopping cart is empty',
   'empty fav': 'Fav list is empty',
-'Start adding items':'Start adding items',
-  'saved in fav list':'تم الحفظ لوقت لاحق',
-  'product':'product'
+  'Start adding items': 'Start adding items',
+  'saved in fav list': 'تم الحفظ لوقت لاحق',
+  'product': 'product',
+  'browse most requested products': 'browse most requested products',
+  'empty availability orders': 'empty availability orders',
+  'add payment method': 'add payment method',
+  'empty payment methods': 'no payment methods'
 };

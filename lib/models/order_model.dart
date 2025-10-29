@@ -1,9 +1,13 @@
+import 'package:get/get.dart';
+
 import 'order_item_model.dart';
 
 class OrderModel{
   String? subTotal;
   String? deliveryFee;
   String? total;
+  String? paid;
+  String? remaining;
   String? orderId;
   String? shipmentMethod;
   String? trackingId;
@@ -13,6 +17,7 @@ class OrderModel{
   String? deliveryAddressId;
   String? expectedDeliveryDate;
   String? deliveryDate;
+  RxBool selected= false.obs;
   List<OrderItemModel>? items;
 
   OrderModel({
@@ -28,6 +33,8 @@ class OrderModel{
     this.deliveryAddressId,
     this.expectedDeliveryDate,
     this.deliveryDate,
+    this.paid,
+    this.remaining,
     this.items,
   });
 
@@ -45,6 +52,8 @@ class OrderModel{
       deliveryAddressId: json['deliveryAddressId']?.toString() ?? '0',
       expectedDeliveryDate: json['expectedDeliveryDate']?.toString() ?? '',
       deliveryDate: json['deliveryDate']?.toString() ?? '',
+      paid: json['paid']?.toString() ?? '',
+      remaining: json['remaining']?.toString() ?? '',
       items: (json['items'] as List<dynamic>?)
           ?.map((e) => OrderItemModel.fromJson(e))
           .toList() ??

@@ -25,13 +25,13 @@ class OrderCard extends StatelessWidget{
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Card(
-                      shape: RoundedRectangleBorder(
+                      shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10))
                       ),
                       color: (order.paymentMethodId=="4")?secondaryColor : primaryColor,
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 6.0,vertical: 7),
-                        child: Text(order.paymentMethod??"",style: TextStyle(fontSize: 16,color: Colors.white,fontWeight: FontWeight.bold),),
+                        padding: const EdgeInsets.symmetric(horizontal: 6.0,vertical: 7),
+                        child: Text(order.paymentMethod??"",style: const TextStyle(fontSize: 16,color: Colors.white,fontWeight: FontWeight.bold),),
                       )
                   ),
                   const SizedBox(width: 5,),
@@ -41,7 +41,7 @@ class OrderCard extends StatelessWidget{
                           borderRadius: BorderRadius.circular(10)
                       ),
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 6.0,vertical: 7),
+                        padding: const EdgeInsets.symmetric(horizontal: 6.0,vertical: 7),
                         child: Text(order.orderStatus??"",style: TextStyle(fontSize: 16,color: Colors.black),),
                       )
                   ),

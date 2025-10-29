@@ -7,7 +7,7 @@ class NewAddressForm extends StatefulWidget {
   const NewAddressForm({super.key});
 
   @override
-  _NewAddressFormState createState() => _NewAddressFormState();
+  State<StatefulWidget> createState() => _NewAddressFormState();
 }
 
 class _NewAddressFormState extends State<NewAddressForm> {
@@ -32,7 +32,8 @@ class _NewAddressFormState extends State<NewAddressForm> {
                 ),
               ),
             ),
-          ),Padding(
+          ),
+          Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 4),
             child: SizedBox(
               height: 65.h,
@@ -84,7 +85,8 @@ class _NewAddressFormState extends State<NewAddressForm> {
                 ),
               ),
             ],
-          ),Padding(
+          ),
+          Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 4),
             child: SizedBox(
               height: 65.h,
@@ -98,7 +100,8 @@ class _NewAddressFormState extends State<NewAddressForm> {
                 ),
               ),
             ),
-          ),Row(
+          ),
+          Row(
             children: [
               Expanded(
                 child: Padding(
@@ -116,7 +119,8 @@ class _NewAddressFormState extends State<NewAddressForm> {
                     ),
                   ),
                 ),
-              ),Expanded(
+              ),
+              Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 4),
                   child: SizedBox(

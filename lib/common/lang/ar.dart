@@ -5,11 +5,16 @@ Map<String, String> arabic = {
   'categories': 'التصنيفات',
   'show more': 'عرض المزيد',
   'recently added': 'المضاف حديثًا',
+  'most requested': 'الأكثر طلبًا',
   'add to cart': 'أضف إلى السلة',
   'added to cart': 'تم الإضافة في السلة',
   'empty cart': 'سلة التسوق الخاصة بك فارغة',
   'empty fav': 'قائمة المفضلة الخاصة بك فارغة',
-  'Start adding items':'ابدأ بإضافة المنتجات الآن',
-  'saved in fav list':'تم الحفظ لوقت لاحق',
-  'product':'منتج'
+  'Start adding items': 'ابدأ بإضافة المنتجات الآن',
+  'saved in fav list': 'تم الحفظ لوقت لاحق',
+  'product': 'منتج',
+  'browse most requested products': 'اطلع على أكثر المنتجات طلباً.',
+  'empty availability orders': 'لم تقم بأي طلب على التوفّر بعد.',
+  'add payment method': 'أضف طريقة دفع',
+  'empty payment methods': 'ليس لديك أي طرق دفع محفوظة'
 };

@@ -68,12 +68,12 @@ class OrderProductCard extends StatelessWidget{
                                 overflow: TextOverflow.visible,
                                 maxLines: null
                             ),
-                            const Row(
+                            Row(
                                 mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text("العدد:", style: TextStyle(fontSize: 16, color:  Colors.grey)),
-                                  Text("3", style: TextStyle(fontSize: 16)),
+                                  Text(itemModel.quantity.toString(), style: TextStyle(fontSize: 16)),
                                 ]
                             ),
                           ],

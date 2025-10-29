@@ -36,7 +36,7 @@ class OrderItemModel{
     return OrderItemModel(
       productId: item.product.id,
       unitId: item.product.unitId,
-      price: item.product.price,
+      price: double.parse(item.product.getPrice()),
       quantity: item.quantity.value,
       vat: item.product.vat,
     );

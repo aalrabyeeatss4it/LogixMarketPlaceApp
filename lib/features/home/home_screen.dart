@@ -88,6 +88,27 @@ class HomeScreenState extends State<HomeScreen> {
                 }
                 ),
               ),
+
+              SectionTitleCard(title: 'most requested'.tr),
+              Padding(
+                padding: EdgeInsets.all(16.w),
+                child: Obx(() {
+                  if(productController.list.isEmpty){
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  return SizedBox(
+                    height: 350,
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: productController.list.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return HomeProductCard(product: productController.list[index]);
+                        }),
+                  );
+                }
+                ),
+              ),
             ],
           ),
         ),

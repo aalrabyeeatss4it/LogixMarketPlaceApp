@@ -34,54 +34,97 @@ class HomeProductCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Card(elevation: 0,child: SizedBox(height: 180.h,width: 280.w,
-                    child: Image.network(
-                      product.getThumbPath(),
-                      fit: BoxFit.cover,
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) return child; // image loaded
-                        return Center(
-                          child: CircularProgressIndicator(
-                            value: loadingProgress.expectedTotalBytes != null
-                                ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1)
-                                : null,
-                          ),
-                        );
-                      },
-                      errorBuilder: (context, error, stackTrace) {
-                        // return default image if network image fails
-                        return Image.asset(
-                          'assets/logo.png',
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Card(elevation: 0,child: SizedBox(height: 180.h,width: 280.w,
+                        child: Image.network(
+                          product.getThumbPath(),
                           fit: BoxFit.cover,
-                        );
-                      },
-                    ),
-                  )),
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) return child; // image loaded
+                            return Center(
+                              child: CircularProgressIndicator(
+                                value: loadingProgress.expectedTotalBytes != null
+                                    ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1)
+                                    : null,
+                              ),
+                            );
+                          },
+                          errorBuilder: (context, error, stackTrace) {
+                            // return default image if network image fails
+                            return Image.asset(
+                              'assets/logo.png',
+                              fit: BoxFit.cover,
+                            );
+                          },
+                        ),
+                      )),
+                    ],
+                  ),
+                  SizedBox(width: 280.w,child: Text(product.name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700))),
+                  Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(product.getDiscountRate(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700,color: secondaryColor)),
+                        Text(product.getPrice(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color:  primaryColor)),
+                        Image.asset('icons/riyal.png' ,width: 12,),
+                      ]),
+                  Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(product.getPreDiscountPrice(), style: TextStyle(fontSize: 14,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
+                      ]),
                 ],
               ),
-              SizedBox(width: 280.w,child: Text(product.name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700))),
-              Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(product.discountPercentage.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700,color: secondaryColor)),
-                    Text(product.price.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color:  primaryColor)),
-                    Image.asset('icons/riyal.png' ,width: 12,),
-                  ]),
-              Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(product.preDiscountPrice.toString()+'ريال', style: TextStyle(fontSize: 14,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
-                  ]),
               Row(
                 children: [
                   Obx(() {
                     bool added = cartController.inCart(product.id);
+                    CartItemModel? item = cartController.getItem(product.id);
+                    if(added){
+                      return Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Container(
+                          width: 210.w,
+                          height: 40,
+                          decoration: BoxDecoration(
+                              border: Border.all(width: 1.5,color: secondaryColor),
+                              borderRadius: BorderRadius.circular(20)
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              InkWell(
+                                onTap: (){
+                                  cartController.decrementQuantity(item);
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                  child: Image.asset((item!.quantity.value<=1)?'icons/trash.png':'icons/minus.png', width: 20,),
+                                ),
+                              ),
+                              Obx(() => Text(item.quantity.value.toString())),
+                              InkWell(
+                                onTap: (){
+                                  cartController.incrementQuantity(item);
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                  child: Image.asset('icons/plus.png', width: 20,),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    }
                     return ElevatedButton(
                         onPressed: (){
                           if(!added){
@@ -90,13 +133,13 @@ class HomeProductCard extends StatelessWidget {
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor:  added? primaryColor.withOpacity(0.5): primaryColor,
+                          backgroundColor:  primaryColor,
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)
                           )
                         ),
-                        child: Text(added?'added to cart'.tr : 'add to cart'.tr  )
+                        child: Text('add to cart'.tr)
                     );
                   }
                   ),
@@ -108,7 +151,7 @@ class HomeProductCard extends StatelessWidget {
                       return ElevatedButton(
                           onPressed: (){
                             if(added){
-                              favController.removeItem(product);
+                              favController.removeById(product.id);
                             }
                             else{
                               favController.addItem(product);

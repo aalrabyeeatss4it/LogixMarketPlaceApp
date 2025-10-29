@@ -8,7 +8,9 @@ const recentlyArrivedPath = '/products/recently-arrived';
 const mostRequestedPath = '/products/most-requested';
 const relatedPath = '/products/related/{id}';
 const ordersPath = '/orders';
+const invoicesPath = '/sale-invoices';
 const loginPath = '/users/login';
+const addressesPath = '/users/addresses';
 
 erpUrl(){
   return "http://localhost:8081";

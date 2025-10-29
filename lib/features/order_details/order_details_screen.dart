@@ -4,14 +4,25 @@ import 'package:get/get.dart';
 import '../../common/nav/app_bar_custom.dart';
 import '../../common/nav/bottom_nav_bar_custom.dart';
 import '../../common/theme/colors.dart';
+import '../../controllers/delivery_address_controller.dart';
 import '../../models/order_model.dart';
-import '../order_tracking/order_status_card.dart';
-import '../orders/order_product_card.dart';
 import 'order_detail_product_card.dart';
 import 'order_summary_card.dart';
 
-class OrderDetailsScreen extends StatelessWidget{
+class OrderDetailsScreen extends StatefulWidget {
   const OrderDetailsScreen({super.key});
+
+  @override
+  State<StatefulWidget> createState()=> OrderDetailsScreenState();
+
+}
+class OrderDetailsScreenState extends State<OrderDetailsScreen> {
+  final DeliveryAddressController controller = Get.put(DeliveryAddressController());
+  @override
+  void initState() {
+    super.initState();
+    controller.getAddresses();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,29 +113,30 @@ class OrderDetailsScreen extends StatelessWidget{
                         elevation: 0,
                         color: Colors.white,
                         shape: RoundedRectangleBorder(side: BorderSide(color: Colors.grey,width: 0.5),borderRadius: BorderRadius.circular(10)),
-                        child: const Padding(
+                        child: Padding(
                           padding: EdgeInsets.symmetric(vertical: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Padding(
+                              const Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 18.0),
                                 child: Text('التوصيل إلى',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w900)),
                               ),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 18.0),
-                                      child: Text('شارع 11، فيلا 90،1، 4، حي الياسمين، الرياض 13326، منطقة الرياض، السعودية.',
-                                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
-                                        overflow: TextOverflow.ellipsis,
+                                  Obx(()=> Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                                        child: Text(controller.defaultAddress.value?.fullAddress??"",
+                                          style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                  Padding(
+                                  const Padding(
                                     padding: EdgeInsets.symmetric(horizontal: 18.0),
                                     child: Text('تغيير العنوان',style: TextStyle(fontSize: 16,color: primaryColor,decoration: TextDecoration.underline,)),
                                   ),

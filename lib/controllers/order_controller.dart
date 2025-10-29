@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:logix_market_place/models/order_model.dart';
 import 'package:logix_market_place/services/service_result.dart';
 import '../common/dialogs/bottom_sheets.dart';
+import '../common/nav/page_routes.dart';
 import '../models/order_item_model.dart';
 import '../services/order_service.dart';
 import 'cart_controller.dart';
@@ -18,11 +19,14 @@ class OrderController extends GetxController{
     order.deliveryAddressId = deliveryAddressId;
     order.shipmentMethod = shipmentMethod.value.toString();
     order.paymentMethod = paymentMethod.value.toString();
-    order.items = cartController.getSelectedItems().map((item)=> OrderItemModel.fromCartItem(item)).toList();
+    order.items = cartController.items.map((item)=> OrderItemModel.fromCartItem(item)).toList();
     var serviceResult = await service.createOrder(order);
     if(serviceResult is SuccessStatus){
       Get.back();
-      showSuccessBottomSheet(onConfirm: (){});
+      showSuccessBottomSheet(onConfirm: (){
+        Get.offAllNamed(RouteNames.ordersPage,predicate: (route) => route.isFirst);
+          // Get.offAllNamed(RouteNames.orderDetailsPage, arguments: order,predicate: (route) => route.isFirst);
+      });
     }
     else{
       Get.back();

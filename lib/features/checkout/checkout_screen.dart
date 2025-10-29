@@ -17,12 +17,24 @@ import '../../controllers/order_controller.dart';
 import '../new_address/address_card.dart';
 import '../new_address/new_address_form.dart';
 
-class CheckoutScreen extends StatelessWidget {
+class CheckoutScreen extends StatefulWidget {
   CheckoutScreen({super.key});
+
+  @override
+  State<StatefulWidget> createState()=>_CheckoutScreenState();
+}
+class _CheckoutScreenState extends State<CheckoutScreen>{
 
   final CartController cartController = Get.put(CartController());
   final OrderController orderController = Get.put(OrderController());
   final DeliveryAddressController addressController = Get.put(DeliveryAddressController());
+
+  @override
+  void initState() {
+    super.initState();
+    addressController.getAddresses();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,9 +46,11 @@ class CheckoutScreen extends StatelessWidget {
                       SizedBox(height: 16.h),
                       const SectionTitleCard(title: "تأكيد الدفع"),
                       SizedBox(height: 25.h),
-                      (addressController.defaultAddress.value !=null )? Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: AddressCard(addressModel: addressController.defaultAddress.value!),
+                      (addressController.defaultAddress.value !=null )?
+                      Obx(()=> Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: AddressCard(addressModel: addressController.defaultAddress.value!),
+                        ),
                       ):
                       const Column(
                         children: [
@@ -181,7 +195,6 @@ class CheckoutScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-
                               SizedBox(
                                 height: 120.h,
                                 width: 180.w,
@@ -279,9 +292,9 @@ class CheckoutScreen extends StatelessWidget {
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           padding: const EdgeInsets.all(8),
-                          itemCount: cartController.getSelectedItems().length,
+                          itemCount: cartController.items.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return CheckoutProductCard(cartItem: cartController.getSelectedItems()[index]);
+                            return CheckoutProductCard(cartItem: cartController.items[index]);
                           }
                         ),
                       ),
@@ -295,9 +308,9 @@ class CheckoutScreen extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              const Padding(
+                              Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 4.0,vertical: 8),
-                                child: Text('9,572.00',style: TextStyle(fontSize: 16),),
+                                child: Obx(()=>Text(cartController.total.value.toString(),style: TextStyle(fontSize: 16),)),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 20.0),
@@ -319,7 +332,7 @@ class CheckoutScreen extends StatelessWidget {
                             children: [
                               const Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 4.0,vertical: 8),
-                                child: Text('50.00',style: TextStyle(fontSize: 16),),
+                                child: Text('0.00',style: TextStyle(fontSize: 16),),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 20.0),
@@ -339,9 +352,9 @@ class CheckoutScreen extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 4.0,vertical: 8),
-                                child: Text('9,622.00',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w900),),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 4.0,vertical: 8),
+                                child: Obx(()=>Text(cartController.total.value.toString(),style: TextStyle(fontSize: 16),)),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 20.0),
@@ -357,7 +370,7 @@ class CheckoutScreen extends StatelessWidget {
             )
         ),
         bottomNavigationBar: BottomNavBarCustom(currentPage: 2,actionRow: Obx((){
-          if (cartController.selectedItemsCount>0) {
+          if (cartController.items.isNotEmpty) {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 0),
               child: Row(
@@ -378,17 +391,16 @@ class CheckoutScreen extends StatelessWidget {
                                 )
                             ),
                             onPressed: () {
-                              showOrderConfirmBottomSheet(title: 'متابعة بالدفع الآجل؟', buttonLabel: 'تأكيد الطلب' + " ("+'9,622.00'+") ", onConfirm: () {
+                              showOrderConfirmBottomSheet(title: 'متابعة بالدفع الآجل؟', buttonLabel: 'تأكيد الطلب' + " ("+cartController.total.value.toString()+") ", onConfirm: () {
                                 orderController.createOrder(addressController.defaultAddress.value!.id!);
                               });
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Text(
-                                    'تأكيد الطلب' + " ("+'9,622.00'+") ",
+                                Obx(()=> Text('تأكيد الطلب' + " ("+cartController.total.value.toString()+") ",
                                     style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 16)
-                                ),
+                                )),
                                 Padding(
                                   padding: const EdgeInsets.only(left: 20.0),
                                   child: Image.asset('icons/riyal.png' ,width: 16,color: Colors.white,),

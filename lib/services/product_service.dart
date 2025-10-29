@@ -35,8 +35,10 @@ class ProductService{
 
   Future<List<ProductModel>> getByCategory(int categoryId) async {
     Response response  = await get(Uri.parse("$baseUrl$productsByCategoryPath/$categoryId"));
+    print("response.statusCode:"+response.statusCode.toString());
     if(response.statusCode == 200){
       var list = ProductModel.fromJsonList(jsonDecode(response.body));
+      print("list:"+list.length.toString());
       return list;
     }
     return [];

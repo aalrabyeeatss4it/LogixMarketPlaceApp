@@ -5,7 +5,7 @@ import 'package:logix_market_place/models/product_model.dart';
 class CartItemModel {
   ProductModel product;
   RxInt quantity = 1.obs;
-  RxBool selected = false.obs;
+  // RxBool selected = false.obs;
 
   CartItemModel({required this.product});
 

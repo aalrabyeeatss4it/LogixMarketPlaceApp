@@ -5,10 +5,10 @@ class ProductModel {
   int categoryId;
   int unitId;
   String name;
-  String discountPercentage;
+  double discountPercentage;
   double price;
   double vat;
-  double preDiscountPrice;
+  // double preDiscountPrice;
   String desc;
   String thumbPath;
   List<Attribute>? attributes;
@@ -21,7 +21,7 @@ class ProductModel {
       required this.desc,
       required this.thumbPath,
       required this.discountPercentage,
-      required this.preDiscountPrice,
+      // required this.preDiscountPrice,
       required this.price,
       required this.vat,
       this.attributes});
@@ -35,34 +35,55 @@ class ProductModel {
         price: json['price'],
         vat: json['vaT_Rate'],
         unitId: json['unitId'],
-        // discountPercentage: json['discountPercentage'],
-        discountPercentage: '- 12% ',
-        preDiscountPrice: json['preDiscountPrice'],
+        discountPercentage: json['discountPercentage'],
+        // preDiscountPrice: json['preDiscountPrice'],
         thumbPath: json['thumbPath']
     );
   }
 
   static List<ProductModel> fromJsonList(List<dynamic> jsonList) {
-    return jsonList.map((item) => ProductModel.fromJson(item)).toList();
+    print("fromJsonList...");
+    try{
+      return jsonList.map((item) => ProductModel.fromJson(item)).toList();
+    }
+    catch(e){
+      print("toJson--error");
+      print(e.toString());
+    }
+    return [];
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'categoryId': categoryId,
-      'name': name,
-      'vaT_Rate': vat,
-      'unitId': unitId,
-      'desc': desc,
-      'thumbPath': thumbPath,
-      'price': price,
-      'discountPercentage': discountPercentage,
-      'preDiscountPrice': preDiscountPrice
-    };
+      return {
+        'id': id,
+        'categoryId': categoryId,
+        'name': name,
+        'vaT_Rate': vat,
+        'unitId': unitId,
+        'desc': desc,
+        'thumbPath': thumbPath,
+        'price': price,
+        'discountPercentage': discountPercentage,
+        // 'preDiscountPrice': preDiscountPrice
+      };
   }
 
+  String getDiscountRate(){
+    if(discountPercentage==0)return "";
+    return "${(discountPercentage*100).toInt()}% ";
+  }
+
+  String getPrice(){
+    if(discountPercentage==0) return price.toString();
+    return (price-(discountPercentage*price)).toString();
+  }
+
+  String getPreDiscountPrice(){
+    if(discountPercentage==0) return "";
+    return '$priceريال';
+  }
   String getThumbPath(){
-    String path = thumbPath??"no_image.jpg";
+    String path = thumbPath;
     if(path.isEmpty){
       path = "no_image.jpg";
     }

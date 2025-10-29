@@ -35,8 +35,8 @@ class MockCartService implements CartService {
               unitId: 1,
               categoryId: 1,
               price: 126.5,
-              preDiscountPrice: 126.5,
-              discountPercentage: '- 12% ',
+              // preDiscountPrice: 126.5,
+              discountPercentage: 0,
               name: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
               desc: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
               thumbPath: 'assets_mock/product1.png')
@@ -48,8 +48,8 @@ class MockCartService implements CartService {
               unitId: 2,
               categoryId: 1,
               price: 126.5,
-              preDiscountPrice: 320,
-              discountPercentage: '- 12% ',
+              // preDiscountPrice: 320,
+              discountPercentage: 0,
               name: 'خلّاط مغسلة مرتفع – أسود مطفي',
               desc: 'خلّاط مغسلة مرتفع – أسود مطفي',
               thumbPath: 'assets_mock/product2.png')

@@ -18,6 +18,7 @@ class ProductController extends GetxController {
   }
 
   Future<void> getByCategory(int categoryId) async {
+    print("catId:"+categoryId.toString());
     isLoading.value = true;
     list.clear();
     try {

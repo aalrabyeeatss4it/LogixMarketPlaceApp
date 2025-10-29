@@ -27,96 +27,83 @@ class CartProductCard extends StatelessWidget {
         side: BorderSide(width: 0.7,color: grayBorderColor.withOpacity(0.5)),
         borderRadius: BorderRadius.circular(10),
       ),
-      color: cartItem.selected.value ? Colors.grey[200] : Colors.white,
+      color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              InkWell(
-                onTap: () {
-                  cartItem.selected.value = !cartItem.selected.value;
-                  cartController.updateSelectedCount(cartItem.selected.value);
-                },
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Stack(
-                      children:
-                      [
-                        SizedBox( width: 150, height: 160,
-                            child: Card(
-                                elevation: 0,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.network(
-                                    cartItem.product.getThumbPath(),
-                                    fit: BoxFit.cover,
-                                    loadingBuilder: (context, child, loadingProgress) {
-                                      if (loadingProgress == null) return child; // image loaded
-                                      return Center(
-                                        child: CircularProgressIndicator(
-                                          value: loadingProgress.expectedTotalBytes != null
-                                              ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1)
-                                              : null,
-                                        ),
-                                      );
-                                    },
-                                    errorBuilder: (context, error, stackTrace) {
-                                      // return default image if network image fails
-                                      return Image.asset(
-                                        'assets/logo.png',
-                                        fit: BoxFit.cover,
-                                      );
-                                    },
-                                  ),
-                                )
-                            )
-                        ),
-                        Positioned(child: Checkbox(value: cartItem.selected.value, onChanged: (val) {
-                          cartItem.selected.value = val?? false;
-                          cartController.updateSelectedCount(cartItem.selected.value);
-                        },
-                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
-                        ))
-                      ],
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(cartItem.product.name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700), softWrap: true,
-                              overflow: TextOverflow.visible,
-                              maxLines: null
-                            ),
-                            const Row(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text('الخيارات:'),
-                                  SizedBox(width: 5),
-                                  Text('2 مقاسات', style: TextStyle(fontSize: 16,color: primaryColor)),
-                                ]
-                            ),
-                            Row(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(cartItem.product.discountPercentage.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700,color: secondaryColor)),
-                                  Text(cartItem.product.price.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color:  primaryColor)),
-                                  Image.asset('icons/riyal.png' ,width: 12,),
-                                ]
-                            ),
-                            Text(cartItem.product.preDiscountPrice.toString()+'ريال', style: TextStyle(fontSize: 14,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Stack(
+                    children:
+                    [
+                      SizedBox( width: 150, height: 160,
+                          child: Card(
+                              elevation: 0,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Image.network(
+                                  cartItem.product.getThumbPath(),
+                                  fit: BoxFit.cover,
+                                  loadingBuilder: (context, child, loadingProgress) {
+                                    if (loadingProgress == null) return child; // image loaded
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                        value: loadingProgress.expectedTotalBytes != null
+                                            ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1)
+                                            : null,
+                                      ),
+                                    );
+                                  },
+                                  errorBuilder: (context, error, stackTrace) {
+                                    // return default image if network image fails
+                                    return Image.asset(
+                                      'assets/logo.png',
+                                      fit: BoxFit.cover,
+                                    );
+                                  },
+                                ),
+                              )
+                          )
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(cartItem.product.name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700), softWrap: true,
+                            overflow: TextOverflow.visible,
+                            maxLines: null
+                          ),
+                          const Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text('الخيارات:'),
+                                SizedBox(width: 5),
+                                Text('2 مقاسات', style: TextStyle(fontSize: 16,color: primaryColor)),
+                              ]
+                          ),
+                          Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(cartItem.product.getDiscountRate(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700,color: secondaryColor)),
+                                Text(cartItem.product.getPrice(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color:  primaryColor)),
+                                Image.asset('icons/riyal.png' ,width: 12,),
+                              ]
+                          ),
+                          Text(cartItem.product.getPreDiscountPrice(), style: TextStyle(fontSize: 14,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
 
-                          ],
-                        ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -195,7 +182,7 @@ class CartProductCard extends StatelessWidget {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(4.0),
-                          child: Text((added)?'في المفضلة':'حفظ لوقت لاحق'),
+                          child: Text((added)?'في المفضلة':'اضافة للمفضلة'),
                         )
                     );}
                   )

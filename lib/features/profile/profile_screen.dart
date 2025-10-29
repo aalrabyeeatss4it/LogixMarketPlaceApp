@@ -20,10 +20,18 @@ class ProfileScreen extends StatelessWidget{
       Option(title: 'المفضلة', subTitle: 'إدارة القوائم، والنقل إلى السلة.', icon: 'icons/favorites.png', onTap: (){
         Get.offAllNamed(RouteNames.favPage,predicate: (route) => route.isFirst);
       }),
-      Option(title: 'عناوين التوصيل', subTitle: 'إضافة وتعديل وحذف عناوين', icon: 'icons/my-addresses.png', onTap: (){},),
-      Option(title: 'فواتيري', subTitle: 'دفع فواتيرك المستحقة مجمعة أو مفردة', icon: 'icons/my-invoices.png', onTap: (){},),
-      Option(title: 'طرق الدفع', subTitle: 'إضافة وتعديل وحذف تفاصيل الدفع', icon: 'icons/payments.png', onTap: (){},),
-      Option(title: 'طلباتي قيد التوفّر', subTitle: 'متابعة المنتجات غير المتاحة ', icon: 'icons/supply-orders.png', onTap: (){},)
+      Option(title: 'عناوين التوصيل', subTitle: 'إضافة وتعديل وحذف عناوين', icon: 'icons/my-addresses.png', onTap: (){
+        Get.offAllNamed(RouteNames.deliveryAddressPage,predicate: (route) => route.isFirst);
+      }),
+      Option(title: 'فواتيري', subTitle: 'دفع فواتيرك المستحقة مجمعة أو مفردة', icon: 'icons/my-invoices.png', onTap: (){
+        Get.offAllNamed(RouteNames.invoicesPage,predicate: (route) => route.isFirst);
+      }),
+      Option(title: 'طرق الدفع', subTitle: 'إضافة وتعديل وحذف تفاصيل الدفع', icon: 'icons/payments.png', onTap: (){
+        Get.offAllNamed(RouteNames.paymentMethodsPage,predicate: (route) => route.isFirst);
+      }),
+      Option(title: 'طلباتي قيد التوفّر', subTitle: 'متابعة المنتجات غير المتاحة ', icon: 'icons/supply-orders.png', onTap: (){
+        Get.offAllNamed(RouteNames.availabilityOrderPage,predicate: (route) => route.isFirst);
+      })
     ];
 
     final LoginController loginController = Get.find<LoginController>();
