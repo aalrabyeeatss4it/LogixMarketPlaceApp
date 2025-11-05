@@ -9,7 +9,7 @@ class MockProductService implements ProductService {
       ProductModel(
           id: 1,
           categoryId: 1,
-          price: 126.5,
+          basePrice: 126.5,
           vat: 15,
           unitId: 15,
           // preDiscountPrice: 300,
@@ -21,7 +21,7 @@ class MockProductService implements ProductService {
       ProductModel(
           id: 2,
           categoryId: 1,
-          price: 126.5,
+          basePrice: 126.5,
           vat: 15,
           unitId: 15,
           // preDiscountPrice: 200,
@@ -33,7 +33,7 @@ class MockProductService implements ProductService {
       ProductModel(
           id: 3,
           categoryId: 1,
-          price: 126.5,
+          basePrice: 126.5,
           vat: 15,
           unitId: 15,
           // preDiscountPrice: 450,
@@ -45,7 +45,7 @@ class MockProductService implements ProductService {
       ProductModel(
           id: 4,
           categoryId: 1,
-          price: 126.5,
+          basePrice: 126.5,
           vat: 15,
           unitId: 15,
           // preDiscountPrice: 240,
@@ -57,7 +57,7 @@ class MockProductService implements ProductService {
       ProductModel(
           id: 5,
           categoryId: 1,
-          price: 126.5,
+          basePrice: 126.5,
           vat: 15,
           unitId: 15,
           // preDiscountPrice: 250,
@@ -75,7 +75,7 @@ class MockProductService implements ProductService {
       ProductModel(
           id: 1,
           categoryId: 1,
-          price: 126.5,
+          basePrice: 126.5,
           vat: 15,
           unitId: 15,
           // preDiscountPrice: 300,
@@ -87,7 +87,7 @@ class MockProductService implements ProductService {
       ProductModel(
           id: 2,
           categoryId: 1,
-          price: 126.5,
+          basePrice: 126.5,
           vat: 15,
           unitId: 15,
           // preDiscountPrice: 200,
@@ -99,7 +99,7 @@ class MockProductService implements ProductService {
       ProductModel(
           id: 3,
           categoryId: 1,
-          price: 126.5,
+          basePrice: 126.5,
           vat: 15,
           unitId: 15,
           // preDiscountPrice: 450,
@@ -111,7 +111,7 @@ class MockProductService implements ProductService {
       ProductModel(
           id: 4,
           categoryId: 1,
-          price: 126.5,
+          basePrice: 126.5,
           vat: 15,
           unitId: 15,
           // preDiscountPrice: 240,
@@ -123,7 +123,7 @@ class MockProductService implements ProductService {
       ProductModel(
           id: 5,
           categoryId: 1,
-          price: 126.5,
+          basePrice: 126.5,
           vat: 15,
           unitId: 15,
           // preDiscountPrice: 250,

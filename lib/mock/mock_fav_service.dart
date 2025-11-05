@@ -21,7 +21,7 @@ class MockFavService implements FavService {
       ProductModel(
           id: 1,
           categoryId: 1,
-          price: 126.5,
+          basePrice: 126.5,
           vat: 15,
           unitId: 15,
           // preDiscountPrice: 500,
@@ -34,7 +34,7 @@ class MockFavService implements FavService {
       ProductModel(
           id: 2,
           categoryId: 1,
-          price: 126.5,
+          basePrice: 126.5,
           vat: 15,
           unitId: 15,
           // preDiscountPrice: 500,

@@ -1,4 +1,5 @@
 import 'package:get_storage/src/storage_impl.dart';
+import 'package:http/src/response.dart';
 import 'package:logix_market_place/models/category_model.dart';
 import 'package:logix_market_place/services/category_service.dart';
 
@@ -21,5 +22,17 @@ class MockCategoryService implements CategoryService{
 
   @override
   GetStorage get box => throw UnimplementedError();
+
+  @override
+  Future<Response> getData(String path) {
+    // TODO: implement getData
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Response> postData(String path, Map<String, dynamic> json) {
+    // TODO: implement postData
+    throw UnimplementedError();
+  }
 
 }

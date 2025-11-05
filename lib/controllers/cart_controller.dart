@@ -3,10 +3,12 @@ import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:get_storage/get_storage.dart';
 import '../models/cart_item_model.dart';
+import '../services/product_detail_service.dart';
 
 class CartController extends GetxController {
   final box = GetStorage();
 
+  ProductDetailService productDetailService = Get.put(ProductDetailService());
   RxList<CartItemModel> items = <CartItemModel>[].obs;
   RxDouble total = 0.0.obs;
   @override
@@ -23,7 +25,7 @@ class CartController extends GetxController {
       final List decoded = jsonDecode(itemsJson);
       items.assignAll(decoded.map((e) {
         var item = CartItemModel.fromJson(e);
-        tot += double.parse(item.product.getPrice());
+        tot += item.product.priceIncludeVat;
         return item;
       }).toList());
       total.value = tot;
@@ -40,7 +42,7 @@ class CartController extends GetxController {
   void calcTotal() {
     var tot = 0.0;
     for (var item in items) {
-      tot += double.parse(item.product.getPrice())*item.quantity.value;
+      tot += item.product.priceIncludeVat*item.quantity.value;
     }
     total.value = tot;
   }
@@ -62,6 +64,9 @@ class CartController extends GetxController {
 
   Future<void> incrementQuantity(CartItemModel item) async {
     item.quantity.value = item.quantity.value + 1;
+    var p = await productDetailService.getProduct(item.product.id, item.quantity.value);
+    item.product.basePrice.value = p!.basePrice.value;
+    item.product.discountPercentage.value = p.discountPercentage.value;
     saveCart();
   }
 
@@ -70,6 +75,9 @@ class CartController extends GetxController {
       items.remove(item);
     } else {
       item.quantity.value = item.quantity.value - 1;
+      var p = await productDetailService.getProduct(item.product.id, item.quantity.value);
+      item.product.basePrice.value = p!.basePrice.value;
+      item.product.discountPercentage.value = p.discountPercentage.value;
     }
     saveCart();
   }
@@ -91,42 +99,4 @@ class CartController extends GetxController {
     int index = items.indexWhere((item) => item.product.id == productId);
     return items[index].quantity.value;
   }
-
-//
-// List<CartItemModel> getSelectedItems() {
-//   List<CartItemModel> selectedItems = [];
-//   for (int i = 0; i < items.length; i++) {
-//     if (items[i].selected.value) selectedItems.add(items[i]);
-//   }
-//   return selectedItems;
-// }
-
-//
-  // void selectAll() {
-  //   selectedItemsCount.value = 0;
-  //   for (var item in items) {
-  //     item.selected.value = true;
-  //     selectedItemsCount.value = selectedItemsCount.value + 1;
-  //   }
-  //   calcTotal();
-  // }
-  //
-  // void deSelectAll() {
-  //   selectedItemsCount.value = 0;
-  //   for (var item in items) {
-  //     item.selected.value = false;
-  //   }
-  //   selectedItemsCount.value = 0;
-  //   total.value = 0.0;
-  // }
-  //
-  // void updateSelectedCount(bool selected) {
-  //   if (selected) {
-  //     selectedItemsCount.value = selectedItemsCount.value + 1;
-  //   } else {
-  //     selectedItemsCount.value = selectedItemsCount.value - 1;
-  //   }
-  //   calcTotal();
-  // }
-
 }

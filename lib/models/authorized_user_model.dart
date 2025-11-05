@@ -1,5 +1,8 @@
 class AuthorizedUserModel {
   String userName;
+  String firstName;
+  String lastName;
+  String email;
   String userId;
   String token;
   String branchId;
@@ -10,6 +13,9 @@ class AuthorizedUserModel {
 
   AuthorizedUserModel({
     required this.userName,
+    required this.firstName,
+    required this.lastName,
+    required this.email,
     required this.userId,
     required this.token,
     required this.branchId,
@@ -22,6 +28,9 @@ class AuthorizedUserModel {
   factory AuthorizedUserModel.fromJson(Map<String, dynamic> json) {
     return AuthorizedUserModel(
       userName: json['userName'] ?? '',
+      firstName: json['firstName'] ?? '',
+      lastName: json['lastName'] ?? '',
+      email: json['email'] ?? '',
       userId: json['userId'] ?? '',
       token: json['token'] ?? '',
       branchId: json['branchId'] ?? '',

@@ -72,7 +72,32 @@ class ProductDetailScreenState extends State<ProductDetailScreen>{
                   child: Column(
                       children:
                       [
-                        Center(child: SizedBox( width: 120, height: 120, child: Image.asset(_productController.product.value.thumbPath,fit: BoxFit.fill))),
+                        Center(
+                            child:
+                            SizedBox( width: 120, height: 120,
+                                child: Image.network(
+                                  _productController.product.value.getThumbPath(),
+                                  fit: BoxFit.cover,
+                                  loadingBuilder: (context, child, loadingProgress) {
+                                    if (loadingProgress == null) return child; // image loaded
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                        value: loadingProgress.expectedTotalBytes != null
+                                            ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1)
+                                            : null,
+                                      ),
+                                    );
+                                  },
+                                  errorBuilder: (context, error, stackTrace) {
+                                    // return default image if network image fails
+                                    return Image.asset(
+                                      'assets/logo.png',
+                                      fit: BoxFit.cover,
+                                    );
+                                  },
+                                )
+                            )
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -108,17 +133,21 @@ class ProductDetailScreenState extends State<ProductDetailScreen>{
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(_productController.product.value.getDiscountRate(), style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700,color: secondaryColor)),
-                        Text(_productController.product.value.getPrice(), style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color:  primaryColor)),
+                        Text(_productController.product.value.priceIncludeVat.toStringAsFixed(2), style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color:  primaryColor)),
                         Image.asset('icons/riyal.png' ,width: 12,),
                       ]
                     ),
                     Text(_productController.product.value.getPreDiscountPrice(), style: TextStyle(fontSize: 16,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
-                    const Text('متوفر', style: TextStyle(fontSize: 16,fontWeight: FontWeight.w700,color: successAccentColor)),
+                    const Text('متوفر', style: TextStyle(fontSize: 16,fontWeight: FontWeight.w700,color: successColor)),
                     const Divider(),
                     const Text('تفاصيل المنتج', style: TextStyle(fontSize: 18,fontWeight: FontWeight.w900)),
-                    const Divider(),
-                    const SizedBox(height: 20,),
-                    const Text('المواصفات:', style: TextStyle(fontSize: 16,fontWeight: FontWeight.w700)),
+                    (_productController.product.value.attributes!=null)?const Column(
+                      children: [
+                        Divider(),
+                        SizedBox(height: 20,),
+                        Text('المواصفات:', style: TextStyle(fontSize: 16,fontWeight: FontWeight.w700)),
+                      ],
+                    ):SizedBox(),
                     (_productController.product.value.attributes!=null)?
                     ListView.builder(
                         shrinkWrap: true,
@@ -127,8 +156,12 @@ class ProductDetailScreenState extends State<ProductDetailScreen>{
                         itemBuilder: (BuildContext context, int index) {
                           return AttributeCard(attribute: _productController.product.value.attributes![index]);
                         }):const SizedBox(),
-                    const Divider(),
-                    const Text('المنتجات المرتبطة', style: TextStyle(fontSize: 18,fontWeight: FontWeight.w900)),
+                    (_productController.product.value.attributes!=null)?Column(
+                      children: [
+                        const Divider(),
+                        const Text('المنتجات المرتبطة', style: TextStyle(fontSize: 18,fontWeight: FontWeight.w900)),
+                      ],
+                    ):const SizedBox(),
 
                   ]
                 ),
@@ -137,7 +170,8 @@ class ProductDetailScreenState extends State<ProductDetailScreen>{
                 padding: EdgeInsets.all(16.w),
                 child: Obx(() {
                   if(_productController.relatedProducts.isEmpty){
-                    return const Center(child: CircularProgressIndicator());
+                    // return const Center(child: CircularProgressIndicator());
+                    return const Center(child: SizedBox());
                   }
                   return SizedBox(
                     height: 350,
@@ -196,12 +230,67 @@ class ProductDetailScreenState extends State<ProductDetailScreen>{
                       height: 55,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 3),
+                        // child: Obx(() {
+                        //     return ElevatedButton(
+                        //         onPressed: (){
+                        //           if(!added){
+                        //             CartItemModel item = CartItemModel(product: product);
+                        //             cartController.addItem(item);
+                        //           }
+                        //         },
+                        //         style: ElevatedButton.styleFrom(
+                        //             backgroundColor:  primaryColor,
+                        //             foregroundColor: Colors.white,
+                        //             shape: RoundedRectangleBorder(
+                        //                 borderRadius: BorderRadius.circular(10)
+                        //             )
+                        //         ),
+                        //         child: Text('add to cart'.tr)
+                        //     );
+                        //   }
+                        //   )
                         child: Obx(() {
                           bool added = cartController.inCart(_productController.product.value.id);
+                          CartItemModel? item = cartController.getItem(_productController.product.value.id);
                           if(added){
                             WidgetsBinding.instance.addPostFrameCallback((_) {
                               _productController.setQty(cartController.getQty(_productController.product.value.id));
                             });
+                            return Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Container(
+                                width: 210.w,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                    border: Border.all(width: 1.5,color: secondaryColor),
+                                    borderRadius: BorderRadius.circular(20)
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    InkWell(
+                                      onTap: (){
+                                        cartController.decrementQuantity(item);
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                        child: Image.asset((item!.quantity.value<=1)?'icons/trash.png':'icons/minus.png', width: 20,),
+                                      ),
+                                    ),
+                                    Obx(() => Text(item.quantity.value.toString())),
+                                    InkWell(
+                                      onTap: (){
+                                        cartController.incrementQuantity(item);
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                        child: Image.asset('icons/plus.png', width: 20,),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
                           }
                           return ElevatedButton(
                               onPressed: (){
@@ -212,13 +301,13 @@ class ProductDetailScreenState extends State<ProductDetailScreen>{
                                 }
                               },
                               style: ElevatedButton.styleFrom(
-                                  backgroundColor:  added? primaryColor.withOpacity(0.5): primaryColor,
-                                  foregroundColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10)
-                                  )
-                              ),
-                              child: Text(added?'added to cart'.tr : 'add to cart'.tr  )
+                                    backgroundColor:  primaryColor,
+                                    foregroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10)
+                                    )
+                                ),
+                                child: Text('add to cart'.tr)
                           );
                         }
                         ),
@@ -230,8 +319,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen>{
                       showModalBottomSheet(
                         context: context,
                         backgroundColor: Colors.white,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
+                        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(16))) ,
                         builder: (context) {
                           return SizedBox(
                             height: 100,

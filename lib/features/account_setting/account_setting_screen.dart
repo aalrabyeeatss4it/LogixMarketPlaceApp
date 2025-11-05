@@ -118,7 +118,7 @@ class AccountSettingScreen extends StatelessWidget{
                                       )
                                   ),
                                   onPressed: () {
-                                    loginController.logout();
+                                    LoginController.logout();
                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,

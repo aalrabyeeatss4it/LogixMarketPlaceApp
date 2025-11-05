@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 import '../mock/mock_product_detail_service.dart';
 import '../models/product_model.dart';
+import '../services/product_detail_service.dart';
 
 class ProductDetailController extends GetxController {
   late Rx<ProductModel> product = Rx<ProductModel>(
@@ -9,7 +10,7 @@ class ProductDetailController extends GetxController {
         id: 0,
         name: '',
         desc: '',
-        price: 0,
+        basePrice: 0,
         vat: 0,
         unitId: 0,
         discountPercentage: 0,
@@ -22,12 +23,13 @@ class ProductDetailController extends GetxController {
   void setQty(int qty){
     quantity.value = qty;
   }
-  MockProductDetailService productDetailService = Get.put(MockProductDetailService());
+  ProductDetailService productDetailService = Get.put(ProductDetailService());
   RxList<ProductModel> relatedProducts = <ProductModel>[].obs;
+
 
   Future<void> getProduct(int productID) async {
     loading.value = true;
-    var p = await productDetailService.getProduct(productID);
+    var p = await productDetailService.getProduct(productID, quantity.value);
     product.value = p!;
     getRelatedProducts();
     loading.value = false;

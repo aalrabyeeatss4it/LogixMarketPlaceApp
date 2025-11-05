@@ -5,7 +5,7 @@ import '../services/product_service.dart';
 
 class MockProductDetailService implements ProductDetailService {
   @override
-  Future<ProductModel?> getProduct(int productID) async {
+  Future<ProductModel?> getProduct(int productID, int qty) async {
     await Future.delayed(const Duration(milliseconds: 500));
     List<Attribute> att = [
       Attribute(label: ' المقاس', value: '18 × 28 سم'),
@@ -20,7 +20,7 @@ class MockProductDetailService implements ProductDetailService {
     ProductModel product = ProductModel(
         id: productID,
         categoryId: 1,
-        price: 6.5,
+        basePrice: 6.5,
         vat: 15,
         unitId: 15,
         // preDiscountPrice: 500,
@@ -39,7 +39,7 @@ class MockProductDetailService implements ProductDetailService {
       ProductModel(
           id: 1,
           categoryId: 1,
-          price: 6.5,
+          basePrice: 6.5,
           vat: 15,
           unitId: 15,
           // preDiscountPrice: 500,
@@ -50,7 +50,7 @@ class MockProductDetailService implements ProductDetailService {
       ProductModel(
           id: 2,
           categoryId: 1,
-          price: 6.5,
+          basePrice: 6.5,
           vat: 15,
           unitId: 15,
           // preDiscountPrice: 300,

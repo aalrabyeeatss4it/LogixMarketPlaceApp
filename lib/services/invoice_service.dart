@@ -4,6 +4,7 @@ import 'package:http/http.dart';
 import 'package:logix_market_place/models/order_model.dart';
 import 'package:logix_market_place/services/service_result.dart';
 import '../common/api_paths.dart';
+import '../common/storage/local_storage.dart';
 import '../models/customer_invoices_model.dart';
 
 class InvoiceService{
@@ -12,7 +13,7 @@ class InvoiceService{
     Response response = await get(Uri.parse(baseUrl + invoicesPath),
         headers: {
           "Content-Type": "application/json",
-          "Authorization":"Bearer "+ box.read("token")
+          "Authorization":"Bearer "+ box.read(tokenIndex)
     }
     );
     print("response.statusCode:"+response.statusCode.toString());
@@ -28,7 +29,7 @@ class InvoiceService{
     Response response = await get(Uri.parse(baseUrl + invoicesPath),
         headers: {
           "Content-Type": "application/json",
-          "Authorization":"Bearer "+ box.read("token")
+          "Authorization":"Bearer "+ box.read(tokenIndex)
         }
     );
     if(response.statusCode==200){

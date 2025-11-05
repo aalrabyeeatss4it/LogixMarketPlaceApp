@@ -81,7 +81,7 @@ class CheckoutProductCard extends StatelessWidget{
                                       mainAxisSize: MainAxisSize.min,
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
-                                        Text(cartItem.product.getPrice(), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color:  primaryColor)),
+                                        Text(cartItem.product.priceIncludeVat.toStringAsFixed(2), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color:  primaryColor)),
                                         Image.asset('icons/riyal.png' ,width: 12,),
                                       ]
                                   ),

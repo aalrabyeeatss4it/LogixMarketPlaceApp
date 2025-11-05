@@ -5,6 +5,7 @@ import '../theme/colors.dart';
 
 void showFailureBottomSheet({
   required VoidCallback onConfirm,
+  String? errorMessage
 }) {
   Get.bottomSheet(
       Container(
@@ -26,7 +27,7 @@ void showFailureBottomSheet({
                   fontWeight: FontWeight.bold,
                   color: errorColor
               ),),
-            const Text("يرجى المحاولة مرة أخرى أو التحقق من اتصالك بالإنترنت",
+            Text((errorMessage)??"يرجى المحاولة مرة أخرى أو التحقق من اتصالك بالإنترنت",
                 style: TextStyle(
                     fontSize: 16,
                     color: Colors.grey
@@ -49,7 +50,7 @@ void showFailureBottomSheet({
 }
 
 
-void showSuccessBottomSheet({
+void showSuccessOrderBottomSheet({
   required VoidCallback onConfirm,
 }) {
   Get.bottomSheet(
@@ -118,6 +119,52 @@ void showSuccessBottomSheet({
               margin: const EdgeInsets.only(bottom: 16),
               decoration: BoxDecoration(
                 color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(5),
+              ),
+            ),
+          ],
+        ),
+      )
+  );
+}
+
+void showSuccessBottomSheet({
+  required VoidCallback onConfirm,
+  String? message
+}) {
+  Get.bottomSheet(
+      Container(
+        width: double.infinity,
+        padding: const EdgeInsets.only(top: 20,left: 20,right: 20),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(height: 20,),
+            Image.asset("icons/success.png",height: 40,color: successActionColor,),
+            const SizedBox(height: 10,),
+            const Text("تم تنفيذ العملية بنجاح",
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: successActionColor
+              ),),
+            Text((message)??"شكراً لك! تم تحديث بياناتك بنجاح.",
+                style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey
+                )
+            ),
+            const SizedBox(height: 25,),
+            Container(
+              height: 5,
+              width: 150,
+              margin: const EdgeInsets.only(bottom: 16),
+              decoration: BoxDecoration(
+                color: Colors.black,
                 borderRadius: BorderRadius.circular(5),
               ),
             ),

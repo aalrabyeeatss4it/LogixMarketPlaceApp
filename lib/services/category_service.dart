@@ -5,13 +5,13 @@ import 'package:http/http.dart';
 import 'package:logix_market_place/models/category_model.dart';
 
 import '../common/api_paths.dart';
+import '../common/storage/local_storage.dart';
+import 'my_service.dart';
 
-class CategoryService {
+class CategoryService  extends MyService{
   final box = GetStorage();
   Future<List<CategoryModel>> getAll() async {
-    Response response = await get(Uri.parse(baseUrl + categoriesPath),headers: {
-      "Authorization":"Bearer "+ box.read("token")
-    });
+    Response response = await getData(categoriesPath);
     if (response.statusCode == 200) {
       var catList = CategoryModel.fromJsonList(jsonDecode(response.body));
       return catList;

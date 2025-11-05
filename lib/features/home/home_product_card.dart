@@ -11,170 +11,179 @@ import '../../controllers/cart_controller.dart';
 
 class HomeProductCard extends StatelessWidget {
   HomeProductCard({super.key, required this.product});
-  final ProductModel product;
+  ProductModel product;
   final CartController cartController = Get.find<CartController>();
   final FavController favController = Get.find<FavController>();
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: (){
-        Get.offAllNamed(RouteNames.productDetailPage, arguments: {
-          'productId': product.id,
-        },predicate: (route) => route.isFirst);
-      },
-      child: Card(
-          color: Colors.white,
-          elevation: 0,
-          shape: RoundedRectangleBorder(
-            side: BorderSide(width: 0.7,color: grayBorderColor.withOpacity(0.5)),
-            borderRadius: BorderRadius.circular(10),
-          ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Card(elevation: 0,child: SizedBox(height: 180.h,width: 280.w,
-                        child: Image.network(
-                          product.getThumbPath(),
-                          fit: BoxFit.cover,
-                          loadingBuilder: (context, child, loadingProgress) {
-                            if (loadingProgress == null) return child; // image loaded
-                            return Center(
-                              child: CircularProgressIndicator(
-                                value: loadingProgress.expectedTotalBytes != null
-                                    ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1)
-                                    : null,
-                              ),
-                            );
-                          },
-                          errorBuilder: (context, error, stackTrace) {
-                            // return default image if network image fails
-                            return Image.asset(
-                              'assets/logo.png',
-                              fit: BoxFit.cover,
-                            );
-                          },
-                        ),
-                      )),
-                    ],
-                  ),
-                  SizedBox(width: 280.w,child: Text(product.name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700))),
-                  Row(
+    return Obx(() {
+      bool added = cartController.inCart(product.id);
+      CartItemModel? item = cartController.getItem(product.id);
+      if(item!=null){
+        product = item.product;
+      }
+      return InkWell(
+        onTap: (){
+          Get.offAllNamed(RouteNames.productDetailPage, arguments: {
+            'productId': product.id,
+          },predicate: (route) => route.isFirst);
+        },
+        child: Card(
+            color: Colors.white,
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              side: BorderSide(width: 0.7,color: grayBorderColor.withOpacity(0.5)),
+              borderRadius: BorderRadius.circular(10),
+            ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(product.getDiscountRate(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700,color: secondaryColor)),
-                        Text(product.getPrice(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color:  primaryColor)),
-                        Image.asset('icons/riyal.png' ,width: 12,),
-                      ]),
-                  Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(product.getPreDiscountPrice(), style: TextStyle(fontSize: 14,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
-                      ]),
-                ],
-              ),
-              Row(
-                children: [
-                  Obx(() {
-                    bool added = cartController.inCart(product.id);
-                    CartItemModel? item = cartController.getItem(product.id);
-                    if(added){
-                      return Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Container(
-                          width: 210.w,
-                          height: 40,
-                          decoration: BoxDecoration(
-                              border: Border.all(width: 1.5,color: secondaryColor),
-                              borderRadius: BorderRadius.circular(20)
+                        Card(elevation: 0,child: SizedBox(height: 180.h,width: 280.w,
+                          child: Image.network(
+                            product.getThumbPath(),
+                            fit: BoxFit.cover,
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) return child; // image loaded
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  value: loadingProgress.expectedTotalBytes != null
+                                      ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1)
+                                      : null,
+                                ),
+                              );
+                            },
+                            errorBuilder: (context, error, stackTrace) {
+                              // return default image if network image fails
+                              return Image.asset(
+                                'assets/logo.png',
+                                fit: BoxFit.cover,
+                              );
+                            },
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        )),
+                      ],
+                    ),
+                    SizedBox(width: 280.w,child: Text(product.name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700))),
+                    Obx(()=> Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(product.getDiscountRate(), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700,color: secondaryColor)),
+                            Text(product.priceIncludeVat.toStringAsFixed(2), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color:  primaryColor)),
+                            Image.asset('icons/riyal.png' ,width: 12,),
+                          ]
+                        )
+                    ),
+                    Obx(()=>
+                        Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              InkWell(
-                                onTap: (){
-                                  cartController.decrementQuantity(item);
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                  child: Image.asset((item!.quantity.value<=1)?'icons/trash.png':'icons/minus.png', width: 20,),
+                              Text(product.getPreDiscountPrice(), style: const TextStyle(fontSize: 14,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
+                            ]
+                        )
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    // Obx(() {
+                    //   bool added = cartController.inCart(product.id);
+                    //   CartItemModel? item = cartController.getItem(product.id);
+                      (added)? Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Container(
+                            width: 210.w,
+                            height: 40,
+                            decoration: BoxDecoration(
+                                border: Border.all(width: 1.5,color: secondaryColor),
+                                borderRadius: BorderRadius.circular(20)
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                InkWell(
+                                  onTap: (){
+                                    cartController.decrementQuantity(item);
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                    child: Image.asset((item!.quantity.value<=1)?'icons/trash.png':'icons/minus.png', width: 20,),
+                                  ),
                                 ),
-                              ),
-                              Obx(() => Text(item.quantity.value.toString())),
-                              InkWell(
-                                onTap: (){
-                                  cartController.incrementQuantity(item);
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                  child: Image.asset('icons/plus.png', width: 20,),
-                                ),
-                              )
-                            ],
+                                Obx(() => Text(item.quantity.value.toString())),
+                                InkWell(
+                                  onTap: (){
+                                    cartController.incrementQuantity(item);
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                    child: Image.asset('icons/plus.png', width: 20,),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    }
-                    return ElevatedButton(
-                        onPressed: (){
-                          if(!added){
-                            CartItemModel item = CartItemModel(product: product);
-                            cartController.addItem(item);
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:  primaryColor,
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)
-                          )
-                        ),
-                        child: Text('add to cart'.tr)
-                    );
-                  }
-                  ),
-                  const SizedBox(width: 10),
-                  SizedBox(
-                    width: 50,
-                    child: Obx((){
-                      bool added = favController.inFav(product.id);
-                      return ElevatedButton(
+                      ):
+                      ElevatedButton(
                           onPressed: (){
-                            if(added){
-                              favController.removeById(product.id);
-                            }
-                            else{
-                              favController.addItem(product);
+                            if(!added){
+                              CartItemModel item = CartItemModel(product: product);
+                              cartController.addItem(item);
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.all(5),
-                            backgroundColor: secondaryColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)
-                            )
+                              backgroundColor:  primaryColor,
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)
+                              )
                           ),
-                          child: Image.asset(added? 'icons/fav-checked.png' : 'icons/fav.png', width: 30,)
-                      );
-                    }
+                          child: Text('add to cart'.tr)
+                      ),
+                    const SizedBox(width: 10),
+                    SizedBox(
+                      width: 50,
+                      child: Obx((){
+                        bool added = favController.inFav(product.id);
+                        return ElevatedButton(
+                            onPressed: (){
+                              if(added){
+                                favController.removeById(product.id);
+                              }
+                              else{
+                                favController.addItem(product);
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.all(5),
+                              backgroundColor: secondaryColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)
+                              )
+                            ),
+                            child: Image.asset(added? 'icons/fav-checked.png' : 'icons/fav.png', width: 30,)
+                        );
+                      }
+                      )
                     )
-                  )
-                ]
-              )
-            ]
+                  ]
+                )
+              ]
+            )
           )
         )
-      )
+      );
+  }
     );
   }
 }

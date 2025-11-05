@@ -309,8 +309,8 @@ class _CheckoutScreenState extends State<CheckoutScreen>{
                           Row(
                             children: [
                               Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 4.0,vertical: 8),
-                                child: Obx(()=>Text(cartController.total.value.toString(),style: TextStyle(fontSize: 16),)),
+                                padding: const EdgeInsets.symmetric(horizontal: 4.0,vertical: 8),
+                                child: Obx(()=>Text(cartController.total.value.toString(),style: const TextStyle(fontSize: 16),)),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 20.0),
@@ -407,7 +407,6 @@ class _CheckoutScreenState extends State<CheckoutScreen>{
                                 )
                               ],
                             )
-
                         ),
                       ),
                     ),

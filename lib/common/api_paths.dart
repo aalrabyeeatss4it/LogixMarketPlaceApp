@@ -2,7 +2,7 @@ const baseUrl = 'https://localhost:44362/api/v1';
 const categoriesPath = '/categories';
 const productsPath = '/products';
 const productsByCategoryPath = '/products/category';
-const productsByIdPath = '/products/{id}';
+const productsByIdPath = '/products/';
 const relatedProductsByIdPath = '/products/related/{id}';
 const recentlyArrivedPath = '/products/recently-arrived';
 const mostRequestedPath = '/products/most-requested';
@@ -11,6 +11,7 @@ const ordersPath = '/orders';
 const invoicesPath = '/sale-invoices';
 const loginPath = '/users/login';
 const addressesPath = '/users/addresses';
+const changePasswordPath = '/password/ChangePassword';
 
 erpUrl(){
   return "http://localhost:8081";
