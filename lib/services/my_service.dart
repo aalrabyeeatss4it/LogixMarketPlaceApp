@@ -5,7 +5,6 @@ import 'package:http/http.dart';
 
 import '../common/api_paths.dart';
 import '../common/storage/local_storage.dart';
-import '../controllers/login_controller.dart';
 
 class MyService {
   final box = GetStorage();
@@ -27,6 +26,9 @@ class MyService {
           "Authorization":"Bearer " + box.read(tokenIndex)
         }
     );
+    print("url:"+baseUrl + path);
+    print("getProduct:"+response.statusCode.toString());
+    print("getProduct:"+response.body);
     if(response.statusCode==401){
       print("getData:"+response.statusCode.toString());
       // LoginController.logout();

@@ -30,7 +30,7 @@ class MockFavService implements FavService {
               'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
           desc:
               'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
-          thumbPath: 'assets_mock/product1.png'),
+          thumbPath: 'assets_mock/product1.png', inventoryBalance: 0),
       ProductModel(
           id: 2,
           categoryId: 1,
@@ -41,7 +41,7 @@ class MockFavService implements FavService {
           discountPercentage: 10,
           name: 'خلّاط مغسلة مرتفع – أسود مطفي',
           desc: 'خلّاط مغسلة مرتفع – أسود مطفي',
-          thumbPath: 'assets_mock/product2.png')
+          thumbPath: 'assets_mock/product2.png', inventoryBalance: 0)
     ];
     return items;
   }

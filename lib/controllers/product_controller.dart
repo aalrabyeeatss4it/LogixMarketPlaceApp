@@ -6,6 +6,7 @@ import '../models/product_model.dart';
 class ProductController extends GetxController {
   var isLoading = false.obs;
   RxList<ProductModel> list = <ProductModel>[].obs;
+  RxList<ProductModel> mostRequested = <ProductModel>[].obs;
   RxList<ProductModel> categoryProducts = <ProductModel>[].obs;
   ProductService productService = Get.put(ProductService());
 
@@ -14,11 +15,10 @@ class ProductController extends GetxController {
   }
 
   Future<void> getMostRequested() async {
-    list.value = await productService.getRecentlyArrived();
+    mostRequested.value = await productService.getMostRequested();
   }
 
   Future<void> getByCategory(int categoryId) async {
-    print("catId:"+categoryId.toString());
     isLoading.value = true;
     list.clear();
     try {
@@ -31,6 +31,5 @@ class ProductController extends GetxController {
     finally {
       isLoading.value = false;
     }
-
   }
 }

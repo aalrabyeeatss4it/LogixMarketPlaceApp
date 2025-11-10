@@ -81,10 +81,19 @@ class CheckoutProductCard extends StatelessWidget{
                                       mainAxisSize: MainAxisSize.min,
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
-                                        Text(cartItem.product.priceIncludeVat.toStringAsFixed(2), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color:  primaryColor)),
+                                        Text(cartItem.product.getDiscountRate(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700,color: secondaryColor)),
+                                        Text(cartItem.product.priceIncludeVat.toStringAsFixed(2), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color:  primaryColor)),
                                         Image.asset('icons/riyal.png' ,width: 12,),
                                       ]
                                   ),
+                                  Text(cartItem.product.getPreDiscountPrice(), style: TextStyle(fontSize: 14,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
+                                  Row(children: [
+                                    (cartItem.product.isAvailable(cartItem.quantity.value)==1)?
+                                    Text('متوفر', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: successColor)):
+                                    (cartItem.product.isAvailable(cartItem.quantity.value)==-1)?
+                                    Text('غير متوفر', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)):
+                                    Text('الكمية المتوفرة: '+cartItem.product.inventoryBalance.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)),
+                                  ])
                                 ],
                               ),
                             ),

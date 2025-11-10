@@ -15,13 +15,19 @@ class ProductDetailController extends GetxController {
         unitId: 0,
         discountPercentage: 0,
         categoryId: 0,
-        thumbPath: ''
+        thumbPath: '', inventoryBalance: 0
       )
   );
   RxBool loading = true.obs;
   RxInt quantity = 1.obs;
   void setQty(int qty){
     quantity.value = qty;
+  }
+  void updateProduct(int qty, ProductModel p){
+    quantity.value = qty;
+    print("updateProduct:discountPercentage:"+p.discountPercentage.value.toString());
+    product.value.basePrice.value = p.basePrice.value;
+    product.value.discountPercentage.value = p.discountPercentage.value;
   }
   ProductDetailService productDetailService = Get.put(ProductDetailService());
   RxList<ProductModel> relatedProducts = <ProductModel>[].obs;

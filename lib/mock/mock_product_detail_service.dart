@@ -1,3 +1,5 @@
+import 'package:get_storage/src/storage_impl.dart';
+import 'package:http/src/response.dart';
 import 'package:logix_market_place/models/product_model.dart';
 import 'package:logix_market_place/services/product_detail_service.dart';
 
@@ -29,7 +31,7 @@ class MockProductDetailService implements ProductDetailService {
         desc:
             'تصميم عصري أنيق ومقاوم للصدأ مصنوع من خامات عالية الجودة لمقاومة الصدأ والتآكل، مع طبقة تشطيب ذهبية تحافظ على اللمعان لفترة طويلة. التصميم العصري بخطوطه المستقيمة يضيف لمسة جمالية راقية تناسب الحمامات الحديثة والكلاسيكية على حد سواء.',
         thumbPath: 'assets_mock/product1.png',
-        attributes: att);
+        attributes: att, inventoryBalance: 0);
     return product;
   }
   @override
@@ -46,7 +48,7 @@ class MockProductDetailService implements ProductDetailService {
           discountPercentage: 12,
           name: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
           desc: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
-          thumbPath: 'assets_mock/product1.png'),
+          thumbPath: 'assets_mock/product1.png', inventoryBalance: 0),
       ProductModel(
           id: 2,
           categoryId: 1,
@@ -57,8 +59,24 @@ class MockProductDetailService implements ProductDetailService {
           discountPercentage: 12,
           name: 'خلّاط مغسلة مرتفع – أسود مطفي',
           desc: 'خلّاط مغسلة مرتفع – أسود مطفي',
-          thumbPath: 'assets_mock/product2.png')
+          thumbPath: 'assets_mock/product2.png', inventoryBalance: 0)
     ];
     return products;
+  }
+
+  @override
+  // TODO: implement box
+  GetStorage get box => throw UnimplementedError();
+
+  @override
+  Future<Response> getData(String path) {
+    // TODO: implement getData
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Response> postData(String path, Map<String, dynamic> json) {
+    // TODO: implement postData
+    throw UnimplementedError();
   }
 }

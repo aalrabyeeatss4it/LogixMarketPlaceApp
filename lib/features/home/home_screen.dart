@@ -28,6 +28,7 @@ class HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     productController.getRecentlyArrived();
+    productController.getMostRequested();
     categoryController.getAll();
   }
 
@@ -93,7 +94,7 @@ class HomeScreenState extends State<HomeScreen> {
               Padding(
                 padding: EdgeInsets.all(16.w),
                 child: Obx(() {
-                  if(productController.list.isEmpty){
+                  if(productController.mostRequested.isEmpty){
                     return const Center(child: CircularProgressIndicator());
                   }
                   return SizedBox(
@@ -101,9 +102,9 @@ class HomeScreenState extends State<HomeScreen> {
                     child: ListView.builder(
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
-                        itemCount: productController.list.length,
+                        itemCount: productController.mostRequested.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return HomeProductCard(product: productController.list[index]);
+                          return HomeProductCard(product: productController.mostRequested[index]);
                         }),
                   );
                 }

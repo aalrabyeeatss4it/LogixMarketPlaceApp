@@ -73,7 +73,7 @@ class HomeProductCard extends StatelessWidget {
                       ],
                     ),
                     SizedBox(width: 280.w,child: Text(product.name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700))),
-                    Obx(()=> Row(
+                    Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -81,24 +81,27 @@ class HomeProductCard extends StatelessWidget {
                             Text(product.priceIncludeVat.toStringAsFixed(2), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color:  primaryColor)),
                             Image.asset('icons/riyal.png' ,width: 12,),
                           ]
-                        )
-                    ),
-                    Obx(()=>
-                        Row(
+                        ),
+                    Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(product.getPreDiscountPrice(), style: const TextStyle(fontSize: 14,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
                             ]
-                        )
-                    ),
+                        ),
+                    (added)? Row(children: [
+                      (product.isAvailable(item!.quantity.value)==1)?
+                      Text('متوفر', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: successColor)):
+                      (product.isAvailable(item.quantity.value)==-1)?
+                      Text('غير متوفر', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)):
+                      Text('الكمية المتوفرة: '+product.inventoryBalance.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)),
+                    ])
+                        :SizedBox()
+
                   ],
                 ),
                 Row(
                   children: [
-                    // Obx(() {
-                    //   bool added = cartController.inCart(product.id);
-                    //   CartItemModel? item = cartController.getItem(product.id);
                       (added)? Padding(
                           padding: const EdgeInsets.all(4.0),
                           child: Container(

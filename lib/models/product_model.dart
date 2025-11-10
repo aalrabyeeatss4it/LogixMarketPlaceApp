@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
 
 import '../common/api_paths.dart';
 
@@ -8,8 +9,9 @@ class ProductModel {
   int unitId;
   String name;
   RxDouble basePrice = 0.0.obs;
-  double vat = 0;
   RxDouble discountPercentage = 0.0.obs;
+  RxInt inventoryBalance = 0.obs;
+  double vat = 0;
   String desc;
   String thumbPath;
   List<Attribute>? attributes;
@@ -25,9 +27,11 @@ class ProductModel {
         required this.vat,
         required double basePrice,
         required double discountPercentage,
+        required int inventoryBalance,
         this.attributes
       })
   {
+    this.inventoryBalance.value = inventoryBalance;
     this.basePrice.value = basePrice;
     this.discountPercentage.value = discountPercentage;
   }
@@ -42,6 +46,7 @@ class ProductModel {
         vat: json['vaT_Rate'],
         unitId: json['unitId'],
         discountPercentage: json['discountPercentage'],
+        inventoryBalance: json['inventoryBalance']??0,
         thumbPath: json['thumbPath']
     );
   }
@@ -65,6 +70,7 @@ class ProductModel {
       'thumbPath': thumbPath,
       'price': basePrice.value,
       'discountPercentage': discountPercentage.value,
+      'inventoryBalance': inventoryBalance.value,
     };
   }
   //Computed Values
@@ -75,6 +81,18 @@ class ProductModel {
   String getDiscountRate(){
     if(discountPercentage.value==0)return "";
     return "${(discountPercentage*100).toInt()}% ";
+  }
+
+  int isAvailable(int qty){
+    if(inventoryBalance.value==0) {
+      return -1;
+    }
+    else if(inventoryBalance.value> qty) {
+      return 1;
+    } else if(inventoryBalance.value == qty) {
+      return 0;
+    }
+    return -1;
   }
 
   String getPreDiscountPrice(){

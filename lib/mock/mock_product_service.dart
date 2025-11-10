@@ -1,3 +1,5 @@
+import 'package:get_storage/src/storage_impl.dart';
+import 'package:http/src/response.dart';
 import 'package:logix_market_place/models/product_model.dart';
 
 import '../services/product_service.dart';
@@ -16,7 +18,7 @@ class MockProductService implements ProductService {
           discountPercentage: 0,
           name: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
           desc: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
-          thumbPath: 'assets_mock/product1.png'
+          thumbPath: 'assets_mock/product1.png', inventoryBalance: 0
       ),
       ProductModel(
           id: 2,
@@ -28,7 +30,7 @@ class MockProductService implements ProductService {
           discountPercentage: 0,
           name: 'خلّاط مغسلة مرتفع – أسود مطفي',
           desc: 'خلّاط مغسلة مرتفع – أسود مطفي',
-          thumbPath: 'assets_mock/product2.png'
+          thumbPath: 'assets_mock/product2.png', inventoryBalance: 0
       ),
       ProductModel(
           id: 3,
@@ -40,7 +42,7 @@ class MockProductService implements ProductService {
           discountPercentage: 0,
           name: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
           desc: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
-          thumbPath: 'assets_mock/product1.png'
+          thumbPath: 'assets_mock/product1.png', inventoryBalance: 0
       ),
       ProductModel(
           id: 4,
@@ -52,7 +54,7 @@ class MockProductService implements ProductService {
           discountPercentage: 0,
           name: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
           desc: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
-          thumbPath: 'assets_mock/product1.png'
+          thumbPath: 'assets_mock/product1.png', inventoryBalance: 0
       ),
       ProductModel(
           id: 5,
@@ -64,7 +66,7 @@ class MockProductService implements ProductService {
           discountPercentage: 0,
           name: 'خلّاط مغسلة مرتفع – أسود مطفي',
           desc: 'خلّاط مغسلة مرتفع – أسود مطفي',
-          thumbPath: 'assets_mock/product2.png'
+          thumbPath: 'assets_mock/product2.png', inventoryBalance: 0
       )
     ];
     return products;
@@ -82,7 +84,7 @@ class MockProductService implements ProductService {
           discountPercentage: 0,
           name: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
           desc: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
-          thumbPath: 'assets_mock/product1.png'
+          thumbPath: 'assets_mock/product1.png', inventoryBalance: 0
       ),
       ProductModel(
           id: 2,
@@ -94,7 +96,7 @@ class MockProductService implements ProductService {
           discountPercentage: 0,
           name: 'خلّاط مغسلة مرتفع – أسود مطفي',
           desc: 'خلّاط مغسلة مرتفع – أسود مطفي',
-          thumbPath: 'assets_mock/product2.png'
+          thumbPath: 'assets_mock/product2.png', inventoryBalance: 0
       ),
       ProductModel(
           id: 3,
@@ -106,7 +108,7 @@ class MockProductService implements ProductService {
           discountPercentage: 0,
           name: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
           desc: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
-          thumbPath: 'assets_mock/product1.png'
+          thumbPath: 'assets_mock/product1.png', inventoryBalance: 0
       ),
       ProductModel(
           id: 4,
@@ -118,7 +120,7 @@ class MockProductService implements ProductService {
           discountPercentage: 0,
           name: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
           desc: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
-          thumbPath: 'assets_mock/product1.png'
+          thumbPath: 'assets_mock/product1.png', inventoryBalance: 0
       ),
       ProductModel(
           id: 5,
@@ -130,7 +132,7 @@ class MockProductService implements ProductService {
           discountPercentage: 0,
           name: 'خلّاط مغسلة مرتفع – أسود مطفي',
           desc: 'خلّاط مغسلة مرتفع – أسود مطفي',
-          thumbPath: 'assets_mock/product2.png'
+          thumbPath: 'assets_mock/product2.png', inventoryBalance: 0
       )
     ];
     return products;
@@ -143,6 +145,22 @@ class MockProductService implements ProductService {
 
   @override
   Future<List<ProductModel>> getRelated() {
+    throw UnimplementedError();
+  }
+
+  @override
+  // TODO: implement box
+  GetStorage get box => throw UnimplementedError();
+
+  @override
+  Future<Response> getData(String path) {
+    // TODO: implement getData
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Response> postData(String path, Map<String, dynamic> json) {
+    // TODO: implement postData
     throw UnimplementedError();
   }
 }

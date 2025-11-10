@@ -98,7 +98,13 @@ class CartProductCard extends StatelessWidget {
                               ]
                           ),
                           Text(cartItem.product.getPreDiscountPrice(), style: TextStyle(fontSize: 14,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
-
+                          Row(children: [
+                            (cartItem.product.isAvailable(cartItem.quantity.value)==1)?
+                            Text('متوفر', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: successColor)):
+                            (cartItem.product.isAvailable(cartItem.quantity.value)==-1)?
+                            Text('غير متوفر', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)):
+                            Text('الكمية المتوفرة: '+cartItem.product.inventoryBalance.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)),
+                          ])
                         ],
                       ),
                     ),

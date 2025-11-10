@@ -63,8 +63,18 @@ class CartController extends GetxController {
   }
 
   Future<void> incrementQuantity(CartItemModel item) async {
-    item.quantity.value = item.quantity.value + 1;
-    var p = await productDetailService.getProduct(item.product.id, item.quantity.value);
+    if(item.product.inventoryBalance.value > item.quantity.value){
+      item.quantity.value = item.quantity.value + 1;
+      var p = await productDetailService.getProduct(item.product.id, item.quantity.value);
+      item.product.basePrice.value = p!.basePrice.value;
+      item.product.discountPercentage.value = p.discountPercentage.value;
+      saveCart();
+    }
+  }
+
+  Future<void> setQuantity(int qty,CartItemModel item) async {
+    item.quantity.value = qty;
+    var p = await productDetailService.getProduct(item.product.id, qty);
     item.product.basePrice.value = p!.basePrice.value;
     item.product.discountPercentage.value = p.discountPercentage.value;
     saveCart();
