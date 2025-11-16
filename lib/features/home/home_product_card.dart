@@ -53,24 +53,17 @@ class HomeProductCard extends StatelessWidget {
                             fit: BoxFit.cover,
                             loadingBuilder: (context, child, loadingProgress) {
                               if (loadingProgress == null) return child; // image loaded
-                              return Center(
-                                child: CircularProgressIndicator(
-                                  value: loadingProgress.expectedTotalBytes != null
-                                      ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1)
-                                      : null,
-                                ),
-                              );
+                              return const Center(child: CircularProgressIndicator());
                             },
                             errorBuilder: (context, error, stackTrace) {
-                              // return default image if network image fails
                               return Image.asset(
                                 'assets/logo.png',
                                 fit: BoxFit.cover,
                               );
-                            },
-                          ),
-                        )),
-                      ],
+                            }
+                          )
+                        ))
+                      ]
                     ),
                     SizedBox(width: 280.w,child: Text(product.name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700))),
                     Row(
@@ -92,11 +85,14 @@ class HomeProductCard extends StatelessWidget {
                     (added)? Row(children: [
                       (product.isAvailable(item!.quantity.value)==1)?
                       Text('متوفر', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: successColor)):
-                      (product.isAvailable(item.quantity.value)==-1)?
-                      Text('غير متوفر', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)):
                       Text('الكمية المتوفرة: '+product.inventoryBalance.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)),
                     ])
-                        :SizedBox()
+                        :SizedBox(),
+                    Row(children: [
+                      (product.isAvailable((item!=null)?item.quantity.value:1)==-1)?
+                      const Text('غير متوفر', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)):
+                      const SizedBox()
+                    ])
 
                   ],
                 ),

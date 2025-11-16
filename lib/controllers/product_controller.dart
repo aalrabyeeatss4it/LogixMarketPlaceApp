@@ -5,25 +5,25 @@ import '../models/product_model.dart';
 
 class ProductController extends GetxController {
   var isLoading = false.obs;
-  RxList<ProductModel> list = <ProductModel>[].obs;
-  RxList<ProductModel> mostRequested = <ProductModel>[].obs;
+  RxList<ProductModel> recentlyArrivedProducts = <ProductModel>[].obs;
+  RxList<ProductModel> mostRequestedProducts = <ProductModel>[].obs;
   RxList<ProductModel> categoryProducts = <ProductModel>[].obs;
   ProductService productService = Get.put(ProductService());
 
   Future<void> getRecentlyArrived() async {
-    list.value = await productService.getRecentlyArrived();
+    recentlyArrivedProducts.value = await productService.getRecentlyArrived();
   }
 
   Future<void> getMostRequested() async {
-    mostRequested.value = await productService.getMostRequested();
+    mostRequestedProducts.value = await productService.getMostRequested();
   }
 
   Future<void> getByCategory(int categoryId) async {
     isLoading.value = true;
-    list.clear();
+    categoryProducts.clear();
     try {
       var result = await productService.getByCategory(categoryId);
-      list.assignAll(result);
+      categoryProducts.assignAll(result);
     }
     catch(ex){
       isLoading.value = false;

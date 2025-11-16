@@ -42,6 +42,6 @@ class ProductDetailController extends GetxController {
   }
 
   Future<void> getRelatedProducts() async {
-    relatedProducts.value = await productDetailService.getRelatedProducts();
+    relatedProducts.value = await productDetailService.getRelatedProducts(product.value.id);
   }
 }

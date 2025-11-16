@@ -35,7 +35,7 @@ class MockProductDetailService implements ProductDetailService {
     return product;
   }
   @override
-  Future<List<ProductModel>> getRelatedProducts() async {
+  Future<List<ProductModel>> getRelatedProducts(int productID,) async {
     await Future.delayed(const Duration(milliseconds: 500));
     List<ProductModel> products = [
       ProductModel(

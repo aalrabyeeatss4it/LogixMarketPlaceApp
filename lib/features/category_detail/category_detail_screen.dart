@@ -53,16 +53,16 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                   if (productController.isLoading.value) {
                     return const Center(child: CircularProgressIndicator());
                   }
-                  if (productController.list.isEmpty) {
+                  if (productController.categoryProducts.isEmpty) {
                     return const Center(child: Text("No products"));
                   }
                   return ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       padding: const EdgeInsets.all(8),
-                      itemCount: productController.list.length,
+                      itemCount: productController.categoryProducts.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return CategoryProductCard(product: productController.list[index]);
+                        return CategoryProductCard(product: productController.categoryProducts[index]);
                       });
                 }),
               ),

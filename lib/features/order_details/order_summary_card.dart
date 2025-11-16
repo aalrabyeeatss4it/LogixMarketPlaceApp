@@ -39,7 +39,7 @@ class OrderSummaryCard extends StatelessWidget{
                   Text('السلع',style: TextStyle(fontSize: 16)),
                   Row(
                     children: [
-                      Text(order.subTotal?? "0",style: TextStyle(fontSize: 16),),
+                      Text(order.total?? "0",style: TextStyle(fontSize: 16),),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 4),
                         child: Image.asset('icons/riyal.png' ,width: 12,),

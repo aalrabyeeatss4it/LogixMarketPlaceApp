@@ -165,11 +165,11 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                                 return AttributeCard(attribute: _productController.product.value.attributes![index]);
                               })
                           : const SizedBox(),
-                      (_productController.product.value.attributes != null)
-                          ? Column(
+                      (_productController.relatedProducts.isNotEmpty)?
+                      const Column(
                               children: [
-                                const Divider(),
-                                const Text('المنتجات المرتبطة', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
+                                Divider(),
+                                Text('المنتجات المرتبطة', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
                               ],
                             )
                           : const SizedBox(),
@@ -286,9 +286,11 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                                   onPressed: () async {
                                     if (!added) {
                                       CartItemModel item = CartItemModel(product: _productController.product.value);
-                                      cartController.addItem(item);
-                                      await cartController.setQuantity(_productController.quantity.value,item);
-                                      _productController.updateProduct(cartController.getQty(_productController.product.value.id),item.product);
+                                      added = await cartController.addItem(item);
+                                      if(added){
+                                        await cartController.setQuantity(_productController.quantity.value,item);
+                                        _productController.updateProduct(cartController.getQty(_productController.product.value.id),item.product);
+                                      }
                                     }
                                   },
                                   style: ElevatedButton.styleFrom(

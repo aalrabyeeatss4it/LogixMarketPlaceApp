@@ -6,13 +6,15 @@ import 'package:logix_market_place/models/category_model.dart';
 
 import '../common/api_paths.dart';
 import '../common/storage/local_storage.dart';
+import '../models/announcement_model.dart';
 import 'my_service.dart';
 
-class CategoryService  extends MyService{
-  Future<List<CategoryModel>> getAll() async {
-    Response response = await getData(categoriesPath);
+class AnnouncementService  extends MyService{
+
+  Future<List<AnnouncementModel>> getAll() async {
+    Response response = await getData(announcementsPath);
     if (response.statusCode == 200) {
-      var catList = CategoryModel.fromJsonList(jsonDecode(response.body));
+      var catList = AnnouncementModel.fromJsonList(jsonDecode(response.body));
       return catList;
     }
     return [];

@@ -107,10 +107,14 @@ class CategoryProductCard extends StatelessWidget {
                                   (added)? Row(children: [
                                     (product.isAvailable(item!.quantity.value)==1)?
                                     Text('متوفر', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: successColor)):
-                                    (product.isAvailable(item.quantity.value)==-1)?
-                                    Text('غير متوفر', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)):
                                     Text('الكمية المتوفرة: '+product.inventoryBalance.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)),
-                                  ]):SizedBox(),
+                                  ])
+                                      :SizedBox(),
+                                  Row(children: [
+                                    (product.isAvailable((item!=null)?item.quantity.value:1)==-1)?
+                                    const Text('غير متوفر', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)):
+                                    const SizedBox()
+                                  ]),
                                   Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       mainAxisSize: MainAxisSize.max,

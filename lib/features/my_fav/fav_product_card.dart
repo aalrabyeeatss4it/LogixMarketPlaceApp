@@ -90,7 +90,11 @@ class FavProductCard extends StatelessWidget {
                               ]
                           ),
                           Text(product.getPreDiscountPrice(), style: TextStyle(fontSize: 14,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
-
+                          Row(children: [
+                            (product.isAvailable(1)==-1)?
+                            const Text('غير متوفر', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)):
+                            const SizedBox()
+                          ])
                         ],
                       ),
                     ),

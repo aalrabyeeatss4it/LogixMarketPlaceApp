@@ -15,8 +15,8 @@ class ProductDetailService extends MyService {
     return null;
   }
 
-  Future<List<ProductModel>> getRelatedProducts() async {
-    Response response = await get(Uri.parse(baseUrl + relatedProductsByIdPath));
+  Future<List<ProductModel>> getRelatedProducts(int productID) async {
+    Response response = await getData("$relatedProductsByIdPath$productID");
     if (response.statusCode == 200) {
       var list = ProductModel.fromJsonList(jsonDecode(response.body));
       return list;

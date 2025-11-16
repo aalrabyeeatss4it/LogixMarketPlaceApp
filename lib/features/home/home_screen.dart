@@ -10,6 +10,7 @@ import '../../common/nav/app_bar_custom.dart';
 import '../../common/nav/bottom_nav_bar_custom.dart';
 import '../../common/nav/page_routes.dart';
 import '../../controllers/category_controller.dart';
+import 'announcement_slider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -42,10 +43,8 @@ class HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: SizedBox(width: 1.sw, height: 0.25.sh,child: Image.asset("assets/home.png", fit: BoxFit.contain)),
-              ),
+              const AnnouncementSlider(),
+              const SizedBox(height: 20),
               SectionTitleCard(title: "categories".tr, showMore: true, showMoreAction: (){
                 Get.offAllNamed(RouteNames.categoriesPage);
               },),
@@ -73,7 +72,7 @@ class HomeScreenState extends State<HomeScreen> {
               Padding(
                 padding: EdgeInsets.all(16.w),
                 child: Obx(() {
-                  if(productController.list.isEmpty){
+                  if(productController.recentlyArrivedProducts.isEmpty){
                     return const Center(child: CircularProgressIndicator());
                   }
                   return SizedBox(
@@ -81,9 +80,9 @@ class HomeScreenState extends State<HomeScreen> {
                     child: ListView.builder(
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
-                        itemCount: productController.list.length,
+                        itemCount: productController.recentlyArrivedProducts.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return HomeProductCard(product: productController.list[index]);
+                          return HomeProductCard(product: productController.recentlyArrivedProducts[index]);
                         }),
                   );
                 }
@@ -94,7 +93,7 @@ class HomeScreenState extends State<HomeScreen> {
               Padding(
                 padding: EdgeInsets.all(16.w),
                 child: Obx(() {
-                  if(productController.mostRequested.isEmpty){
+                  if(productController.mostRequestedProducts.isEmpty){
                     return const Center(child: CircularProgressIndicator());
                   }
                   return SizedBox(
@@ -102,9 +101,9 @@ class HomeScreenState extends State<HomeScreen> {
                     child: ListView.builder(
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
-                        itemCount: productController.mostRequested.length,
+                        itemCount: productController.mostRequestedProducts.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return HomeProductCard(product: productController.mostRequested[index]);
+                          return HomeProductCard(product: productController.mostRequestedProducts[index]);
                         }),
                   );
                 }

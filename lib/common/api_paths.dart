@@ -1,9 +1,11 @@
-const baseUrl = 'https://localhost:44362/api/v1';
+// const baseUrl = 'https://localhost:44362/api/v1';
+const baseUrl = 'https://api.ecommerce.logix-erp.com/api/v1';
 const categoriesPath = '/categories';
+const announcementsPath = '/announcements';
 const productsPath = '/products';
 const productsByCategoryPath = '/products/category';
 const productsByIdPath = '/products/';
-const relatedProductsByIdPath = '/products/related/{id}';
+const relatedProductsByIdPath = '/products/related/';
 const recentlyArrivedPath = '/products/recently-arrived';
 const mostRequestedPath = '/products/most-requested';
 const relatedPath = '/products/related/{id}';
@@ -11,12 +13,13 @@ const ordersPath = '/orders';
 const invoicesPath = '/sale-invoices';
 const loginPath = '/users/login';
 const addressesPath = '/users/addresses';
+const ssoTokenPath = '/users/sso-token';
 const changePasswordPath = '/password/ChangePassword';
 
 erpUrl(){
+  return "https://test.logix-erp.com";
   return "http://localhost:8081";
   return "https://erp.ss4it.com.sa";
-  return "https://test.logix-erp.com";
 }
 imagesDirPath(){
   return "/ItemImages/";

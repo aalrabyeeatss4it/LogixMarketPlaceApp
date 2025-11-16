@@ -47,9 +47,13 @@ class CartController extends GetxController {
     total.value = tot;
   }
 
-  Future<void> addItem(CartItemModel item) async {
-    items.add(item);
-    saveCart();
+  Future<bool> addItem(CartItemModel item) async {
+    if(item.product.inventoryBalance.value > 1){
+      items.add(item);
+      saveCart();
+      return true;
+    }
+    return false;
   }
 
   Future<void> removeItem(CartItemModel item) async {
@@ -73,11 +77,13 @@ class CartController extends GetxController {
   }
 
   Future<void> setQuantity(int qty,CartItemModel item) async {
-    item.quantity.value = qty;
-    var p = await productDetailService.getProduct(item.product.id, qty);
-    item.product.basePrice.value = p!.basePrice.value;
-    item.product.discountPercentage.value = p.discountPercentage.value;
-    saveCart();
+    if(item.product.inventoryBalance.value > qty){
+      item.quantity.value = qty;
+      var p = await productDetailService.getProduct(item.product.id, qty);
+      item.product.basePrice.value = p!.basePrice.value;
+      item.product.discountPercentage.value = p.discountPercentage.value;
+      saveCart();
+    }
   }
 
   Future<void> decrementQuantity(CartItemModel item) async {

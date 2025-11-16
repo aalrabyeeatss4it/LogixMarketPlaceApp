@@ -66,13 +66,13 @@ void showSuccessOrderBottomSheet({
             const SizedBox(height: 20,),
             Image.asset("icons/paid.png",height: 40,),
             const SizedBox(height: 10,),
-            const Text("تم الدفع بنجاح!",
+            const Text("تم ارسال طلبك بنجاح!",
               style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: Colors.white
               ),),
-            const Text(" تمت معالجة دفعتك بنجاح, تم الآن تأكيد طلبك.",
+            const Text("لتتبّع تحديثات طلبك انقر على تتبّع طلبي.",
                 style: TextStyle(
                     fontSize: 16,
                     color: Colors.white
