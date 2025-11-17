@@ -14,4 +14,13 @@ class AccountInfoService extends MyService{
     var error = jsonDecode(response.body);
     return FailureStatus(errorMessage: error["message"]);
   }
+
+  Future<ServiceResult> changeEmail(UserPasswordModel pwd) async {
+    Response response = await postData(changeEmailPath,pwd.toJson());
+    if (response.statusCode == 200) {
+      return SuccessStatus();
+    }
+    var error = jsonDecode(response.body);
+    return FailureStatus(errorMessage: error["message"]);
+  }
 }

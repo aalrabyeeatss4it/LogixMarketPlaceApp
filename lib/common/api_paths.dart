@@ -1,5 +1,5 @@
-// const baseUrl = 'https://localhost:44362/api/v1';
-const baseUrl = 'https://api.ecommerce.logix-erp.com/api/v1';
+const baseUrl = 'https://localhost:44362/api/v1';
+// const baseUrl = 'https://api.ecommerce.logix-erp.com/api/v1';
 const categoriesPath = '/categories';
 const announcementsPath = '/announcements';
 const productsPath = '/products';
@@ -15,6 +15,7 @@ const loginPath = '/users/login';
 const addressesPath = '/users/addresses';
 const ssoTokenPath = '/users/sso-token';
 const changePasswordPath = '/password/ChangePassword';
+const changeEmailPath = '/password/ChangeEmail';
 
 erpUrl(){
   return "https://test.logix-erp.com";

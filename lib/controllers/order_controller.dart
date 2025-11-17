@@ -28,6 +28,10 @@ class OrderController extends GetxController{
           // Get.offAllNamed(RouteNames.orderDetailsPage, arguments: order,predicate: (route) => route.isFirst);
       });
     }
+    else if(serviceResult is FailureStatus){
+      Get.back();
+      showFailureBottomSheet(errorMessage: serviceResult.errorMessage,onConfirm: () {  });
+    }
     else{
       Get.back();
       showFailureBottomSheet(onConfirm: (){});

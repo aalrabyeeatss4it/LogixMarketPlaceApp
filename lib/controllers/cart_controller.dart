@@ -25,7 +25,7 @@ class CartController extends GetxController {
       final List decoded = jsonDecode(itemsJson);
       items.assignAll(decoded.map((e) {
         var item = CartItemModel.fromJson(e);
-        tot += item.product.priceIncludeVat;
+        tot += item.product.priceIncludeVat * item.quantity.value;
         return item;
       }).toList());
       total.value = tot;

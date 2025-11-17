@@ -19,6 +19,7 @@ class MyService {
     return response;
   }
   Future<Response> postData(String path, Map<String, dynamic> json) async{
+    print("request bodyJson:"+jsonEncode(json));
     Response response = await post(Uri.parse(baseUrl + path),
         body: jsonEncode(json),
         headers: {
@@ -26,6 +27,8 @@ class MyService {
           "Authorization":"Bearer " + box.read(tokenIndex)
         }
     );
+
+    print("response bodyJson:"+jsonDecode(response.body).toString());
     return response;
   }
 

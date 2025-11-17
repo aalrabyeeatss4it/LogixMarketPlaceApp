@@ -61,7 +61,7 @@ Widget build(BuildContext context) {
                         children: [
                           Obx(() {
                             if(invoiceController.invoicesModel.value.summaryDto==null) {
-                              return Text("",style: TextStyle(color: Colors.white));
+                              return const Text("",style: TextStyle(color: Colors.white));
                             } else {
                               return Text(invoiceController.invoicesModel.value.summaryDto!.remaining.toString(),style: TextStyle(color: Colors.white,fontSize: 12));
                             }

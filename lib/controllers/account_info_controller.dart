@@ -14,7 +14,8 @@ class AccountInfoController extends GetxController {
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController emailConfirmController = TextEditingController();
+  final TextEditingController newEmailController = TextEditingController();
+  final TextEditingController newEmailConfirmController = TextEditingController();
   final TextEditingController currentPwdController = TextEditingController();
   final TextEditingController  newPwdController = TextEditingController();
   final TextEditingController newPwdConfirmController = TextEditingController();
@@ -34,8 +35,19 @@ class AccountInfoController extends GetxController {
     if (serviceResult is SuccessStatus) {
       showSuccessBottomSheet(onConfirm: () {  });
     } else if (serviceResult is FailureStatus) {
-      showFailureBottomSheet(onConfirm: () {  },errorMessage: serviceResult.errorMessage+model.password!);
-      print(serviceResult.errorMessage);
+      showFailureBottomSheet(onConfirm: () {  },errorMessage: serviceResult.errorMessage);
+    }
+  }
+
+  Future<void> changeEmail() async {
+    UserPasswordModel model = UserPasswordModel();
+    model.password = currentPwdController.text;
+    model.email = newEmailController.text;
+    var serviceResult = await service.changeEmail(model);
+    if (serviceResult is SuccessStatus) {
+      showSuccessBottomSheet(onConfirm: () {  });
+    } else if (serviceResult is FailureStatus) {
+      showFailureBottomSheet(onConfirm: () {  },errorMessage: serviceResult.errorMessage);
     }
   }
 }
