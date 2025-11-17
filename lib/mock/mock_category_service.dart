@@ -35,4 +35,10 @@ class MockCategoryService implements CategoryService{
     throw UnimplementedError();
   }
 
+  @override
+  Future<Response> postLogin(String path, Map<String, dynamic> json) {
+    // TODO: implement postLogin
+    throw UnimplementedError();
+  }
+
 }
