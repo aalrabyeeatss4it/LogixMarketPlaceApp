@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../theme/colors.dart';
+void showLoading() {
+  Get.dialog(
+    const Center(child: CircularProgressIndicator()),
+    barrierDismissible: false,
+  );
+}
 
-void showFailureBottomSheet({
-  required VoidCallback onConfirm,
-  String? errorMessage
-}) {
+void hideLoading() {
+  if (Get.isDialogOpen ?? false) {
+    Get.back(); // إغلاق الدايالوج
+  }
+}
+void showFailureBottomSheet({required VoidCallback onConfirm,String? errorMessage}) {
   Get.bottomSheet(
       Container(
         width: double.infinity,
@@ -48,11 +55,7 @@ void showFailureBottomSheet({
       )
   );
 }
-
-
-void showSuccessOrderBottomSheet({
-  required VoidCallback onConfirm,
-}) {
+void showSuccessOrderBottomSheet({ required VoidCallback onConfirm}) {
   Get.bottomSheet(
       Container(
         padding: const EdgeInsets.only(top: 20,left: 20,right: 20),
@@ -127,11 +130,7 @@ void showSuccessOrderBottomSheet({
       )
   );
 }
-
-void showSuccessBottomSheet({
-  required VoidCallback onConfirm,
-  String? message
-}) {
+void showSuccessBottomSheet({required VoidCallback onConfirm,String? message}) {
   Get.bottomSheet(
       Container(
         width: double.infinity,

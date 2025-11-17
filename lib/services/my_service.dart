@@ -4,10 +4,20 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
 
 import '../common/api_paths.dart';
+import '../common/dialogs/bottom_sheets.dart';
 import '../common/storage/local_storage.dart';
 
 class MyService {
   final box = GetStorage();
+  Future<Response> postLogin(String path, Map<String, dynamic> json) async{
+    Response response = await post(Uri.parse(baseUrl + path),
+        body: jsonEncode(json),
+        headers: {
+          "Content-Type": "application/json"
+        }
+    );
+    return response;
+  }
   Future<Response> postData(String path, Map<String, dynamic> json) async{
     Response response = await post(Uri.parse(baseUrl + path),
         body: jsonEncode(json),

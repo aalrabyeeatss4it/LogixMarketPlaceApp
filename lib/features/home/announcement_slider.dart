@@ -27,6 +27,15 @@ class _AnnouncementSliderState extends State<AnnouncementSlider>{
   @override
   Widget build(BuildContext context) {
     return Obx(() {
+      if (controller.list.isEmpty) {
+        return SizedBox(
+          height: 150,
+          child: Image.asset(
+            "assets/placeholder_3x1.png",
+            fit: BoxFit.cover,
+          ),
+        );
+      }
       double _width = controller.list.isNotEmpty?MediaQuery.of(context).size.width:0;
       return SizedBox(
         width: _width,

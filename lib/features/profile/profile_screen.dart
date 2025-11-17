@@ -7,6 +7,7 @@ import '../../common/nav/bottom_nav_bar_custom.dart';
 import '../../common/nav/page_routes.dart';
 import '../../controllers/category_controller.dart';
 import '../../controllers/login_controller.dart';
+import '../../controllers/profile_controller.dart';
 
 
 
@@ -34,7 +35,7 @@ class ProfileScreen extends StatelessWidget{
       })
     ];
 
-    final LoginController loginController = Get.find<LoginController>();
+    final ProfileController profileController = Get.put(ProfileController());
 
     @override
     Widget build(BuildContext context) {
@@ -76,16 +77,17 @@ class ProfileScreen extends StatelessWidget{
                                   color: primaryColor,
                                   borderRadius: BorderRadius.circular(30)
                               ),
-                              child: const ClipOval(
+                              child: ClipOval(
                                   child: SizedBox(
                                     width: 60,
                                     height: 60,
-                                    child: Center(child: Text("م",style: TextStyle(fontSize: 28,color: Colors.white),)),
+                                    child: Center(child: Text( profileController.firstName.isNotEmpty ? profileController.firstName.substring(0, 1) : '',
+                                      style: const TextStyle(fontSize: 28,color: Colors.white),)),
                                   )
                               ),
                             ),
                             const SizedBox(width: 12,),
-                            const Text("محمد جواد أبو حرب",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w700),),
+                            Text(profileController.firstName +" "+profileController.lastName,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w700),),
                           ],
                         ),
                         InkWell(

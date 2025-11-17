@@ -3,6 +3,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:logix_market_place/services/login_service.dart';
 import 'package:logix_market_place/services/service_result.dart';
 
+import '../common/dialogs/bottom_sheets.dart';
 import '../common/nav/page_routes.dart';
 import '../common/storage/local_storage.dart';
 import '../models/authorized_user_model.dart';
@@ -28,8 +29,8 @@ class LoginController extends GetxController{
       box.write(pwdIndex, user.value.password);
       Get.offAllNamed(RouteNames.homePage,predicate: (route) => route.isFirst);
     }
-    else{
-
+    else if(serviceResult is FailureStatus){
+      showFailureBottomSheet(errorMessage: serviceResult.errorMessage,onConfirm: () {  });
     }
   }
   static void logout(){

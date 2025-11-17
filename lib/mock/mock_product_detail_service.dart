@@ -79,4 +79,10 @@ class MockProductDetailService implements ProductDetailService {
     // TODO: implement postData
     throw UnimplementedError();
   }
+
+  @override
+  Future<Response> postLogin(String path, Map<String, dynamic> json) {
+    // TODO: implement postLogin
+    throw UnimplementedError();
+  }
 }
