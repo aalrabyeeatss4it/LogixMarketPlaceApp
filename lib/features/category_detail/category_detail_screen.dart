@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import '../../common/nav/app_bar_custom.dart';
 import '../../common/nav/bottom_nav_bar_custom.dart';
 import '../../controllers/product_controller.dart';
+import '../product_filter/product_filter_widget.dart';
+import '../product_filter/product_sort_widget.dart';
 import 'category_product_card.dart';
 
 class CategoryDetailScreen extends StatefulWidget {
@@ -27,10 +29,41 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
     });
   }
 
+  void openFilters() {
+    Get.bottomSheet(
+      ProductFilterWidget(
+          onApplyFilters: (){
+            productController.getByCategory(categoryId);
+            Get.back();
+            Get.focusScope?.unfocus();
+          }),
+      isScrollControlled: true,
+    );
+  }
+
+  void openSorts() {
+    Get.bottomSheet(
+      ProductSortWidget(
+          onApplySort: (){
+            productController.getByCategory(categoryId);
+            Get.back();
+            Get.focusScope?.unfocus();
+          }),
+      isScrollControlled: true,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBarCustom(title: "home"),
+        appBar: AppBarCustom(
+            title: "home",
+            onApplyFilters: (){
+              productController.getByCategory(categoryId);
+              Get.back();
+              Get.focusScope?.unfocus();
+            }
+        ),
         body: Column(
           children: [
             const SizedBox(height: 10),
@@ -43,7 +76,23 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                     style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
                     softWrap: true,
                   )),
-                  Image.asset('icons/filter.png',width: 30,height: 30,)
+                  Row(
+                    children: [
+                      InkWell(
+                          onTap: (){
+                            openSorts();
+                          },
+                          child: Image.asset('icons/sort.png',width: 30,height: 30,)
+                      ),
+                      SizedBox(width: 10,),
+                      InkWell(
+                          onTap: (){
+                            openFilters();
+                          },
+                          child: Image.asset('icons/filter.png',width: 30,height: 30,)
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),

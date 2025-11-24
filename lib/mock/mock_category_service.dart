@@ -41,4 +41,10 @@ class MockCategoryService implements CategoryService{
     throw UnimplementedError();
   }
 
+  @override
+  Future<List<CategoryModel>> getGuestCategories() {
+    // TODO: implement getGuestCategories
+    throw UnimplementedError();
+  }
+
 }

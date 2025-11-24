@@ -13,17 +13,16 @@ import '../../common/nav/app_bar_custom.dart';
 import '../../common/nav/bottom_nav_bar_custom.dart';
 import '../../common/nav/page_routes.dart';
 import '../../controllers/category_controller.dart';
-import '../../controllers/product_filter_controller.dart';
-import 'announcement_slider.dart';
+import '../home/announcement_slider.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class GuestHomeScreen extends StatefulWidget {
+  const GuestHomeScreen({super.key});
 
   @override
-  State<StatefulWidget> createState()=> HomeScreenState();
+  State<StatefulWidget> createState()=> GuestHomeScreenState();
 }
 
-class HomeScreenState extends State<HomeScreen> {
+class GuestHomeScreenState extends State<GuestHomeScreen> {
 
   final CategoryController categoryController = Get.put(CategoryController());
   final ProductController productController = Get.put(ProductController());
@@ -32,9 +31,8 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    productController.getRecentlyArrived();
-    productController.getMostRequested();
-    categoryController.getAll();
+    productController.getGuestProducts();
+    categoryController.getGuestCategories();
   }
 
   @override
@@ -55,7 +53,6 @@ class HomeScreenState extends State<HomeScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const AnnouncementSlider(),
                 const SizedBox(height: 20),
                 SectionTitleCard(title: "categories".tr, showMore: true, showMoreAction: (){
                   Get.offAllNamed(RouteNames.categoriesPage);
@@ -63,7 +60,7 @@ class HomeScreenState extends State<HomeScreen> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
                   child: Obx(() {
-                    if(categoryController.list.isEmpty){
+                    if(categoryController.guestCategories.isEmpty){
                       return const Center(child: CircularProgressIndicator());
                     }
                     return SizedBox(
@@ -71,10 +68,10 @@ class HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
-                          itemCount: categoryController.list.length,
+                          itemCount: categoryController.guestCategories.length,
                           itemBuilder: (BuildContext context, int index) {
                             return HomeCategoryCard(
-                                category: categoryController.list[index]);
+                                category: categoryController.guestCategories[index]);
                           }),
                     );
                   }
@@ -87,7 +84,7 @@ class HomeScreenState extends State<HomeScreen> {
                     if (productController.isLoading.value) {
                       return const Center(child: CircularProgressIndicator());
                     }
-                    if (productController.recentlyArrivedProducts.isEmpty) {
+                    if (productController.guestProducts.isEmpty) {
                       return const Center(child: Text("No products"));
                     }
                     return SizedBox(
@@ -95,35 +92,35 @@ class HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
-                          itemCount: productController.recentlyArrivedProducts.length,
+                          itemCount: productController.guestProducts.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return HomeProductCard(product: productController.recentlyArrivedProducts[index]);
+                            return HomeProductCard(product: productController.guestProducts[index]);
                           }),
                     );
                   }
                   ),
                 ),
 
-                SectionTitleCard(title: 'most requested'.tr),
-                Padding(
-                  padding: EdgeInsets.all(16.w),
-                  child: Obx(() {
-                    if(productController.mostRequestedProducts.isEmpty){
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                    return SizedBox(
-                      height: 350,
-                      child: ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: productController.mostRequestedProducts.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return HomeProductCard(product: productController.mostRequestedProducts[index]);
-                          }),
-                    );
-                  }
-                  ),
-                ),
+                // SectionTitleCard(title: 'most requested'.tr),
+                // Padding(
+                //   padding: EdgeInsets.all(16.w),
+                //   child: Obx(() {
+                //     if(productController.mostRequestedProducts.isEmpty){
+                //       return const Center(child: CircularProgressIndicator());
+                //     }
+                //     return SizedBox(
+                //       height: 350,
+                //       child: ListView.builder(
+                //           shrinkWrap: true,
+                //           scrollDirection: Axis.horizontal,
+                //           itemCount: productController.mostRequestedProducts.length,
+                //           itemBuilder: (BuildContext context, int index) {
+                //             return HomeProductCard(product: productController.mostRequestedProducts[index]);
+                //           }),
+                //     );
+                //   }
+                //   ),
+                // ),
               ],
             ),
           ),

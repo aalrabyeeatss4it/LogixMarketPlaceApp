@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:logix_market_place/controllers/fav_controller.dart';
 import 'package:logix_market_place/services/login_service.dart';
 import 'package:logix_market_place/services/service_result.dart';
 
@@ -8,6 +9,7 @@ import '../common/nav/page_routes.dart';
 import '../common/storage/local_storage.dart';
 import '../models/authorized_user_model.dart';
 import '../models/user_cred_model.dart';
+import 'cart_controller.dart';
 
 class LoginController extends GetxController{
   RxBool isLoggedIn = false.obs;
@@ -27,7 +29,7 @@ class LoginController extends GetxController{
       box.write(lastNameIndex, userModel.lastName);
       box.write(emailIndex, userModel.email);
       box.write(pwdIndex, user.value.password);
-      Get.offAllNamed(RouteNames.homePage,predicate: (route) => route.isFirst);
+      Get.offAllNamed(RouteNames.homePage);
     }
     else if(serviceResult is FailureStatus){
       showFailureBottomSheet(errorMessage: serviceResult.errorMessage,onConfirm: () {  });
@@ -36,11 +38,14 @@ class LoginController extends GetxController{
   static void logout(){
     var box = GetStorage();
     box.write(tokenIndex, null);
-    Get.offAllNamed(RouteNames.loginPage,predicate: (route) => route.isFirst);
+    Get.offAllNamed(RouteNames.loginPage);
+    Get.find<CartController>().clearCart();
+    Get.find<FavController>().clear();
   }
   checkLoggedIn(){
     var token = box.read(tokenIndex);
     isLoggedIn.value = (token!=null);
+    return isLoggedIn.value;
   }
   @override
   void onInit() {

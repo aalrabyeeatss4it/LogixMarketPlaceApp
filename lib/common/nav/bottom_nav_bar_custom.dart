@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logix_market_place/common/theme/colors.dart';
 
+import '../../controllers/cart_controller.dart';
 import 'bottom_nav_controller.dart';
 
 class BottomNavBarCustom extends StatelessWidget {
   final int currentPage;
   final Widget? actionRow;
   final BottomNavController navController = Get.put(BottomNavController());
+  final CartController cartController = Get.find<CartController>();
 
   BottomNavBarCustom({super.key, this.currentPage = 0, this.actionRow}) {
     // navController.selectedIndex.value = currentPage;
@@ -20,6 +22,78 @@ class BottomNavBarCustom extends StatelessWidget {
       navController.selectedIndex.value = currentPage;
     });
 
+    final List<BottomNavigationBarItem> barItems = [
+      BottomNavigationBarItem(label: "الرئيسية",icon: Image.asset('icons/home.png',width: 28),activeIcon: Image.asset('icons/home-active.png',width: 28,color: primaryColor,)),
+      BottomNavigationBarItem(label: "التصنيفات",icon: Image.asset('icons/cats.png',width: 28),activeIcon: Image.asset('icons/cats-active.png',width: 28,color: primaryColor,)),
+      BottomNavigationBarItem(
+          label: "السلة",
+          icon: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Image.asset('icons/cart.png', width: 28),
+              Obx(() {
+                final count = cartController.items.length;
+                if (count == 0) return const SizedBox.shrink();
+                return Positioned(
+                  right: -6,
+                  top: -6,
+                  child: Container(
+                    padding: const EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    constraints: const BoxConstraints(minWidth: 16, minHeight: 16),
+                    child: Center(
+                      child: Text(
+                        count > 99 ? '99+' : '$count',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }),
+            ],
+          ),
+        activeIcon: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Image.asset('icons/cart-active.png', width: 28, color: primaryColor),
+            Obx(() {
+              final count = cartController.items.length;
+              if (count == 0) return const SizedBox.shrink();
+              return Positioned(
+                right: -6,
+                top: -6,
+                child: Container(
+                  padding: const EdgeInsets.all(2),
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  constraints: const BoxConstraints(minWidth: 16, minHeight: 16),
+                  child: Center(
+                    child: Text(
+                      count > 99 ? '99+' : '$count',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            }),
+          ],
+        ),
+      ),
+      BottomNavigationBarItem(label: "حسابي",icon: Image.asset('icons/profile.png',width: 28),activeIcon: Image.asset('icons/profile-active.png',width: 28,color: primaryColor,)),
+    ];
     return Obx(()=> Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -45,10 +119,4 @@ class BottomNavBarCustom extends StatelessWidget {
     );
   }
 
-  final List<BottomNavigationBarItem> barItems = [
-    BottomNavigationBarItem(label: "الرئيسية",icon: Image.asset('icons/home.png',width: 28),activeIcon: Image.asset('icons/home-active.png',width: 28,color: primaryColor,)),
-    BottomNavigationBarItem(label: "التصنيفات",icon: Image.asset('icons/cats.png',width: 28),activeIcon: Image.asset('icons/cats-active.png',width: 28,color: primaryColor,)),
-    BottomNavigationBarItem(label: "السلة",icon: Image.asset('icons/cart.png',width: 28),activeIcon: Image.asset('icons/cart-active.png',width: 28,color: primaryColor,)),
-    BottomNavigationBarItem(label: "حسابي",icon: Image.asset('icons/profile.png',width: 28),activeIcon: Image.asset('icons/profile-active.png',width: 28,color: primaryColor,)),
-  ];
 }

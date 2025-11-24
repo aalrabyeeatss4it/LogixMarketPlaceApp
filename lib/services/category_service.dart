@@ -17,4 +17,12 @@ class CategoryService  extends MyService{
     }
     return [];
   }
+  Future<List<CategoryModel>> getGuestCategories() async {
+    Response response = await getData(guestCategoriesPath);
+    if (response.statusCode == 200) {
+      var catList = CategoryModel.fromJsonList(jsonDecode(response.body));
+      return catList;
+    }
+    return [];
+  }
 }

@@ -7,6 +7,7 @@ import '../../common/nav/app_bar_custom.dart';
 import '../../common/nav/bottom_nav_bar_custom.dart';
 import '../../common/theme/colors.dart';
 import '../../controllers/cart_controller.dart';
+import '../../controllers/fav_controller.dart';
 import '../../controllers/product_detail_controller.dart';
 import '../../models/cart_item_model.dart';
 import '../home/home_product_card.dart';
@@ -22,6 +23,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
   late final int productId;
   final ProductDetailController _productController = Get.put(ProductDetailController());
   final CartController cartController = Get.find<CartController>();
+  final FavController favController = Get.find<FavController>();
 
   @override
   void initState() {
@@ -110,9 +112,28 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                           ),
                           Row(
                             children: [
-                              Image.asset('icons/fav-black.png', height: 25),
+                              Obx((){
+                                bool added = favController.inFav(_productController.product.value.id);
+                                return InkWell(
+                                    onTap: (){
+                                      if(added){
+                                        favController.removeById(_productController.product.value.id);
+                                      }
+                                      else{
+                                        favController.addItem(_productController.product.value);
+                                      }
+                                    },
+                                    child: Image.asset(added? 'icons/fav-checked.png' : 'icons/fav.png', width: 25,color: Colors.black,)
+                                );
+                              }
+                              ),
                               const SizedBox(width: 5),
-                              Image.asset('icons/share.png', height: 25),
+                              InkWell(
+                                  onTap: () async {
+                                    await _productController.shareProductLink();
+                                  },
+                                  child: Image.asset('icons/share.png', height: 25)
+                              ),
                             ],
                           ),
                         ])
@@ -253,7 +274,8 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                                         InkWell(
                                           onTap: () async {
                                             await cartController.decrementQuantity(item);
-                                            _productController.updateProduct(cartController.getQty(_productController.product.value.id),item.product);
+                                            var qty = cartController.getQty(_productController.product.value.id);
+                                            _productController.updateProduct(qty,item.product);
                                           },
                                           child: Padding(
                                             padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -288,6 +310,9 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                                       CartItemModel item = CartItemModel(product: _productController.product.value);
                                       added = await cartController.addItem(item);
                                       if(added){
+                                        if(_productController.quantity.value==0){
+                                          _productController.quantity.value = 1;
+                                        }
                                         await cartController.setQuantity(_productController.quantity.value,item);
                                         _productController.updateProduct(cartController.getQty(_productController.product.value.id),item.product);
                                       }
@@ -339,7 +364,10 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                                                         qty.toString(),
                                                         style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                                                       )));
-                                            }))));
+                                            })
+                                        )
+                                    )
+                                );
                               });
                         },
                         child: Container(

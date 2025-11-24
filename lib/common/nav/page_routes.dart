@@ -16,6 +16,7 @@ import '../../features/account_setting/account_setting_screen.dart';
 import '../../features/category_detail/category_detail_screen.dart';
 import '../../features/checkout/checkout_screen.dart';
 import '../../features/edit_address/edit_address_screen.dart';
+import '../../features/guest_home/guest_home_screen.dart';
 import '../../features/invoice_details/invoice_details_screen.dart';
 import '../../features/my_delivery_address/delivery_address_screen.dart';
 import '../../features/my_fav/fav_screen.dart';
@@ -27,6 +28,7 @@ import '../../features/order_tracking/order_tracking_screen.dart';
 
 var routePages = [
   GetPage(name: RouteNames.homePage, page: () => const HomeScreen()),
+  GetPage(name: RouteNames.guestHomePage, page: () => const GuestHomeScreen()),
   GetPage(name: RouteNames.categoriesPage, page: () => CategoriesScreen()),
   GetPage(name: RouteNames.cartPage, page: () => CartScreen()),
   GetPage(name: RouteNames.profilePage, page: () => ProfileScreen()),
@@ -54,6 +56,7 @@ var routePages = [
 
 class RouteNames {
   static String homePage = '/home';
+  static String guestHomePage = '/guest-home';
   static String categoriesPage = '/categories';
   static String cartPage = '/cart';
   static String profilePage = '/profile';

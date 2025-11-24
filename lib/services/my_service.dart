@@ -36,7 +36,7 @@ class MyService {
     Response response = await get(Uri.parse(baseUrl + path),
         headers: {
           "Content-Type": "application/json",
-          "Authorization":"Bearer " + box.read(tokenIndex)
+          "Authorization":"Bearer ${box.read(tokenIndex)??""}"
         }
     );
     print("url:"+baseUrl + path);

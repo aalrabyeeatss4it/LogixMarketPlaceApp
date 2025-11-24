@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
-import '../mock/mock_product_detail_service.dart';
+import 'package:share_plus/share_plus.dart';
+import '../common/api_paths.dart';
 import '../models/product_model.dart';
 import '../services/product_detail_service.dart';
 
@@ -25,13 +25,26 @@ class ProductDetailController extends GetxController {
   }
   void updateProduct(int qty, ProductModel p){
     quantity.value = qty;
-    print("updateProduct:discountPercentage:"+p.discountPercentage.value.toString());
     product.value.basePrice.value = p.basePrice.value;
     product.value.discountPercentage.value = p.discountPercentage.value;
   }
   ProductDetailService productDetailService = Get.put(ProductDetailService());
   RxList<ProductModel> relatedProducts = <ProductModel>[].obs;
 
+  Future<void> shareProductLink() async {
+    String link = erpUrl()+"/p/"+product.value.id.toString();
+    final result = await Share.share(
+        "Check out this product: $link",
+        subject: "Product Link");
+
+    if (result.status == ShareResultStatus.success) {
+      print("Shared successfully to: ${result.raw}");
+    } else if (result.status == ShareResultStatus.dismissed) {
+      print("Share dialog dismissed");
+    } else {
+      print("Share failed or was not available");
+    }
+  }
 
   Future<void> getProduct(int productID) async {
     loading.value = true;

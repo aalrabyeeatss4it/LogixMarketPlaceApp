@@ -1,6 +1,8 @@
 const baseUrl = 'https://localhost:44362/api/v1';
 // const baseUrl = 'https://api.ecommerce.logix-erp.com/api/v1';
 const categoriesPath = '/categories';
+const guestCategoriesPath = '/guest/categories';
+const guestProductsPath = '/guest/products';
 const announcementsPath = '/announcements';
 const productsPath = '/products';
 const productsByCategoryPath = '/products/category';

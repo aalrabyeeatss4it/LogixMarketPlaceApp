@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:logix_market_place/models/product_model.dart';
 
+import 'login_controller.dart';
+
 class FavController extends GetxController {
   final box = GetStorage();
   RxList<ProductModel> items = <ProductModel>[].obs;
@@ -28,6 +30,7 @@ class FavController extends GetxController {
   }
 
   Future<void> addItem(ProductModel item) async {
+    if(!Get.put(LoginController()).checkLoggedIn()) return;
     items.add(item);
     saveFav();
   }
@@ -44,5 +47,9 @@ class FavController extends GetxController {
 
   bool inFav(int productId) {
     return items.any((item) => item.id == productId);
+  }
+
+  void clear() {
+      items.clear();
   }
 }

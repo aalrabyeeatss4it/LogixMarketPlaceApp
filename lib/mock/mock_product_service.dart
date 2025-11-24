@@ -6,7 +6,7 @@ import '../services/product_service.dart';
 
 class MockProductService implements ProductService {
   @override
-  Future<List<ProductModel>> getRecentlyArrived() async {
+  Future<List<ProductModel>> getRecentlyArrived(String filters) async {
     List<ProductModel> products = [
       ProductModel(
           id: 1,
@@ -72,7 +72,7 @@ class MockProductService implements ProductService {
     return products;
   }
   @override
-  Future<List<ProductModel>> getByCategory(int categoryId) async {
+  Future<List<ProductModel>> getByCategory(String filters) async {
     List<ProductModel> products = [
       ProductModel(
           id: 1,
@@ -167,6 +167,12 @@ class MockProductService implements ProductService {
   @override
   Future<Response> postLogin(String path, Map<String, dynamic> json) {
     // TODO: implement postLogin
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<ProductModel>> getGuestProducts(String filters) {
+    // TODO: implement getGuestProducts
     throw UnimplementedError();
   }
 }

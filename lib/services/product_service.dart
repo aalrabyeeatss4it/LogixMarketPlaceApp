@@ -5,10 +5,21 @@ import 'package:logix_market_place/common/api_paths.dart';
 import 'package:logix_market_place/models/product_model.dart';
 import 'package:logix_market_place/services/my_service.dart';
 
+import '../controllers/login_controller.dart';
+
 class ProductService extends MyService{
 
-  Future<List<ProductModel>> getRecentlyArrived() async {
-    Response response  = await getData(recentlyArrivedPath);
+  Future<List<ProductModel>> getRecentlyArrived(String filters) async {
+    Response response  = await getData("$recentlyArrivedPath?$filters");
+    if(response.statusCode == 200){
+      var list = ProductModel.fromJsonList(jsonDecode(response.body));
+      return list;
+    }
+    return [];
+  }
+
+  Future<List<ProductModel>> getGuestProducts(String filters) async {
+    Response response  = await getData("$guestProductsPath?$filters");
     if(response.statusCode == 200){
       var list = ProductModel.fromJsonList(jsonDecode(response.body));
       return list;
@@ -34,12 +45,10 @@ class ProductService extends MyService{
     return [];
   }
 
-  Future<List<ProductModel>> getByCategory(int categoryId) async {
-    Response response  = await getData("$productsByCategoryPath/$categoryId");
-    print("response.statusCode:"+response.statusCode.toString());
+  Future<List<ProductModel>> getByCategory(String filters) async {
+    Response response  = await getData("$recentlyArrivedPath?$filters");
     if(response.statusCode == 200){
       var list = ProductModel.fromJsonList(jsonDecode(response.body));
-      print("list:"+list.length.toString());
       return list;
     }
     return [];

@@ -24,9 +24,9 @@ class HomeProductCard extends StatelessWidget {
       }
       return InkWell(
         onTap: (){
-          Get.offAllNamed(RouteNames.productDetailPage, arguments: {
+          Get.toNamed(RouteNames.productDetailPage, arguments: {
             'productId': product.id,
-          },predicate: (route) => route.isFirst);
+          });
         },
         child: Card(
             color: Colors.white,
