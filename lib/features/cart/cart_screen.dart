@@ -79,7 +79,7 @@ class CartScreen extends StatelessWidget{
                                   children: [
                                     Padding(
                                       padding: EdgeInsets.symmetric(horizontal: 4.0,vertical: 8),
-                                      child: Obx(()=>Text(cartController.total.value.toString(),style: TextStyle(fontSize: 16),)),
+                                      child: Obx(()=>Text(cartController.total.value.toStringAsFixed(3),style: TextStyle(fontSize: 16),)),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(left: 20.0),

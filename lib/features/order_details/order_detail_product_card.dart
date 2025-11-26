@@ -33,7 +33,7 @@ class OrderDetailProductCard extends StatelessWidget{
                             elevation: 0,
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Image.network(
+                              child: (itemModel.thumbPath == "no_image.jpg")? Image.asset('assets/logo.png',fit: BoxFit.cover): Image.network(
                                   itemModel.getThumbPath(),
                                 fit: BoxFit.cover,
                                 loadingBuilder: (context, child, loadingProgress) {
@@ -72,7 +72,7 @@ class OrderDetailProductCard extends StatelessWidget{
                                 mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Text(itemModel.price.toString()?? "",style: const TextStyle(fontSize: 18,fontWeight: FontWeight.w900,color: primaryColor),),
+                                  Text(itemModel.getPriceIncludeVat,style: const TextStyle(fontSize: 18,fontWeight: FontWeight.w900,color: primaryColor),),
                                   Image.asset('icons/riyal.png' ,width: 12,color: primaryColor,),
                                 ]
                             ),

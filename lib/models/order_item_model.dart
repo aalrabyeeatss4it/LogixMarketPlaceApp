@@ -11,6 +11,10 @@ class OrderItemModel{
   String? productName;
   String? thumbPath;
 
+  double get priceIncludeVat => price + ((vat * price) / 100);
+
+  //Display Helpers
+  String get getPriceIncludeVat=> (priceIncludeVat>0)?priceIncludeVat.toStringAsFixed(2):"";
   OrderItemModel({
     required this.productId,
     required this.unitId,

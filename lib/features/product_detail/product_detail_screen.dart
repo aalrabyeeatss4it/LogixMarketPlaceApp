@@ -5,6 +5,7 @@ import 'package:logix_market_place/features/product_detail/attribute_card.dart';
 
 import '../../common/nav/app_bar_custom.dart';
 import '../../common/nav/bottom_nav_bar_custom.dart';
+import '../../common/storage/local_storage.dart';
 import '../../common/theme/colors.dart';
 import '../../controllers/cart_controller.dart';
 import '../../controllers/fav_controller.dart';
@@ -53,6 +54,9 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
             if (_productController.loading.value) {
               return const Center(child: CircularProgressIndicator());
             }
+            if(_productController.product.value.id == 0){
+              return const Center(child: Text("No Data"),);
+            }
             return SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,11 +82,11 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                       child: Column(children: [
                         Center(
                             child: SizedBox(
-                                width: 120,
-                                height: 120,
-                                child: Image.network(
+                                width: 180,
+                                height: 180,
+                                child: (_productController.product.value.thumbPath == "no_image.jpg")? Image.asset('assets/logo.png',fit: BoxFit.cover): Image.network(
                                   _productController.product.value.getThumbPath(),
-                                  fit: BoxFit.cover,
+                                  fit: BoxFit.fill,
                                   loadingBuilder: (context, child, loadingProgress) {
                                     if (loadingProgress == null) return child; // image loaded
                                     return Center(
@@ -102,28 +106,28 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                                   },
                                 ))),
                         Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                          Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset('icons/dots.png', height: 10),
-                              ],
-                            ),
-                          ),
+                          // Expanded(
+                          //   child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.center,
+                          //     children: [
+                          //       Image.asset('icons/dots.png', height: 10),
+                          //     ],
+                          //   ),
+                          // ),
                           Row(
                             children: [
                               Obx((){
-                                bool added = favController.inFav(_productController.product.value.id);
+                                bool favAdded = favController.inFav(_productController.product.value.id);
                                 return InkWell(
                                     onTap: (){
-                                      if(added){
+                                      if(favAdded){
                                         favController.removeById(_productController.product.value.id);
                                       }
                                       else{
                                         favController.addItem(_productController.product.value);
                                       }
                                     },
-                                    child: Image.asset(added? 'icons/fav-checked.png' : 'icons/fav.png', width: 25,color: Colors.black,)
+                                    child: Image.asset(favAdded? 'icons/fav-checked.png' : 'icons/fav.png', width: 25,color: Colors.black,)
                                 );
                               }
                               ),
@@ -146,15 +150,12 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                       Row(mainAxisSize: MainAxisSize.min, mainAxisAlignment: MainAxisAlignment.start, children: [
                         Text(_productController.product.value.getDiscountRate(),
                             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: secondaryColor)),
-                        Text(_productController.product.value.priceIncludeVat.toStringAsFixed(2),
+                        Text(_productController.product.value.getPriceIncludeVat,
                             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: primaryColor)),
-                        Image.asset(
-                          'icons/riyal.png',
-                          width: 12,
-                        ),
+                        (_productController.product.value.getPriceIncludeVat!="")?Image.asset('icons/riyal.png' ,width: 12,): SizedBox(),
                       ]),
                       Text(_productController.product.value.getPreDiscountPrice(),
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 16,
                             color: Colors.grey,
                             decoration: TextDecoration.lineThrough,
@@ -176,7 +177,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                                 Text('المواصفات:', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
                               ],
                             )
-                          : SizedBox(),
+                          : const SizedBox(),
                       (_productController.product.value.attributes != null)
                           ? ListView.builder(
                               shrinkWrap: true,
@@ -219,172 +220,184 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
               ),
             );
           }),
-          bottomNavigationBar: BottomNavBarCustom(
+          bottomNavigationBar:  BottomNavBarCustom(
               currentPage: 0,
-              actionRow: SizedBox(
-                child: Container(
-                    color: Colors.white,
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-                      SizedBox(
-                        height: 55,
-                        child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3),
-                            child: Obx(() {
-                              bool added = cartController.inCart(_productController.product.value.id);
-                              return !added
-                                  ? ElevatedButton(
-                                      onPressed: () {
-                                        if (!added) {
-                                          CartItemModel item = CartItemModel(product: _productController.product.value);
-                                          cartController.addItem(item);
-                                        }
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                          backgroundColor: secondaryColor,
-                                          foregroundColor: Colors.white,
-                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                                      child: const Text('اشترِ الآن'),
-                                    )
-                                  : const SizedBox();
-                            })),
-                      ),
-                      Expanded(
-                        child: SizedBox(
+              actionRow:  Obx(() {
+                if(_productController.product.value.id == 0 || !checkLoggedIn()){
+                  return const SizedBox();
+                }
+                return SizedBox(
+                  child: Container(
+                      color: Colors.white,
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+                        SizedBox(
                           height: 55,
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3),
-                            child: Obx(() {
-                              bool added = cartController.inCart(_productController.product.value.id);
-                              CartItemModel? item = cartController.getItem(_productController.product.value.id);
-                              if (added) {
-                                WidgetsBinding.instance.addPostFrameCallback((_) {
-                                  _productController.setQty(cartController.getQty(_productController.product.value.id));
-                                });
-                                return Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: Container(
-                                    width: 210.w,
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                        border: Border.all(width: 1.5, color: secondaryColor), borderRadius: BorderRadius.circular(20)),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        InkWell(
-                                          onTap: () async {
-                                            await cartController.decrementQuantity(item);
-                                            var qty = cartController.getQty(_productController.product.value.id);
-                                            _productController.updateProduct(qty,item.product);
-                                          },
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                            child: Image.asset(
-                                              (item!.quantity.value <= 1) ? 'icons/trash.png' : 'icons/minus.png',
-                                              width: 20,
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3),
+                              child: Obx(() {
+                                bool added = cartController.inCart(_productController.product.value.id);
+                                return !added? ElevatedButton(
+                                        onPressed: () {
+                                          if (!added) {
+                                            CartItemModel item = CartItemModel(product: _productController.product.value);
+                                            cartController.addItem(item);
+                                          }
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor: secondaryColor,
+                                            foregroundColor: Colors.white,
+                                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                                        child: const Text('اشترِ الآن'),
+                                      )
+                                    : const SizedBox();
+                              })),
+                        ),
+                        Expanded(
+                          child: SizedBox(
+                            height: 55,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3),
+                              child: Obx(() {
+                                bool added = cartController.inCart(_productController.product.value.id);
+                                CartItemModel? item = cartController.getItem(_productController.product.value.id);
+                                if (added) {
+                                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                                    _productController.setQty(cartController.getQty(_productController.product.value.id));
+                                  });
+                                  return Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Container(
+                                      width: 210.w,
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(width: 1.5, color: secondaryColor), borderRadius: BorderRadius.circular(20)),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          InkWell(
+                                            onTap: () async {
+                                              await cartController.decrementQuantity(item);
+                                              var qty = cartController.getQty(_productController.product.value.id);
+                                              _productController.updateProduct(qty,item.product);
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                              child: Image.asset(
+                                                (item!.quantity.value <= 1) ? 'icons/trash.png' : 'icons/minus.png',
+                                                width: 20,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        Obx(() => Text(item.quantity.value.toString())),
-                                        InkWell(
-                                          onTap: () async {
-                                            await cartController.incrementQuantity(item);
-                                            _productController.updateProduct(cartController.getQty(_productController.product.value.id),item.product);
-                                          },
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                            child: Image.asset(
-                                              'icons/plus.png',
-                                              width: 20,
+                                          Obx(() => Text(item.quantity.value.toString())),
+                                          InkWell(
+                                            onTap: () async {
+                                              await cartController.incrementQuantity(item);
+                                              _productController.updateProduct(cartController.getQty(_productController.product.value.id),item.product);
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                              child: Image.asset(
+                                                'icons/plus.png',
+                                                width: 20,
+                                              ),
                                             ),
-                                          ),
-                                        )
-                                      ],
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                );
-                              }
-                              return ElevatedButton(
-                                  onPressed: () async {
-                                    if (!added) {
-                                      CartItemModel item = CartItemModel(product: _productController.product.value);
-                                      added = await cartController.addItem(item);
-                                      if(added){
-                                        if(_productController.quantity.value==0){
-                                          _productController.quantity.value = 1;
+                                  );
+                                }
+                                return ElevatedButton(
+                                    onPressed: () async {
+                                      if (!added) {
+                                        CartItemModel item = CartItemModel(product: _productController.product.value);
+                                        added = await cartController.addItem(item);
+                                        if(added){
+                                          if(_productController.quantity.value==0){
+                                            _productController.quantity.value = 1;
+                                          }
+                                          await cartController.setQuantity(_productController.quantity.value,item);
+                                          _productController.updateProduct(cartController.getQty(_productController.product.value.id),item.product);
                                         }
-                                        await cartController.setQuantity(_productController.quantity.value,item);
-                                        _productController.updateProduct(cartController.getQty(_productController.product.value.id),item.product);
                                       }
-                                    }
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: primaryColor,
-                                      foregroundColor: Colors.white,
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                                  child: Text('add to cart'.tr));
-                            }),
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: primaryColor,
+                                        foregroundColor: Colors.white,
+                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                                    child: Text('add to cart'.tr));
+                              }),
+                            ),
                           ),
                         ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          showModalBottomSheet(
-                              context: context,
-                              backgroundColor: Colors.white,
-                              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
-                              builder: (context) {
-                                return SizedBox(
-                                    height: 100,
-                                    child: Padding(
-                                        padding: const EdgeInsets.all(12),
-                                        child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                            children: List.generate(6, (index) {
-                                              final qty = index + 1;
-                                              return GestureDetector(
-                                                  onTap: () async {
-                                                    if (!added) {
-                                                      _productController.setQty(qty);
-                                                    }
-                                                    else{
-                                                      await cartController.setQuantity(qty,item!);
-                                                      _productController.updateProduct(cartController.getQty(_productController.product.value.id),item.product);
-                                                    }
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: Container(
-                                                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                                                      decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius.circular(8),
-                                                        border: Border.all(color: Colors.grey.shade400),
-                                                        color: Colors.grey.shade100,
-                                                      ),
-                                                      child: Text(
-                                                        qty.toString(),
-                                                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                                                      )));
-                                            })
-                                        )
-                                    )
-                                );
-                              });
-                        },
-                        child: Container(
-                            height: 48,
-                            width: 55,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey, width: 0.2),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Column(children: [
-                              Text('QTY', style: const TextStyle(color: Colors.grey)),
-                              Obx(() => Text(_productController.quantity.value.toString(),
-                                  style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16)))
-                            ])),
+                        InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                                context: context,
+                                backgroundColor: Colors.white,
+                                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
+                                builder: (context) {
+                                  return SizedBox(
+                                      height: 100,
+                                      child: Padding(
+                                          padding: const EdgeInsets.all(12),
+                                          child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                              children: List.generate(6, (index) {
+                                                final qty = index + 1;
+                                                return GestureDetector(
+                                                    onTap: () async {
+                                                      if (!added) {
+                                                        _productController.setQty(qty);
+                                                      }
+                                                      else{
+                                                        await cartController.setQuantity(qty,item!);
+                                                        _productController.updateProduct(cartController.getQty(_productController.product.value.id),item.product);
+                                                      }
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: Container(
+                                                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                                                        decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius.circular(8),
+                                                          border: Border.all(color: Colors.grey.shade400),
+                                                          color: Colors.grey.shade100,
+                                                        ),
+                                                        child: Text(
+                                                          qty.toString(),
+                                                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                                        )));
+                                              })
+                                          )
+                                      )
+                                  );
+                                });
+                          },
+                          child: Container(
+                              height: 48,
+                              width: 55,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey, width: 0.2),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(children: [
+                                const Text('QTY', style: TextStyle(color: Colors.grey)),
+                                Obx(() => Text(_productController.quantity.value.toString(),
+                                    style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16)))
+                              ]
+                              )
+                          )
+                        )
+                      ]
                       )
-                    ])),
-              )));
-    });
+                  )
+                );
+              }
+              )
+          )
+      );
+    }
+    );
   }
 }

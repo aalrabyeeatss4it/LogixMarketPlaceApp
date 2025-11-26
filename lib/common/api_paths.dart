@@ -1,8 +1,6 @@
 const baseUrl = 'https://localhost:44362/api/v1';
 // const baseUrl = 'https://api.ecommerce.logix-erp.com/api/v1';
 const categoriesPath = '/categories';
-const guestCategoriesPath = '/guest/categories';
-const guestProductsPath = '/guest/products';
 const announcementsPath = '/announcements';
 const productsPath = '/products';
 const productsByCategoryPath = '/products/category';
@@ -15,12 +13,18 @@ const ordersPath = '/orders';
 const invoicesPath = '/sale-invoices';
 const loginPath = '/users/login';
 const addressesPath = '/users/addresses';
+const updateAddressPath = '/users/address';
 const ssoTokenPath = '/users/sso-token';
 const changePasswordPath = '/password/ChangePassword';
 const changeEmailPath = '/password/ChangeEmail';
 
+const guestCategoriesPath = '/guest/categories';
+const guestProductsPath = '/guest/products';
+const guestProductsByIdPath = '/guest/products/';
+const guestRelatedProductsByIdPath = '/guest/products/related/';
+
 erpUrl(){
-  return "https://test.logix-erp.com";
+  return "https://www.qasserlaura.net";
   return "http://localhost:8081";
   return "https://erp.ss4it.com.sa";
 }

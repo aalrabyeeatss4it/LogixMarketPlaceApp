@@ -33,7 +33,7 @@ class OrderProductCard extends StatelessWidget{
                             elevation: 0,
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Image.network(
+                              child: (itemModel.thumbPath == "no_image.jpg")? Image.asset('assets/logo.png',fit: BoxFit.cover): Image.network(
                                   itemModel.getThumbPath(),
                                 fit: BoxFit.cover,
                                 loadingBuilder: (context, child, loadingProgress) {

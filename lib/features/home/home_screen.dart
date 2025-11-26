@@ -44,6 +44,7 @@ class HomeScreenState extends State<HomeScreen> {
         appBar: AppBarCustom(
           title: "home",
           onApplyFilters: (){
+            productController.resetPagination();
             productController.getRecentlyArrived();
             Get.back();
             Get.focusScope?.unfocus();
@@ -63,8 +64,11 @@ class HomeScreenState extends State<HomeScreen> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
                   child: Obx(() {
-                    if(categoryController.list.isEmpty){
+                    if (categoryController.isCategoryLoading.value) {
                       return const Center(child: CircularProgressIndicator());
+                    }
+                    if(categoryController.list.isEmpty){
+                      return const Center(child: Text("No categories"));
                     }
                     return SizedBox(
                       height:190.h,
@@ -84,7 +88,7 @@ class HomeScreenState extends State<HomeScreen> {
                 Padding(
                   padding: EdgeInsets.all(16.w),
                   child: Obx(() {
-                    if (productController.isLoading.value) {
+                    if (productController.isLoading.value && productController.page==1) {
                       return const Center(child: CircularProgressIndicator());
                     }
                     if (productController.recentlyArrivedProducts.isEmpty) {
@@ -93,23 +97,35 @@ class HomeScreenState extends State<HomeScreen> {
                     return SizedBox(
                       height: 350,
                       child: ListView.builder(
+                          controller: productController.scroll,
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
-                          itemCount: productController.recentlyArrivedProducts.length,
+                          itemCount: productController.recentlyArrivedProducts.length+1,
                           itemBuilder: (BuildContext context, int index) {
-                            return HomeProductCard(product: productController.recentlyArrivedProducts[index]);
+                            if(index < productController.recentlyArrivedProducts.length){
+                              return HomeProductCard(product: productController.recentlyArrivedProducts[index]);
+                            }
+                            else{
+                              return productController.hasMore?
+                              const Padding(
+                                  padding: EdgeInsets.all(16),
+                                  child: Center(child: CircularProgressIndicator())
+                              ): const SizedBox();
+                            }
                           }),
                     );
                   }
                   ),
                 ),
-
                 SectionTitleCard(title: 'most requested'.tr),
                 Padding(
                   padding: EdgeInsets.all(16.w),
                   child: Obx(() {
-                    if(productController.mostRequestedProducts.isEmpty){
+                    if (productController.isMostRequestedLoading.value) {
                       return const Center(child: CircularProgressIndicator());
+                    }
+                    if (productController.mostRequestedProducts.isEmpty) {
+                      return const Center();
                     }
                     return SizedBox(
                       height: 350,

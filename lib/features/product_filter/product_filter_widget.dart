@@ -236,6 +236,7 @@ class ProductFilterWidget extends StatelessWidget{
                             ),
                             onPressed: () {
                               controller.resetFilters();
+                              if(onApplyFilters != null) onApplyFilters!();
                             },
                             child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,

@@ -31,7 +31,7 @@ class GuestHomeScreenState extends State<GuestHomeScreen> {
   @override
   void initState() {
     super.initState();
-    productController.getGuestProducts();
+    productController.getRecentlyArrived();
     categoryController.getGuestCategories();
   }
 
@@ -60,8 +60,11 @@ class GuestHomeScreenState extends State<GuestHomeScreen> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
                   child: Obx(() {
-                    if(categoryController.guestCategories.isEmpty){
+                    if (categoryController.isCategoryLoading.value) {
                       return const Center(child: CircularProgressIndicator());
+                    }
+                    if(categoryController.guestCategories.isEmpty){
+                      return const Center(child: Text("No categories"));
                     }
                     return SizedBox(
                       height:190.h,
@@ -84,7 +87,7 @@ class GuestHomeScreenState extends State<GuestHomeScreen> {
                     if (productController.isLoading.value) {
                       return const Center(child: CircularProgressIndicator());
                     }
-                    if (productController.guestProducts.isEmpty) {
+                    if (productController.recentlyArrivedProducts.isEmpty) {
                       return const Center(child: Text("No products"));
                     }
                     return SizedBox(
@@ -92,41 +95,20 @@ class GuestHomeScreenState extends State<GuestHomeScreen> {
                       child: ListView.builder(
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
-                          itemCount: productController.guestProducts.length,
+                          itemCount: productController.recentlyArrivedProducts.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return HomeProductCard(product: productController.guestProducts[index]);
+                            return HomeProductCard(product: productController.recentlyArrivedProducts[index]);
                           }),
                     );
                   }
-                  ),
-                ),
-
-                // SectionTitleCard(title: 'most requested'.tr),
-                // Padding(
-                //   padding: EdgeInsets.all(16.w),
-                //   child: Obx(() {
-                //     if(productController.mostRequestedProducts.isEmpty){
-                //       return const Center(child: CircularProgressIndicator());
-                //     }
-                //     return SizedBox(
-                //       height: 350,
-                //       child: ListView.builder(
-                //           shrinkWrap: true,
-                //           scrollDirection: Axis.horizontal,
-                //           itemCount: productController.mostRequestedProducts.length,
-                //           itemBuilder: (BuildContext context, int index) {
-                //             return HomeProductCard(product: productController.mostRequestedProducts[index]);
-                //           }),
-                //     );
-                //   }
-                //   ),
-                // ),
-              ],
-            ),
-          ),
+                  )
+                )
+              ]
+            )
+          )
         ),
         bottomNavigationBar: BottomNavBarCustom(),
-      ),
+      )
     );
   }
 }

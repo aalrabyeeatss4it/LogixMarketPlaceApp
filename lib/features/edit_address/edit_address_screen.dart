@@ -24,9 +24,11 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final formKey= GlobalKey<FormState>();
     return Scaffold(
         appBar: AppBarCustom(title: "home"),
         body: Form(
+          key: formKey,
           child: SingleChildScrollView(
               child: Column(
                   children: [
@@ -210,7 +212,34 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                   ]
               )
           ),
-        )
+        ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: SizedBox(
+          height: 60,
+          child: TextButton(
+              style: ElevatedButton.styleFrom(
+                  elevation: 0,
+                  padding: const EdgeInsets.all(5),
+                  backgroundColor: primaryColor,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)
+                  )
+              ),
+              onPressed: () {
+                if(formKey.currentState!.validate()){
+                  controller.updateAddress();
+                }
+              },
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("تحديث العنوان",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 18))
+                ],
+              )
+          ),
+        ),
+      ),
     );
   }
 }

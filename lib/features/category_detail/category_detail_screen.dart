@@ -27,12 +27,19 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       productController.getByCategory(categoryId);
     });
+    productController.categoryProductScroll.addListener(() {
+      if (productController.categoryProductScroll.position.pixels == productController.categoryProductScroll.position.maxScrollExtent) {
+        print("productController.categoryProductScroll.addListener");
+        productController.getByCategory(categoryId);
+      }
+    });
   }
 
   void openFilters() {
     Get.bottomSheet(
       ProductFilterWidget(
           onApplyFilters: (){
+            productController.resetCategoryPagination();
             productController.getByCategory(categoryId);
             Get.back();
             Get.focusScope?.unfocus();
@@ -97,24 +104,31 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
               ),
             ),
             Expanded(
-              child: SingleChildScrollView(
-                child: Obx(() {
-                  if (productController.isLoading.value) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  if (productController.categoryProducts.isEmpty) {
-                    return const Center(child: Text("No products"));
-                  }
-                  return ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: const EdgeInsets.all(8),
-                      itemCount: productController.categoryProducts.length,
-                      itemBuilder: (BuildContext context, int index) {
+              child: Obx(() {
+                if (productController.isCategoryLoading.value  && productController.categoryProductsPage==1) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                if (productController.categoryProducts.isEmpty) {
+                  return const Center(child: Text("No products"));
+                }
+                return ListView.builder(
+                    controller: productController.categoryProductScroll,
+                    padding: const EdgeInsets.all(8),
+                    itemCount: productController.categoryProducts.length+1,
+                    itemBuilder: (BuildContext context, int index) {
+                      if(index < productController.categoryProducts.length){
                         return CategoryProductCard(product: productController.categoryProducts[index]);
-                      });
-                }),
-              ),
+                      }
+                      else{
+                        return productController.hasMoreCategoryProducts?
+                        const Padding(
+                            padding: EdgeInsets.all(16),
+                            child: Center(child: CircularProgressIndicator())
+                        ): const SizedBox();
+                      }
+
+                    });
+              }),
             ),
           ],
         ),

@@ -43,7 +43,7 @@ class CategoryProductCard extends StatelessWidget {
                           width: 120,
                           height: 120,
                           child: Card(
-                              child: Image.network(
+                              child: (product.thumbPath == "no_image.jpg")? Image.asset('assets/logo.png',fit: BoxFit.cover):  Image.network(
                                   product.getThumbPath(),
                                   fit: BoxFit.cover,
                                   loadingBuilder: (context, child,
@@ -95,8 +95,8 @@ class CategoryProductCard extends StatelessWidget {
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
                                           Text(product.getDiscountRate(),style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w700,color: secondaryColor)),
-                                          Text(product.priceIncludeVat.toStringAsFixed(2),style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w700,color: primaryColor)),
-                                          Image.asset('icons/riyal.png', width: 12,),
+                                          Text(product.getPriceIncludeVat,style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w700,color: primaryColor)),
+                                          (product.getPriceIncludeVat!="")?Image.asset('icons/riyal.png' ,width: 12,): SizedBox(),
                                         ]
                                     ),
                                     Row(
@@ -105,7 +105,7 @@ class CategoryProductCard extends StatelessWidget {
                                             .start,
                                         children: [
                                           Text(product.getPreDiscountPrice(),
-                                              style: TextStyle(fontSize: 14,
+                                              style: const TextStyle(fontSize: 14,
                                                 color: Colors.grey,
                                                 decoration: TextDecoration
                                                     .lineThrough,)),

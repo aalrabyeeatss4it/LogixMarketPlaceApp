@@ -5,6 +5,7 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/state_manager.dart';
 
 class ProductFilter {
+  int? page;
   int? category;
   int? minPrice;
   int? maxPrice;
@@ -12,18 +13,22 @@ class ProductFilter {
   List<String>? sizes;
 
   ProductFilter(
-      {this.category,
-      this.minPrice,
-      this.maxPrice,
-      this.colors = const [],
-      this.sizes = const []});
+      {
+        this.page,
+        this.category,
+        this.minPrice,
+        this.maxPrice,
+        this.colors = const [],
+        this.sizes = const []}
+      );
 }
 
 class ProductFilterController extends GetxController {
   RxList<SizeModel> sizes = <SizeModel>[].obs;
   RxList<ColorModel> colors = <ColorModel>[].obs;
 
-  int _category=0;
+  int _page = 1;
+  int _category = 0;
   TextEditingController productNameController = TextEditingController();
   TextEditingController minPriceController = TextEditingController();
   TextEditingController maxPriceController = TextEditingController();
@@ -44,6 +49,7 @@ class ProductFilterController extends GetxController {
   String query = "";
   String getQuery() {
     query = "";
+    addParam("page", _page.toString());
     if (productNameController.text.isNotEmpty) {
       addParam("name", productNameController.text);
     }
@@ -124,6 +130,10 @@ class ProductFilterController extends GetxController {
 
   void setCategory(int category) {
     _category = category;
+  }
+
+  void setPage(int page) {
+    _page = page;
   }
 
 }

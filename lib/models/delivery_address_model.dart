@@ -47,4 +47,17 @@ class DeliveryAddressModel {
     address.mobileNo = json["mobileNo"];
     return address;
   }
+
+
+  Map<String, dynamic> toJson(){
+    Map<String, dynamic> json = {
+      "regionName":regionName,
+      "districtName":districtName,
+      "streetName":streetName,
+      "zipCode":zipCode,
+      "buildingNo":buildingNo,
+      "mobileNo":mobileNo,
+    };
+    return json;
+  }
 }

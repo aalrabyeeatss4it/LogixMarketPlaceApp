@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:get_storage/get_storage.dart';
+import '../common/storage/local_storage.dart';
 import '../models/cart_item_model.dart';
 import '../services/product_detail_service.dart';
 import 'login_controller.dart';
@@ -49,7 +50,7 @@ class CartController extends GetxController {
   }
 
   Future<bool> addItem(CartItemModel item) async {
-    if(!Get.put(LoginController()).checkLoggedIn()) return false;
+    if(!checkLoggedIn()) return false;
     if(item.product.inventoryBalance.value > 1){
       items.add(item);
       saveCart();

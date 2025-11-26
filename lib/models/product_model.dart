@@ -43,7 +43,7 @@ class ProductModel {
         name: json['name'],
         desc: json['desc'],
         basePrice: json['price'],
-        vat: json['vaT_Rate'],
+        vat: json['vaT_Rate']??0,
         unitId: json['unitId'],
         discountPercentage: json['discountPercentage'],
         inventoryBalance: json['inventoryBalance']??0,
@@ -55,7 +55,10 @@ class ProductModel {
     try{
       return jsonList.map((item) => ProductModel.fromJson(item)).toList();
     }
-    catch(e){}
+    catch(e){
+
+      print("fromJsonList:"+e.toString());
+    }
     return [];
   }
 
@@ -78,8 +81,9 @@ class ProductModel {
   double get priceIncludeVat => discountedBasePrice + ((vat * discountedBasePrice) / 100);
 
   //Display Helpers
+  String get getPriceIncludeVat=> (priceIncludeVat>0)?priceIncludeVat.toStringAsFixed(2):"";
   String getDiscountRate(){
-    if(discountPercentage.value==0)return "";
+    if(discountPercentage.value==0) return "";
     return "${(discountPercentage*100).toInt()}% ";
   }
 

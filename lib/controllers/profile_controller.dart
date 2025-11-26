@@ -5,6 +5,6 @@ import '../common/storage/local_storage.dart';
 class ProfileController{
 
   var box = GetStorage();
-  get firstName => box.read(firstNameIndex);
-  get lastName => box.read(lastNameIndex);
+  get firstName => (box.read(firstNameIndex))??"Guest";
+  get lastName => (box.read(lastNameIndex))??"";
 }

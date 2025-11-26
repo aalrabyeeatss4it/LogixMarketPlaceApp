@@ -23,9 +23,9 @@ class AccountInfoController extends GetxController {
   RxBool isNewPwdHidden = false.obs;
   RxBool isNewPwdConfirmHidden = false.obs;
   void loadData() {
-    firstNameController.text = box.read(firstNameIndex);
-    lastNameController.text = box.read(lastNameIndex);
-    emailController.text = box.read(emailIndex);
+    firstNameController.text = (box.read(firstNameIndex))?? "";
+    lastNameController.text = (box.read(lastNameIndex))?? "";
+    emailController.text = (box.read(emailIndex))?? "";
   }
 
   Future<void> changePwd() async {

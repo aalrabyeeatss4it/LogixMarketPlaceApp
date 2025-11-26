@@ -28,6 +28,7 @@ class _AnnouncementSliderState extends State<AnnouncementSlider>{
   Widget build(BuildContext context) {
     return Obx(() {
       if (controller.list.isEmpty) {
+        return const Center();
         return SizedBox(
           height: 150,
           child: Image.asset(

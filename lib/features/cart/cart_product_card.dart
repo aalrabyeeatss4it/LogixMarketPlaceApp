@@ -43,7 +43,7 @@ class CartProductCard extends StatelessWidget {
                               elevation: 0,
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Image.network(
+                                child: (cartItem.product.thumbPath == "no_image.jpg")? Image.asset('assets/logo.png',fit: BoxFit.cover): Image.network(
                                   cartItem.product.getThumbPath(),
                                   fit: BoxFit.cover,
                                   loadingBuilder: (context, child, loadingProgress) {
@@ -79,21 +79,21 @@ class CartProductCard extends StatelessWidget {
                             overflow: TextOverflow.visible,
                             maxLines: null
                           ),
-                          const Row(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text('الخيارات:'),
-                                SizedBox(width: 5),
-                                Text('2 مقاسات', style: TextStyle(fontSize: 16,color: primaryColor)),
-                              ]
-                          ),
+                          // const Row(
+                          //     mainAxisSize: MainAxisSize.min,
+                          //     mainAxisAlignment: MainAxisAlignment.start,
+                          //     children: [
+                          //       Text('الخيارات:'),
+                          //       SizedBox(width: 5),
+                          //       Text('2 مقاسات', style: TextStyle(fontSize: 16,color: primaryColor)),
+                          //     ]
+                          // ),
                           Row(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(cartItem.product.getDiscountRate(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700,color: secondaryColor)),
-                                Text(cartItem.product.priceIncludeVat.toStringAsFixed(2), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color:  primaryColor)),
+                                Text(cartItem.product.getPriceIncludeVat, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color:  primaryColor)),
                                 Image.asset('icons/riyal.png' ,width: 12,),
                               ]
                           ),

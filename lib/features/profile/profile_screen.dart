@@ -6,6 +6,7 @@ import '../../common/exit_wrapper.dart';
 import '../../common/nav/app_bar_custom.dart';
 import '../../common/nav/bottom_nav_bar_custom.dart';
 import '../../common/nav/page_routes.dart';
+import '../../common/storage/local_storage.dart';
 import '../../controllers/profile_controller.dart';
 
 class ProfileScreen extends StatelessWidget{
@@ -45,6 +46,7 @@ class ProfileScreen extends StatelessWidget{
               SizedBox(height: 10.h),
               InkWell(
                 onTap: (){
+                  if(!checkLoggedIn()) RouteNames.loginPage;
                   Get.offAllNamed(RouteNames.accountSettingPage);
                 },
                 child: Padding(
@@ -85,12 +87,13 @@ class ProfileScreen extends StatelessWidget{
                                 ),
                               ),
                               const SizedBox(width: 12,),
-                              Text(profileController.firstName +" "+profileController.lastName,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w700),),
+                              Text(profileController.firstName +" "+profileController.lastName,style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w700),),
                             ],
                           ),
                           InkWell(
                             child: Image.asset("icons/settings.png",width: 25,),
                             onTap: (){
+                              if(!checkLoggedIn()) return;
                               Get.offAllNamed(RouteNames.accountSettingPage);
                               },
                           )
@@ -121,7 +124,7 @@ class ProfileScreen extends StatelessWidget{
                                 ),
                               ],
                             ),
-                            child: Padding(
+                            child:(!checkLoggedIn())? const SizedBox(): Padding(
                                 padding: const EdgeInsets.symmetric(vertical: 18.0,horizontal: 18),
                               child: ListView.builder(
                                 shrinkWrap: true,
@@ -132,7 +135,7 @@ class ProfileScreen extends StatelessWidget{
                                     onTap: () => options[index].onTap(),
                                     child: Column(
                                       children: [
-                                        SizedBox(height: 10,),
+                                        const SizedBox(height: 10,),
                                         Row(
                                           children: [
                                             Image.asset(options[index].icon,width: 22,),
@@ -149,7 +152,7 @@ class ProfileScreen extends StatelessWidget{
                                             Image.asset("icons/arrow.png",color: Colors.black,width: 7,)
                                           ],
                                         ),
-                                        (index<options.length-1)?Divider(color: Colors.grey.withOpacity(0.2),thickness: 1,):SizedBox()
+                                        (index<options.length-1)?Divider(color: Colors.grey.withOpacity(0.2),thickness: 1,):const SizedBox()
                                       ],
                                     ),
                                   );

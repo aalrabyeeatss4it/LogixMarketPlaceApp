@@ -311,7 +311,7 @@ class _CheckoutScreenState extends State<CheckoutScreen>{
                             children: [
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 4.0,vertical: 8),
-                                child: Obx(()=>Text(cartController.total.value.toString(),style: const TextStyle(fontSize: 16),)),
+                                child: Obx(()=>Text(cartController.total.value.toStringAsFixed(3),style: const TextStyle(fontSize: 16),)),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 20.0),
@@ -355,7 +355,7 @@ class _CheckoutScreenState extends State<CheckoutScreen>{
                             children: [
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 4.0,vertical: 8),
-                                child: Obx(()=>Text(cartController.total.value.toString(),style: TextStyle(fontSize: 16),)),
+                                child: Obx(()=>Text(cartController.total.value.toStringAsFixed(3),style: const TextStyle(fontSize: 16),)),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 20.0),
@@ -392,14 +392,18 @@ class _CheckoutScreenState extends State<CheckoutScreen>{
                                 )
                             ),
                             onPressed: () {
-                              showOrderConfirmBottomSheet(title: 'متابعة بالدفع الآجل؟', buttonLabel: 'تأكيد الطلب' + " ("+cartController.total.value.toString()+") ", onConfirm: () {
+                              if(addressController.defaultAddress.value!.id==null){
+                                showFailureBottomSheet(errorMessage: "لم يتم اضافة عنوان توصيل، يجب اضافة عنوان لإكمال الطلب.",onConfirm: () {  });
+                                return;
+                              }
+                              showOrderConfirmBottomSheet(title: 'متابعة بالدفع الآجل؟', buttonLabel: 'تأكيد الطلب' + " ("+cartController.total.value.toStringAsFixed(3)+") ", onConfirm: () {
                                 orderController.createOrder(addressController.defaultAddress.value!.id!);
                               });
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Obx(()=> Text('تأكيد الطلب' + " ("+cartController.total.value.toString()+") ",
+                                Obx(()=> Text('تأكيد الطلب' + " ("+cartController.total.value.toStringAsFixed(3)+") ",
                                     style: const TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 16)
                                 )),
                                 Padding(

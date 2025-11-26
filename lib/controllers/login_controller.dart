@@ -38,6 +38,12 @@ class LoginController extends GetxController{
   static void logout(){
     var box = GetStorage();
     box.write(tokenIndex, null);
+    box.write(userIdIndex, null);
+    box.write(userNameIndex, null);
+    box.write(firstNameIndex, null);
+    box.write(lastNameIndex, null);
+    box.write(emailIndex, null);
+    box.write(pwdIndex, null);
     Get.offAllNamed(RouteNames.loginPage);
     Get.find<CartController>().clearCart();
     Get.find<FavController>().clear();

@@ -23,6 +23,7 @@ class OrderController extends GetxController{
     var serviceResult = await service.createOrder(order);
     if(serviceResult is SuccessStatus){
       Get.back();
+      cartController.clearCart();
       showSuccessOrderBottomSheet(onConfirm: (){
         Get.offAllNamed(RouteNames.ordersPage,predicate: (route) => route.isFirst);
           // Get.offAllNamed(RouteNames.orderDetailsPage, arguments: order,predicate: (route) => route.isFirst);

@@ -28,8 +28,11 @@ class _CategoriesScreenState extends State<CategoriesScreen>{
       child: Scaffold(
           appBar: AppBarCustom(title: "home"),
           body: Obx(() {
-            if (categoryController.guestCategories.isEmpty) {
+            if (categoryController.isCategoryLoading.value) {
               return const Center(child: CircularProgressIndicator());
+            }
+            if(categoryController.guestCategories.isEmpty){
+              return const Center(child: Text("No categories"));
             }
             return GridView.builder(
                 padding: const EdgeInsets.all(8),

@@ -14,7 +14,7 @@ class CategoryCard extends StatelessWidget{
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Get.offNamed(RouteNames.categoryDetailPage, arguments: {
+        Get.toNamed(RouteNames.categoryDetailPage, arguments: {
           'categoryId': category.id,
           'categoryName': category.nameAr
         });
@@ -32,7 +32,7 @@ class CategoryCard extends StatelessWidget{
               child: SizedBox(
                 width: 100,
                 height: 100,
-                child: Image.network(
+                child: (category.thumbPath == "no_image.jpg")? Image.asset('assets/logo.png',fit: BoxFit.cover): Image.network(
                   category.getThumbPath(),
                   fit: BoxFit.cover,
                   loadingBuilder: (context, child, loadingProgress) {

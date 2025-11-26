@@ -27,8 +27,6 @@ class MyService {
           "Authorization":"Bearer " + box.read(tokenIndex)
         }
     );
-
-    print("response bodyJson:"+jsonDecode(response.body).toString());
     return response;
   }
 

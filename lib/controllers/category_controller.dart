@@ -3,6 +3,7 @@ import 'package:logix_market_place/services/category_service.dart';
 import '../models/category_model.dart';
 
 class CategoryController extends GetxController{
+  var isCategoryLoading = false.obs;
   RxList<CategoryModel> list = <CategoryModel>[].obs;
   RxList<CategoryModel> guestCategories = <CategoryModel>[].obs;
   CategoryService service = Get.put(CategoryService());
@@ -18,6 +19,15 @@ class CategoryController extends GetxController{
     list.value = await  service.getAll();
   }
   Future<void> getGuestCategories() async {
-    guestCategories.value = await  service.getGuestCategories();
+    isCategoryLoading.value = true;
+    try{
+      guestCategories.value = await  service.getGuestCategories();
+    }
+    catch(ex){
+      isCategoryLoading.value = false;
+    }
+    finally {
+      isCategoryLoading.value = false;
+    }
   }
 }

@@ -40,61 +40,60 @@ class HomeProductCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Card(elevation: 0,child: SizedBox(height: 180.h,width: 280.w,
-                          child: Image.network(
-                            product.getThumbPath(),
-                            fit: BoxFit.cover,
-                            loadingBuilder: (context, child, loadingProgress) {
-                              if (loadingProgress == null) return child; // image loaded
-                              return const Center(child: CircularProgressIndicator());
-                            },
-                            errorBuilder: (context, error, stackTrace) {
-                              return Image.asset(
-                                'assets/logo.png',
-                                fit: BoxFit.cover,
-                              );
-                            }
-                          )
-                        ))
-                      ]
-                    ),
-                    SizedBox(width: 280.w,child: Text(product.name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700))),
-                    Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(product.getDiscountRate(), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700,color: secondaryColor)),
-                            Text(product.priceIncludeVat.toStringAsFixed(2), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color:  primaryColor)),
-                            Image.asset('icons/riyal.png' ,width: 12,),
-                          ]
-                        ),
-                    Row(
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Card(elevation: 0,child: SizedBox(height: 180.h,width: 280.w,
+                            child:(product.thumbPath == "no_image.jpg")? Image.asset('assets/logo.png',fit: BoxFit.cover): Image.network(
+                              product.getThumbPath(),
+                              fit: BoxFit.cover,
+                              loadingBuilder: (context, child, loadingProgress) {
+                                if (loadingProgress == null) return child; // image loaded
+                                return const Center(child: CircularProgressIndicator());
+                              },
+                              errorBuilder: (context, error, stackTrace) {
+                                return Image.asset('assets/logo.png',fit: BoxFit.cover);
+                              }
+                            )
+                          ))
+                        ]
+                      ),
+                      SizedBox(width: 280.w,child: Text(product.name,maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700))),
+                      Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text(product.getPreDiscountPrice(), style: const TextStyle(fontSize: 14,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
+                              Text(product.getDiscountRate(), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700,color: secondaryColor)),
+                              Text(product.getPriceIncludeVat, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color:  primaryColor)),
+                              (product.getPriceIncludeVat!="")?Image.asset('icons/riyal.png' ,width: 12,): SizedBox(),
                             ]
-                        ),
-                    (added)? Row(children: [
-                      (product.isAvailable(item!.quantity.value)==1)?
-                      Text('متوفر', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: successColor)):
-                      Text('الكمية المتوفرة: '+product.inventoryBalance.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)),
-                    ])
-                        :SizedBox(),
-                    Row(children: [
-                      (product.isAvailable((item!=null)?item.quantity.value:1)==-1)?
-                      const Text('غير متوفر', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)):
-                      const SizedBox()
-                    ])
+                          ),
+                      Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(product.getPreDiscountPrice(), style: const TextStyle(fontSize: 14,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
+                              ]
+                          ),
+                      (added)? Row(children: [
+                        (product.isAvailable(item!.quantity.value)==1)?
+                        Text('متوفر', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: successColor)):
+                        Text('الكمية المتوفرة: '+product.inventoryBalance.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)),
+                      ])
+                          :SizedBox(),
+                      Row(children: [
+                        (product.isAvailable((item!=null)?item.quantity.value:1)==-1)?
+                        const Text('غير متوفر', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)):
+                        const SizedBox()
+                      ])
 
-                  ],
+                    ],
+                  ),
                 ),
                 Row(
                   children: [

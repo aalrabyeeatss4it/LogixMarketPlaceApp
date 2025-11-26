@@ -37,7 +37,7 @@ class HomeCategoryCard extends StatelessWidget{
                             child: SizedBox(
                               width: 60,
                               height: 60,
-                              child: Image.network(
+                              child: (category.thumbPath == "no_image.jpg")? Image.asset('assets/logo.png',fit: BoxFit.cover):  Image.network(
                                 category.getThumbPath(),
                                 fit: BoxFit.cover,
                                 loadingBuilder: (context, child, loadingProgress) {
