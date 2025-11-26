@@ -84,7 +84,6 @@ class ProductController extends GetxController {
     recentlyArrivedProducts.clear();
   }
   Future<void> getByCategory(int categoryId) async {
-    print("getByCategory");
     if(isCategoryLoading.value || !hasMoreCategoryProducts) return;
     isCategoryLoading.value = true;
     Get.find<ProductFilterController>().setCategory(categoryId);

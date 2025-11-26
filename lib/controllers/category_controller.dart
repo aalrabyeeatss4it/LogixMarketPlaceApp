@@ -16,7 +16,16 @@ class CategoryController extends GetxController{
   }
 
   Future<void> getAll() async {
-    list.value = await  service.getAll();
+    isCategoryLoading.value = true;
+    try{
+      list.value = await service.getAll();
+    }
+    catch(ex){
+      isCategoryLoading.value = false;
+    }
+    finally {
+      isCategoryLoading.value = false;
+    }
   }
   Future<void> getGuestCategories() async {
     isCategoryLoading.value = true;

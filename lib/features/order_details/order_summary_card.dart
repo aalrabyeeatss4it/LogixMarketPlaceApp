@@ -13,10 +13,7 @@ class OrderSummaryCard extends StatelessWidget{
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Container(
-        // elevation: 0,
-        // shape: RoundedRectangleBorder(side: BorderSide(color: Colors.grey,width: 0),borderRadius: BorderRadius.circular(10)),
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: primaryColor.withOpacity(0.1)),
-        // color: primaryColor.withOpacity(0.01),
         child: Column(
           children: [
             Padding(
@@ -39,7 +36,7 @@ class OrderSummaryCard extends StatelessWidget{
                   Text('السلع',style: TextStyle(fontSize: 16)),
                   Row(
                     children: [
-                      Text(order.total?? "0",style: TextStyle(fontSize: 16),),
+                      Text(order.getTotal,style: TextStyle(fontSize: 16),),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 4),
                         child: Image.asset('icons/riyal.png' ,width: 12,),
@@ -99,7 +96,7 @@ class OrderSummaryCard extends StatelessWidget{
                     children: [
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 4.0,vertical: 8),
-                        child: Text(order.total?? "",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w900),),
+                        child: Text(order.getTotal,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w900),),
                       ),
                       Image.asset('icons/riyal.png' ,width: 12,)
                     ],

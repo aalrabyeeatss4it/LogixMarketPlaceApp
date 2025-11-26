@@ -180,24 +180,37 @@ Widget build(BuildContext context) {
             ],
           ),
         ),
-        Divider(),
+        const Divider(),
         Expanded(
-          child: SingleChildScrollView(
-            child: Obx(() {
-              if(invoiceController.invoicesModel.value.invoices==null) {
-                return const SizedBox();
-              }
-              return ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.all(8),
-                  itemCount: invoiceController.invoicesModel.value.invoices?.length,
-                  itemBuilder: (BuildContext context, int index) {
+          child: Obx(() {
+            if (invoiceController.isLoading.value && invoiceController.page==1) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (invoiceController.invoicesModel.value.invoices == null) {
+              return const Center(child: Text("No invoices"));
+            }
+            if (invoiceController.invoicesModel.value.invoices!.isEmpty) {
+              return const Center(child: Text("No invoices"));
+            }
+            return ListView.builder(
+                controller: invoiceController.scroll,
+                shrinkWrap: true,
+                padding: const EdgeInsets.all(8),
+                itemCount: invoiceController.invoicesModel.value.invoices!.length + 1,
+                itemBuilder: (BuildContext context, int index) {
+                  if(index < invoiceController.invoicesModel.value.invoices!.length){
                     return InvoiceCard(order: invoiceController.invoicesModel.value.invoices![index],);
                   }
-              );
-            }
-            ),
+                  else{
+                    return invoiceController.hasMore?
+                    const Padding(
+                        padding: EdgeInsets.all(16),
+                        child: Center(child: CircularProgressIndicator())
+                    ): const SizedBox();
+                  }
+                }
+            );
+          }
           ),
         )
       ]

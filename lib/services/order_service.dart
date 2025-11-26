@@ -21,13 +21,8 @@ class OrderService extends MyService{
     return FailureStatus(errorMessage: 'حدث خطأ اثناء تنفيذ الطلب، الرجاء المحاولة مرة اخرى.');
   }
 
-  Future<ServiceResult<dynamic>> getOrders() async {
-    Response response = await get(Uri.parse(baseUrl + ordersPath),
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization":"Bearer "+ box.read(tokenIndex)
-    }
-    );
+  Future<ServiceResult<dynamic>> getOrders(String filters) async {
+    Response response = await getData("$ordersPath?$filters");
     if(response.statusCode==200){
       var responseJson= jsonDecode(response.body);
       List<OrderModel> orders = OrderModel.fromJsonList(responseJson);
@@ -37,12 +32,7 @@ class OrderService extends MyService{
   }
 
   Future<ServiceResult> getOrder() async {
-    Response response = await get(Uri.parse(baseUrl + ordersPath),
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization":"Bearer "+ box.read(tokenIndex)
-        }
-    );
+    Response response = await getData(ordersPath);
     if(response.statusCode==200){
       var responseJson= jsonDecode(response.body);
       OrderModel order = OrderModel.fromJson(responseJson);

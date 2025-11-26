@@ -69,12 +69,12 @@ class InvoiceDetailsScreenState extends State<InvoiceDetailsScreen> {
                                             mainAxisAlignment: MainAxisAlignment.start,
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
-                                              Padding(
+                                              const Padding(
                                                 padding: EdgeInsets.all(4),
                                                 child: Text('رقم الطلب:',style: TextStyle(fontSize: 18,color: Colors.grey),),
                                               ),
-                                              SizedBox(width: 5,),
-                                              Text(order.orderId??"",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
+                                              const SizedBox(width: 5,),
+                                              Text(order.orderId??"",style: const TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
                                             ],
                                           ),
                                         ],
@@ -93,13 +93,13 @@ class InvoiceDetailsScreenState extends State<InvoiceDetailsScreen> {
                                                   borderRadius: BorderRadius.circular(10)
                                               ),
                                               child: Padding(
-                                                padding: EdgeInsets.symmetric(horizontal: 6.0,vertical: 7),
-                                                child: Text(order.orderStatus??"",style: TextStyle(fontSize: 16,color: Colors.black),),
+                                                padding: const EdgeInsets.symmetric(horizontal: 6.0,vertical: 7),
+                                                child: Text(order.orderStatus??"",style: const TextStyle(fontSize: 16,color: Colors.black),),
                                               )
                                           ),
                                           Padding(
-                                            padding: EdgeInsets.all(6.0),
-                                            child: Text(order.deliveryDate??"",style: TextStyle(fontSize: 16,color: Colors.black),),
+                                            padding: const EdgeInsets.all(6.0),
+                                            child: Text(order.deliveryDate??"",style: const TextStyle(fontSize: 16,color: Colors.black),),
                                           ),
                                         ],
                                       ),
@@ -130,16 +130,13 @@ class InvoiceDetailsScreenState extends State<InvoiceDetailsScreen> {
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(horizontal: 18.0),
                                       child: Text(controller.defaultAddress.value?.fullAddress??"",
+                                        maxLines: 2,
                                         style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
                                   ),
-                                  ),
-                                  const Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 18.0),
-                                    child: Text('تغيير العنوان',style: TextStyle(fontSize: 16,color: primaryColor,decoration: TextDecoration.underline,)),
-                                  ),
+                                  )
                                 ],
                               )
                             ],
@@ -177,7 +174,7 @@ class InvoiceDetailsScreenState extends State<InvoiceDetailsScreen> {
                                 ),
                                 Padding(
                                   padding: EdgeInsets.symmetric(horizontal: 18.0),
-                                  child: Text('9012 5678 1234',style: TextStyle(fontSize: 16,color: Colors.grey)),
+                                  child: Text('************',style: TextStyle(fontSize: 16,color: Colors.grey)),
                                 ),
                               ],
                             )

@@ -131,14 +131,11 @@ class OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                         padding: const EdgeInsets.symmetric(horizontal: 18.0),
                                         child: Text(controller.defaultAddress.value?.fullAddress??"",
                                           style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+                                          maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  const Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 18.0),
-                                    child: Text('تغيير العنوان',style: TextStyle(fontSize: 16,color: primaryColor,decoration: TextDecoration.underline,)),
                                   ),
                                 ],
                               )
@@ -177,7 +174,7 @@ class OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                 ),
                                 Padding(
                                   padding: EdgeInsets.symmetric(horizontal: 18.0),
-                                  child: Text('9012 5678 1234',style: TextStyle(fontSize: 16,color: Colors.grey)),
+                                  child: Text('************',style: TextStyle(fontSize: 16,color: Colors.grey)),
                                 ),
                               ],
                             )

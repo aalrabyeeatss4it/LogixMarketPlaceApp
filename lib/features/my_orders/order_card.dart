@@ -97,7 +97,7 @@ class OrderCard extends StatelessWidget{
                       const SizedBox(width: 5,),
                       InkWell(
                         onTap: (){
-                          Get.offAllNamed(RouteNames.orderDetailsPage, arguments: order,predicate: (route) => route.isFirst);
+                          Get.toNamed(RouteNames.orderDetailsPage, arguments: order);
                         },
                           child: const Text('تفاصيل الدفع',style: TextStyle(fontSize: 14,color: primaryColor,decoration: TextDecoration.underline))
                       ),
@@ -117,7 +117,7 @@ class OrderCard extends StatelessWidget{
                               )
                           ),
                           onPressed: () {
-                            Get.offAllNamed(RouteNames.checkoutPage,predicate: (route) => route.isFirst);
+                            // Get.offAllNamed(RouteNames.checkoutPage,predicate: (route) => route.isFirst);
                           },
                           child: const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 10.0),

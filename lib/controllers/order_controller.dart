@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:logix_market_place/models/order_model.dart';
 import 'package:logix_market_place/services/service_result.dart';
@@ -13,6 +14,21 @@ class OrderController extends GetxController{
   RxInt shipmentMethod = 1.obs;
   OrderService service = Get.put(OrderService());
   RxList<OrderModel> orders = <OrderModel>[].obs;
+
+  var isLoading = false.obs;
+  int page = 1;
+  bool hasMore = true;
+  ScrollController scroll = ScrollController();
+
+  @override
+  void onInit() {
+    super.onInit();
+    scroll.addListener(() {
+      if (scroll.position.pixels == scroll.position.maxScrollExtent) {
+        getOrders();
+      }
+    });
+  }
 
   Future<void> createOrder(String deliveryAddressId) async {
     var order = OrderModel();
@@ -38,12 +54,27 @@ class OrderController extends GetxController{
       showFailureBottomSheet(onConfirm: (){});
     }
   }
-
   Future<void> getOrders() async {
-    var serviceResult = await service.getOrders();
-    if(serviceResult is SuccessStatus<List<OrderModel>>){
-      orders.value = serviceResult.data!;
-
+    if(isLoading.value || !hasMore) return;
+    isLoading.value = true;
+    try{
+      String filters = "page=$page";
+      var serviceResult = await service.getOrders(filters);
+      if(serviceResult is SuccessStatus<List<OrderModel>>){
+        if(serviceResult.data!.isEmpty){
+          hasMore = false;
+        }
+        else{
+          orders.addAll(serviceResult.data!);
+          page++;
+        }
+      }
+    }
+    catch(ex){
+      isLoading.value = false;
+    }
+    finally {
+      isLoading.value = false;
     }
   }
 }

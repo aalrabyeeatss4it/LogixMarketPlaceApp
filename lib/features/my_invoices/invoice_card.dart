@@ -99,7 +99,7 @@ class InvoiceCard extends StatelessWidget{
                     ),
                     InkWell(
                         onTap: (){
-                          Get.offAllNamed(RouteNames.invoiceDetailsPage, arguments: order,predicate: (route) => route.isFirst);
+                          Get.toNamed(RouteNames.invoiceDetailsPage, arguments: order);
                         },
                         child: const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -120,7 +120,7 @@ class InvoiceCard extends StatelessWidget{
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(order.total?? "",style: const TextStyle(fontSize: 22,fontWeight: FontWeight.w900),),
+                          Text(order.getTotal,style: const TextStyle(fontSize: 22,fontWeight: FontWeight.w900),),
                           Image.asset('icons/riyal.png' ,width: 20,color: Colors.black,),
                         ]
                     )

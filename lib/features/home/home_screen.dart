@@ -112,7 +112,8 @@ class HomeScreenState extends State<HomeScreen> {
                                   child: Center(child: CircularProgressIndicator())
                               ): const SizedBox();
                             }
-                          }),
+                          }
+                          ),
                     );
                   }
                   ),

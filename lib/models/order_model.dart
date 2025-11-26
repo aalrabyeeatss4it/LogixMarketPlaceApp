@@ -37,7 +37,7 @@ class OrderModel{
     this.remaining,
     this.items,
   });
-
+  get getTotal => (total!=null && total!= "")? double.tryParse(total!)?.toStringAsFixed(2):"";
   factory OrderModel.fromJson(Map<String, dynamic> json) {
     return OrderModel(
       subTotal: json['subTotal']?.toString() ?? '0',
