@@ -223,7 +223,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
           bottomNavigationBar:  BottomNavBarCustom(
               currentPage: 0,
               actionRow:  Obx(() {
-                if(_productController.product.value.id == 0 || !checkLoggedIn()){
+                if(_productController.product.value.id == 0 || !isLoggedIn()){
                   return const SizedBox();
                 }
                 return SizedBox(

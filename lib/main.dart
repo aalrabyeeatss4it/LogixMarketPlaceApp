@@ -13,6 +13,7 @@ import 'common/dynamic_links/deep_link_service.dart';
 import 'common/lang/app_translations.dart';
 import 'common/localization/localization_controller.dart';
 import 'common/nav/app_wrapper.dart';
+import 'common/storage/local_storage.dart';
 import 'controllers/app_bindings.dart';
 
 void main() async {
@@ -75,7 +76,7 @@ class _MyAppState  extends State<MyApp> {
             translations: AppTranslations(),
             locale: localizationController.locale.value,
             fallbackLocale: const Locale('ar', 'SA'),
-            initialRoute:(loginController.isLoggedIn.value)? RouteNames.homePage: RouteNames.guestHomePage,
+            initialRoute:(isLoggedIn())? RouteNames.homePage: RouteNames.guestHomePage,
             // initialRoute: RouteNames.homePage,
             getPages: routePages ,
           );

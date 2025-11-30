@@ -2,9 +2,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:logix_market_place/models/product_model.dart';
-
 import '../common/storage/local_storage.dart';
-import 'login_controller.dart';
 
 class FavController extends GetxController {
   final box = GetStorage();
@@ -31,7 +29,7 @@ class FavController extends GetxController {
   }
 
   Future<void> addItem(ProductModel item) async {
-    if(!checkLoggedIn()) return;
+    if(!isLoggedIn()) return;
     items.add(item);
     saveFav();
   }

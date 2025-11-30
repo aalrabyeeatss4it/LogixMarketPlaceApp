@@ -9,7 +9,7 @@ const String userNameIndex = "userNameIndex";
 const String pwdIndex = "pwdIndex";
 
 var box = GetStorage();
-checkLoggedIn(){
+isLoggedIn() {
   var token = box.read(tokenIndex);
-  return (token!=null);
+  return (token != null);
 }

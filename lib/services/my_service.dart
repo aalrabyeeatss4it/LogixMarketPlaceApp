@@ -37,9 +37,10 @@ class MyService {
           "Authorization":"Bearer ${box.read(tokenIndex)??""}"
         }
     );
-    print("url:"+baseUrl + path);
-    print("getProduct:"+response.statusCode.toString());
-    print("getProduct:"+response.body);
+    print("URL:"+baseUrl + path);
+    print("TOKEN:"+"${box.read(tokenIndex)??""}");
+    print("STATUS CODE:"+response.statusCode.toString());
+    print("RESPONSE BODY:"+response.body);
     if(response.statusCode==401){
       print("getData:"+response.statusCode.toString());
       // LoginController.logout();

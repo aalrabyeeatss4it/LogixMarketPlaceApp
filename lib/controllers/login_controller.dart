@@ -53,10 +53,10 @@ class LoginController extends GetxController{
     isLoggedIn.value = (token!=null);
     return isLoggedIn.value;
   }
-  @override
-  void onInit() {
-    super.onInit();
-    checkLoggedIn();
-  }
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  //   checkLoggedIn();
+  // }
 
 }

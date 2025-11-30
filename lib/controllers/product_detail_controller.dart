@@ -36,8 +36,8 @@ class ProductDetailController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    print("checkLoggedIn"+checkLoggedIn().toString());
-    if (checkLoggedIn()) {
+    print("checkLoggedIn"+isLoggedIn().toString());
+    if (isLoggedIn()) {
       Get.replace(ProductDetailService());
       productDetailService = Get.find<ProductDetailService>();
     } else {

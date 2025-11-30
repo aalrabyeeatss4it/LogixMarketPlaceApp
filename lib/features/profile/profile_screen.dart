@@ -46,7 +46,7 @@ class ProfileScreen extends StatelessWidget{
               SizedBox(height: 10.h),
               InkWell(
                 onTap: (){
-                  if(!checkLoggedIn()) RouteNames.loginPage;
+                  if(!isLoggedIn()) RouteNames.loginPage;
                   Get.offAllNamed(RouteNames.accountSettingPage);
                 },
                 child: Padding(
@@ -93,7 +93,7 @@ class ProfileScreen extends StatelessWidget{
                           InkWell(
                             child: Image.asset("icons/settings.png",width: 25,),
                             onTap: (){
-                              if(!checkLoggedIn()) return;
+                              if(!isLoggedIn()) return;
                               Get.offAllNamed(RouteNames.accountSettingPage);
                               },
                           )
@@ -124,7 +124,7 @@ class ProfileScreen extends StatelessWidget{
                                 ),
                               ],
                             ),
-                            child:(!checkLoggedIn())? const SizedBox(): Padding(
+                            child:(!isLoggedIn())? const SizedBox(): Padding(
                                 padding: const EdgeInsets.symmetric(vertical: 18.0,horizontal: 18),
                               child: ListView.builder(
                                 shrinkWrap: true,

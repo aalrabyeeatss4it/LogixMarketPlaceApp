@@ -9,7 +9,7 @@ class BottomNavController extends GetxController {
   var selectedIndex = 0.obs;
 
   final List<String> _pages = [
-    (checkLoggedIn())? RouteNames.homePage: RouteNames.guestHomePage,
+    (isLoggedIn())? RouteNames.homePage: RouteNames.guestHomePage,
     RouteNames.categoriesPage,
     RouteNames.cartPage,
     RouteNames.profilePage,

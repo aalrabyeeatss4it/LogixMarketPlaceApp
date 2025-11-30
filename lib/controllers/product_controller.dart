@@ -40,7 +40,7 @@ class ProductController extends GetxController {
     Get.find<ProductFilterController>().setPage(page);
     var filters = Get.find<ProductFilterController>().getQuery();
     try {
-      var result = (checkLoggedIn())? await productService.getRecentlyArrived(filters): await productService.getGuestProducts(filters);
+      var result = (isLoggedIn())? await productService.getRecentlyArrived(filters): await productService.getGuestProducts(filters);
       if(result.isEmpty){
         hasMore = false;
       }
@@ -90,7 +90,7 @@ class ProductController extends GetxController {
     Get.find<ProductFilterController>().setPage(categoryProductsPage);
     var filters = Get.find<ProductFilterController>().getQuery();
     try {
-      var result =  (checkLoggedIn())? await productService.getRecentlyArrived(filters): await productService.getGuestProducts(filters);
+      var result =  (isLoggedIn())? await productService.getRecentlyArrived(filters): await productService.getGuestProducts(filters);
       if(result.isEmpty){
         hasMoreCategoryProducts = false;
       }

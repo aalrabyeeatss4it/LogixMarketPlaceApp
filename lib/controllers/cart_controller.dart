@@ -50,7 +50,7 @@ class CartController extends GetxController {
   }
 
   Future<bool> addItem(CartItemModel item) async {
-    if(!checkLoggedIn()) return false;
+    if(!isLoggedIn()) return false;
     if(item.product.inventoryBalance.value > 1){
       items.add(item);
       saveCart();
