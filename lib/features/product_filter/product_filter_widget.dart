@@ -136,86 +136,86 @@ class ProductFilterWidget extends StatelessWidget{
                 ),
               ],
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 16),
-              child: Text("المقاس",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
-            ),
-            Obx(() {
-              if (controller.sizes.isEmpty) return const SizedBox();
-              return Wrap(
-                spacing: 8,
-                children: controller.sizes.map((size) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: ChoiceChip(
-                      label: SizedBox(
-                          width: 30,
-                          height: 30,
-                          child: Center(child: Text(size.name))
-                      ),
-                      selected: size.selected.value,
-                      selectedColor: Colors.blue,
-                      backgroundColor: Colors.grey.shade200,
-                      labelStyle: TextStyle(
-                        color: size.selected.value ? Colors.white : Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      onSelected: (isSelected) {
-                        size.selected.value = isSelected;
-                        if (isSelected) {
-                          if (!controller.selectedSizeId.contains(size.id)) {
-                            controller.selectedSizeId.add(size.id);
-                          }
-                        } else {
-                          controller.selectedSizeId.remove(size.id);
-                        }
-                      },
-                    ),
-                  );
-                }).toList(),
-              );
-            }),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 16),
-              child: Text("اللون",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
-            ),
-            Obx((){
-              if(controller.colors.isEmpty) return const SizedBox();
-              return Wrap(
-                spacing: 8,
-                children: controller.colors.map((c){
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: ChoiceChip(
-                      label: Container(
-                        width: 30,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: c.colorValue,
-                          border: c.selected.value
-                              ? Border.all(color: Colors.black, width: 2)
-                              : null,
-                        ),
-                      ),
-                      selected: c.selected.value,
-                      selectedColor: Colors.transparent,
-                      backgroundColor: Colors.transparent,
-                      onSelected: (isSelected){
-                        c.selected.value = isSelected;
-                        if(!controller.selectedColorId.contains(c.id)){
-                          controller.selectedColorId.add(c.id);
-                        }
-                        else{
-                          controller.selectedColorId.remove(c.id);
-                        }
-                      },
-                    ),
-                  );
-
-                }).toList(),
-              );
-            }),
+            // const Padding(
+            //   padding: EdgeInsets.symmetric(vertical: 16),
+            //   child: Text("المقاس",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
+            // ),
+            // Obx(() {
+            //   if (controller.sizes.isEmpty) return const SizedBox();
+            //   return Wrap(
+            //     spacing: 8,
+            //     children: controller.sizes.map((size) {
+            //       return Padding(
+            //         padding: const EdgeInsets.symmetric(vertical: 8.0),
+            //         child: ChoiceChip(
+            //           label: SizedBox(
+            //               width: 30,
+            //               height: 30,
+            //               child: Center(child: Text(size.name))
+            //           ),
+            //           selected: size.selected.value,
+            //           selectedColor: Colors.blue,
+            //           backgroundColor: Colors.grey.shade200,
+            //           labelStyle: TextStyle(
+            //             color: size.selected.value ? Colors.white : Colors.black,
+            //             fontWeight: FontWeight.bold,
+            //           ),
+            //           onSelected: (isSelected) {
+            //             size.selected.value = isSelected;
+            //             if (isSelected) {
+            //               if (!controller.selectedSizeId.contains(size.id)) {
+            //                 controller.selectedSizeId.add(size.id);
+            //               }
+            //             } else {
+            //               controller.selectedSizeId.remove(size.id);
+            //             }
+            //           },
+            //         ),
+            //       );
+            //     }).toList(),
+            //   );
+            // }),
+            // const Padding(
+            //   padding: EdgeInsets.symmetric(vertical: 16),
+            //   child: Text("اللون",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
+            // ),
+            // Obx((){
+            //   if(controller.colors.isEmpty) return const SizedBox();
+            //   return Wrap(
+            //     spacing: 8,
+            //     children: controller.colors.map((c){
+            //       return Padding(
+            //         padding: const EdgeInsets.symmetric(vertical: 8.0),
+            //         child: ChoiceChip(
+            //           label: Container(
+            //             width: 30,
+            //             height: 30,
+            //             decoration: BoxDecoration(
+            //               shape: BoxShape.circle,
+            //               color: c.colorValue,
+            //               border: c.selected.value
+            //                   ? Border.all(color: Colors.black, width: 2)
+            //                   : null,
+            //             ),
+            //           ),
+            //           selected: c.selected.value,
+            //           selectedColor: Colors.transparent,
+            //           backgroundColor: Colors.transparent,
+            //           onSelected: (isSelected){
+            //             c.selected.value = isSelected;
+            //             if(!controller.selectedColorId.contains(c.id)){
+            //               controller.selectedColorId.add(c.id);
+            //             }
+            //             else{
+            //               controller.selectedColorId.remove(c.id);
+            //             }
+            //           },
+            //         ),
+            //       );
+            //
+            //     }).toList(),
+            //   );
+            // }),
             Padding(
               padding: const EdgeInsets.only(top: 20),
               child: Row(

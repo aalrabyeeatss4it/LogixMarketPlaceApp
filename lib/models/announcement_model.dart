@@ -1,5 +1,7 @@
 import 'package:logix_market_place/common/api_paths.dart';
 
+import '../common/storage/local_storage.dart';
+
 class AnnouncementModel {
   int id;
   String subject;
@@ -37,6 +39,7 @@ class AnnouncementModel {
     if(path.isEmpty){
       path = "no_image.jpg";
     }
-    return erpUrl()+attachFilePath?.replaceAll('~/','/').replaceAll(' ', '')+"?token=$ssoToken";
+    return advertisementErpUrl()+attachFilePath?.replaceAll('~/','/').replaceAll(' ', '')+"?token=$ssoToken";
   }
+
 }

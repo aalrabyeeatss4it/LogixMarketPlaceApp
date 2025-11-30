@@ -61,41 +61,41 @@ class _CheckoutScreenState extends State<CheckoutScreen>{
                       ),
                       SizedBox(height: 25.h),
                       SectionTitleCard(title: "طريقة الدفع"),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 2),
-                        child: Obx(()=>
-                           Card(
-                            elevation: 0,
-                            color: Colors.white,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                                side: const BorderSide(color: grayBorderColor1,width: 1)
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 4),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Image.asset("icons/apple-pay.png",height: 35,),
-                                      SizedBox(width: 5),
-                                      const Text("Apple Pay")
-                                    ],
-                                  ),
-                                  Radio(
-                                      value: 1,
-                                      groupValue: orderController.paymentMethod.value,
-                                      onChanged: (val) {
-                                        if(val!=null) orderController.paymentMethod.value = val;
-                                      }
-                                      )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 2),
+                      //   child: Obx(()=>
+                      //      Card(
+                      //       elevation: 0,
+                      //       color: Colors.white,
+                      //       shape: RoundedRectangleBorder(
+                      //           borderRadius: BorderRadius.circular(15),
+                      //           side: const BorderSide(color: grayBorderColor1,width: 1)
+                      //       ),
+                      //       child: Padding(
+                      //         padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 4),
+                      //         child: Row(
+                      //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //           children: [
+                      //             Row(
+                      //               children: [
+                      //                 Image.asset("icons/apple-pay.png",height: 35,),
+                      //                 SizedBox(width: 5),
+                      //                 const Text("Apple Pay")
+                      //               ],
+                      //             ),
+                      //             Radio(
+                      //                 value: 1,
+                      //                 groupValue: orderController.paymentMethod.value,
+                      //                 onChanged: (val) {
+                      //                   if(val!=null) orderController.paymentMethod.value = val;
+                      //                 }
+                      //                 )
+                      //           ],
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 2),
                         child: Obx(()=>

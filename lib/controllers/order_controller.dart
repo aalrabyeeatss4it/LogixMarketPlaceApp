@@ -10,7 +10,7 @@ import 'cart_controller.dart';
 
 class OrderController extends GetxController{
   final CartController cartController = Get.put(CartController());
-  RxInt paymentMethod = 1.obs;
+  RxInt paymentMethod = 2.obs;
   RxInt shipmentMethod = 1.obs;
   OrderService service = Get.put(OrderService());
   RxList<OrderModel> orders = <OrderModel>[].obs;
