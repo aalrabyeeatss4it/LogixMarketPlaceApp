@@ -16,6 +16,7 @@ import '../../features/account_setting/account_setting_screen.dart';
 import '../../features/category_detail/category_detail_screen.dart';
 import '../../features/checkout/checkout_screen.dart';
 import '../../features/edit_address/edit_address_screen.dart';
+import '../../features/google_pay/google_pay_screen.dart';
 import '../../features/guest_home/guest_home_screen.dart';
 import '../../features/invoice_details/invoice_details_screen.dart';
 import '../../features/my_delivery_address/delivery_address_screen.dart';
@@ -52,6 +53,7 @@ var routePages = [
   GetPage(name: RouteNames.availabilityOrderPage, page: () => AvailabilityOrderScreen()),
   GetPage(name: RouteNames.invoicesPage, page: () => const InvoicesScreen()),
   GetPage(name: RouteNames.invoiceDetailsPage, page: () => const InvoiceDetailsScreen()),
+  GetPage(name: RouteNames.googlePayPage, page: () => const GooglePayScreen()),
 ];
 
 class RouteNames {
@@ -80,4 +82,5 @@ class RouteNames {
   static String paymentMethodsPage = '/payment-methods';
   static String availabilityOrderPage = '/availability-orders';
   static String invoicesPage = '/invoices';
+  static String googlePayPage = '/google_pay';
 }

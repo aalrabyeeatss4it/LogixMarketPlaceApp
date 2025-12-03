@@ -67,19 +67,19 @@ android {
             signingConfig signingConfigs.release
         }
     }
-    splits {
-        abi {
-            enable true
-            reset()
-            include "armeabi-v7a", "arm64-v8a"
-            universalApk false
-        }
-    }
-    packagingOptions {
-        jniLibs {
-            useLegacyPackaging = true
-        }
-    }
+//    splits {
+//        abi {
+//            enable true
+//            reset()
+//            include "armeabi-v7a", "arm64-v8a"
+//            universalApk false
+//        }
+//    }
+//    packagingOptions {
+//        jniLibs {
+//            useLegacyPackaging = true
+//        }
+//    }
 }
 
 flutter {

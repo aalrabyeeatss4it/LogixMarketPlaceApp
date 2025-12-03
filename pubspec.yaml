@@ -20,6 +20,7 @@ dependencies:
   carousel_slider: ^4.2.1
   uni_links: ^0.5.1
   share_plus: ^10.0.0
+  pay: ^2.0.0
 
 
 dev_dependencies:
@@ -33,6 +34,7 @@ flutter:
     - assets/
     - icons/
     - assets_mock/
+    - assets/gpay.json
 
 flutter_launcher_icons:
   android: "launcher_icon"
