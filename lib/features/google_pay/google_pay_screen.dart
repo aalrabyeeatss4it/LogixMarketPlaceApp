@@ -72,7 +72,7 @@ class _GooglePayScreenState extends State<GooglePayScreen> {
           Container(
             margin: const EdgeInsets.symmetric(vertical: 20),
             child: const Image(
-              image: AssetImage('assets/images/ts_10_11019a.jpg'),
+              image: AssetImage('assets_mock/ts_10_11019a.jpg'),
               height: 350,
             ),
           ),
