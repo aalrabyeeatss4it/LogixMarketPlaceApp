@@ -8,9 +8,9 @@
       {
         "type": "CARD",
         "tokenizationSpecification": {
-          "type": "PAYMENT_GATEWAY",
+          "type": "DIRECT",
           "parameters": {
-            "gateway": "example",
+            "protocolVersion": "ECv2",
             "gatewayMerchantId": "exampleGatewayMerchantId"
           }
         },

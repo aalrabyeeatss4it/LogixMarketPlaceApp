@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:pay/pay.dart';
 
 import 'payment_configurations.dart' as payment_configurations;
@@ -20,21 +21,27 @@ class _GooglePayScreenState extends State<GooglePayScreen> {
         PaymentConfiguration.fromAsset('default_google_pay_config.json');
   }
   void onGooglePayResult(Map<String, dynamic> paymentResult) {
+    final token = paymentResult["paymentMethodData"]["tokenizationData"]["token"];
+
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Payment Result'),
-        content: Text(paymentResult.toString()),
+      builder: (_) => AlertDialog(
+        title: const Text("Google Pay Token"),
+        content: Text(token),
         actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text('OK'),
-          ),
+          TextButton(onPressed: () => Navigator.pop(context), child: Text("OK"))
         ],
       ),
     );
-  }
 
+    sendTokenToServer(token); // <-- backend will send to PayFort
+  }
+  Future sendTokenToServer(String token) async {
+    await post(
+      Uri.parse("https://yourapi.com/payfort/googlepay"),
+      body: {"token": token},
+    );
+  }
   void onApplePayResult(Map<String, dynamic> paymentResult) {
     showDialog(
       context: context,
@@ -54,7 +61,7 @@ class _GooglePayScreenState extends State<GooglePayScreen> {
   final _paymentItems = [
     const PaymentItem(
       label: 'Total',
-      amount: '99.99',
+      amount: '1.99',
       status: PaymentItemStatus.final_price,
     )
   ];
