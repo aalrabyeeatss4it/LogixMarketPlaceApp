@@ -11,7 +11,8 @@ class BottomNavController extends GetxController {
     (isLoggedIn())? RouteNames.homePage: RouteNames.guestHomePage,
     RouteNames.categoriesPage,
     RouteNames.cartPage,
-    RouteNames.googlePayPage,
+    RouteNames.profilePage,
+    // RouteNames.googlePayPage,
   ];
   void changeTap(int index) {
     // if (selectedIndex.value == index) return;

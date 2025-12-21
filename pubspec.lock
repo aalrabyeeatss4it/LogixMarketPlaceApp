@@ -166,6 +166,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_amazonpaymentservices:
+    dependency: "direct main"
+    description:
+      name: flutter_amazonpaymentservices
+      sha256: "03b9485f04b1388b8d24db45e3515fbd1b4f145b334e3f0f384fa85091fab9ce"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.10"
   flutter_cache_manager:
     dependency: transitive
     description:
