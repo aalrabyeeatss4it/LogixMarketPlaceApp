@@ -27,6 +27,7 @@ class MockProductDetailService implements ProductDetailService {
         unitId: 15,
         // preDiscountPrice: 500,
         discountPercentage: 12,
+        productCode: 'Pro-01',
         name: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع',
         desc:
             'تصميم عصري أنيق ومقاوم للصدأ مصنوع من خامات عالية الجودة لمقاومة الصدأ والتآكل، مع طبقة تشطيب ذهبية تحافظ على اللمعان لفترة طويلة. التصميم العصري بخطوطه المستقيمة يضيف لمسة جمالية راقية تناسب الحمامات الحديثة والكلاسيكية على حد سواء.',
@@ -44,6 +45,7 @@ class MockProductDetailService implements ProductDetailService {
           basePrice: 6.5,
           vat: 15,
           unitId: 15,
+          productCode: 'Pro-01',
           // preDiscountPrice: 500,
           discountPercentage: 12,
           name: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
@@ -53,6 +55,7 @@ class MockProductDetailService implements ProductDetailService {
           id: 2,
           categoryId: 1,
           basePrice: 6.5,
+          productCode: 'Pro-01',
           vat: 15,
           unitId: 15,
           // preDiscountPrice: 300,
@@ -65,12 +68,10 @@ class MockProductDetailService implements ProductDetailService {
   }
 
   @override
-  // TODO: implement box
   GetStorage get box => throw UnimplementedError();
 
   @override
   Future<Response> getData(String path) {
-    // TODO: implement getData
     throw UnimplementedError();
   }
 

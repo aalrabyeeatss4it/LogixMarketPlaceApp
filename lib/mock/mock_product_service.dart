@@ -12,6 +12,7 @@ class MockProductService implements ProductService {
           id: 1,
           categoryId: 1,
           basePrice: 126.5,
+          productCode: 'Pro-01',
           vat: 15,
           unitId: 15,
           // preDiscountPrice: 300,
@@ -23,6 +24,7 @@ class MockProductService implements ProductService {
       ProductModel(
           id: 2,
           categoryId: 1,
+          productCode: 'Pro-01',
           basePrice: 126.5,
           vat: 15,
           unitId: 15,
@@ -38,6 +40,7 @@ class MockProductService implements ProductService {
           basePrice: 126.5,
           vat: 15,
           unitId: 15,
+          productCode: 'Pro-01',
           // preDiscountPrice: 450,
           discountPercentage: 0,
           name: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
@@ -47,6 +50,7 @@ class MockProductService implements ProductService {
       ProductModel(
           id: 4,
           categoryId: 1,
+          productCode: 'Pro-01',
           basePrice: 126.5,
           vat: 15,
           unitId: 15,
@@ -62,6 +66,7 @@ class MockProductService implements ProductService {
           basePrice: 126.5,
           vat: 15,
           unitId: 15,
+          productCode: 'Pro-01',
           // preDiscountPrice: 250,
           discountPercentage: 0,
           name: 'خلّاط مغسلة مرتفع – أسود مطفي',
@@ -77,6 +82,7 @@ class MockProductService implements ProductService {
       ProductModel(
           id: 1,
           categoryId: 1,
+          productCode: 'Pro-01',
           basePrice: 126.5,
           vat: 15,
           unitId: 15,
@@ -94,6 +100,7 @@ class MockProductService implements ProductService {
           unitId: 15,
           // preDiscountPrice: 200,
           discountPercentage: 0,
+          productCode: 'Pro-01',
           name: 'خلّاط مغسلة مرتفع – أسود مطفي',
           desc: 'خلّاط مغسلة مرتفع – أسود مطفي',
           thumbPath: 'assets_mock/product2.png', inventoryBalance: 0
@@ -101,6 +108,7 @@ class MockProductService implements ProductService {
       ProductModel(
           id: 3,
           categoryId: 1,
+          productCode: 'Pro-01',
           basePrice: 126.5,
           vat: 15,
           unitId: 15,
@@ -116,6 +124,7 @@ class MockProductService implements ProductService {
           basePrice: 126.5,
           vat: 15,
           unitId: 15,
+          productCode: 'Pro-01',
           // preDiscountPrice: 240,
           discountPercentage: 0,
           name: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
@@ -125,6 +134,7 @@ class MockProductService implements ProductService {
       ProductModel(
           id: 5,
           categoryId: 1,
+          productCode: 'Pro-01',
           basePrice: 126.5,
           vat: 15,
           unitId: 15,

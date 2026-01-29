@@ -9,7 +9,7 @@ import '../../controllers/login_controller.dart';
 
 class AccountSettingScreen extends StatelessWidget{
   final List<SettingOption> options = [
-    SettingOption(title: 'معلومات الحساب', onTap: (){
+    SettingOption(title: 'معلومات الحساب'.tr, onTap: (){
       Get.offAllNamed(RouteNames.accountInfoPage,predicate: (route) => route.isFirst);
     }),
     SettingOption(title: 'تغيير البريد الإلكتروني', onTap: (){

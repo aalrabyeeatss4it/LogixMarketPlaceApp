@@ -7,6 +7,7 @@ import 'package:logix_market_place/features/change_lang/change_lang_screen.dart'
 import 'package:logix_market_place/features/change_password/change_password_screen.dart';
 import 'package:logix_market_place/features/home/home_screen.dart';
 import 'package:logix_market_place/features/login/login_screen.dart';
+import 'package:logix_market_place/features/my_account_statement/account_statement_screen.dart';
 import 'package:logix_market_place/features/payment_methods/payment_methods_screen.dart';
 import 'package:logix_market_place/features/product_detail/product_detail_screen.dart';
 import 'package:logix_market_place/features/profile/profile_screen.dart';
@@ -52,6 +53,7 @@ var routePages = [
   GetPage(name: RouteNames.availabilityOrderPage, page: () => AvailabilityOrderScreen()),
   GetPage(name: RouteNames.invoicesPage, page: () => const InvoicesScreen()),
   GetPage(name: RouteNames.invoiceDetailsPage, page: () => const InvoiceDetailsScreen()),
+  GetPage(name: RouteNames.accountStatementPage, page: () => const AccountStatementScreen()),
 ];
 
 class RouteNames {
@@ -80,4 +82,5 @@ class RouteNames {
   static String paymentMethodsPage = '/payment-methods';
   static String availabilityOrderPage = '/availability-orders';
   static String invoicesPage = '/invoices';
+  static String accountStatementPage = '/account-statement';
 }

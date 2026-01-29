@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
+import 'package:logix_market_place/models/product_image_model.dart';
 
 import '../common/api_paths.dart';
 
@@ -8,6 +9,7 @@ class ProductModel {
   int categoryId;
   int unitId;
   String name;
+  String? productCode;
   RxDouble basePrice = 0.0.obs;
   RxDouble discountPercentage = 0.0.obs;
   RxInt inventoryBalance = 0.obs;
@@ -15,6 +17,7 @@ class ProductModel {
   String desc;
   String thumbPath;
   List<Attribute>? attributes;
+  List<ProductImageModel>? files;
 
   ProductModel(
       {
@@ -25,10 +28,12 @@ class ProductModel {
         required this.desc,
         required this.thumbPath,
         required this.vat,
+        required this.productCode,
         required double basePrice,
         required double discountPercentage,
         required int inventoryBalance,
-        this.attributes
+        this.attributes,
+        this.files
       })
   {
     this.inventoryBalance.value = inventoryBalance;
@@ -47,7 +52,9 @@ class ProductModel {
         unitId: json['unitId'],
         discountPercentage: json['discountPercentage'],
         inventoryBalance: json['inventoryBalance']??0,
-        thumbPath: json['thumbPath']
+        productCode: json['productCode']??"",
+        thumbPath: json['thumbPath'],
+        files: ProductImageModel.fromJsonList(json['files'])
     );
   }
 
@@ -56,8 +63,7 @@ class ProductModel {
       return jsonList.map((item) => ProductModel.fromJson(item)).toList();
     }
     catch(e){
-
-      print("fromJsonList:"+e.toString());
+      print("List<ProductImageModel> fromJsonList"+e.toString());
     }
     return [];
   }
@@ -71,6 +77,7 @@ class ProductModel {
       'unitId': unitId,
       'desc': desc,
       'thumbPath': thumbPath,
+      'productCode': productCode,
       'price': basePrice.value,
       'discountPercentage': discountPercentage.value,
       'inventoryBalance': inventoryBalance.value,
@@ -103,6 +110,7 @@ class ProductModel {
     if(discountPercentage.value==0) return "";
     return "${basePrice.value.toStringAsFixed(2)} ريال";
   }
+
   String getThumbPath(){
     String path = thumbPath;
     if(path.isEmpty){
@@ -110,8 +118,12 @@ class ProductModel {
     }
     return erpUrl()+imagesDirPath()+path;
   }
-}
 
+  String getProductCode(){
+    if(productCode == null || productCode == "") return "";
+    return "كود الصنف: ${productCode!}";
+  }
+}
 class Attribute {
   String? label;
   String? value;

@@ -19,7 +19,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>{
   @override
   void initState() {
     super.initState();
-    categoryController.getGuestCategories();
+    categoryController.getAll();
   }
 
   @override
@@ -31,7 +31,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>{
             if (categoryController.isCategoryLoading.value) {
               return const Center(child: CircularProgressIndicator());
             }
-            if(categoryController.guestCategories.isEmpty){
+            if(categoryController.list.isEmpty){
               return const Center(child: Text("No categories"));
             }
             return GridView.builder(
@@ -42,9 +42,9 @@ class _CategoriesScreenState extends State<CategoriesScreen>{
                   mainAxisSpacing: 5,
                   childAspectRatio: 0.8,
                 ),
-                itemCount: categoryController.guestCategories.length,
+                itemCount: categoryController.list.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return CategoryCard(category: categoryController.guestCategories[index]);
+                  return CategoryCard(category: categoryController.list[index]);
                 });
           }
           ),

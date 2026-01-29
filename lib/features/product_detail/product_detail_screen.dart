@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:logix_market_place/features/product_detail/attribute_card.dart';
+import 'package:logix_market_place/features/product_detail/product_file_slider.dart';
 
 import '../../common/nav/app_bar_custom.dart';
 import '../../common/nav/bottom_nav_bar_custom.dart';
@@ -80,20 +82,22 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
                       child: Column(children: [
+                        (_productController.product.value.files != null && _productController.product.value.files!.isNotEmpty)?
+                        ProductFileSlider(files: _productController.product.value.files):
                         Center(
                             child: SizedBox(
                                 width: 180,
                                 height: 180,
-                                child: (_productController.product.value.thumbPath == "no_image.jpg")? Image.asset('assets/logo.png',fit: BoxFit.cover): Image.network(
+                                child: (_productController.product.value.thumbPath == "no_image.jpg")? Image.asset('assets/logo.png',fit: BoxFit.cover):
+                                Image.network(
                                   _productController.product.value.getThumbPath(),
                                   fit: BoxFit.fill,
                                   loadingBuilder: (context, child, loadingProgress) {
                                     if (loadingProgress == null) return child; // image loaded
                                     return Center(
                                       child: CircularProgressIndicator(
-                                        value: loadingProgress.expectedTotalBytes != null
-                                            ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1)
-                                            : null,
+                                        value: loadingProgress.expectedTotalBytes != null?
+                                        loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1) : null,
                                       ),
                                     );
                                   },
@@ -104,8 +108,11 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                                       fit: BoxFit.cover,
                                     );
                                   },
-                                ))),
-                        Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                                ))
+                        ),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
                           // Expanded(
                           //   child: Row(
                           //     mainAxisAlignment: MainAxisAlignment.center,
@@ -114,6 +121,15 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                           //     ],
                           //   ),
                           // ),
+                              Row(
+                                children: [
+                                  Text(_productController.product.value.getProductCode(),
+                                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
+                                      softWrap: true,
+                                      overflow: TextOverflow.visible,
+                                      maxLines: null),
+                                ],
+                              ),
                           Row(
                             children: [
                               Obx((){
@@ -149,22 +165,18 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       Row(mainAxisSize: MainAxisSize.min, mainAxisAlignment: MainAxisAlignment.start, children: [
                         Text(_productController.product.value.getDiscountRate(),
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: secondaryColor)),
+                            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: secondaryColor)),
                         Text(_productController.product.value.getPriceIncludeVat,
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: primaryColor)),
-                        (_productController.product.value.getPriceIncludeVat!="")?Image.asset('icons/riyal.png' ,width: 12,): SizedBox(),
+                            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: primaryColor)),
+                        (_productController.product.value.getPriceIncludeVat!="")?Image.asset('icons/riyal.png' ,width: 12,): const SizedBox(),
                       ]),
                       Text(_productController.product.value.getPreDiscountPrice(),
-                          style: const TextStyle(
-                            fontSize: 16,
-                            color: Colors.grey,
-                            decoration: TextDecoration.lineThrough,
-                          )),
+                          style: const TextStyle(fontSize: 16,color: Colors.grey,decoration: TextDecoration.lineThrough)),
                       (_productController.product.value.isAvailable(_productController.quantity.value)==1)?
-                      Text('متوفر', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: successColor)):
+                      const Text('متوفر', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: successColor)):
                       (_productController.product.value.isAvailable(_productController.quantity.value)==-1)?
-                      Text('غير متوفر', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)):
-                      Text('الكمية المتوفرة: '+_productController.product.value.inventoryBalance.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)),
+                      const Text('غير متوفر', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)):
+                      Text('الكمية المتوفرة: ${_productController.product.value.inventoryBalance}', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)),
                       const Divider(),
                       const Text('تفاصيل المنتج', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
                       (_productController.product.value.attributes != null)

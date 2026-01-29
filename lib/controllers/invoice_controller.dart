@@ -46,11 +46,4 @@ class InvoiceController extends GetxController{
       isLoading.value = false;
     }
   }
-  // Future<void> getInvoices() async {
-  //   var serviceResult = await service.getInvoices();
-  //   if(serviceResult is SuccessStatus<CustomerInvoicesModel>){
-  //     invoicesModel.value = serviceResult.data!;
-  //
-  //   }
-  // }
 }

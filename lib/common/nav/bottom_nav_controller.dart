@@ -1,7 +1,5 @@
 import 'package:get/get.dart';
 import 'package:logix_market_place/common/nav/page_routes.dart';
-import 'package:logix_market_place/controllers/login_controller.dart';
-
 import '../storage/local_storage.dart';
 
 

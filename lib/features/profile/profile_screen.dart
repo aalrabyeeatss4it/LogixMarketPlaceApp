@@ -25,6 +25,9 @@ class ProfileScreen extends StatelessWidget{
       Option(title: 'فواتيري', subTitle: 'دفع فواتيرك المستحقة مجمعة أو مفردة', icon: 'icons/my-invoices.png', onTap: (){
         Get.toNamed(RouteNames.invoicesPage);
       }),
+      Option(title: 'كشف حسابي', subTitle: 'الإطلاع على فواتيرك ومدفوعاتك', icon: 'icons/my-invoices.png', onTap: (){
+        Get.toNamed(RouteNames.accountStatementPage);
+      }),
       Option(title: 'طرق الدفع', subTitle: 'إضافة وتعديل وحذف تفاصيل الدفع', icon: 'icons/payments.png', onTap: (){
         Get.toNamed(RouteNames.paymentMethodsPage);
       }),
@@ -94,7 +97,7 @@ class ProfileScreen extends StatelessWidget{
                             child: Image.asset("icons/settings.png",width: 25,),
                             onTap: (){
                               if(!isLoggedIn()) return;
-                              Get.offAllNamed(RouteNames.accountSettingPage);
+                              Get.toNamed(RouteNames.accountSettingPage);
                               },
                           )
                         ],
@@ -135,11 +138,11 @@ class ProfileScreen extends StatelessWidget{
                                     onTap: () => options[index].onTap(),
                                     child: Column(
                                       children: [
-                                        const SizedBox(height: 10,),
+                                        const SizedBox(height: 2),
                                         Row(
                                           children: [
                                             Image.asset(options[index].icon,width: 22,),
-                                            const SizedBox(width: 20,),
+                                            const SizedBox(width: 20),
                                             Expanded(
                                               child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,

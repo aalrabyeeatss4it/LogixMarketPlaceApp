@@ -34,6 +34,7 @@ class ProductController extends GetxController {
   }
 
   Future<void> getRecentlyArrived() async {
+    print("getRecentlyArrived");
     if(isLoading.value || !hasMore) return;
     isLoading.value = true;
     Get.find<ProductFilterController>().setCategory(0);
@@ -45,6 +46,7 @@ class ProductController extends GetxController {
         hasMore = false;
       }
       else{
+        print("getRecentlyArrived");
         recentlyArrivedProducts.addAll(result);
         page++;
       }
@@ -86,6 +88,7 @@ class ProductController extends GetxController {
   Future<void> getByCategory(int categoryId) async {
     if(isCategoryLoading.value || !hasMoreCategoryProducts) return;
     isCategoryLoading.value = true;
+    print("categoryProductsPage:"+categoryProductsPage.toString());
     Get.find<ProductFilterController>().setCategory(categoryId);
     Get.find<ProductFilterController>().setPage(categoryProductsPage);
     var filters = Get.find<ProductFilterController>().getQuery();

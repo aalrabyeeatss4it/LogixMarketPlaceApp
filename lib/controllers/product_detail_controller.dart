@@ -18,7 +18,9 @@ class ProductDetailController extends GetxController {
         unitId: 0,
         discountPercentage: 0,
         categoryId: 0,
-        thumbPath: '', inventoryBalance: 0
+        thumbPath: '',
+          productCode: '',
+          inventoryBalance: 0
       )
   );
   RxBool loading = true.obs;
@@ -65,7 +67,6 @@ class ProductDetailController extends GetxController {
 
   Future<void> getProduct(int productID) async {
     loading.value = true;
-    print("productDetailService.getProduct:"+productDetailService.toString());
     var p = await productDetailService.getProduct(productID, quantity.value);
     if(p != null){
       product.value = p;

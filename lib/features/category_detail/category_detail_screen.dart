@@ -24,6 +24,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
     final args = Get.arguments as Map<String, dynamic>;
     categoryId = args['categoryId'];
     categoryName = args['categoryName'];
+    productController.resetCategoryPagination();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       productController.getByCategory(categoryId);
     });
@@ -91,7 +92,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                           },
                           child: Image.asset('icons/sort.png',width: 30,height: 30,)
                       ),
-                      SizedBox(width: 10,),
+                      const SizedBox(width: 10,),
                       InkWell(
                           onTap: (){
                             openFilters();
@@ -120,7 +121,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                         return CategoryProductCard(product: productController.categoryProducts[index]);
                       }
                       else{
-                        return productController.hasMoreCategoryProducts?
+                        return (productController.hasMoreCategoryProducts && productController.isCategoryLoading.value)?
                         const Padding(
                             padding: EdgeInsets.all(16),
                             child: Center(child: CircularProgressIndicator())

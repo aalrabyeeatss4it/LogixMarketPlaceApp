@@ -10,7 +10,7 @@ void showLoading() {
 
 void hideLoading() {
   if (Get.isDialogOpen ?? false) {
-    Get.back(); // إغلاق الدايالوج
+    Get.back();
   }
 }
 void showFailureBottomSheet({required VoidCallback onConfirm,String? errorMessage}) {
@@ -172,12 +172,7 @@ void showSuccessBottomSheet({required VoidCallback onConfirm,String? message}) {
       )
   );
 }
-
-void showOrderConfirmBottomSheet({
-  required String title,
-  required String buttonLabel,
-  required VoidCallback onConfirm,
-}) {
+void showOrderConfirmBottomSheet({required String title,required String buttonLabel,required VoidCallback onConfirm}) {
   Get.bottomSheet(
     Container(
       padding: const EdgeInsets.all(20),

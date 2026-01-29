@@ -24,6 +24,7 @@ class MockFavService implements FavService {
           basePrice: 126.5,
           vat: 15,
           unitId: 15,
+          productCode: 'Pro-01',
           // preDiscountPrice: 500,
           discountPercentage: 10,
           name:
@@ -37,6 +38,7 @@ class MockFavService implements FavService {
           basePrice: 126.5,
           vat: 15,
           unitId: 15,
+          productCode: 'Pro-01',
           // preDiscountPrice: 500,
           discountPercentage: 10,
           name: 'خلّاط مغسلة مرتفع – أسود مطفي',

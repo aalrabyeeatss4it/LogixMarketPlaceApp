@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:get_storage/get_storage.dart';
@@ -50,7 +51,22 @@ class CartController extends GetxController {
   }
 
   Future<bool> addItem(CartItemModel item) async {
-    if(!isLoggedIn()) return false;
+    if(!isLoggedIn()) {
+      Get.snackbar(
+        'Almost there',
+        'Log in to continue adding items to your cart',
+        snackPosition: SnackPosition.BOTTOM,
+        colorText: Colors.black,
+        mainButton: TextButton(
+          onPressed: () => Get.toNamed('/login'),
+          child: const Text(
+            'LOGIN',
+            style: TextStyle(color: Colors.black),
+          ),
+        ),
+      );
+      return false;
+    }
     if(item.product.inventoryBalance.value > 1){
       items.add(item);
       saveCart();

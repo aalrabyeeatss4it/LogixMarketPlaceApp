@@ -12,7 +12,9 @@ class ProductService extends MyService{
   Future<List<ProductModel>> getRecentlyArrived(String filters) async {
     Response response  = await getData("$recentlyArrivedPath?$filters");
     if(response.statusCode == 200){
+
       var list = ProductModel.fromJsonList(jsonDecode(response.body));
+      print("List<ProductImageModel> fromJsonList"+list.length.toString());
       return list;
     }
     return [];

@@ -13,8 +13,8 @@ class HomeCategoryCard extends StatelessWidget{
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Get.offNamedUntil(RouteNames.categoryDetailPage,
-                (route) => route.settings.name == RouteNames.homePage,
+        Get.toNamed(RouteNames.categoryDetailPage,
+                // (route) => route.settings.name == RouteNames.homePage,
             arguments: {
             'categoryId': category.id,
             'categoryName': category.nameAr
