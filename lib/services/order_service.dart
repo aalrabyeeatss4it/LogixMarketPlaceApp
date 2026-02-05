@@ -9,10 +9,13 @@ import '../common/storage/local_storage.dart';
 
 
 class OrderService extends MyService{
-  Future<ServiceResult> createOrder(OrderModel order) async {
+  Future<ServiceResult<dynamic>> createOrder(OrderModel order) async {
     Response response = await postData(ordersPath,order.toJson());
+    print("createOrder"+response.statusCode.toString());
+    print("createOrder"+response.body.toString());
     if (response.statusCode == 200) {
-      return SuccessStatus();
+      var json = jsonDecode(response.body);
+      return SuccessStatus<String>(data: json['data'] as String);
     }
     if (response.statusCode == 400) {
       var json = jsonDecode(response.body);
@@ -31,8 +34,8 @@ class OrderService extends MyService{
     return FailureStatus(errorMessage: "errorMessage");
   }
 
-  Future<ServiceResult> getOrder() async {
-    Response response = await getData(ordersPath);
+  Future<ServiceResult<dynamic>> getOrder(String orderId) async {
+    Response response = await getData("$ordersPath/$orderId");
     if(response.statusCode==200){
       var responseJson= jsonDecode(response.body);
       OrderModel order = OrderModel.fromJson(responseJson);

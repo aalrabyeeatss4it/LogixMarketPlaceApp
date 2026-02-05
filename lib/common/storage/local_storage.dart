@@ -7,6 +7,10 @@ const String emailIndex = "emailIndex";
 const String userIdIndex = "userIdIndex";
 const String userNameIndex = "userNameIndex";
 const String pwdIndex = "pwdIndex";
+const String customerIDIndex = "customerIDIndex";
+const String customerNameIndex = "customerNameIndex";
+const String customerPhoneIndex = "customerPhoneIndex";
+const String customerTaxNoIndex = "customerTaxNoIndex";
 
 var box = GetStorage();
 isLoggedIn() {

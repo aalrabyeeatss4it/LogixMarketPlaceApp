@@ -14,6 +14,10 @@ class AccountInfoController extends GetxController {
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController customerNoController = TextEditingController();
+  final TextEditingController customerNameController = TextEditingController();
+  final TextEditingController taxNoController = TextEditingController();
+  final TextEditingController mobileNoController = TextEditingController();
   final TextEditingController newEmailController = TextEditingController();
   final TextEditingController newEmailConfirmController = TextEditingController();
   final TextEditingController currentPwdController = TextEditingController();
@@ -26,6 +30,10 @@ class AccountInfoController extends GetxController {
     firstNameController.text = (box.read(firstNameIndex))?? "";
     lastNameController.text = (box.read(lastNameIndex))?? "";
     emailController.text = (box.read(emailIndex))?? "";
+    customerNoController.text = (box.read(customerIDIndex))?? "";
+    customerNameController.text = (box.read(customerNameIndex))?? "";
+    taxNoController.text = (box.read(customerTaxNoIndex))?? "";
+    mobileNoController.text = (box.read(customerPhoneIndex))?? "";
   }
 
   Future<void> changePwd() async {

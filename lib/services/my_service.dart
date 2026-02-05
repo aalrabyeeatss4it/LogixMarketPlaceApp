@@ -16,6 +16,9 @@ class MyService {
           "Content-Type": "application/json"
         }
     );
+
+    print("postLogin"+response.statusCode.toString());
+    print("postLogin"+response.body);
     return response;
   }
   Future<Response> postData(String path, Map<String, dynamic> json) async{

@@ -76,6 +76,14 @@ class OrderDetailProductCard extends StatelessWidget{
                                   Image.asset('icons/riyal.png' ,width: 12,color: primaryColor,),
                                 ]
                             ),
+                            Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text("الكمية:", style: TextStyle(fontSize: 16, color:  Colors.grey)),
+                                  Text(itemModel.getQuantity, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900,color: primaryColor)),
+                                ]
+                            ),
                           ],
                         ),
                       ),

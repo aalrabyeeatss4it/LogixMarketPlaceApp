@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:logix_market_place/features/my_account_statement/transaction_card.dart';
 import '../../common/nav/app_bar_custom.dart';
+import '../../common/theme/colors.dart';
 import '../../controllers/account_statement_controller.dart';
 
 
@@ -32,9 +33,64 @@ class _AccountStatementScreenState extends State<AccountStatementScreen>{
                 children: [
                   Padding(
                     padding: EdgeInsets.only(right: 20,top: 8),
-                    child: Text('كشف حسابي',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w900),),
+                    child: Text('كشف حسابي',style: TextStyle(fontSize: 20,fontWeight: FontWeight.w900),),
                   ),
                 ],
+              ),
+              Divider(),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(color: remainingColor,borderRadius: BorderRadius.circular(8)),
+                      child: SizedBox(
+                        width: 170.w,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 14),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text('credit limit'.tr,style: const TextStyle(color: Colors.white,fontSize: 14,fontWeight: FontWeight.bold),),
+                              const SizedBox(height: 8),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Obx(() => Text(statementController.balance.value.creditLimit??"", style: const TextStyle(color: Colors.white,fontSize: 16))),
+                                  const SizedBox(width: 5),
+                                  Image.asset('icons/riyal.png' ,width: 18,color: Colors.white),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 5,),
+                    Container(
+                      decoration: BoxDecoration(color: paidColor,borderRadius: BorderRadius.circular(8)),
+                      child: SizedBox(
+                        width: 170.w,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text('balance'.tr,style: const TextStyle(color: Colors.white,fontSize: 14,fontWeight: FontWeight.bold),),
+                              const SizedBox(height: 8),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Obx(() => Text(statementController.balance.value.balance??"", style: const TextStyle(color: Colors.white,fontSize: 16))),
+                                  const SizedBox(width: 5),
+                                  Image.asset('icons/riyal.png' ,width: 18,color: Colors.white),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                ]
               ),
               const Divider(),
               Expanded(

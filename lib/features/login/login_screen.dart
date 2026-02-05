@@ -21,18 +21,18 @@ class LoginScreen extends StatelessWidget{
                       SizedBox(height: 50.h),
                       Row(
                         children: [
-                          const Text("مرحباً بعودتك",style: TextStyle(fontSize: 30,fontWeight: FontWeight.w900),),
+                          Text("welcome".tr,style: TextStyle(fontSize: 30,fontWeight: FontWeight.w900),),
                           Image.asset("icons/hello.png",height: 32,)
                         ],
                       ),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.symmetric(vertical: 8.0),
-                        child: Text("ادخل بياناتك لتتمكن من الدخول الى حسابك.",style: TextStyle(color: Colors.grey,fontSize: 16),),
+                        child: Text('fill in your login data'.tr,style: TextStyle(color: Colors.grey,fontSize: 16),),
                       ),
                       SizedBox(height: 50.h),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.symmetric(vertical: 10.0),
-                        child: Text("البريد الالكتروني",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w900),),
+                        child: Text('username'.tr,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w900),),
                       ),
                       SizedBox(
                         height: 65.h,
@@ -42,7 +42,7 @@ class LoginScreen extends StatelessWidget{
                             u?.username = value;
                           }),
                           decoration: InputDecoration(
-                              hintText: 'ادخل البريد الالكتروني',
+                              hintText: 'fill in username'.tr,
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15),
                                   borderSide: const BorderSide(color: grayBorderColor1,width: 0.2)
@@ -50,9 +50,9 @@ class LoginScreen extends StatelessWidget{
                           ),
                         ),
                       ),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.symmetric(vertical: 10.0),
-                        child: Text("كلمة المرور",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w900),),
+                        child: Text('password'.tr,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w900),),
                       ),
                       Obx(()=> SizedBox(
                           height: 65.h,
@@ -69,7 +69,7 @@ class LoginScreen extends StatelessWidget{
                                       loginController.isPasswordHidden.value = !loginController.isPasswordHidden.value;
                                     },
                                   ),
-                                hintText: 'ادخل كلمة المرور',
+                                hintText: 'fill in password'.tr,
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(15),
                                     borderSide: const BorderSide(color: grayBorderColor1,width: 0.2),
@@ -81,7 +81,7 @@ class LoginScreen extends StatelessWidget{
                       ),
                       const SizedBox(height: 6,),
                       InkWell(
-                          child: const Text("هل نسيت كلمة المرور؟",style: TextStyle(decoration: TextDecoration.underline,color: primaryAccentColor,fontSize: 16,fontWeight: FontWeight.bold)),
+                          child: Text('have you forgot your password'.tr,style: TextStyle(decoration: TextDecoration.underline,color: primaryAccentColor,fontSize: 16,fontWeight: FontWeight.bold)),
                           onTap: (){
 
                           }
@@ -108,7 +108,7 @@ class LoginScreen extends StatelessWidget{
                                     {
                                       loginController.login();
                                       },
-                                    child: const Text('تسجيل الدخول',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 18))),
+                                    child: Text('login'.tr,style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 18))),
                               ),
                             ),
                           ],
@@ -116,11 +116,11 @@ class LoginScreen extends StatelessWidget{
                       ),
                       const SizedBox(height: 10,),
                       InkWell(
-                          child: const Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("ليس لديك حساب؟",style: TextStyle(decoration: TextDecoration.underline,color: Colors.grey,fontSize: 16,fontWeight: FontWeight.bold)),
-                              Text("إنشاء حساب جديد",style: TextStyle(decoration: TextDecoration.underline,color: primaryAccentColor,fontSize: 16,fontWeight: FontWeight.bold)),
+                              Text('don''t you have account'.tr,style: const TextStyle(decoration: TextDecoration.underline,color: Colors.grey,fontSize: 16,fontWeight: FontWeight.bold)),
+                              Text('create new account'.tr,style: const TextStyle(decoration: TextDecoration.underline,color: primaryAccentColor,fontSize: 16,fontWeight: FontWeight.bold)),
                             ],
                           ),
                           onTap: (){

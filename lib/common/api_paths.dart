@@ -14,6 +14,7 @@ const mostRequestedPath = '/products/most-requested';
 const relatedPath = '/products/related/{id}';
 const ordersPath = '/orders';
 const accountStatementPath = '/orders/account-statement';
+const balancePath = '/orders/balance';
 const invoicesPath = '/sale-invoices';
 const loginPath = '/users/login';
 const addressesPath = '/users/addresses';

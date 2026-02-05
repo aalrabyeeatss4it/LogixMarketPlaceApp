@@ -1,12 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:logix_market_place/controllers/delivery_address_controller.dart';
 import 'package:logix_market_place/features/checkout/checkout_product_card.dart';
-import 'package:logix_market_place/features/new_address/new_address_screen.dart';
-import 'package:logix_market_place/models/order_item_model.dart';
 
 import '../../common/dialogs/bottom_sheets.dart';
 import '../../common/nav/app_bar_custom.dart';
@@ -19,7 +15,7 @@ import '../new_address/address_card.dart';
 import '../new_address/new_address_form.dart';
 
 class CheckoutScreen extends StatefulWidget {
-  CheckoutScreen({super.key});
+  const CheckoutScreen({super.key});
 
   @override
   State<StatefulWidget> createState()=>_CheckoutScreenState();
@@ -45,7 +41,7 @@ class _CheckoutScreenState extends State<CheckoutScreen>{
                 child: Column(
                     children: [
                       SizedBox(height: 16.h),
-                      const SectionTitleCard(title: "تأكيد الدفع"),
+                      SectionTitleCard(title: 'checkout'.tr),
                       SizedBox(height: 25.h),
                       (addressController.defaultAddress.value !=null )?
                       Obx(()=> Padding(
@@ -53,14 +49,14 @@ class _CheckoutScreenState extends State<CheckoutScreen>{
                           child: AddressCard(addressModel: addressController.defaultAddress.value!),
                         ),
                       ):
-                      const Column(
+                      Column(
                         children: [
-                          SectionTitleCard(title: "عنوان التوصيل",fontSize: 14,),
-                          NewAddressForm(),
+                          SectionTitleCard(title: 'delivery address'.tr,fontSize: 14,),
+                          const NewAddressForm(),
                         ],
                       ),
                       SizedBox(height: 25.h),
-                      SectionTitleCard(title: "طريقة الدفع"),
+                      SectionTitleCard(title: 'payment method'.tr),
                       // Padding(
                       //   padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 2),
                       //   child: Obx(()=>
@@ -115,7 +111,7 @@ class _CheckoutScreenState extends State<CheckoutScreen>{
                                     children: [
                                       Image.asset("icons/debit.png",height: 35,width: 30,),
                                       const SizedBox(width: 10),
-                                      const Text("آجل")
+                                      Text('deferred'.tr)
                                     ],
                                   ),
                                   Radio(
@@ -147,7 +143,7 @@ class _CheckoutScreenState extends State<CheckoutScreen>{
                           ],
                         ),
                       ),
-                      const SectionTitleCard(title: "طريقة الشحن"),
+                      SectionTitleCard(title: 'delivery method'.tr),
                       Obx(()=>
                         Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -303,15 +299,37 @@ class _CheckoutScreenState extends State<CheckoutScreen>{
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 18.0,vertical: 8),
-                            child: Text('السلع',style: TextStyle(fontSize: 16)),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 8),
+                            child: Text('products'.tr,style: const TextStyle(fontSize: 16)),
                           ),
                           Row(
                             children: [
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 4.0,vertical: 8),
-                                child: Obx(()=>Text(cartController.total.value.toStringAsFixed(3),style: const TextStyle(fontSize: 16),)),
+                                child: Obx(()=>Text(cartController.subTotal.value.toStringAsFixed(3),style: const TextStyle(fontSize: 16),)),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 20.0),
+                                child: Image.asset('icons/riyal.png' ,width: 12,),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 8),
+                            child: Text('vat'.tr,style: const TextStyle(fontSize: 16)),
+                          ),
+                          Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 4.0,vertical: 8),
+                                child: Obx(()=>Text(cartController.totalVat.value.toStringAsFixed(3),style: const TextStyle(fontSize: 16),)),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 20.0),

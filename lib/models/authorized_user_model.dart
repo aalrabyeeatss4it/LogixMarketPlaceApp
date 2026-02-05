@@ -10,6 +10,7 @@ class AuthorizedUserModel {
   String customerID;
   String customerName;
   String customerPhone;
+  String customerTaxNo;
 
   AuthorizedUserModel({
     required this.userName,
@@ -23,6 +24,7 @@ class AuthorizedUserModel {
     required this.customerID,
     required this.customerName,
     required this.customerPhone,
+    required this.customerTaxNo,
   });
 
   factory AuthorizedUserModel.fromJson(Map<String, dynamic> json) {
@@ -38,6 +40,7 @@ class AuthorizedUserModel {
       customerID: json['customerID'].toString() ?? '',
       customerName: json['customerName'] ?? '',
       customerPhone: json['customerPhone'] ?? '',
+      customerTaxNo: json['customerTaxNo'] ?? '',
     );
   }
 

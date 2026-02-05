@@ -86,6 +86,7 @@ class ProductModel {
   //Computed Values
   double get discountedBasePrice => basePrice.value-(discountPercentage.value * basePrice.value);
   double get priceIncludeVat => discountedBasePrice + ((vat * discountedBasePrice) / 100);
+  double get vatValue => ((vat * discountedBasePrice) / 100);
 
   //Display Helpers
   String get getPriceIncludeVat=> (priceIncludeVat>0)?priceIncludeVat.toStringAsFixed(2):"";

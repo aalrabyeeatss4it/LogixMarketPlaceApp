@@ -37,12 +37,13 @@ class OrderController extends GetxController{
     order.paymentMethod = paymentMethod.value.toString();
     order.items = cartController.items.map((item)=> OrderItemModel.fromCartItem(item)).toList();
     var serviceResult = await service.createOrder(order);
-    if(serviceResult is SuccessStatus){
+    if(serviceResult is SuccessStatus<String>){
+      print("serviceResult:"+serviceResult.data!);
       Get.back();
       cartController.clearCart();
-      showSuccessOrderBottomSheet(onConfirm: (){
-        Get.offAllNamed(RouteNames.ordersPage,predicate: (route) => route.isFirst);
-          // Get.offAllNamed(RouteNames.orderDetailsPage, arguments: order,predicate: (route) => route.isFirst);
+      var createdOrder = await getOrder(serviceResult.data!);
+      showSuccessOrderBottomSheet(onConfirm: () {
+        Get.toNamed(RouteNames.orderDetailsPage, arguments: createdOrder);
       });
     }
     else if(serviceResult is FailureStatus){
@@ -50,9 +51,30 @@ class OrderController extends GetxController{
       showFailureBottomSheet(errorMessage: serviceResult.errorMessage,onConfirm: () {  });
     }
     else{
+
+      print("serviceResult:"+serviceResult.toString());
       Get.back();
       showFailureBottomSheet(onConfirm: (){});
     }
+  }
+  Future<OrderModel?> getOrder(String orderId) async {
+    isLoading.value = true;
+    try{
+      var serviceResult = await service.getOrder(orderId);
+      if(serviceResult is SuccessStatus<OrderModel>){
+        if(serviceResult.data != null){
+          var order = serviceResult.data!;
+          return order;
+        }
+      }
+    }
+    catch(ex){
+      isLoading.value = false;
+    }
+    finally {
+      isLoading.value = false;
+    }
+    return null;
   }
   Future<void> getOrders() async {
     if(isLoading.value || !hasMore) return;

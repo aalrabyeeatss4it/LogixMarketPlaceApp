@@ -10,16 +10,16 @@ import '../../controllers/login_controller.dart';
 class AccountSettingScreen extends StatelessWidget{
   final List<SettingOption> options = [
     SettingOption(title: 'معلومات الحساب'.tr, onTap: (){
-      Get.offAllNamed(RouteNames.accountInfoPage,predicate: (route) => route.isFirst);
+      Get.toNamed(RouteNames.accountInfoPage);
     }),
     SettingOption(title: 'تغيير البريد الإلكتروني', onTap: (){
-      Get.offAllNamed(RouteNames.changeEmailPage,predicate: (route) => route.isFirst);
+      Get.toNamed(RouteNames.changeEmailPage);
     }),
     SettingOption(title: 'تغيير كلمة المرور', onTap: (){
-      Get.offAllNamed(RouteNames.changePasswordPage,predicate: (route) => route.isFirst);
+      Get.toNamed(RouteNames.changePasswordPage);
     }),
     SettingOption(title: 'اللغة', onTap: (){
-      Get.offAllNamed(RouteNames.changeLangPage,predicate: (route) => route.isFirst);
+      Get.toNamed(RouteNames.changeLangPage);
     }),
   ];
 
@@ -77,7 +77,7 @@ class AccountSettingScreen extends StatelessWidget{
                                       onTap: () => options[index].onTap(),
                                       child: Column(
                                         children: [
-                                          SizedBox(height: 20,),
+                                          const SizedBox(height: 20,),
                                           Row(
                                             children: [
                                               const SizedBox(width: 20,),
@@ -95,7 +95,7 @@ class AccountSettingScreen extends StatelessWidget{
                                               )
                                             ],
                                           ),
-                                          SizedBox(height: 10,),
+                                          const SizedBox(height: 10,),
                                           (index<options.length-1)?Divider(color: Colors.grey.withOpacity(0.2),thickness: 1,):SizedBox()
                                         ],
                                       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../common/theme/colors.dart';
 import '../../models/order_model.dart';
@@ -22,21 +23,10 @@ class OrderSummaryCard extends StatelessWidget{
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Text('رقم الطلب',style: TextStyle(fontSize: 16)),
-                  Text('#${order.orderId?? ""}',style: TextStyle(fontSize: 16),)
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 18.0,vertical: 2),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Text('السلع',style: TextStyle(fontSize: 16)),
+                  Text('products'.tr,style: TextStyle(fontSize: 16)),
                   Row(
                     children: [
-                      Text(order.getTotal,style: TextStyle(fontSize: 16),),
+                      Text(order.getSubTotal,style: const TextStyle(fontSize: 16),),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 4),
                         child: Image.asset('icons/riyal.png' ,width: 12,),
@@ -52,11 +42,30 @@ class OrderSummaryCard extends StatelessWidget{
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Text('التسليم والشحن',style: TextStyle(fontSize: 16)),
+                  Text('vat'.tr,style: TextStyle(fontSize: 16)),
+                  Row(
+                    children: [
+                      Text(order.getVat,style: const TextStyle(fontSize: 16),),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        child: Image.asset('icons/riyal.png' ,width: 12,),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 2),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  const Text('التسليم والشحن',style: TextStyle(fontSize: 16)),
                   Row(
                     children: [
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 4.0,vertical: 8),
+                        padding: const EdgeInsets.symmetric(horizontal: 4.0,vertical: 8),
                         child: Text(order.deliveryFee?? "0",style: TextStyle(fontSize: 16),),
                       ),
                       Image.asset('icons/riyal.png' ,width: 12,)

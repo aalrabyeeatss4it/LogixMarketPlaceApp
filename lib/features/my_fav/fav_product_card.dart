@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logix_market_place/controllers/fav_controller.dart';
 import 'package:logix_market_place/models/product_model.dart';
+import '../../common/nav/page_routes.dart';
 import '../../common/theme/colors.dart';
 import '../../controllers/cart_controller.dart';
 import '../../models/cart_item_model.dart';
@@ -27,39 +28,46 @@ class FavProductCard extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Stack(
-                    children:
-                    [
-                      SizedBox( width: 150, height: 160,
-                          child: Card(
-                              elevation: 0,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: (product.thumbPath == "no_image.jpg")? Image.asset('assets/logo.png',fit: BoxFit.cover): Image.network(
-                                  product.getThumbPath(),
-                                  fit: BoxFit.cover,
-                                  loadingBuilder: (context, child, loadingProgress) {
-                                    if (loadingProgress == null) return child; // image loaded
-                                    return Center(
-                                      child: CircularProgressIndicator(
-                                        value: loadingProgress.expectedTotalBytes != null
-                                            ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1)
-                                            : null,
-                                      ),
-                                    );
-                                  },
-                                  errorBuilder: (context, error, stackTrace) {
-                                    // return default image if network image fails
-                                    return Image.asset(
-                                      'assets/logo.png',
-                                      fit: BoxFit.cover,
-                                    );
-                                  },
-                                ),
-                              )
-                          )
-                      )
-                    ],
+                  InkWell(
+                    onTap: (){
+                      Get.toNamed(RouteNames.productDetailPage, arguments: {
+                        'productId': product.id,
+                      });
+                    },
+                    child: Stack(
+                      children:
+                      [
+                        SizedBox( width: 150, height: 160,
+                            child: Card(
+                                elevation: 0,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: (product.thumbPath == "no_image.jpg")? Image.asset('assets/logo.png',fit: BoxFit.cover): Image.network(
+                                    product.getThumbPath(),
+                                    fit: BoxFit.cover,
+                                    loadingBuilder: (context, child, loadingProgress) {
+                                      if (loadingProgress == null) return child; // image loaded
+                                      return Center(
+                                        child: CircularProgressIndicator(
+                                          value: loadingProgress.expectedTotalBytes != null
+                                              ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1)
+                                              : null,
+                                        ),
+                                      );
+                                    },
+                                    errorBuilder: (context, error, stackTrace) {
+                                      // return default image if network image fails
+                                      return Image.asset(
+                                        'assets/logo.png',
+                                        fit: BoxFit.cover,
+                                      );
+                                    },
+                                  ),
+                                )
+                            )
+                        )
+                      ],
+                    ),
                   ),
                   Expanded(
                     child: Padding(

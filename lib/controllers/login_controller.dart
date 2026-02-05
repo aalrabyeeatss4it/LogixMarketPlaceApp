@@ -28,6 +28,10 @@ class LoginController extends GetxController{
       box.write(firstNameIndex, userModel.firstName);
       box.write(lastNameIndex, userModel.lastName);
       box.write(emailIndex, userModel.email);
+      box.write(customerIDIndex, userModel.customerID);
+      box.write(customerNameIndex, userModel.customerName);
+      box.write(customerPhoneIndex, userModel.customerPhone);
+      box.write(customerTaxNoIndex, userModel.customerTaxNo);
       box.write(pwdIndex, user.value.password);
       Get.offAllNamed(RouteNames.homePage);
     }
@@ -46,7 +50,7 @@ class LoginController extends GetxController{
     box.write(pwdIndex, null);
     Get.offAllNamed(RouteNames.loginPage);
     Get.find<CartController>().clearCart();
-    Get.find<FavController>().clear();
+    // Get.find<FavController>().clear();
   }
   checkLoggedIn(){
     var token = box.read(tokenIndex);

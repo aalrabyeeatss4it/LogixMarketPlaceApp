@@ -72,8 +72,8 @@ class OrderProductCard extends StatelessWidget{
                                 mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Text("العدد:", style: TextStyle(fontSize: 16, color:  Colors.grey)),
-                                  Text(itemModel.quantity.toString(), style: TextStyle(fontSize: 16)),
+                                  const Text("العدد:", style: TextStyle(fontSize: 16, color:  Colors.grey)),
+                                  Text(itemModel.getQuantity, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900,color: primaryColor)),
                                 ]
                             ),
                           ],

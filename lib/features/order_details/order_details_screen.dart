@@ -69,12 +69,12 @@ class OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                             mainAxisAlignment: MainAxisAlignment.start,
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
-                                              Padding(
+                                              const Padding(
                                                 padding: EdgeInsets.all(4),
                                                 child: Text('رقم الطلب:',style: TextStyle(fontSize: 18,color: Colors.grey),),
                                               ),
-                                              SizedBox(width: 5,),
-                                              Text(order.orderId??"",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
+                                              const SizedBox(width: 5,),
+                                              Text(order.orderCode??"",style: const TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
                                             ],
                                           ),
                                         ],
@@ -93,13 +93,13 @@ class OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                                   borderRadius: BorderRadius.circular(10)
                                               ),
                                               child: Padding(
-                                                padding: EdgeInsets.symmetric(horizontal: 6.0,vertical: 7),
-                                                child: Text(order.orderStatus??"",style: TextStyle(fontSize: 16,color: Colors.black),),
+                                                padding: const EdgeInsets.symmetric(horizontal: 6.0,vertical: 7),
+                                                child: Text(order.orderStatus??"",style: const TextStyle(fontSize: 16,color: Colors.black),),
                                               )
                                           ),
                                           Padding(
-                                            padding: EdgeInsets.all(6.0),
-                                            child: Text(order.deliveryDate??"",style: TextStyle(fontSize: 16,color: Colors.black),),
+                                            padding: const EdgeInsets.all(6.0),
+                                            child: Text(order.deliveryDate??"",style: const TextStyle(fontSize: 16,color: Colors.black),),
                                           ),
                                         ],
                                       ),
@@ -112,9 +112,9 @@ class OrderDetailsScreenState extends State<OrderDetailsScreen> {
                       Card(
                         elevation: 0,
                         color: Colors.white,
-                        shape: RoundedRectangleBorder(side: BorderSide(color: Colors.grey,width: 0.5),borderRadius: BorderRadius.circular(10)),
+                        shape: RoundedRectangleBorder(side: const BorderSide(color: Colors.grey,width: 0.5),borderRadius: BorderRadius.circular(10)),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10),
+                          padding: const EdgeInsets.symmetric(vertical: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

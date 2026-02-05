@@ -25,6 +25,7 @@ class LoginService extends MyService{
       return FailureStatus(errorMessage: 'بيانات الدخول غير صحيحة، الرجاء التأكد والمحاولة مرة اخرى.');
     }
     catch(ex){
+      print("object.error");
       hideLoading();
       return  FailureStatus(errorMessage: 'مشكلة في الوصول، الرجاء التأكد والمحاولة مرة اخرى.'+ex.toString());
     }

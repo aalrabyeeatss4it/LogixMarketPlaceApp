@@ -9,6 +9,7 @@ class OrderModel{
   String? paid;
   String? remaining;
   String? orderId;
+  String? orderCode;
   String? shipmentMethod;
   String? trackingId;
   String? paymentMethod;
@@ -25,6 +26,7 @@ class OrderModel{
     this.deliveryFee,
     this.total,
     this.orderId,
+    this.orderCode,
     this.shipmentMethod,
     this.trackingId,
     this.paymentMethod,
@@ -38,12 +40,15 @@ class OrderModel{
     this.items,
   });
   get getTotal => (total!=null && total!= "")? double.tryParse(total!)?.toStringAsFixed(2):"";
+  get getSubTotal => (subTotal!=null && subTotal!= "")? double.tryParse(subTotal!)?.toStringAsFixed(2):"";
+  get getVat => (total!=null && total!= "" && subTotal!=null && subTotal!= "")? ( double.tryParse(total!)! - double.tryParse(subTotal!)!).toStringAsFixed(2):"";
   factory OrderModel.fromJson(Map<String, dynamic> json) {
     return OrderModel(
       subTotal: json['subTotal']?.toString() ?? '0',
       deliveryFee: json['deliveryFee']?.toString() ?? '0',
       total: json['total']?.toString() ?? '0',
       orderId: json['orderId']?.toString() ?? '',
+      orderCode: json['orderCode']?.toString() ?? '',
       shipmentMethod: json['shipmentMethod']?.toString() ?? '',
       trackingId: json['trackingId']?.toString() ?? '',
       paymentMethod: json['paymentMethod']?.toString() ?? '',

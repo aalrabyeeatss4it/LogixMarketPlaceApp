@@ -67,12 +67,17 @@ android {
             signingConfig signingConfigs.release
         }
     }
+//    splits {
+//        abi {
+//            enable true
+//            reset()
+//            include "armeabi-v7a", "arm64-v8a"
+//            universalApk false
+//        }
+//    }
     splits {
         abi {
-            enable true
-            reset()
-            include "armeabi-v7a", "arm64-v8a"
-            universalApk false
+            enable false
         }
     }
     packagingOptions {

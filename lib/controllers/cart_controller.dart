@@ -14,6 +14,8 @@ class CartController extends GetxController {
   ProductDetailService productDetailService = Get.put(ProductDetailService());
   RxList<CartItemModel> items = <CartItemModel>[].obs;
   RxDouble total = 0.0.obs;
+  RxDouble subTotal = 0.0.obs;
+  RxDouble totalVat= 0.0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -24,14 +26,21 @@ class CartController extends GetxController {
   void loadCart() {
     var itemsJson = box.read("cart");
     var tot = 0.0;
+    var subTot = 0.0;
+    var totVat = 0.0;
     if (itemsJson != null) {
       final List decoded = jsonDecode(itemsJson);
       items.assignAll(decoded.map((e) {
         var item = CartItemModel.fromJson(e);
         tot += item.product.priceIncludeVat * item.quantity.value;
+        subTot += item.product.discountedBasePrice * item.quantity.value;
+        totVat += item.product.vatValue * item.quantity.value;
         return item;
       }).toList());
       total.value = tot;
+      totalVat.value = totVat;
+      subTotal.value = subTot;
+      print("totalVat:$totalVat");
     }
   }
 
@@ -44,10 +53,16 @@ class CartController extends GetxController {
   }
   void calcTotal() {
     var tot = 0.0;
+    var subTot = 0.0;
+    var totVat = 0.0;
     for (var item in items) {
       tot += item.product.priceIncludeVat*item.quantity.value;
+      subTot += item.product.discountedBasePrice * item.quantity.value;
+      totVat += item.product.vatValue*item.quantity.value;
     }
     total.value = tot;
+    totalVat.value = totVat;
+    subTotal.value = subTot;
   }
 
   Future<bool> addItem(CartItemModel item) async {
@@ -128,6 +143,11 @@ class CartController extends GetxController {
       return foundItem;
     }
     return null;
+  }
+
+  Future<void> orderAgain(String orderId) async {
+
+
   }
 
   int getQty(int productId) {

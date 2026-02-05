@@ -22,9 +22,9 @@ class ProfileScreen extends StatelessWidget{
       Option(title: 'عناوين التوصيل', subTitle: 'إضافة وتعديل وحذف عناوين', icon: 'icons/my-addresses.png', onTap: (){
         Get.toNamed(RouteNames.deliveryAddressPage);
       }),
-      Option(title: 'فواتيري', subTitle: 'دفع فواتيرك المستحقة مجمعة أو مفردة', icon: 'icons/my-invoices.png', onTap: (){
-        Get.toNamed(RouteNames.invoicesPage);
-      }),
+      // Option(title: 'فواتيري', subTitle: 'دفع فواتيرك المستحقة مجمعة أو مفردة', icon: 'icons/my-invoices.png', onTap: (){
+      //   Get.toNamed(RouteNames.invoicesPage);
+      // }),
       Option(title: 'كشف حسابي', subTitle: 'الإطلاع على فواتيرك ومدفوعاتك', icon: 'icons/my-invoices.png', onTap: (){
         Get.toNamed(RouteNames.accountStatementPage);
       }),
@@ -50,7 +50,7 @@ class ProfileScreen extends StatelessWidget{
               InkWell(
                 onTap: (){
                   if(!isLoggedIn()) RouteNames.loginPage;
-                  Get.offAllNamed(RouteNames.accountSettingPage);
+                  Get.toNamed(RouteNames.accountSettingPage);
                 },
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
