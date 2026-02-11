@@ -1,9 +1,6 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:logix_market_place/common/nav/page_routes.dart';
@@ -12,7 +9,6 @@ import 'package:logix_market_place/controllers/login_controller.dart';
 import 'common/dynamic_links/deep_link_service.dart';
 import 'common/lang/app_translations.dart';
 import 'common/localization/localization_controller.dart';
-import 'common/nav/app_wrapper.dart';
 import 'common/storage/local_storage.dart';
 import 'controllers/app_bindings.dart';
 
@@ -77,7 +73,6 @@ class _MyAppState  extends State<MyApp> {
             locale: localizationController.locale.value,
             fallbackLocale: const Locale('ar', 'SA'),
             initialRoute:(isLoggedIn())? RouteNames.homePage: RouteNames.guestHomePage,
-            // initialRoute: RouteNames.homePage,
             getPages: routePages ,
           );
         });
@@ -94,9 +89,7 @@ class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
     final client = super.createHttpClient(context);
-    // Accept all certificates
-    client.badCertificateCallback =
-        (X509Certificate cert, String host, int port) => true;
+    client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
     return client;
   }
 }

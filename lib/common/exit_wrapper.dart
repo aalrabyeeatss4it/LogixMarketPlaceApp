@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 
 class ExitWrapper extends StatefulWidget {
   final Widget child;
@@ -17,7 +18,7 @@ class _ExitWrapperState extends State<ExitWrapper> {
     final now = DateTime.now();
     if (_lastPressed == null || now.difference(_lastPressed!) > const Duration(seconds: 2)) {
       _lastPressed = now;
-      Fluttertoast.showToast(msg: "Press back again to exit");
+      Fluttertoast.showToast(msg: "Press back".tr);
       return false;
     }
     SystemNavigator.pop();

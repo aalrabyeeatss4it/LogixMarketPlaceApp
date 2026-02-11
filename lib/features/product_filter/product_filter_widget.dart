@@ -27,7 +27,7 @@ class ProductFilterWidget extends StatelessWidget{
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(),
-                Text("فلترة",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                Text('filters'.tr,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
                 IconButton(
                   icon: const Icon(Icons.close),
                   onPressed: () {
@@ -38,19 +38,19 @@ class ProductFilterWidget extends StatelessWidget{
             ),
             const Padding(
               padding: EdgeInsets.only(bottom: 12),
-              child: Text("اسم المنتج",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
+              child: Text('product code',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
             ),
             Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15.r),
-                border: Border.all(color: Colors.grey)
-              ),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15.r),
+                    border: Border.all(color: Colors.grey)
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: TextFormField(
-                    controller: controller.productNameController,
+                    controller: controller.productCodeController,
                     decoration: InputDecoration(
-                      hintText: "ابحث باسم المنتج ..",
+                      hintText: 'filter by product code'.tr,
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Image.asset("icons/search.png",height: 10,width: 10,),
@@ -69,9 +69,42 @@ class ProductFilterWidget extends StatelessWidget{
                   ),
                 )
             ),
-            const Padding(
+            Padding(
+              padding: EdgeInsets.only(bottom: 12),
+              child: Text('product name'.tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15.r),
+                border: Border.all(color: Colors.grey)
+              ),
+                child: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: TextFormField(
+                    controller: controller.productNameController,
+                    decoration: InputDecoration(
+                      hintText: 'search by product name'.tr,
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Image.asset("icons/search.png",height: 10,width: 10,),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30.r),
+                        borderSide: BorderSide.none,
+                      ),
+                      contentPadding: EdgeInsets.symmetric(
+                        vertical: 12.h,
+                        horizontal: 16.w,
+                      ),
+                    ),
+                  ),
+                )
+            ),
+            Padding(
               padding: EdgeInsets.symmetric(vertical: 16),
-              child: Text("السعر",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
+              child: Text('price'.tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
             ),
             Column(
               children: [
@@ -88,7 +121,7 @@ class ProductFilterWidget extends StatelessWidget{
                             child: TextFormField(
                               controller: controller.minPriceController,
                               decoration: InputDecoration(
-                                hintText: "اقل سعر.. ",
+                                hintText: 'min price'.tr,
                                 filled: true,
                                 fillColor: Colors.white,
                                 border: OutlineInputBorder(
@@ -104,7 +137,7 @@ class ProductFilterWidget extends StatelessWidget{
                           )
                       ),
                     ),
-                    SizedBox(width: 20),
+                    const SizedBox(width: 20),
                     Expanded(
                       child: Container(
                           decoration: BoxDecoration(
@@ -116,7 +149,7 @@ class ProductFilterWidget extends StatelessWidget{
                             child: TextFormField(
                               controller: controller.maxPriceController,
                               decoration: InputDecoration(
-                                hintText: "اعلى سعر.. ",
+                                hintText: 'max price'.tr,
                                 filled: true,
                                 fillColor: Colors.white,
                                 border: OutlineInputBorder(
@@ -238,10 +271,10 @@ class ProductFilterWidget extends StatelessWidget{
                               controller.resetFilters();
                               if(onApplyFilters != null) onApplyFilters!();
                             },
-                            child: const Row(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("إعادة تعيين",style: TextStyle(color: primaryColor,fontWeight: FontWeight.w700,fontSize: 18,),)
+                                Text('reset'.tr,style: TextStyle(color: primaryColor,fontWeight: FontWeight.w700,fontSize: 18,),)
                               ],
                             )
                         ),
@@ -265,10 +298,10 @@ class ProductFilterWidget extends StatelessWidget{
                             onPressed: () {
                               if(onApplyFilters != null) onApplyFilters!();
                             },
-                            child: const Row(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("فلترة",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 18))
+                                Text("filters".tr,style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 18))
                               ],
                             )
                         ),

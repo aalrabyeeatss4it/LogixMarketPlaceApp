@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import '../../common/theme/colors.dart';
 import '../../common/widgets/section_title_card.dart';
 
@@ -24,7 +25,7 @@ class _NewAddressFormState extends State<NewAddressForm> {
               height: 65.h,
               child: TextFormField(
                 decoration: InputDecoration(
-                    hintText: 'اسم الشارع..',
+                    hintText: 'street'.tr,
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
                         borderSide: const BorderSide(color: grayBorderColor1,width: 0.2)
@@ -39,7 +40,7 @@ class _NewAddressFormState extends State<NewAddressForm> {
               height: 65.h,
               child: TextFormField(
                 decoration: InputDecoration(
-                    hintText: 'اسم / رقم المبنى..',
+                    hintText: 'building no'.tr,
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
                         borderSide: const BorderSide(color: grayBorderColor1,width: 0.2)
@@ -57,7 +58,7 @@ class _NewAddressFormState extends State<NewAddressForm> {
                     height: 65.h,
                     child: TextFormField(
                       decoration: InputDecoration(
-                          hintText: 'رقم الطابق / الشقة / الفيلا..',
+                          hintText: 'floor'.tr,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
                               borderSide: const BorderSide(color: grayBorderColor1,width: 0.2)
@@ -74,7 +75,7 @@ class _NewAddressFormState extends State<NewAddressForm> {
                     height: 65.h,
                     child: TextFormField(
                       decoration: InputDecoration(
-                          hintText: 'أقرب معلم..',
+                          hintText: 'nearest place'.tr,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
                               borderSide: const BorderSide(color: grayBorderColor1,width: 0.2)
@@ -92,7 +93,7 @@ class _NewAddressFormState extends State<NewAddressForm> {
               height: 65.h,
               child: TextFormField(
                 decoration: InputDecoration(
-                    hintText: 'المدينة / المنطقة..',
+                    hintText: 'city/region'.tr,
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
                         borderSide: const BorderSide(color: grayBorderColor1,width: 0.2)
@@ -110,7 +111,7 @@ class _NewAddressFormState extends State<NewAddressForm> {
                     height: 65.h,
                     child: TextFormField(
                       decoration: InputDecoration(
-                          hintText: 'الحي..',
+                          hintText: 'neighborhood'.tr,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
                               borderSide: const BorderSide(color: grayBorderColor1,width: 0.2)
@@ -127,7 +128,7 @@ class _NewAddressFormState extends State<NewAddressForm> {
                     height: 65.h,
                     child: TextFormField(
                       decoration: InputDecoration(
-                          hintText: 'المحافظة..',
+                          hintText: 'governance'.tr,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
                               borderSide: const BorderSide(color: grayBorderColor1,width: 0.2)
@@ -141,7 +142,7 @@ class _NewAddressFormState extends State<NewAddressForm> {
           ),
 
           SizedBox(height: 16.h),
-          SectionTitleCard(title: "بيانات شخصية",fontSize: 16,),
+          SectionTitleCard(title: 'personal info'.tr,fontSize: 16,),
           SizedBox(height: 5.h),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 4),
@@ -149,7 +150,7 @@ class _NewAddressFormState extends State<NewAddressForm> {
               height: 65.h,
               child: TextFormField(
                 decoration: InputDecoration(
-                    hintText: 'الاسم كامل..',
+                    hintText: 'full-name'.tr,
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
                         borderSide: const BorderSide(color: grayBorderColor1,width: 0.2)
@@ -185,7 +186,7 @@ class _NewAddressFormState extends State<NewAddressForm> {
                     // });
                   },
                 ),
-                const Text("الاستخدام كعناوني الرئيسي."),
+                Text('use as main address'.tr),
               ],
             ),
           ),

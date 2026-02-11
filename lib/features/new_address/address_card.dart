@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../common/theme/colors.dart';
 import '../../models/delivery_address_model.dart';
@@ -16,7 +17,7 @@ class AddressCard extends StatelessWidget{
           color: Colors.white,
           shape: RoundedRectangleBorder(side: const BorderSide(color: Colors.grey,width: 0.2),borderRadius: BorderRadius.circular(10)),
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -49,8 +50,8 @@ class AddressCard extends StatelessWidget{
         ),
 
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.0),
-          child: Text('تغيير العنوان',style: TextStyle(fontSize: 16,color: primaryColor,decoration: TextDecoration.underline,)),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: Text('update address'.tr,style: const TextStyle(fontSize: 16,color: primaryColor,decoration: TextDecoration.underline,)),
         ),
       ],
     );

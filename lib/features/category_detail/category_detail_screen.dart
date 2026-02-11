@@ -110,7 +110,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                   return const Center(child: CircularProgressIndicator());
                 }
                 if (productController.categoryProducts.isEmpty) {
-                  return const Center(child: Text("No products"));
+                  return Center(child: Text("No products".tr));
                 }
                 return ListView.builder(
                     controller: productController.categoryProductScroll,

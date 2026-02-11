@@ -8,26 +8,31 @@ class LocalizationController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _loadSavedLanguage();
+    setLocale();
   }
 
-  void _loadSavedLanguage() async {
-    final prefs = await SharedPreferences.getInstance();
-    String? code = prefs.getString('preferred_language');
+  void setLocale() async {
+    String? code = await getLanguage();
     if (code != null) {
-      locale.value = _getLocaleFromCode(code);
+      locale.value = getLocaleFromCode(code);
       Get.updateLocale(locale.value);
     }
   }
 
+  Future<String?> getLanguage() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? code = prefs.getString('preferred_language');
+    return code;
+  }
+
   void changeLanguage(String langCode) async {
-    locale.value = _getLocaleFromCode(langCode);
+    locale.value = getLocaleFromCode(langCode);
     Get.updateLocale(locale.value);
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('preferred_language', langCode);
   }
 
-  Locale _getLocaleFromCode(String code) {
+  Locale getLocaleFromCode(String code) {
     switch (code) {
       case 'ar':
         return const Locale('ar', 'SA');

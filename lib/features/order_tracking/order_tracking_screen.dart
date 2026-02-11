@@ -115,9 +115,9 @@ class OrderTrackingScreen extends StatelessWidget{
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Padding(
+                              Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 18.0),
-                                child: Text('شركة الشحن',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w900)),
+                                child: Text('shipment company'.tr,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w900)),
                               ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 18.0),
@@ -155,7 +155,7 @@ class OrderTrackingScreen extends StatelessWidget{
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                Text('رقم الطلب',style: TextStyle(fontSize: 16)),
+                                Text('order no'.tr,style: TextStyle(fontSize: 16)),
                                 Text('#${order.orderId?? ""}',style: TextStyle(fontSize: 16),)
                               ],
                             ),

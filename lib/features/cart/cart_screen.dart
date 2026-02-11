@@ -71,15 +71,15 @@ class CartScreen extends StatelessWidget{
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                const Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 18.0,vertical: 8),
-                                  child: Text('إجمالي الطلب الفرعي',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w900),),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 8),
+                                  child: Text('order subtotal'.tr,style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w900),),
                                 ),
                                 Row(
                                   children: [
                                     Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 4.0,vertical: 8),
-                                      child: Obx(()=>Text(cartController.total.value.toStringAsFixed(3),style: TextStyle(fontSize: 16),)),
+                                      padding: const EdgeInsets.symmetric(horizontal: 4.0,vertical: 8),
+                                      child: Obx(()=>Text(cartController.total.value.toStringAsFixed(3),style: const TextStyle(fontSize: 16),)),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(left: 20.0),
@@ -103,7 +103,7 @@ class CartScreen extends StatelessWidget{
                             (favController.items.isNotEmpty)?Row(
                               children: [
                                 SectionTitleCard(title: "saved in fav list".tr,fontSize: 16,),
-                                SectionTitleCard(title: ' ('+favController.items.length.toString()+' '+'product'.tr+')',fontSize: 14,)
+                                SectionTitleCard(title: ' (${favController.items.length} ${'product'.tr})',fontSize: 14,)
                               ],
                             ):const SizedBox(),
                             ListView.builder(
@@ -147,7 +147,7 @@ class CartScreen extends StatelessWidget{
                                   onPressed: () {
                                     Get.offAllNamed(RouteNames.checkoutPage,predicate: (route) => route.isFirst);
                                   },
-                                  child: const Text('تابع للدفع الآمن',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 16))),
+                                  child: Text('pay'.tr,style: const TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 16))),
                             ),
                           ),
                         ),

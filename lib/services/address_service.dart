@@ -8,21 +8,29 @@ import '../common/api_paths.dart';
 import '../common/storage/local_storage.dart';
 
 class AddressService extends MyService {
-  Future<ServiceResult<dynamic>> getAddress() async {
+  Future<ServiceResult<dynamic>> getAddresses() async {
     Response response = await getData(addressesPath);
     if (response.statusCode == 200) {
       var responseJson = jsonDecode(response.body);
-      DeliveryAddressModel address = DeliveryAddressModel.fromJson(responseJson);
-      return SuccessStatus(data: address);
+      List<DeliveryAddressModel> addresses = DeliveryAddressModel.fromJsonList(responseJson);
+      return SuccessStatus(data: addresses);
     }
     return FailureStatus(errorMessage: "errorMessage");
   }
 
-  Future<ServiceResult<dynamic>> updateAddress(DeliveryAddressModel address) async {
-    Response response = await postData(updateAddressPath,address.toJson());
+  Future<ServiceResult<dynamic>> addAddress(DeliveryAddressModel address) async {
+    Response response = await postData(addressesPath,address.toJson());
     if (response.statusCode == 200) {
       return SuccessStatus();
     }
     return FailureStatus(errorMessage: "errorMessage");
+  }
+  Future<ServiceResult<dynamic>> updateAddress(DeliveryAddressModel address) async {
+    Response response = await putData(addressesPath,address.toJson());
+    if (response.statusCode == 200) {
+      return SuccessStatus();
+    }
+    print("response.body"+response.body);
+    return FailureStatus(errorMessage: response.body);
   }
 }

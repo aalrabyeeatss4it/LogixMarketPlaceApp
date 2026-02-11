@@ -17,11 +17,11 @@ class PaymentMethodsScreen extends StatelessWidget {
           child: Column(
               children: [
                 SizedBox(height: 16.h),
-                const Row(
+                Row(
                   children: [
                     Padding(
                       padding: EdgeInsets.only(right: 20,top: 8),
-                      child: Text('طرق الدفع',style: TextStyle(fontSize: 20,fontWeight: FontWeight.w900),),
+                      child: Text('payment methods'.tr,style: TextStyle(fontSize: 20,fontWeight: FontWeight.w900),),
                     ),
                   ],
                 ),

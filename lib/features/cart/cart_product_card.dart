@@ -92,18 +92,18 @@ class CartProductCard extends StatelessWidget {
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Text(cartItem.product.getDiscountRate(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700,color: secondaryColor)),
-                                Text(cartItem.product.getPriceIncludeVat, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color:  primaryColor)),
+                                Text(cartItem.product.getDiscountRate(), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700,color: secondaryColor)),
+                                Text(cartItem.product.getPriceIncludeVat, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color:  primaryColor)),
                                 Image.asset('icons/riyal.png' ,width: 12,),
                               ]
                           ),
-                          Text(cartItem.product.getPreDiscountPrice(), style: TextStyle(fontSize: 14,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
+                          Text(cartItem.product.getPreDiscountPrice(), style: const TextStyle(fontSize: 14,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
                           Row(children: [
                             (cartItem.product.isAvailable(cartItem.quantity.value)==1)?
-                            Text('متوفر', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: successColor)):
+                            Text('available'.tr, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: successColor)):
                             (cartItem.product.isAvailable(cartItem.quantity.value)==-1)?
-                            Text('غير متوفر', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)):
-                            Text('الكمية المتوفرة: '+cartItem.product.inventoryBalance.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)),
+                            Text('in available'.tr, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)):
+                            Text('available quantity'.tr+cartItem.product.inventoryBalance.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)),
                           ])
                         ],
                       ),
@@ -156,19 +156,19 @@ class CartProductCard extends StatelessWidget {
                         },
                         style: ElevatedButton.styleFrom(
                             elevation: 0,
-                            padding: EdgeInsets.all(5),
+                            padding: const EdgeInsets.all(5),
                             backgroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
                                 side: const BorderSide(width: 1,color: Colors.grey),
                                 borderRadius: BorderRadius.circular(25)
                             )
                         ),
-                        child: const Padding(
-                          padding: EdgeInsets.all(4.0),
-                          child: Text('حذف'),
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Text('remove'.tr),
                         )
                     ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Obx(() {
                     bool added = favController.inFav(cartItem.product.id);
                     return ElevatedButton(
@@ -188,7 +188,7 @@ class CartProductCard extends StatelessWidget {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(4.0),
-                          child: Text((added)?'في المفضلة':'اضافة للمفضلة'),
+                          child: Text((added)?'in fav'.tr :'add to fav'.tr),
                         )
                     );}
                   )

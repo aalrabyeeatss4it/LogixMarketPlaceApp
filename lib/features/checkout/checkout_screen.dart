@@ -343,9 +343,9 @@ class _CheckoutScreenState extends State<CheckoutScreen>{
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 18.0,vertical: 8),
-                            child: Text('التسليم والشحن',style: TextStyle(fontSize: 16)),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 8),
+                            child: Text('delivery'.tr,style: const TextStyle(fontSize: 16)),
                           ),
                           Row(
                             children: [
@@ -365,9 +365,9 @@ class _CheckoutScreenState extends State<CheckoutScreen>{
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 18.0,vertical: 8),
-                            child: Text('إجمالي الطلب',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w900),),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 8),
+                            child: Text('order total'.tr,style: const TextStyle(fontSize: 18,fontWeight: FontWeight.w900),),
                           ),
                           Row(
                             children: [
@@ -411,17 +411,17 @@ class _CheckoutScreenState extends State<CheckoutScreen>{
                             ),
                             onPressed: () {
                               if(addressController.defaultAddress.value!.id==null){
-                                showFailureBottomSheet(errorMessage: "لم يتم اضافة عنوان توصيل، يجب اضافة عنوان لإكمال الطلب.",onConfirm: () {  });
+                                showFailureBottomSheet(errorMessage: 'no delivery address'.tr,onConfirm: () {  });
                                 return;
                               }
-                              showOrderConfirmBottomSheet(title: 'متابعة بالدفع الآجل؟', buttonLabel: 'تأكيد الطلب' + " ("+cartController.total.value.toStringAsFixed(3)+") ", onConfirm: () {
-                                orderController.createOrder(addressController.defaultAddress.value!.id!);
+                              showOrderConfirmBottomSheet(title: 'payment proceed'.tr, buttonLabel: "${'order confirm'.tr} (${cartController.total.value.toStringAsFixed(3)}) ", onConfirm: () {
+                                orderController.createOrder(addressController.defaultAddress.value!.id!.toString());
                               });
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Obx(()=> Text('تأكيد الطلب' + " ("+cartController.total.value.toStringAsFixed(3)+") ",
+                                Obx(()=> Text("${'order confirm'.tr} (${cartController.total.value.toStringAsFixed(3)}) ",
                                     style: const TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 16)
                                 )),
                                 Padding(

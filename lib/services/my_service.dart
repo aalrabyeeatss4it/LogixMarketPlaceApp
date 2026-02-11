@@ -33,6 +33,18 @@ class MyService {
     return response;
   }
 
+  Future<Response> putData(String path, Map<String, dynamic> json) async{
+    print("request bodyJson:"+jsonEncode(json));
+    Response response = await put(Uri.parse(baseUrl + path),
+        body: jsonEncode(json),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization":"Bearer " + box.read(tokenIndex)
+        }
+    );
+    return response;
+  }
+
   Future<Response> getData(String path) async{
     Response response = await get(Uri.parse(baseUrl + path),
         headers: {

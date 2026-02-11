@@ -39,13 +39,13 @@ class InvoiceDetailsScreenState extends State<InvoiceDetailsScreen> {
                   child: Column(
                     children: [
                       SizedBox(height: 25.h),
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Text("تفاصيل الفاتورة", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900)),
+                            Text('invoice detail'.tr, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900)),
                           ],
                         ),
                       ),
@@ -54,12 +54,11 @@ class InvoiceDetailsScreenState extends State<InvoiceDetailsScreen> {
                           color: Colors.white,
                           shape: RoundedRectangleBorder(side: BorderSide(color: Colors.grey,width: 0.5),borderRadius: BorderRadius.circular(10)),
                           child: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 10),
+                              padding: const EdgeInsets.symmetric(vertical: 10),
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-
                                     Padding(
                                       padding: const EdgeInsets.only(right: 8.0,top: 8),
                                       child: Row(
@@ -69,9 +68,9 @@ class InvoiceDetailsScreenState extends State<InvoiceDetailsScreen> {
                                             mainAxisAlignment: MainAxisAlignment.start,
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
-                                              const Padding(
-                                                padding: EdgeInsets.all(4),
-                                                child: Text('رقم الطلب:',style: TextStyle(fontSize: 18,color: Colors.grey),),
+                                              Padding(
+                                                padding: const EdgeInsets.all(4),
+                                                child: Text('order no'.tr,style: const TextStyle(fontSize: 18,color: Colors.grey),),
                                               ),
                                               const SizedBox(width: 5,),
                                               Text(order.orderId??"",style: const TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
@@ -112,16 +111,16 @@ class InvoiceDetailsScreenState extends State<InvoiceDetailsScreen> {
                       Card(
                         elevation: 0,
                         color: Colors.white,
-                        shape: RoundedRectangleBorder(side: BorderSide(color: Colors.grey,width: 0.5),borderRadius: BorderRadius.circular(10)),
+                        shape: RoundedRectangleBorder(side: const BorderSide(color: Colors.grey,width: 0.5),borderRadius: BorderRadius.circular(10)),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10),
+                          padding: const EdgeInsets.symmetric(vertical: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 18.0),
-                                child: Text('التوصيل إلى',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w900)),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                                child: Text('deliver to'.tr,style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w900)),
                               ),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -147,16 +146,16 @@ class InvoiceDetailsScreenState extends State<InvoiceDetailsScreen> {
                       Card(
                         elevation: 0,
                         color: Colors.white,
-                        shape: RoundedRectangleBorder(side: BorderSide(color: Colors.grey,width: 0.5),borderRadius: BorderRadius.circular(10)),
+                        shape: RoundedRectangleBorder(side: const BorderSide(color: Colors.grey,width: 0.5),borderRadius: BorderRadius.circular(10)),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 18.0),
-                                  child: Text('شركة الشحن',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w900)),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                                  child: Text('shipment company'.tr,style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w900)),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 18.0),
@@ -165,14 +164,14 @@ class InvoiceDetailsScreenState extends State<InvoiceDetailsScreen> {
                                 ),
                               ],
                             ),
-                            const Column(
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 18.0),
-                                  child: Text('رقم التتبع:',style: TextStyle(fontSize: 16,color: Colors.grey)),
+                                  padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                                  child: Text('tracking no'.tr,style: const TextStyle(fontSize: 16,color: Colors.grey)),
                                 ),
-                                Padding(
+                                const Padding(
                                   padding: EdgeInsets.symmetric(horizontal: 18.0),
                                   child: Text('************',style: TextStyle(fontSize: 16,color: Colors.grey)),
                                 ),

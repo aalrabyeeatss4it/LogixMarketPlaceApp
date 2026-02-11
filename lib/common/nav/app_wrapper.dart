@@ -25,7 +25,7 @@ class _AppWrapperState extends State<AppWrapper> {
 
     if (lastPressed == null || now.difference(lastPressed!) > const Duration(seconds: 2)) {
       lastPressed = now;
-      Fluttertoast.showToast(msg: "Press back again to exit");
+      Fluttertoast.showToast(msg: 'Press back'.tr);
       return;
     }
     SystemNavigator.pop(); // exit app

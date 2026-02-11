@@ -30,8 +30,8 @@ class TransactionCard extends StatelessWidget{
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text("المبلغ:",style: TextStyle(fontSize: 16),),
-                        SizedBox(width: 5,),
+                        Text('amount'.tr,style: const TextStyle(fontSize: 16),),
+                        const SizedBox(width: 5,),
                         Row(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -49,9 +49,9 @@ class TransactionCard extends StatelessWidget{
                         mainAxisAlignment: MainAxisAlignment.start,
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          const Padding(
-                            padding: EdgeInsets.all(4),
-                            child: Text('التاريخ:',style: TextStyle(fontSize: 18,color: Colors.grey),),
+                          Padding(
+                            padding: const EdgeInsets.all(4),
+                            child: Text('date'.tr,style: const TextStyle(fontSize: 18,color: Colors.grey),),
                           ),
                           const SizedBox(width: 5,),
                           Text(trans.transDate??"",style: const TextStyle(fontSize: 14,fontWeight: FontWeight.w900),),
@@ -71,8 +71,8 @@ class TransactionCard extends StatelessWidget{
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          const Text("البيان:",style: TextStyle(fontSize: 16),),
-                          SizedBox(width: 5,),
+                          Text('note'.tr,style: const TextStyle(fontSize: 16),),
+                          const SizedBox(width: 5,),
                           Text(trans.description??"",style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w900),)
                         ]
                     )

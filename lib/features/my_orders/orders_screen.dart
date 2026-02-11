@@ -33,13 +33,13 @@ class _OrdersScreenState extends State<OrdersScreen> {
           child: Column(
             children: [
               SizedBox(height: 25.h),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Text("طلباتك", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900))
+                    Text('your orders'.tr, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900))
                   ],
                 ),
               ),
@@ -50,7 +50,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                     return const Center(child: CircularProgressIndicator());
                   }
                   if (orderController.orders.isEmpty) {
-                    return const Center(child: Text("No orders"));
+                    return Center(child: Text("No orders".tr));
                   }
                   return ListView.builder(
                       controller: orderController.scroll,

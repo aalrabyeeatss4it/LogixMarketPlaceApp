@@ -34,7 +34,7 @@ class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
               openFilters();
             },
             decoration: InputDecoration(
-              hintText: "البحث في قصر لورا ..",
+              hintText: 'search in app'.tr,
               prefixIcon: const Icon(Icons.search),
               filled: true,
               fillColor: Colors.white,

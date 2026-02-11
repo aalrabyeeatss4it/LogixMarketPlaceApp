@@ -1,0 +1,206 @@
+{
+  "project_info": {
+    "project_number": "486497437350",
+    "project_id": "logix-ss-ea7d1",
+    "storage_bucket": "logix-ss-ea7d1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:486497437350:android:0eb7ec48ac47a6b2119667",
+        "android_client_info": {
+          "package_name": "com.logix_erp.logix_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "486497437350-5tl6p08ecrg1nd4sjijjaujlh1ls8k8b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.logix_erp.logix_app",
+            "certificate_hash": "847d4b03d0b97cf0262d8998ec7b0d0616967f29"
+          }
+        },
+        {
+          "client_id": "486497437350-m5s5kvn51o12jdstneh9djgmuhpq6ori.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.logix_erp.logix_app",
+            "certificate_hash": "d39fce7888d68eb81e28ec3bd38ac5f7876fd599"
+          }
+        },
+        {
+          "client_id": "486497437350-p5ia7bqrgq8dqjepmimas1djhrb435jk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAczYE_lnbPOLeZjQsUkPCe0UV5y4e-Mm4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "486497437350-p5ia7bqrgq8dqjepmimas1djhrb435jk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "486497437350-1f67bod55v2fhr3a3c98khe2jvi4nhf4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "m"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:486497437350:android:0499f7b1467d2a34119667",
+        "android_client_info": {
+          "package_name": "com.logix_erp.logix_app.alpha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "486497437350-p5ia7bqrgq8dqjepmimas1djhrb435jk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAczYE_lnbPOLeZjQsUkPCe0UV5y4e-Mm4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "486497437350-p5ia7bqrgq8dqjepmimas1djhrb435jk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "486497437350-1f67bod55v2fhr3a3c98khe2jvi4nhf4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "m"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:486497437350:android:5680e3e3b33cacef119667",
+        "android_client_info": {
+          "package_name": "com.logix_erp.marketplace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "486497437350-p5ia7bqrgq8dqjepmimas1djhrb435jk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAczYE_lnbPOLeZjQsUkPCe0UV5y4e-Mm4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "486497437350-p5ia7bqrgq8dqjepmimas1djhrb435jk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "486497437350-1f67bod55v2fhr3a3c98khe2jvi4nhf4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "m"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:486497437350:android:162913f374fc9af0119667",
+        "android_client_info": {
+          "package_name": "com.logix_erp.seize_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "486497437350-p5ia7bqrgq8dqjepmimas1djhrb435jk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAczYE_lnbPOLeZjQsUkPCe0UV5y4e-Mm4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "486497437350-p5ia7bqrgq8dqjepmimas1djhrb435jk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "486497437350-1f67bod55v2fhr3a3c98khe2jvi4nhf4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "m"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:486497437350:android:f53db53b813ad9ad119667",
+        "android_client_info": {
+          "package_name": "com.logixerp.kawla.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "486497437350-p5ia7bqrgq8dqjepmimas1djhrb435jk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAczYE_lnbPOLeZjQsUkPCe0UV5y4e-Mm4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "486497437350-p5ia7bqrgq8dqjepmimas1djhrb435jk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "486497437350-1f67bod55v2fhr3a3c98khe2jvi4nhf4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "m"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

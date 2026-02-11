@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:logix_market_place/features/availability_order/availability_order_screen.dart';
 import 'package:logix_market_place/features/cart/cart_screen.dart';
 import 'package:logix_market_place/features/categories/categories_screen.dart';
 import 'package:logix_market_place/features/change_email/change_email_screen.dart';
@@ -11,7 +10,6 @@ import 'package:logix_market_place/features/my_account_statement/account_stateme
 import 'package:logix_market_place/features/payment_methods/payment_methods_screen.dart';
 import 'package:logix_market_place/features/product_detail/product_detail_screen.dart';
 import 'package:logix_market_place/features/profile/profile_screen.dart';
-
 import '../../features/account_info/account_info_screen.dart';
 import '../../features/account_setting/account_setting_screen.dart';
 import '../../features/category_detail/category_detail_screen.dart';
@@ -23,6 +21,8 @@ import '../../features/my_delivery_address/delivery_address_screen.dart';
 import '../../features/my_fav/fav_screen.dart';
 import '../../features/my_invoices/invoices_screen.dart';
 import '../../features/my_orders/orders_screen.dart';
+import '../../features/my_provide_requests/provide_request_screen.dart';
+import '../../features/new_address/new_address_screen.dart';
 import '../../features/new_address/new_address_screen.dart';
 import '../../features/order_details/order_details_screen.dart';
 import '../../features/order_tracking/order_tracking_screen.dart';
@@ -36,8 +36,9 @@ var routePages = [
   GetPage(name: RouteNames.categoryDetailPage, page: () => const CategoryDetailScreen()),
   GetPage(name: RouteNames.productDetailPage, page: () => const ProductDetailScreen()),
   GetPage(name: RouteNames.favPage, page: () => FavScreen()),
-  GetPage(name: RouteNames.newAddressPage, page: () => NewAddressScreen()),
-  GetPage(name: RouteNames.editAddressPage, page: () => const EditAddressScreen()),
+  // GetPage(name: RouteNames.newAddressPage, page: () => NewAddressScreen()),
+  GetPage(name: RouteNames.newAddressPage, page: () => const NewAddressScreen()),
+  GetPage(name: RouteNames.editAddressPage, page: () => const EditAddressScreenV2()),
   GetPage(name: RouteNames.checkoutPage, page: () => CheckoutScreen()),
   GetPage(name: RouteNames.orderTrackingPage, page: () => OrderTrackingScreen()),
   GetPage(name: RouteNames.loginPage, page: () => LoginScreen()),
@@ -50,10 +51,10 @@ var routePages = [
   GetPage(name: RouteNames.changeLangPage, page: () => ChangeLangScreen()),
   GetPage(name: RouteNames.deliveryAddressPage, page: () => DeliveryAddressScreen()),
   GetPage(name: RouteNames.paymentMethodsPage, page: () => PaymentMethodsScreen()),
-  GetPage(name: RouteNames.availabilityOrderPage, page: () => AvailabilityOrderScreen()),
   GetPage(name: RouteNames.invoicesPage, page: () => const InvoicesScreen()),
   GetPage(name: RouteNames.invoiceDetailsPage, page: () => const InvoiceDetailsScreen()),
   GetPage(name: RouteNames.accountStatementPage, page: () => const AccountStatementScreen()),
+  GetPage(name: RouteNames.provideRequestPage, page: () => const ProvideRequestScreen()),
 ];
 
 class RouteNames {
@@ -80,7 +81,7 @@ class RouteNames {
   static String changeLangPage = '/change-lang';
   static String deliveryAddressPage = '/delivery-address';
   static String paymentMethodsPage = '/payment-methods';
-  static String availabilityOrderPage = '/availability-orders';
   static String invoicesPage = '/invoices';
   static String accountStatementPage = '/account-statement';
+  static String provideRequestPage = '/provide-request';
 }

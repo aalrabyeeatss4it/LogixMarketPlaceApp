@@ -28,19 +28,19 @@ class ChangeEmailScreen   extends StatelessWidget{
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 10.h),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 12.0,vertical: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 20),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Text("تغيير البريد الإلكتروني", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900))
+                          Text('change email'.tr, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900))
                         ],
                       ),
                     ),
-                    const Padding(
-                        padding:  EdgeInsets.symmetric(horizontal: 12.0,vertical: 4),
-                        child: Text("البريد الالكتروني الجديد",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)
+                    Padding(
+                        padding:  const EdgeInsets.symmetric(horizontal: 12.0,vertical: 4),
+                        child: Text('new email'.tr,style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 4),
@@ -57,7 +57,7 @@ class ChangeEmailScreen   extends StatelessWidget{
                         },
                         controller: infoController.newEmailController,
                         decoration: InputDecoration(
-                            hintText: 'ادخل البريد الالكتروني الجديد..',
+                            hintText: 'fill in new email'.tr,
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),
                                 borderSide: BorderSide(color: grayBorderColor1.withOpacity(0.1), width: 0.2)
@@ -65,9 +65,9 @@ class ChangeEmailScreen   extends StatelessWidget{
                         ),
                       ),
                     ),
-                    const Padding(
-                        padding:  EdgeInsets.symmetric(horizontal: 12.0,vertical: 4),
-                        child: Text("أعد البريد الالكتروني الجديد",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)
+                    Padding(
+                        padding:  const EdgeInsets.symmetric(horizontal: 12.0,vertical: 4),
+                        child: Text('re fill in new email'.tr,style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 4),
@@ -83,7 +83,7 @@ class ChangeEmailScreen   extends StatelessWidget{
                         },
                         controller: infoController.newEmailConfirmController,
                         decoration: InputDecoration(
-                            hintText: 'أعد البريد الالكتروني الجديد..',
+                            hintText: 're fill in new email'.tr,
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),
                                 borderSide: BorderSide(color: grayBorderColor1.withOpacity(0.1), width: 0.2)
@@ -91,9 +91,9 @@ class ChangeEmailScreen   extends StatelessWidget{
                         ),
                       ),
                     ),
-                    const Padding(
-                        padding:  EdgeInsets.symmetric(horizontal: 12.0,vertical: 4),
-                        child: Text("كلمة المرور الحالية",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)
+                    Padding(
+                        padding:  const EdgeInsets.symmetric(horizontal: 12.0,vertical: 4),
+                        child: Text('current password'.tr,style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)
                     ),
                     Obx(()=>
                         Padding(
@@ -117,7 +117,7 @@ class ChangeEmailScreen   extends StatelessWidget{
                                     infoController.isCurrentPwdHidden.value = !infoController.isCurrentPwdHidden.value;
                                   },
                                 ),
-                                hintText: 'ادخل كلمة المرور الحالية..',
+                                hintText: 'fill current password'.tr,
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(15),
                                     borderSide: BorderSide(color: grayBorderColor1.withOpacity(0.1), width: 0.2)
@@ -150,10 +150,10 @@ class ChangeEmailScreen   extends StatelessWidget{
                   infoController.changeEmail();
                 }
               },
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("تغيير البريد الإلكتروني",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 18))
+                  Text('change email'.tr,style: const TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 18))
                 ],
               )
           ),

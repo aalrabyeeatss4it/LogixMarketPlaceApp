@@ -61,7 +61,7 @@ class OrderSummaryCard extends StatelessWidget{
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  const Text('التسليم والشحن',style: TextStyle(fontSize: 16)),
+                  Text('delivery'.tr,style: TextStyle(fontSize: 16)),
                   Row(
                     children: [
                       Padding(
@@ -80,7 +80,7 @@ class OrderSummaryCard extends StatelessWidget{
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  const Text('الحالة',style: TextStyle(fontSize: 16),),
+                  Text('state'.tr,style: TextStyle(fontSize: 16),),
                   Card(
                       shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10))
@@ -100,7 +100,7 @@ class OrderSummaryCard extends StatelessWidget{
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Text('إجمالي الطلب',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w900),),
+                  Text('order total'.tr,style: TextStyle(fontSize: 18,fontWeight: FontWeight.w900),),
                   Row(
                     children: [
                       Padding(

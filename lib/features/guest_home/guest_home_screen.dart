@@ -11,7 +11,6 @@ import '../../common/nav/app_bar_custom.dart';
 import '../../common/nav/bottom_nav_bar_custom.dart';
 import '../../common/nav/page_routes.dart';
 import '../../controllers/category_controller.dart';
-import '../home/announcement_slider.dart';
 
 class GuestHomeScreen extends StatefulWidget {
   const GuestHomeScreen({super.key});
@@ -62,7 +61,7 @@ class GuestHomeScreenState extends State<GuestHomeScreen> {
                       return const Center(child: CircularProgressIndicator());
                     }
                     if(categoryController.guestCategories.isEmpty){
-                      return const Center(child: Text("No categories"));
+                      return Center(child: Text("No categories".tr));
                     }
                     return SizedBox(
                       height:190.h,
@@ -86,7 +85,7 @@ class GuestHomeScreenState extends State<GuestHomeScreen> {
                       return const Center(child: CircularProgressIndicator());
                     }
                     if (productController.recentlyArrivedProducts.isEmpty) {
-                      return const Center(child: Text("No products"));
+                      return Center(child: Text("No products".tr));
                     }
                     return SizedBox(
                       height: 350,

@@ -18,11 +18,11 @@ Widget build(BuildContext context) {
       child: Column(
         children: [
           SizedBox(height: 16.h),
-          const Row(
+          Row(
             children: [
               Padding(
-                padding: EdgeInsets.only(right: 20,top: 8),
-                child: Text('قائمة المفضلة',style: TextStyle(fontSize: 20,fontWeight: FontWeight.w900),),
+                padding: const EdgeInsets.only(right: 20,top: 8),
+                child: Text('fav list'.tr,style: const TextStyle(fontSize: 20,fontWeight: FontWeight.w900),),
               ),
             ],
           ),

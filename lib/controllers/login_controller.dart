@@ -13,15 +13,27 @@ import 'cart_controller.dart';
 
 class LoginController extends GetxController{
   RxBool isLoggedIn = false.obs;
+  RxBool rememberMe = false.obs;
+  RxBool isPasswordHidden  = true.obs;
   var box = GetStorage();
   LoginService service = Get.put(LoginService());
   Rx<UserCredModel> user = UserCredModel().obs;
 
-  RxBool isPasswordHidden  = false.obs;
+  @override
+  void onInit(){
+    super.onInit();
+    if(box.read(rememberMeIndex)==true){
+      rememberMe.value = box.read(rememberMeIndex);
+      user.value.username = box.read(userNameIndex);
+      user.value.password = box.read(pwdIndex);
+    }
+  }
+
   Future<void> login() async {
     var serviceResult = await service.login(user.value);
     if(serviceResult is SuccessStatus<AuthorizedUserModel>){
       final userModel = serviceResult.data!;
+      box.write(rememberMeIndex, rememberMe.value);
       box.write(tokenIndex, userModel.token);
       box.write(userIdIndex, userModel.userId);
       box.write(userNameIndex, userModel.userName);
@@ -43,11 +55,13 @@ class LoginController extends GetxController{
     var box = GetStorage();
     box.write(tokenIndex, null);
     box.write(userIdIndex, null);
-    box.write(userNameIndex, null);
     box.write(firstNameIndex, null);
     box.write(lastNameIndex, null);
     box.write(emailIndex, null);
-    box.write(pwdIndex, null);
+    if((box.read(rememberMeIndex)??false) ==false){
+      box.write(userNameIndex, null);
+      box.write(pwdIndex, null);
+    }
     Get.offAllNamed(RouteNames.loginPage);
     Get.find<CartController>().clearCart();
     // Get.find<FavController>().clear();

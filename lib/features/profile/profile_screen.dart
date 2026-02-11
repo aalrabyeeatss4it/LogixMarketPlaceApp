@@ -13,26 +13,23 @@ class ProfileScreen extends StatelessWidget{
     ProfileScreen({super.key});
 
     final List<Option> options = [
-      Option(title: 'طلباتي السابقة', subTitle: 'عرض الطلبات, تتبّعها أو إعادة الطلب.', icon: 'icons/my-orders.png', onTap: (){
+      Option(title: 'my orders'.tr, subTitle: 'my orders desc'.tr, icon: 'icons/my-orders.png', onTap: (){
         Get.toNamed(RouteNames.ordersPage);
       }),
-      Option(title: 'المفضلة', subTitle: 'إدارة القوائم، والنقل إلى السلة.', icon: 'icons/favorites.png', onTap: (){
+      Option(title: 'my fav'.tr, subTitle: 'my fav desc'.tr, icon: 'icons/favorites.png', onTap: (){
         Get.toNamed(RouteNames.favPage);
       }),
-      Option(title: 'عناوين التوصيل', subTitle: 'إضافة وتعديل وحذف عناوين', icon: 'icons/my-addresses.png', onTap: (){
+      Option(title: 'delivery addresses'.tr, subTitle: 'delivery addresses desc'.tr, icon: 'icons/my-addresses.png', onTap: (){
         Get.toNamed(RouteNames.deliveryAddressPage);
       }),
-      // Option(title: 'فواتيري', subTitle: 'دفع فواتيرك المستحقة مجمعة أو مفردة', icon: 'icons/my-invoices.png', onTap: (){
-      //   Get.toNamed(RouteNames.invoicesPage);
-      // }),
-      Option(title: 'كشف حسابي', subTitle: 'الإطلاع على فواتيرك ومدفوعاتك', icon: 'icons/my-invoices.png', onTap: (){
+      Option(title: 'my account statement'.tr, subTitle: 'my account statement desc'.tr, icon: 'icons/my-invoices.png', onTap: (){
         Get.toNamed(RouteNames.accountStatementPage);
       }),
-      Option(title: 'طرق الدفع', subTitle: 'إضافة وتعديل وحذف تفاصيل الدفع', icon: 'icons/payments.png', onTap: (){
+      Option(title: 'payment methods'.tr, subTitle: 'payment methods desc'.tr, icon: 'icons/payments.png', onTap: (){
         Get.toNamed(RouteNames.paymentMethodsPage);
       }),
-      Option(title: 'طلباتي قيد التوفّر', subTitle: 'متابعة المنتجات غير المتاحة ', icon: 'icons/supply-orders.png', onTap: (){
-        Get.toNamed(RouteNames.availabilityOrderPage);
+      Option(title: 'my provide orders'.tr, subTitle: 'my provide orders desc'.tr, icon: 'icons/supply-orders.png', onTap: (){
+        Get.toNamed(RouteNames.provideRequestPage);
       })
     ];
 

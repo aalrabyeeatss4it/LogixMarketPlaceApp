@@ -29,6 +29,7 @@ class ProductFilterController extends GetxController {
 
   int _page = 1;
   int _category = 0;
+  TextEditingController productCodeController = TextEditingController();
   TextEditingController productNameController = TextEditingController();
   TextEditingController minPriceController = TextEditingController();
   TextEditingController maxPriceController = TextEditingController();
@@ -40,6 +41,7 @@ class ProductFilterController extends GetxController {
    sortBy.value =0;
   }
   void resetFilters() {
+    productCodeController.clear();
     productNameController.clear();
     minPriceController.clear();
     maxPriceController.clear();
@@ -50,6 +52,9 @@ class ProductFilterController extends GetxController {
   String getQuery() {
     query = "";
     addParam("page", _page.toString());
+    if (productCodeController.text.isNotEmpty) {
+      addParam("code", productCodeController.text);
+    }
     if (productNameController.text.isNotEmpty) {
       addParam("name", productNameController.text);
     }

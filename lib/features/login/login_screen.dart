@@ -21,7 +21,7 @@ class LoginScreen extends StatelessWidget{
                       SizedBox(height: 50.h),
                       Row(
                         children: [
-                          Text("welcome".tr,style: TextStyle(fontSize: 30,fontWeight: FontWeight.w900),),
+                          Text("welcome".tr,style: const TextStyle(fontSize: 30,fontWeight: FontWeight.w900),),
                           Image.asset("icons/hello.png",height: 32,)
                         ],
                       ),
@@ -79,9 +79,32 @@ class LoginScreen extends StatelessWidget{
                           ),
                         ),
                       ),
+                      Obx(() => InkWell(
+                        onTap: (){
+                          loginController.rememberMe.value = !loginController.rememberMe.value;
+                        },
+                        child: Row(
+                          children: [
+                            Checkbox(
+                              value: loginController.rememberMe.value,
+                              activeColor: primaryColor,
+                              onChanged: (value) {
+                                loginController.rememberMe.value = value ?? false;
+                              },
+                            ),
+                            Text(
+                              'remember password'.tr,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )),
                       const SizedBox(height: 6,),
                       InkWell(
-                          child: Text('have you forgot your password'.tr,style: TextStyle(decoration: TextDecoration.underline,color: primaryAccentColor,fontSize: 16,fontWeight: FontWeight.bold)),
+                          child: Text('have you forgot your password'.tr,style: const TextStyle(decoration: TextDecoration.underline,color: primaryAccentColor,fontSize: 16,fontWeight: FontWeight.bold)),
                           onTap: (){
 
                           }

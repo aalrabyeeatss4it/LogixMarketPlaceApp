@@ -185,4 +185,10 @@ class MockProductService implements ProductService {
     // TODO: implement getGuestProducts
     throw UnimplementedError();
   }
+
+  @override
+  Future<Response> putData(String path, Map<String, dynamic> json) {
+    // TODO: implement putData
+    throw UnimplementedError();
+  }
 }

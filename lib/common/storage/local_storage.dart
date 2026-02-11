@@ -11,6 +11,7 @@ const String customerIDIndex = "customerIDIndex";
 const String customerNameIndex = "customerNameIndex";
 const String customerPhoneIndex = "customerPhoneIndex";
 const String customerTaxNoIndex = "customerTaxNoIndex";
+const String rememberMeIndex = "rememberMeIndex";
 
 var box = GetStorage();
 isLoggedIn() {

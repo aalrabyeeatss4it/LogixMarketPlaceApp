@@ -23,10 +23,10 @@ class BottomNavBarCustom extends StatelessWidget {
     });
 
     final List<BottomNavigationBarItem> barItems = [
-      BottomNavigationBarItem(label: "الرئيسية",icon: Image.asset('icons/home.png',width: 28),activeIcon: Image.asset('icons/home-active.png',width: 28,color: primaryColor,)),
-      BottomNavigationBarItem(label: "التصنيفات",icon: Image.asset('icons/cats.png',width: 28),activeIcon: Image.asset('icons/cats-active.png',width: 28,color: primaryColor,)),
+      BottomNavigationBarItem(label: 'home'.tr,icon: Image.asset('icons/home.png',width: 28),activeIcon: Image.asset('icons/home-active.png',width: 28,color: primaryColor,)),
+      BottomNavigationBarItem(label: 'categories'.tr,icon: Image.asset('icons/cats.png',width: 28),activeIcon: Image.asset('icons/cats-active.png',width: 28,color: primaryColor,)),
       BottomNavigationBarItem(
-          label: "السلة",
+          label: 'cart'.tr,
           icon: Stack(
             clipBehavior: Clip.none,
             children: [
@@ -92,7 +92,7 @@ class BottomNavBarCustom extends StatelessWidget {
           ],
         ),
       ),
-      BottomNavigationBarItem(label: "حسابي",icon: Image.asset('icons/profile.png',width: 28),activeIcon: Image.asset('icons/profile-active.png',width: 28,color: primaryColor,)),
+      BottomNavigationBarItem(label: 'my profile'.tr,icon: Image.asset('icons/profile.png',width: 28),activeIcon: Image.asset('icons/profile-active.png',width: 28,color: primaryColor,)),
     ];
     return Obx(()=> Column(
       mainAxisSize: MainAxisSize.min,

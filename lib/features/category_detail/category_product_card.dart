@@ -74,6 +74,7 @@ class CategoryProductCard extends StatelessWidget {
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    Text(product.productCode!,maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
                                     Text(product.name, style: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w700),
@@ -81,6 +82,7 @@ class CategoryProductCard extends StatelessWidget {
                                         overflow: TextOverflow.visible,
                                         maxLines: null
                                     ),
+
                                     // const Row(
                                     //     mainAxisSize: MainAxisSize.min,
                                     //     mainAxisAlignment: MainAxisAlignment.start,
@@ -113,13 +115,13 @@ class CategoryProductCard extends StatelessWidget {
                                     ),
                                     (added)? Row(children: [
                                       (product.isAvailable(item!.quantity.value)==1)?
-                                      Text('متوفر', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: successColor)):
-                                      Text('الكمية المتوفرة: '+product.inventoryBalance.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)),
+                                      Text('available'.tr, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: successColor)):
+                                      Text('available quantity'.tr+product.inventoryBalance.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)),
                                     ])
                                         :SizedBox(),
                                     Row(children: [
                                       (product.isAvailable((item!=null)?item.quantity.value:1)==-1)?
-                                      const Text('غير متوفر', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)):
+                                      Text('in available'.tr, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)):
                                       const SizedBox()
                                     ]),
                                     Row(

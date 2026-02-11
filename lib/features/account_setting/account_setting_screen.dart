@@ -9,16 +9,16 @@ import '../../controllers/login_controller.dart';
 
 class AccountSettingScreen extends StatelessWidget{
   final List<SettingOption> options = [
-    SettingOption(title: 'معلومات الحساب'.tr, onTap: (){
+    SettingOption(title: 'account info'.tr, onTap: (){
       Get.toNamed(RouteNames.accountInfoPage);
     }),
-    SettingOption(title: 'تغيير البريد الإلكتروني', onTap: (){
+    SettingOption(title: 'change email'.tr, onTap: (){
       Get.toNamed(RouteNames.changeEmailPage);
     }),
-    SettingOption(title: 'تغيير كلمة المرور', onTap: (){
+    SettingOption(title: 'change password'.tr, onTap: (){
       Get.toNamed(RouteNames.changePasswordPage);
     }),
-    SettingOption(title: 'اللغة', onTap: (){
+    SettingOption(title: 'language'.tr, onTap: (){
       Get.toNamed(RouteNames.changeLangPage);
     }),
   ];
@@ -42,13 +42,13 @@ class AccountSettingScreen extends StatelessWidget{
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                Text("إعدادات الحساب", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900))
+                                Text('account settings'.tr, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900))
                               ],
                             ),
                           ),
@@ -127,10 +127,7 @@ class AccountSettingScreen extends StatelessWidget{
                                         padding: const EdgeInsets.only(left: 10.0),
                                         child: Image.asset('icons/logout.png' ,width: 30,color: redColor,),
                                       ),
-                                      const Text(
-                                          "تسجيل الخروج",
-                                          style: TextStyle(color: redColor,fontWeight: FontWeight.w700,fontSize: 18)
-                                      )
+                                      Text('logout'.tr,style: const TextStyle(color: redColor,fontWeight: FontWeight.w700,fontSize: 18))
                                     ],
                                   )
 

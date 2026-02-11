@@ -28,13 +28,13 @@ void showFailureBottomSheet({required VoidCallback onConfirm,String? errorMessag
             const SizedBox(height: 20,),
             Image.asset("icons/error.png",height: 40,),
             const SizedBox(height: 10,),
-            const Text("حدوث خطأ",
+            Text('Error happened'.tr,
               style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: errorColor
               ),),
-            Text((errorMessage)??"يرجى المحاولة مرة أخرى أو التحقق من اتصالك بالإنترنت",
+            Text((errorMessage)??'try again'.tr,
                 style: TextStyle(
                     fontSize: 16,
                     color: Colors.black
@@ -69,14 +69,14 @@ void showSuccessOrderBottomSheet({ required VoidCallback onConfirm}) {
             const SizedBox(height: 20,),
             Image.asset("icons/paid.png",height: 40,),
             const SizedBox(height: 10,),
-            const Text("تم ارسال طلبك بنجاح!",
-              style: TextStyle(
+            Text('request succeed'.tr,
+              style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: Colors.white
               ),),
-            const Text("لتتبّع تحديثات طلبك انقر على تتبّع طلبي.",
-                style: TextStyle(
+            Text('to track order'.tr,
+                style: const TextStyle(
                     fontSize: 16,
                     color: Colors.white
                 )
@@ -100,8 +100,8 @@ void showSuccessOrderBottomSheet({ required VoidCallback onConfirm}) {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
-                              "تتبّع طلبي",
+                          Text(
+                              'track order'.tr,
                               style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 16)
                           ),
                           const SizedBox(width: 10,),
@@ -145,14 +145,14 @@ void showSuccessBottomSheet({required VoidCallback onConfirm,String? message}) {
             const SizedBox(height: 20,),
             Image.asset("icons/success.png",height: 40,color: successActionColor,),
             const SizedBox(height: 10,),
-            const Text("تم تنفيذ العملية بنجاح",
-              style: TextStyle(
+            Text('success operation'.tr,
+              style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: successActionColor
               ),),
-            Text((message)??"شكراً لك! تم تحديث بياناتك بنجاح.",
-                style: TextStyle(
+            Text((message)??'success update'.tr,
+                style: const TextStyle(
                     fontSize: 16,
                     color: Colors.grey
                 )

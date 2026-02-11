@@ -26,19 +26,19 @@ class ChangePasswordScreen   extends StatelessWidget{
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 10.h),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 12.0,vertical: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 20),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Text("تغيير كلمة المرور", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900))
+                          Text('change password'.tr, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900))
                         ],
                       ),
                     ),
-                    const Padding(
-                        padding:  EdgeInsets.symmetric(horizontal: 12.0,vertical: 4),
-                        child: Text("كلمة المرور الحالية",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)
+                    Padding(
+                        padding:  const EdgeInsets.symmetric(horizontal: 12.0,vertical: 4),
+                        child: Text('current password'.tr,style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)
                     ),
                     Obx(()=>
                       Padding(
@@ -62,7 +62,7 @@ class ChangePasswordScreen   extends StatelessWidget{
                                   infoController.isCurrentPwdHidden.value = !infoController.isCurrentPwdHidden.value;
                                 },
                               ),
-                              hintText: 'ادخل كلمة المرور الحالية..',
+                              hintText: 'fill current password'.tr,
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15),
                                   borderSide: BorderSide(color: grayBorderColor1.withOpacity(0.1), width: 0.2)
@@ -72,9 +72,9 @@ class ChangePasswordScreen   extends StatelessWidget{
                         ),
                       ),
                     ),
-                    const Padding(
-                        padding:  EdgeInsets.symmetric(horizontal: 12.0,vertical: 4),
-                        child: Text("كلمة المرور الجديدة",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)
+                    Padding(
+                        padding:  const EdgeInsets.symmetric(horizontal: 12.0,vertical: 4),
+                        child: Text('new password'.tr,style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)
                     ),
                     Obx(()=>
                       Padding(
@@ -99,7 +99,7 @@ class ChangePasswordScreen   extends StatelessWidget{
                                   infoController.isNewPwdHidden.value = !infoController.isNewPwdHidden.value;
                                 },
                               ),
-                              hintText: 'ادخل كلمة المرور الجديدة..',
+                              hintText: 'fill in new password'.tr,
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15),
                                   borderSide: BorderSide(color: grayBorderColor1.withOpacity(0.1), width: 0.2)
@@ -109,9 +109,9 @@ class ChangePasswordScreen   extends StatelessWidget{
                         ),
                       ),
                     ),
-                    const Padding(
-                        padding:  EdgeInsets.symmetric(horizontal: 12.0,vertical: 4),
-                        child: Text("أعد كتابة كلمة المرور الجديدة",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)
+                    Padding(
+                        padding:  const EdgeInsets.symmetric(horizontal: 12.0,vertical: 4),
+                        child: Text('re fill in new password'.tr,style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)
                     ),
                     Obx(()=>
                       Padding(
@@ -136,7 +136,7 @@ class ChangePasswordScreen   extends StatelessWidget{
                                   infoController.isNewPwdConfirmHidden.value = !infoController.isNewPwdConfirmHidden.value;
                                 },
                               ),
-                              hintText: 'أعد كتابة كلمة المرور الجديدة ..',
+                              hintText: 're fill in new password'.tr,
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15),
                                   borderSide: BorderSide(color: grayBorderColor1.withOpacity(0.1), width: 0.2)
@@ -170,10 +170,10 @@ class ChangePasswordScreen   extends StatelessWidget{
                   infoController.changePwd();
                 }
               },
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("تغيير كلمة المرور",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 18))
+                  Text('change password'.tr,style: const TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 18))
                 ],
               )
           ),

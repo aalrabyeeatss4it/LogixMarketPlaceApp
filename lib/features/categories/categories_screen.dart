@@ -32,7 +32,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>{
               return const Center(child: CircularProgressIndicator());
             }
             if(categoryController.list.isEmpty){
-              return const Center(child: Text("No categories"));
+              return Center(child: Text("No categories".tr));
             }
             return GridView.builder(
                 padding: const EdgeInsets.all(8),

@@ -1,220 +1,109 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:logix_market_place/common/widgets/section_title_card.dart';
 import '../../common/nav/app_bar_custom.dart';
 import '../../common/theme/colors.dart';
-import '../../common/widgets/section_title_card.dart';
 import '../../controllers/delivery_address_controller.dart';
+import '../../models/delivery_address_model.dart';
+import '../map_picker/map_picker_screen.dart';
 
-class EditAddressScreen extends StatefulWidget {
-  const EditAddressScreen({super.key});
+
+class EditAddressScreenV2 extends StatefulWidget{
+  const EditAddressScreenV2({super.key});
 
   @override
   State<StatefulWidget> createState() => _EditAddressScreenState();
 
 }
-class _EditAddressScreenState extends State<EditAddressScreen> {
-  final DeliveryAddressController controller = Get.put(DeliveryAddressController());
+class _EditAddressScreenState extends State<EditAddressScreenV2> {
+  final DeliveryAddressController controller = Get.put(DeliveryAddressController(), permanent: false);
 
   @override
   void initState() {
     super.initState();
-    controller.getAddresses();
   }
 
   @override
   Widget build(BuildContext context) {
+    final address = Get.arguments as DeliveryAddressModel;
+    controller.setAddress(address);
     final formKey= GlobalKey<FormState>();
     return Scaffold(
-        appBar: AppBarCustom(title: "home"),
-        body: Form(
-          key: formKey,
-          child: SingleChildScrollView(
-              child: Column(
+      appBar: AppBar(title: Text('change address'.tr)),
+      body: Form(
+        key: formKey,
+        child:
+          SingleChildScrollView(
+              child: Obx(() {
+                var address = controller.address.value;
+                return Column(
                   children: [
                     SizedBox(height: 16.h),
-                    const SectionTitleCard(title: "تعديل العنوان",fontSize: 22,),
-                    const SizedBox(height: 20,),
-                    const SectionTitleCard(title: "عنوان التوصيل:",fontSize: 18,),
-                    Column(
-                        children: [
-                          SizedBox(height: 16.h),
-                          Row(
-                            children: [
-                              Expanded(
-                                child:
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 4),
-                                  child: SizedBox(
-                                    height: 65.h,
-                                    child: TextFormField(
-                                      controller: controller.regionNameController,
-                                      decoration: InputDecoration(
-                                          hintText: 'المدينة / المنطقة..',
-                                          border: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(15),
-                                              borderSide: const BorderSide(color: grayBorderColor1,width: 0.2)
-                                          )
-                                      ),
-                                    ),
-                                  ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 4),
+                      child: OutlinedButton.icon(
+                        icon: const Icon(Icons.location_on),
+                        label: Text(
+                          address.shortAddress ?? 'choose location on map'.tr,
+                        ),
+                        onPressed: () async {
+                          final result = await Get.to(() => const MapPickerScreen(),
+                          );
+                          if (result != null) {
+                            print("controller.address.value");
+                            controller.address.value = result;
+                          }
+                        },
+                      ),
+                    ),
+                    // _field('address label'.tr, controller.labelCtrl, (v) => address.label = v),
+                    SizedBox(height: 16.h),
+                    SectionTitleCard(title: 'delivery address'.tr, fontSize: 18,),
+                    SizedBox(height: 16.h),
+                    _field('region'.tr, controller.regionCtrl, (v) => controller.address.value.regionName = v),
+                    _field('city'.tr, controller.cityCtrl, (v) => address.cityName = v),
+                    _field('neighborhood'.tr, controller.districtCtrl, (v) => address.districtName = v),
+                    _field('street'.tr, controller.streetCtrl, (v) => address.streetName = v),
+                    _field('zip code'.tr, controller.zipCtrl, (v) => address.zipCode = v),
+                    _field('floor'.tr, controller.buildingNoCtrl, (v) => address.buildingNo = v),
+                    _field('nearest place'.tr, controller.closestPlaceController, (v) => address.closestPlace = v),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      child: SectionTitleCard(title: 'personal info'.tr, fontSize: 16,),
+                    ),
+                    _field('full-name'.tr, controller.recipientNameController, (v) => address.recipientName = v),
+                    _field('mobile no'.tr, controller.mobileNoController, (v) => address.mobileNo = v),
+                    Obx(() =>
+                        InkWell(
+                          onTap: (){
+                            controller.isDefaultAddress.value = !controller.isDefaultAddress.value;
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 12.0, vertical: 8),
+                            child: Row(
+                              children: [
+                                Checkbox(
+                                  value: controller.isDefaultAddress.value,
+                                  onChanged: (value) {
+                                    controller.isDefaultAddress.value = value ?? false;
+                                  },
                                 ),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 4),
-                                  child: SizedBox(
-                                    height: 65.h,
-                                    child: TextFormField(
-                                      controller: controller.districtNameController,
-                                      decoration: InputDecoration(
-                                          hintText: 'الحي..',
-                                          border: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(15),
-                                              borderSide: const BorderSide(color: grayBorderColor1,width: 0.2)
-                                          )
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                                Text('use as main address'.tr),
+                              ]
+                            )
                           ),
-
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 4),
-                            child: SizedBox(
-                              height: 65.h,
-                              child: TextFormField(
-                                controller: controller.streetNameController,
-                                decoration: InputDecoration(
-                                    hintText: 'اسم الشارع..',
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                        borderSide: const BorderSide(color: grayBorderColor1,width: 0.2)
-                                    )
-                                ),
-                              ),
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 4),
-                                  child: SizedBox(
-                                    height: 65.h,
-                                    child: TextFormField(
-                                      controller: controller.buildingNoController,
-                                      decoration: InputDecoration(
-                                          hintText: 'رقم الطابق / المبنى/ الشقة / الفيلا..',
-                                          border: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(15),
-                                              borderSide: const BorderSide(color: grayBorderColor1,width: 0.2)
-                                          )
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 4),
-                                  child: SizedBox(
-                                    height: 65.h,
-                                    child: TextFormField(
-                                      controller: controller.zipCodeController,
-                                      decoration: InputDecoration(
-                                          hintText: 'الرمز البريدي..',
-                                          border: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(15),
-                                              borderSide: const BorderSide(color: grayBorderColor1,width: 0.2)
-                                          )
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 4),
-                            child: SizedBox(
-                              height: 65.h,
-                              child: TextFormField(
-                                decoration: InputDecoration(
-                                    hintText: 'أقرب معلم..',
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                        borderSide: const BorderSide(color: grayBorderColor1,width: 0.2)
-                                    )
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 16.h),
-                          SectionTitleCard(title: "بيانات شخصية",fontSize: 16,),
-                          SizedBox(height: 5.h),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 4),
-                            child: SizedBox(
-                              height: 65.h,
-                              child: TextFormField(
-                                decoration: InputDecoration(
-                                    hintText: 'الاسم كامل..',
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                        borderSide: const BorderSide(color: grayBorderColor1,width: 0.2)
-                                    )
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 4),
-                            child: SizedBox(
-                              height: 65.h,
-                              child: TextFormField(
-                                textDirection: TextDirection.ltr,
-                                textAlign: TextAlign.right,
-                                controller: controller.mobileNoController,
-                                decoration: InputDecoration(
-                                    hintText: '+966XXXXXX',
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                        borderSide: const BorderSide(color: grayBorderColor1,width: 0.2)
-                                    )
-                                ),
-                              ),
-                            ),
-                          ),
-                          Obx(()=>
-                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
-                              child: Row(
-                                children: [
-                                  Checkbox(
-                                    value: controller.isDefaultAddress.value,
-                                    onChanged: (value) {
-                                      // setState(() {
-                                      //   isDefaultAddress = value ?? false;
-                                      // });
-                                    },
-                                  ),
-                                  const Text("الاستخدام كعناوني الرئيسي."),
-                                ],
-                              ),
-                            ),
-                          ),
-
-                        ]
+                        )
                     )
                   ]
+                  );
+              }
               )
-          ),
         ),
+      ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        padding: const EdgeInsets.all(20),
         child: SizedBox(
           height: 60,
           child: TextButton(
@@ -228,16 +117,36 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
               ),
               onPressed: () {
                 if(formKey.currentState!.validate()){
-                  controller.updateAddress();
+                  controller.saveAddress();
                 }
               },
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("تحديث العنوان",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 18))
+                  Text('save'.tr,style: const TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 18))
                 ],
               )
           ),
+        ),
+      ),
+    );
+  }
+  Widget _field(String label, TextEditingController controller, Function(String) onChanged , {TextInputType keyboard = TextInputType.text}){
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 4),
+      child: SizedBox(
+        height: 65.h,
+        child: TextFormField(
+          controller: controller,
+          keyboardType: keyboard,
+          decoration: InputDecoration(
+              hintText: label,
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
+                  borderSide: const BorderSide(color: grayBorderColor1,width: 0.2)
+              )
+          ),
+          onChanged: onChanged,
         ),
       ),
     );

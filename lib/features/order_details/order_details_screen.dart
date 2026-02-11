@@ -39,13 +39,13 @@ class OrderDetailsScreenState extends State<OrderDetailsScreen> {
                   child: Column(
                     children: [
                       SizedBox(height: 25.h),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Text("تفاصيل الطلب", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900)),
+                            Text('order detail'.tr, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900)),
                           ],
                         ),
                       ),
@@ -69,9 +69,9 @@ class OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                             mainAxisAlignment: MainAxisAlignment.start,
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
-                                              const Padding(
+                                              Padding(
                                                 padding: EdgeInsets.all(4),
-                                                child: Text('رقم الطلب:',style: TextStyle(fontSize: 18,color: Colors.grey),),
+                                                child: Text('order no'.tr,style: TextStyle(fontSize: 18,color: Colors.grey),),
                                               ),
                                               const SizedBox(width: 5,),
                                               Text(order.orderCode??"",style: const TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
@@ -119,9 +119,9 @@ class OrderDetailsScreenState extends State<OrderDetailsScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Padding(
+                              Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 18.0),
-                                child: Text('التوصيل إلى',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w900)),
+                                child: Text('deliver to'.tr,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w900)),
                               ),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,9 +154,9 @@ class OrderDetailsScreenState extends State<OrderDetailsScreen> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Padding(
+                                Padding(
                                   padding: EdgeInsets.symmetric(horizontal: 18.0),
-                                  child: Text('شركة الشحن',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w900)),
+                                  child: Text('shipment company'.tr,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w900)),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 18.0),
@@ -165,14 +165,14 @@ class OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                 ),
                               ],
                             ),
-                            const Column(
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
                                   padding: EdgeInsets.symmetric(horizontal: 18.0),
-                                  child: Text('رقم التتبع:',style: TextStyle(fontSize: 16,color: Colors.grey)),
+                                  child: Text('tracking no'.tr,style: TextStyle(fontSize: 16,color: Colors.grey)),
                                 ),
-                                Padding(
+                                const Padding(
                                   padding: EdgeInsets.symmetric(horizontal: 18.0),
                                   child: Text('************',style: TextStyle(fontSize: 16,color: Colors.grey)),
                                 ),

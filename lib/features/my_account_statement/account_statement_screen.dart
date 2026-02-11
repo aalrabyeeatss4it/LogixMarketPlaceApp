@@ -29,15 +29,15 @@ class _AccountStatementScreenState extends State<AccountStatementScreen>{
         body: Column(
             children: [
               SizedBox(height: 16.h),
-              const Row(
+              Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(right: 20,top: 8),
-                    child: Text('كشف حسابي',style: TextStyle(fontSize: 20,fontWeight: FontWeight.w900),),
+                    padding: const EdgeInsets.only(right: 20,top: 8),
+                    child: Text('account statement'.tr,style: const TextStyle(fontSize: 20,fontWeight: FontWeight.w900),),
                   ),
                 ],
               ),
-              Divider(),
+              const Divider(),
               Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -99,7 +99,7 @@ class _AccountStatementScreenState extends State<AccountStatementScreen>{
                     return const Center(child: CircularProgressIndicator());
                   }
                   if (statementController.transModel.isEmpty) {
-                    return const Center(child: Text("No invoices"));
+                    return Center(child: Text("No invoices".tr));
                   }
                   return ListView.builder(
                       controller: statementController.scroll,

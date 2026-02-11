@@ -8,11 +8,13 @@ import 'package:logix_market_place/models/product_model.dart';
 import '../../common/nav/page_routes.dart';
 import '../../common/theme/colors.dart';
 import '../../controllers/cart_controller.dart';
+import '../../controllers/opportunity_controller.dart';
 
 class HomeProductCard extends StatelessWidget {
   HomeProductCard({super.key, required this.product});
   ProductModel product;
   final CartController cartController = Get.find<CartController>();
+  final OpportunityController opportunityController = Get.put(OpportunityController());
   final FavController favController = Get.find<FavController>();
   @override
   Widget build(BuildContext context) {
@@ -63,6 +65,7 @@ class HomeProductCard extends StatelessWidget {
                           ))
                         ]
                       ),
+                      SizedBox(width: 280.w,child: Text(product.productCode!,maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700))),
                       SizedBox(width: 280.w,child: Text(product.name,maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700))),
                       Row(
                             mainAxisSize: MainAxisSize.max,
@@ -70,7 +73,7 @@ class HomeProductCard extends StatelessWidget {
                             children: [
                               Text(product.getDiscountRate(), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700,color: secondaryColor)),
                               Text(product.getPriceIncludeVat, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color:  primaryColor)),
-                              (product.getPriceIncludeVat!="")?Image.asset('icons/riyal.png' ,width: 12,): SizedBox(),
+                              (product.getPriceIncludeVat!="")?Image.asset('icons/riyal.png' ,width: 12,): const SizedBox(),
                             ]
                           ),
                       Row(
@@ -82,13 +85,13 @@ class HomeProductCard extends StatelessWidget {
                           ),
                       (added)? Row(children: [
                         (product.isAvailable(item!.quantity.value)==1)?
-                        Text('متوفر', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: successColor)):
-                        Text('الكمية المتوفرة: '+product.inventoryBalance.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)),
+                        Text('available'.tr, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: successColor)):
+                        Text('available quantity'.tr+product.inventoryBalance.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)),
                       ])
                           :SizedBox(),
                       Row(children: [
                         (product.isAvailable((item!=null)?item.quantity.value:1)==-1)?
-                        const Text('غير متوفر', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)):
+                         Text('in available'.tr, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)):
                         const SizedBox()
                       ])
 
@@ -132,6 +135,7 @@ class HomeProductCard extends StatelessWidget {
                             ),
                           ),
                       ):
+                      (product.isAvailable(1) != -1)?
                       ElevatedButton(
                           onPressed: (){
                             if(!added){
@@ -142,11 +146,19 @@ class HomeProductCard extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                               backgroundColor:  primaryColor,
                               foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)
-                              )
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
                           ),
                           child: Text('add to cart'.tr)
+                      ): ElevatedButton(
+                          onPressed: (){
+                            opportunityController.requestToProvide(product);
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor:  secondaryColor,
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
+                          ),
+                          child: Text('request to provide'.tr)
                       ),
                     const SizedBox(width: 10),
                     SizedBox(

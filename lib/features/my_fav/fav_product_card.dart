@@ -57,10 +57,7 @@ class FavProductCard extends StatelessWidget {
                                     },
                                     errorBuilder: (context, error, stackTrace) {
                                       // return default image if network image fails
-                                      return Image.asset(
-                                        'assets/logo.png',
-                                        fit: BoxFit.cover,
-                                      );
+                                      return Image.asset('assets/logo.png',fit: BoxFit.cover);
                                     },
                                   ),
                                 )
@@ -92,15 +89,15 @@ class FavProductCard extends StatelessWidget {
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Text(product.getDiscountRate(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700,color: secondaryColor)),
-                                Text(product.getPriceIncludeVat, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color:  primaryColor)),
+                                Text(product.getDiscountRate(), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700,color: secondaryColor)),
+                                Text(product.getPriceIncludeVat, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color:  primaryColor)),
                                 Image.asset('icons/riyal.png' ,width: 12,),
                               ]
                           ),
-                          Text(product.getPreDiscountPrice(), style: TextStyle(fontSize: 14,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
+                          Text(product.getPreDiscountPrice(), style: const TextStyle(fontSize: 14,color: Colors.grey, decoration: TextDecoration.lineThrough,)),
                           Row(children: [
                             (product.isAvailable(1)==-1)?
-                            const Text('غير متوفر', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)):
+                             Text('in available'.tr, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)):
                             const SizedBox()
                           ])
                         ],
@@ -129,9 +126,9 @@ class FavProductCard extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(25)
                                 )
                             ),
-                            child: const Padding(
-                              padding: EdgeInsets.all(4.0),
-                              child: Text('حذف'),
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Text('remove'.tr),
                             )
                         ),
                     ),

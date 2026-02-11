@@ -173,20 +173,20 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                       Text(_productController.product.value.getPreDiscountPrice(),
                           style: const TextStyle(fontSize: 16,color: Colors.grey,decoration: TextDecoration.lineThrough)),
                       (_productController.product.value.isAvailable(_productController.quantity.value)==1)?
-                      const Text('متوفر', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: successColor)):
+                       Text('available'.tr, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: successColor)):
                       (_productController.product.value.isAvailable(_productController.quantity.value)==-1)?
-                      const Text('غير متوفر', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)):
-                      Text('الكمية المتوفرة: ${_productController.product.value.inventoryBalance}', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)),
+                       Text('in available'.tr, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)):
+                      Text('${'available quantity'.tr}${_productController.product.value.inventoryBalance}', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)),
                       const Divider(),
-                      const Text('تفاصيل المنتج', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
+                      Text('product details'.tr, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
                       (_productController.product.value.attributes != null)
-                          ? const Column(
+                          ? Column(
                               children: [
-                                Divider(),
-                                SizedBox(
+                                const Divider(),
+                                const SizedBox(
                                   height: 20,
                                 ),
-                                Text('المواصفات:', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+                                Text('specifications'.tr, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
                               ],
                             )
                           : const SizedBox(),
@@ -200,10 +200,10 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                               })
                           : const SizedBox(),
                       (_productController.relatedProducts.isNotEmpty)?
-                      const Column(
+                      Column(
                               children: [
                                 Divider(),
-                                Text('المنتجات المرتبطة', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
+                                Text('related products'.tr, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
                               ],
                             )
                           : const SizedBox(),
@@ -260,7 +260,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                                             backgroundColor: secondaryColor,
                                             foregroundColor: Colors.white,
                                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                                        child: const Text('اشترِ الآن'),
+                                        child: Text('buy now'.tr),
                                       )
                                     : const SizedBox();
                               })),

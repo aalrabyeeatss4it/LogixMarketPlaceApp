@@ -3,11 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../common/nav/app_bar_custom.dart';
 import '../../common/nav/page_routes.dart';
-import '../../common/theme/colors.dart';
 import '../../controllers/delivery_address_controller.dart';
 
 class DeliveryAddressScreen extends StatefulWidget{
-  DeliveryAddressScreen({super.key});
+  const DeliveryAddressScreen({super.key});
 
   @override
   State<StatefulWidget> createState() =>_DeliveryAddressScreenState();
@@ -32,17 +31,28 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 10.h),
-                  const Padding(
+                  Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Text("عناوين التوصيل", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900))
+                        Text('delivery addresses'.tr, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900)),
+                        TextButton(
+                            onPressed: () {
+                              Get.toNamed(RouteNames.newAddressPage);
+                            },
+                            child: Text(
+                                'adding new address'.tr,
+                                style: const TextStyle(
+                                  color: Colors.indigo,
+                                  decoration: TextDecoration.underline,
+                                )
+                            )
+                        )
                       ],
                     ),
                   ),
-                  Obx(()=>
                       Padding(
                         padding: EdgeInsets.all(10.w),
                         child: Column(
@@ -63,38 +73,58 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
                                   ),
                                   child: Padding(
                                       padding: const EdgeInsets.all(8),
-                                      child: InkWell(
-                                          onTap: () {
-                                          Get.offAllNamed(RouteNames.editAddressPage,predicate: (route) => route.isFirst);
-                                          },
-                                          child: Column(
-                                              children: [
-                                                const SizedBox(height: 10,),
-                                                Row(
-                                                    children: [
-                                                      const SizedBox(width: 10,),
-                                                      Expanded(
-                                                        child: Column(
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                          children: [
-                                                            Text(addressController.defaultAddress.value?.fullAddress?? "", style: const TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
-                                                            SizedBox(height: 10,),
-                                                            Text("رقم الهاتف المتنقل: ${addressController.defaultAddress.value?.mobileNo}",style: const TextStyle(fontSize: 16,color: Colors.grey),)
-                                                          ],
+                                      child: Obx(() {
+                                        if (addressController.isLoading.value && addressController.page==1) {
+                                          return const Center(child: CircularProgressIndicator());
+                                        }
+                                        if (addressController.addresses.isEmpty) {
+                                          return Center(child: Text("No addresses".tr));
+                                        }
+                                        return ListView.builder(
+                                            controller: addressController.scroll,
+                                            shrinkWrap: true,
+                                            padding: const EdgeInsets.all(8),
+                                            itemCount: addressController.addresses.length+1,
+                                            itemBuilder: (BuildContext context, int index) {
+                                              if(index < addressController.addresses.length){
+                                                return InkWell(
+                                                  onTap: () {
+                                                    Get.toNamed(RouteNames.editAddressPage, arguments: addressController.addresses[index]);
+                                                  },
+                                                  child: Row(
+                                                      children: [
+                                                        const SizedBox(width: 10,),
+                                                        Expanded(
+                                                          child: Column(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: [
+                                                              Text(addressController.addresses[index].fullAddress?? "", style: const TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
+                                                              const SizedBox(height: 10,),
+                                                              Text("${'mobile no'.tr}${addressController.addresses[index].mobileNo}",style: const TextStyle(fontSize: 16,color: Colors.grey),)
+                                                            ],
+                                                          ),
                                                         ),
-                                                      ),
-                                                      Image.asset("icons/arrow.png",color: Colors.black,width: 7,),
-                                                      const SizedBox(width: 10,),
-                                                    ]
-                                                )
-                                              ]
-                                          )
+                                                        Image.asset("icons/arrow.png",color: Colors.black,width: 7,),
+                                                        const SizedBox(width: 10,),
+                                                      ]
+                                                  ),
+                                                );
+                                              }
+                                              else{
+                                                return (addressController.hasMore  && addressController.isLoading.value)?
+                                                const Padding(
+                                                    padding: EdgeInsets.all(16),
+                                                    child: Center(child: CircularProgressIndicator())
+                                                ): const SizedBox();
+                                              }
+                                            }
+                                        );
+                                      }
                                       )
                                   )
                               ),
                             ]
                         )
-                    )
                   )
                 ]
             )

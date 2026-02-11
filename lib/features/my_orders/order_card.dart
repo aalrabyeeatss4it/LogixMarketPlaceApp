@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:logix_market_place/controllers/order_controller.dart';
 
 import '../../common/nav/page_routes.dart';
 import '../../common/theme/colors.dart';
@@ -121,8 +122,8 @@ class OrderCard extends StatelessWidget{
                                       side: const BorderSide(color: primaryColor)
                                   )
                               ),
-                              onPressed: () {
-                                Get.find<CartController>().orderAgain(order.orderId!);
+                              onPressed: () async {
+                                await Get.find<OrderController>().orderAgain(order.orderCode!);
                                 Get.toNamed(RouteNames.cartPage);
                               },
                               child: Padding(
