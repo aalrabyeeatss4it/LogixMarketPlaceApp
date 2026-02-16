@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:logix_market_place/controllers/login_controller.dart';
+import '../../common/nav/page_routes.dart';
 import '../../common/theme/colors.dart';
 
 class LoginScreen extends StatelessWidget{
@@ -26,13 +27,13 @@ class LoginScreen extends StatelessWidget{
                         ],
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8.0),
-                        child: Text('fill in your login data'.tr,style: TextStyle(color: Colors.grey,fontSize: 16),),
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Text('fill in your login data'.tr,style: const TextStyle(color: Colors.grey,fontSize: 16),),
                       ),
                       SizedBox(height: 50.h),
                       Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10.0),
-                        child: Text('username'.tr,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w900),),
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        child: Text('username'.tr,style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w900),),
                       ),
                       SizedBox(
                         height: 65.h,
@@ -51,8 +52,8 @@ class LoginScreen extends StatelessWidget{
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10.0),
-                        child: Text('password'.tr,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w900),),
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        child: Text('password'.tr,style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w900),),
                       ),
                       Obx(()=> SizedBox(
                           height: 65.h,
@@ -106,7 +107,7 @@ class LoginScreen extends StatelessWidget{
                       InkWell(
                           child: Text('have you forgot your password'.tr,style: const TextStyle(decoration: TextDecoration.underline,color: primaryAccentColor,fontSize: 16,fontWeight: FontWeight.bold)),
                           onTap: (){
-
+                            Get.toNamed(RouteNames.forgetPasswordPage);
                           }
                       ),
                       const SizedBox(height: 20,),

@@ -114,7 +114,7 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
               ),
               onPressed: () {
                 if(formKey.currentState!.validate()){
-                  controller.saveAddress();
+                  controller.addAddress();
                 }
               },
               child: Row(

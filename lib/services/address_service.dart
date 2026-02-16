@@ -23,6 +23,7 @@ class AddressService extends MyService {
     if (response.statusCode == 200) {
       return SuccessStatus();
     }
+    print("response.body"+response.body);
     return FailureStatus(errorMessage: "errorMessage");
   }
   Future<ServiceResult<dynamic>> updateAddress(DeliveryAddressModel address) async {

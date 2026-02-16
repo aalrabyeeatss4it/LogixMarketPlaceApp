@@ -22,6 +22,9 @@ const addressesPath = '/addresses';
 const ssoTokenPath = '/users/sso-token';
 const changePasswordPath = '/password/ChangePassword';
 const changeEmailPath = '/password/ChangeEmail';
+const sendOtpEmailPath = '/password/SendOtpEmail';
+const verifyOTPPath = '/password/VerifyOTP';
+const resetPasswordPath = '/password/ResetPassword';
 
 const guestCategoriesPath = '/guest/categories';
 const guestProductsPath = '/guest/products';

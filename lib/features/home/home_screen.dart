@@ -10,6 +10,7 @@ import '../../common/exit_wrapper.dart';
 import '../../common/nav/app_bar_custom.dart';
 import '../../common/nav/bottom_nav_bar_custom.dart';
 import '../../common/nav/page_routes.dart';
+import '../../controllers/account_statement_controller.dart';
 import '../../controllers/category_controller.dart';
 import 'announcement_slider.dart';
 
@@ -25,6 +26,7 @@ class HomeScreenState extends State<HomeScreen> {
   final CategoryController categoryController = Get.put(CategoryController());
   final ProductController productController = Get.put(ProductController());
   final CartController cartController = Get.find<CartController>();
+  final AccountStatementController statementController = Get.put(AccountStatementController());
 
   @override
   void initState() {
@@ -32,7 +34,13 @@ class HomeScreenState extends State<HomeScreen> {
     productController.getRecentlyArrived();
     productController.getMostRequested();
     categoryController.getAll();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await statementController.getBalance();
+      statementController.showDebitBottomSheetIfNeeded();
+    });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +100,7 @@ class HomeScreenState extends State<HomeScreen> {
                       return Center(child: Text("No products".tr));
                     }
                     return SizedBox(
-                      height: 370,
+                      height: 390,
                       child: ListView.builder(
                           controller: productController.scroll,
                           shrinkWrap: true,
@@ -126,7 +134,7 @@ class HomeScreenState extends State<HomeScreen> {
                       return const Center();
                     }
                     return SizedBox(
-                      height: 370,
+                      height: 390,
                       child: ListView.builder(
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,

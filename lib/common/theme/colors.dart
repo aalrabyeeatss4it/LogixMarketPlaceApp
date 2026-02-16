@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 const primaryColor = Color(0xFF312683);
+const blackColor = Color(0xFF222222);
 const Color blackLightColor= Color(0xFFB6B4B4);
 const Color grayColor= Color(0xFF4B4B4B);
 const Color lightGrayColor= Color(0xFFDBDBDB);

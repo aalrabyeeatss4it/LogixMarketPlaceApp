@@ -44,9 +44,42 @@ class ProfileScreen extends StatelessWidget{
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 10.h),
+              (!isLoggedIn())?
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 30),
+                child: SizedBox(
+                  height: 60,
+                  child: TextButton(
+                      style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          padding: const EdgeInsets.all(5),
+                          backgroundColor: primaryColor.withOpacity(0.1),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)
+                          )
+                      ),
+                      onPressed: () {
+                        Get.toNamed(RouteNames.loginPage);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10.0),
+                            child: Image.asset('icons/logout.png' ,width: 30,color: primaryColor,),
+                          ),
+                          Text('login'.tr,style: const TextStyle(color: primaryColor,fontWeight: FontWeight.w700,fontSize: 18))
+                        ],
+                      )
+
+                  ),
+                ),
+              ):
               InkWell(
                 onTap: (){
-                  if(!isLoggedIn()) RouteNames.loginPage;
+                  if(!isLoggedIn()) {
+                    Get.toNamed(RouteNames.loginPage);
+                  }
                   Get.toNamed(RouteNames.accountSettingPage);
                 },
                 child: Padding(

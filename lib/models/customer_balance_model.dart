@@ -1,10 +1,17 @@
+import 'dart:ffi';
+
 class CustomerBalanceModel {
-  String? balance;
+  String? creditBalance;
   String? creditLimit;
-  CustomerBalanceModel({this.balance, this.creditLimit});
+  double debit;
+  CustomerBalanceModel({this.creditBalance, this.creditLimit, required this.debit});
   factory CustomerBalanceModel.fromJson(Map<String, dynamic> json) {
-    print("creditLimit:"+json["creditLimit"].toString());
     return CustomerBalanceModel(
-        balance: json["balance"].toString(), creditLimit: json["creditLimit"].toString());
+        creditBalance: json["creditBalance"].toString(),
+        creditLimit: json["creditLimit"].toString(),
+        debit:((json["debit"])!=null)? double.parse(json["debit"].toString()):0);
+  }
+  String getDebit(){
+    return debit.toString();
   }
 }

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,7 @@ import '../../common/theme/colors.dart';
 import '../../controllers/cart_controller.dart';
 import '../../controllers/fav_controller.dart';
 import '../../controllers/product_detail_controller.dart';
+import '../../controllers/token_controller.dart';
 import '../../models/cart_item_model.dart';
 import '../home/home_product_card.dart';
 
@@ -28,13 +30,29 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
   final CartController cartController = Get.find<CartController>();
   final FavController favController = Get.find<FavController>();
 
+  final TokenController tokenController = Get.put(TokenController());
   @override
   void initState() {
     super.initState();
     final args = Get.arguments as Map<String, dynamic>;
     productId = args['productId'];
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => _loadProduct());
+    // WidgetsBinding.instance.addPostFrameCallback((_) => _loadProduct());
+    tokenController.getToken();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _loadProduct();
+      for (var file in _productController.product.value.files!) {
+        final url = file.getFilePath(tokenController.ssoToken.value);
+        precacheImage(
+          CachedNetworkImageProvider(
+            url,
+            cacheKey: file.id.toString(),
+          ),
+          context,
+        );
+      }
+    });
   }
 
   Future<void> _loadProduct() async {
@@ -217,7 +235,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                         return const Center(child: SizedBox());
                       }
                       return SizedBox(
-                        height: 350,
+                        height: 370,
                         child: ListView.builder(
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,

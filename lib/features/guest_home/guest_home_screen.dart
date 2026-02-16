@@ -88,7 +88,7 @@ class GuestHomeScreenState extends State<GuestHomeScreen> {
                       return Center(child: Text("No products".tr));
                     }
                     return SizedBox(
-                      height: 350,
+                      height: 370,
                       child: ListView.builder(
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,

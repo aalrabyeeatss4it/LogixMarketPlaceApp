@@ -10,6 +10,7 @@ import '../common/storage/local_storage.dart';
 class MyService {
   final box = GetStorage();
   Future<Response> postLogin(String path, Map<String, dynamic> json) async{
+    print("request bodyJson:"+jsonEncode(json));
     Response response = await post(Uri.parse(baseUrl + path),
         body: jsonEncode(json),
         headers: {
@@ -17,12 +18,14 @@ class MyService {
         }
     );
 
+    print("url:"+baseUrl + path);
     print("postLogin"+response.statusCode.toString());
     print("postLogin"+response.body);
     return response;
   }
   Future<Response> postData(String path, Map<String, dynamic> json) async{
     print("request bodyJson:"+jsonEncode(json));
+    print("url:"+baseUrl + path);
     Response response = await post(Uri.parse(baseUrl + path),
         body: jsonEncode(json),
         headers: {

@@ -13,6 +13,7 @@ class DeliveryAddressModel {
   String? mobileNo;
   double? latitude;
   double? longitude;
+  bool? isDefault;
 
   DeliveryAddressModel({
     this.id,
@@ -29,6 +30,7 @@ class DeliveryAddressModel {
     this.mobileNo,
     this.latitude,
     this.longitude,
+    this.isDefault,
   });
 
   String get getRecipientName => 'التوصيل إلى '+(recipientName ??"");
@@ -48,6 +50,7 @@ class DeliveryAddressModel {
     return DeliveryAddressModel(
       id: json["id"] is int ? json["id"] : int.tryParse(json["id"]?.toString() ?? ""),
       label: json["label"],
+      isDefault: json["isDefault"],
       shortAddress: json["shortAddress"],
       regionName: json["regionName"],
       cityName: json["cityName"],
@@ -84,6 +87,7 @@ class DeliveryAddressModel {
       'mobileNo': mobileNo,
       'latitude': latitude,
       'longitude': longitude,
+      'isDefault': isDefault,
     };
     return json;
   }
@@ -102,6 +106,7 @@ class DeliveryAddressModel {
     String? mobileNo,
     double? latitude,
     double? longitude,
+    bool? isDefault,
   }) {
     return DeliveryAddressModel(
       id: id ?? this.id,
@@ -118,6 +123,7 @@ class DeliveryAddressModel {
       mobileNo: mobileNo ?? this.mobileNo,
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
+      isDefault: isDefault ?? this.isDefault,
     );
   }
 }

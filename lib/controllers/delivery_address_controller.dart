@@ -28,7 +28,7 @@ class DeliveryAddressController extends GetxController {
   final closestPlaceController = TextEditingController();
 
 
-  RxBool isDefaultAddress = true.obs;
+  RxBool isDefaultAddress = false.obs;
 
   TextEditingController regionNameController = TextEditingController();
   TextEditingController districtNameController = TextEditingController();
@@ -52,7 +52,6 @@ class DeliveryAddressController extends GetxController {
     });
   }
   void syncTextControllers() {
-    print("address.value.regionName "+address.value.regionName!);
     buildingNoCtrl.text = address.value.buildingNo ?? '';
     labelCtrl.text = address.value.label ?? '';
     regionCtrl.text = address.value.regionName ?? '';
@@ -60,16 +59,9 @@ class DeliveryAddressController extends GetxController {
     districtCtrl.text = address.value.districtName ?? '';
     streetCtrl.text = address.value.streetName ?? '';
     zipCtrl.text = address.value.zipCode ?? '';
-
-    recipientNameController.text =address.value.recipientName??"";
+    recipientNameController.text = address.value.recipientName??"";
     mobileNoController.text = address.value.mobileNo?? "";
     closestPlaceController.text = address.value.closestPlace??"";
-  }
-
-  @override
-  void onClose() {
-    clear();
-    super.onClose();
   }
 
   Future<void> getAddresses() async {
@@ -97,29 +89,11 @@ class DeliveryAddressController extends GetxController {
     finally {
       isLoading.value = false;
     }
-    // try{
-    //   var serviceResult = await service.getAddresses();
-    //   if(serviceResult is SuccessStatus<List<DeliveryAddressModel>>){
-    //     // defaultAddress.value = serviceResult.data!;
-    //     // // defaultAddress.value?.id = "1";
-    //     // regionNameController.text = defaultAddress.value?.regionName??"";
-    //     // districtNameController.text = defaultAddress.value?.districtName??"";
-    //     // streetNameController.text = defaultAddress.value?.streetName??"";
-    //     // zipCodeController.text = defaultAddress.value?.zipCode??"";
-    //     // buildingNoController.text = defaultAddress.value?.buildingNo??"";
-    //     // mobileNoController.text = defaultAddress.value?.mobileNo??"";
-    //   }
-    //   else{
-    //     // defaultAddress.value?.id = "1";
-    //   }
-    // }
-    // catch(ex){
-    //   // defaultAddress.value?.id = "1";
-    // }
   }
 
   Future<void> setAddress(DeliveryAddressModel a) async {
     address.value = a;
+    isDefaultAddress.value = address.value.isDefault?? false;
     syncTextControllers();
   }
   Future<void> saveAddress() async {
@@ -127,8 +101,31 @@ class DeliveryAddressController extends GetxController {
       address.value.recipientName= recipientNameController.text;
       address.value.mobileNo= mobileNoController.text;
       address.value.closestPlace= closestPlaceController.text;
+      address.value.closestPlace= closestPlaceController.text;
+      address.value.isDefault= isDefaultAddress.value;
       var serviceResult = await service.updateAddress(address.value);
       if (serviceResult is SuccessStatus) {
+        Get.back();
+        showSuccessBottomSheet(onConfirm: () {  });
+      } else if (serviceResult is FailureStatus) {
+        showFailureBottomSheet(onConfirm: () {  },errorMessage: serviceResult.errorMessage);
+      }
+    }
+    catch(ex){
+      print("ex="+ex.toString());
+    }
+  }
+
+  Future<void> addAddress() async {
+    try{
+      address.value.recipientName= recipientNameController.text;
+      address.value.mobileNo= mobileNoController.text;
+      address.value.closestPlace= closestPlaceController.text;
+      address.value.closestPlace= closestPlaceController.text;
+      address.value.isDefault= isDefaultAddress.value;
+      var serviceResult = await service.addAddress(address.value);
+      if (serviceResult is SuccessStatus) {
+        Get.back();
         showSuccessBottomSheet(onConfirm: () {  });
       } else if (serviceResult is FailureStatus) {
         showFailureBottomSheet(onConfirm: () {  },errorMessage: serviceResult.errorMessage);
@@ -140,6 +137,7 @@ class DeliveryAddressController extends GetxController {
   }
 
   void clear(){
+    address.value = DeliveryAddressModel();
     buildingNoCtrl.text = "";
     labelCtrl.text = "";
     regionCtrl.text = "";
@@ -151,14 +149,10 @@ class DeliveryAddressController extends GetxController {
     recipientNameController.text = "";
     closestPlaceController.text = "";
     address.value.shortAddress = null;
+    isDefaultAddress.value = false;
 
   }
 
-  Future<void> getCurrentLocation() async {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    selectedLocation.value = LatLng(position.latitude, position.longitude);
-  }
   Future<void> updateLocation(LatLng location) async {
     selectedLocation.value = location;
     address.update((a) {
@@ -166,15 +160,15 @@ class DeliveryAddressController extends GetxController {
       a?.longitude = location.longitude;
     });
     address.refresh();
-    await _reverseGeocode(location);
+    await reverseGeocode(location);
   }
 
-  Future<void> _reverseGeocode(LatLng location) async {
-    final placemarks = await placemarkFromCoordinates(
+  Future<void> reverseGeocode(LatLng location) async {
+    final placeMarks = await placemarkFromCoordinates(
         location.latitude, location.longitude);
 
-    if (placemarks.isNotEmpty) {
-      final p = placemarks.first;
+    if (placeMarks.isNotEmpty) {
+      final p = placeMarks.first;
       final updated = address.value.copyWith(
         streetName: p.street,
         districtName: p.subLocality,

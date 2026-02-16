@@ -1,4 +1,5 @@
 Map<String, String> english = {
+  'qasser loura': 'Qasser loura',
   'title': 'Welcome',
   'greeting': 'Welcome',
   'switch': 'English',
@@ -52,7 +53,9 @@ Map<String, String> english = {
   'tax no': "Tax Number",
   'fill tax no': "Enter tax number",
   'credit limit': 'Credit limit',
-  'balance': "Balance",
+  'balance': "Credit Balance",
+  'debit': "Debit",
+  'pending debit': "You have a pending debit of ",
   'order again': 'Order again',
   'order detail': 'Order detail',
   'order no': 'Order no',
@@ -166,4 +169,5 @@ Map<String, String> english = {
   'adding new address': "Adding new address",
   'confirm location': 'Confirm location',
   'select location': 'Select location',
+  'ok': 'Ok',
 };

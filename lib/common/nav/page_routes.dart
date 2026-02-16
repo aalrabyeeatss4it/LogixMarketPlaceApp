@@ -7,6 +7,7 @@ import 'package:logix_market_place/features/change_password/change_password_scre
 import 'package:logix_market_place/features/home/home_screen.dart';
 import 'package:logix_market_place/features/login/login_screen.dart';
 import 'package:logix_market_place/features/my_account_statement/account_statement_screen.dart';
+import 'package:logix_market_place/features/otp/otp_screen.dart';
 import 'package:logix_market_place/features/payment_methods/payment_methods_screen.dart';
 import 'package:logix_market_place/features/product_detail/product_detail_screen.dart';
 import 'package:logix_market_place/features/profile/profile_screen.dart';
@@ -15,6 +16,7 @@ import '../../features/account_setting/account_setting_screen.dart';
 import '../../features/category_detail/category_detail_screen.dart';
 import '../../features/checkout/checkout_screen.dart';
 import '../../features/edit_address/edit_address_screen.dart';
+import '../../features/forget_password/forget_password_screen.dart';
 import '../../features/guest_home/guest_home_screen.dart';
 import '../../features/invoice_details/invoice_details_screen.dart';
 import '../../features/my_delivery_address/delivery_address_screen.dart';
@@ -26,6 +28,8 @@ import '../../features/new_address/new_address_screen.dart';
 import '../../features/new_address/new_address_screen.dart';
 import '../../features/order_details/order_details_screen.dart';
 import '../../features/order_tracking/order_tracking_screen.dart';
+import '../../features/reset_password/reset_password_screen.dart';
+import '../../features/reset_succeed/reset_succeed_screen.dart';
 
 var routePages = [
   GetPage(name: RouteNames.homePage, page: () => const HomeScreen()),
@@ -55,6 +59,10 @@ var routePages = [
   GetPage(name: RouteNames.invoiceDetailsPage, page: () => const InvoiceDetailsScreen()),
   GetPage(name: RouteNames.accountStatementPage, page: () => const AccountStatementScreen()),
   GetPage(name: RouteNames.provideRequestPage, page: () => const ProvideRequestScreen()),
+  GetPage(name: RouteNames.forgetPasswordPage, page: () => ForgetPasswordScreen()),
+  GetPage(name: RouteNames.otpPage, page: () => OtpScreen()),
+  GetPage(name: RouteNames.resetPasswordPage, page: () => ResetPasswordScreen()),
+  GetPage(name: RouteNames.resetSucceedPage, page: () => ResetSucceedScreen()),
 ];
 
 class RouteNames {
@@ -84,4 +92,8 @@ class RouteNames {
   static String invoicesPage = '/invoices';
   static String accountStatementPage = '/account-statement';
   static String provideRequestPage = '/provide-request';
+  static String forgetPasswordPage = '/forget-password';
+  static String otpPage = '/otp';
+  static String resetPasswordPage = '/reset-password';
+  static String resetSucceedPage = '/reset-succeed';
 }

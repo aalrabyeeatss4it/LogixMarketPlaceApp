@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logix_market_place/common/theme/colors.dart';
 import 'package:logix_market_place/controllers/token_controller.dart';
+import 'package:photo_view/photo_view.dart';
 import '../../controllers/announcement_controller.dart';
 import '../../controllers/product_file_controller.dart';
 import '../../models/product_image_model.dart';
@@ -32,8 +33,17 @@ class _ProductFileSliderState extends State<ProductFileSlider>{
       return const Center();
     }
     List<ProductImageModel> fileList = widget.files!;
-    double myWidth = fileList.isNotEmpty?MediaQuery.of(context).size.width:0;
-    return SizedBox(
+    double myWidth = MediaQuery.of(context).size.width;
+
+    return Obx(() {
+      if (tokenController.ssoToken.value.isEmpty) {
+        return SizedBox(
+          height: myWidth * 0.45,
+          child: const Center(child: CircularProgressIndicator()),
+        );
+      }
+
+      return  SizedBox(
         width: myWidth,
         height: myWidth * 0.45,
         child: Stack(
@@ -42,7 +52,7 @@ class _ProductFileSliderState extends State<ProductFileSlider>{
               CarouselSlider.builder(
                   options: CarouselOptions(
                     viewportFraction: 1,
-                    autoPlay: true,
+                    autoPlay: fileList.length > 1,
                     enlargeCenterPage: true,
                     disableCenter: true,
                     autoPlayInterval: const Duration(seconds: 10),
@@ -58,12 +68,38 @@ class _ProductFileSliderState extends State<ProductFileSlider>{
                       decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
-                        child: CachedNetworkImage(
-                          imageUrl: url,
-                          fit: BoxFit.contain,
-                          width: double.infinity,
-                          errorWidget: (context, url, error) => Image.asset("assets/placeholder_3x1.png", fit: BoxFit.cover),
-                          placeholder: (context, url) => Image.asset("assets/placeholder_3x1.png", fit: BoxFit.cover),
+                        child: GestureDetector(
+                          onTap: () {
+                            Get.to(() => Scaffold(
+                              backgroundColor: Colors.black,
+                              body: Center(
+                                child: PhotoView(
+                                  imageProvider: CachedNetworkImageProvider(
+                                    url,
+                                    headers: {"token": tokenController.ssoToken.value},
+                                  ),
+                                  minScale: PhotoViewComputedScale.contained,
+                                  maxScale: PhotoViewComputedScale.covered * 3,
+                                  backgroundDecoration: const BoxDecoration(color: Colors.black),
+                                ),
+                              ),
+                            ));
+                          },
+                          child: CachedNetworkImage(
+                            cacheKey: fileList[index].id.toString(),
+                            imageUrl: url,
+                            httpHeaders: {
+                              "token": tokenController.ssoToken.value
+                            },
+                            memCacheWidth: (myWidth * MediaQuery.of(context).devicePixelRatio).toInt(),
+                            maxWidthDiskCache: 1200,
+                            fadeInDuration: const Duration(milliseconds: 200),
+                            fadeOutDuration: const Duration(milliseconds: 200),
+                            placeholder: (_, __) => Image.asset("assets/placeholder_3x1.png", fit: BoxFit.cover),
+                            errorWidget: (_, __, ___) => Image.asset("assets/placeholder_3x1.png", fit: BoxFit.cover),
+                            fit: BoxFit.contain,
+                            width: double.infinity,
+                          ),
                         ),
                       ),
                     );
@@ -85,10 +121,12 @@ class _ProductFileSliderState extends State<ProductFileSlider>{
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: fileList.map((banner) {
                                 int index = fileList.indexOf(banner);
-                                return TabPageSelectorIndicator(
-                                    backgroundColor: index == controller.currentIndex.value? primaryColor : Colors.grey,
-                                    borderColor: index == controller.currentIndex.value? primaryColor : Colors.grey,
-                                    size: 7
+                                return Obx(()=>
+                                   TabPageSelectorIndicator(
+                                      backgroundColor: index == controller.currentIndex.value? primaryColor : Colors.grey,
+                                      borderColor: index == controller.currentIndex.value? primaryColor : Colors.grey,
+                                      size: 7
+                                  ),
                                 );
                               }).toList()
                           )
@@ -97,6 +135,7 @@ class _ProductFileSliderState extends State<ProductFileSlider>{
               )
             ]
         )
-    );
+      );
+    });
   }
 }

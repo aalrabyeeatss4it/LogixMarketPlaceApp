@@ -5,6 +5,7 @@ import '../services/announcement_service.dart';
 class ProductFileController extends GetxController {
   RxInt currentIndex = 0.obs;
   void setCurrentIndex(int index) {
+    print("setCurrentIndex:"+index.toString());
     currentIndex.value = index;
   }
 }

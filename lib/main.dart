@@ -16,6 +16,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
   await GetStorage.init();
+  box.remove(debitPopupShown);
   final deepLinkService = DeepLinkService();
 
   runApp(MyApp(deepLinkService: deepLinkService));

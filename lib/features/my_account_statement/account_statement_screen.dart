@@ -5,6 +5,7 @@ import 'package:logix_market_place/features/my_account_statement/transaction_car
 import '../../common/nav/app_bar_custom.dart';
 import '../../common/theme/colors.dart';
 import '../../controllers/account_statement_controller.dart';
+import '../../controllers/token_controller.dart';
 
 
 class AccountStatementScreen extends StatefulWidget {
@@ -15,11 +16,13 @@ class AccountStatementScreen extends StatefulWidget {
 }
 class _AccountStatementScreenState extends State<AccountStatementScreen>{
   final AccountStatementController statementController = Get.put(AccountStatementController());
+  TokenController tokenController = Get.put(TokenController());
 
   @override
   void initState() {
     super.initState();
     statementController.getStatement();
+    tokenController.getToken();
   }
 
   @override
@@ -39,7 +42,7 @@ class _AccountStatementScreenState extends State<AccountStatementScreen>{
               ),
               const Divider(),
               Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Container(
                       decoration: BoxDecoration(color: remainingColor,borderRadius: BorderRadius.circular(8)),
@@ -65,7 +68,6 @@ class _AccountStatementScreenState extends State<AccountStatementScreen>{
                         ),
                       ),
                     ),
-                    const SizedBox(width: 5,),
                     Container(
                       decoration: BoxDecoration(color: paidColor,borderRadius: BorderRadius.circular(8)),
                       child: SizedBox(
@@ -80,7 +82,31 @@ class _AccountStatementScreenState extends State<AccountStatementScreen>{
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Obx(() => Text(statementController.balance.value.balance??"", style: const TextStyle(color: Colors.white,fontSize: 16))),
+                                  Obx(() => Text(statementController.balance.value.creditBalance??"", style: const TextStyle(color: Colors.white,fontSize: 16))),
+                                  const SizedBox(width: 5),
+                                  Image.asset('icons/riyal.png' ,width: 18,color: Colors.white),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(color: unpaidColor,borderRadius: BorderRadius.circular(8)),
+                      child: SizedBox(
+                        width: 170.w,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text('debit'.tr,style: const TextStyle(color: Colors.white,fontSize: 14,fontWeight: FontWeight.bold),),
+                              const SizedBox(height: 8),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Obx(() => Text(statementController.balance.value.getDebit(), style: const TextStyle(color: Colors.white,fontSize: 16))),
                                   const SizedBox(width: 5),
                                   Image.asset('icons/riyal.png' ,width: 18,color: Colors.white),
                                 ],
@@ -108,7 +134,7 @@ class _AccountStatementScreenState extends State<AccountStatementScreen>{
                       itemCount: statementController.transModel.length + 1,
                       itemBuilder: (BuildContext context, int index) {
                         if(index < statementController.transModel.length){
-                          return TransactionCard(trans: statementController.transModel[index],);
+                          return TransactionCard(trans: statementController.transModel[index],ssoToken: tokenController.ssoToken.value,);
                         }
                         else{
                           return (statementController.hasMore && statementController.isLoading.value)?

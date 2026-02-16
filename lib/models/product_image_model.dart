@@ -32,6 +32,7 @@ class ProductImageModel{
     if(path.isEmpty){
       path = "no_image.jpg";
     }
+    return advertisementErpUrl() + imagesDirPath()+ imagePath.replaceAll('~/','/').replaceAll(' ', '');
     return advertisementErpUrl() + imagesDirPath()+ imagePath.replaceAll('~/','/').replaceAll(' ', '')+"?token=$ssoToken";
   }
 
