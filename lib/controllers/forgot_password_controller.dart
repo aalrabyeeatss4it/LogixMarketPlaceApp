@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -17,6 +19,10 @@ class ForgotPasswordController extends GetxController {
   RxString emailValidError = "".obs;
   String userId = "59";
   String userName = "test@gmail.com";
+  RxInt secondsRemaining = 60.obs;
+  RxBool canResend = false.obs;
+
+  Timer? _timer;
 
   final box = GetStorage();
   final TextEditingController emailController = TextEditingController();
@@ -26,6 +32,10 @@ class ForgotPasswordController extends GetxController {
   RxBool isNewPwdHidden = false.obs;
   RxBool isNewPwdConfirmHidden = false.obs;
 
+  @override
+  void onInit() {
+    super.onInit();
+  }
   void validateEmail(String? email) {
     final regExp = RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
     if (email == null|| !regExp.hasMatch(email)) {
@@ -45,10 +55,15 @@ class ForgotPasswordController extends GetxController {
       model.email = emailController.text;
       var serviceResult = await service.sendOtpEmail(model);
       if (serviceResult is SuccessStatus) {
-        showSuccessBottomSheet(onConfirm: () {});
-      } else if (serviceResult is FailureStatus) {
         Get.toNamed(RouteNames.otpPage);
-        // showFailureBottomSheet(onConfirm: () {}, errorMessage: serviceResult.errorMessage);
+      } else if (serviceResult is FailureStatus) {
+        if(serviceResult.errorMessage=="Failed to send email."){
+          Get.toNamed(RouteNames.otpPage);
+          startTimer();
+        }
+        else{
+          showFailureBottomSheet(onConfirm: () {}, errorMessage: serviceResult.errorMessage);
+        }
 
       }
     } catch (ex) {
@@ -105,5 +120,32 @@ class ForgotPasswordController extends GetxController {
     } finally {
       isLoading.value = false;
     }
+  }
+
+  void startTimer() {
+    canResend.value = false;
+    secondsRemaining.value = 60;
+
+    _timer?.cancel();
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (secondsRemaining.value > 0) {
+        secondsRemaining.value--;
+      } else {
+        canResend.value = true;
+        timer.cancel();
+      }
+    });
+  }
+
+  void resendOtp() {
+    if (!canResend.value) return;
+    sendOtp();
+    startTimer();
+  }
+
+  @override
+  void onClose() {
+    _timer?.cancel();
+    super.onClose();
   }
 }

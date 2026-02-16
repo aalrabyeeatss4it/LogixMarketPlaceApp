@@ -19,10 +19,10 @@ class _OtpScreenState extends State<OtpScreen> {
   @override
   void initState(){
     super.initState();
-    forgotPasswordController.otpController.text = "";
+    controller.otpController.text = "";
   }
   final _formKey = GlobalKey<FormState>();
-  final ForgotPasswordController forgotPasswordController = Get.put(ForgotPasswordController());
+  final ForgotPasswordController controller = Get.put(ForgotPasswordController());
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +61,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                 child: Directionality(
                                   textDirection: TextDirection.ltr,
                                   child: Pinput(
-                                    controller: forgotPasswordController.otpController,
+                                    controller: controller.otpController,
                                     length: 4,
                                     defaultPinTheme: PinTheme(
                                       width: 55,
@@ -103,8 +103,8 @@ class _OtpScreenState extends State<OtpScreen> {
                                             ),
                                             onPressed: ()
                                             {
-                                              if (_formKey.currentState!.validate() && forgotPasswordController.isEmailValid.isTrue) {
-                                                forgotPasswordController.verifyOTP();
+                                              if (_formKey.currentState!.validate() && controller.isEmailValid.isTrue) {
+                                                controller.verifyOTP();
                                               }
                                             },
                                             child: Text('confirm'.tr,style: const TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 18))),
@@ -114,17 +114,24 @@ class _OtpScreenState extends State<OtpScreen> {
                                 ),
                               ),
                               const SizedBox(height: 10,),
-                              InkWell(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text('resent otp'.tr,style: TextStyle(color: blackColor.withOpacity(0.6),fontSize: 16,fontWeight: FontWeight.bold)),
-                                    ],
-                                  ),
-                                  onTap: (){
+                              Obx(() => Column(
+                              children: [
+                              controller.canResend.value
+                                  ? TextButton(
+                                onPressed: controller.resendOtp,
+                                child: Text(
+                                  'resend otp'.tr,
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                              )
+                                  : Text('resend otp seconds'.tr+"${controller.secondsRemaining.value}"+'second'.tr,
+                                          style: TextStyle(color: blackColor.withOpacity(0.6),fontSize: 16,fontWeight: FontWeight.bold),
+                                                                  ),
 
-                                  }
-                              ),
+                              ],
+                                )
+                              )
+
                             ]
                         ),
                       ),

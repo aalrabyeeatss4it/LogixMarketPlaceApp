@@ -176,8 +176,9 @@ Map<String, String> arabic = {
   'send otp': "إرسال كود التحقق",
   'back to login': "العودة إلى تسجيل الدخول",
   'fill in otp': 'أدخل رمز التحقق',
-  'we sent otp': 'لقد أرسلنا رمز تحقق مكون من 6 أرقام إلى بريدك الإلكتروني.',
-  'resent otp': "إعادة ارسال الرمز خلال 57 ث",
+  'we sent otp': 'لقد أرسلنا رمز تحقق مكون من 4 أرقام إلى بريدك الإلكتروني.',
+  'resend otp seconds': "إعادة ارسال الرمز خلال ",
+  'resend otp': "إعادة ارسال الرمز",
   'confirm': "تأكيد",
   'reset password': "إعادة تعيين كلمة المرور",
   'save password': "حفظ كلمة المرور",
@@ -187,5 +188,6 @@ Map<String, String> arabic = {
   'reset done desc': "يمكنك الآن تسجيل الدخول باستخدام كلمة المرور الجديدة.",
   'required': "مطلوب",
   'Enter a valid email address': 'ادخل عنوان بريد إلكتروني بصيغة صحيحة.',
+  'second': "ث",
   'welcome1': "مرحباً",
 };

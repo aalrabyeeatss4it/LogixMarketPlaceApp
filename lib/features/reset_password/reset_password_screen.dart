@@ -180,35 +180,31 @@ class ResetPasswordScreen extends StatelessWidget{
                                     ),
                                   ),
                               ),
-                              const SizedBox(height: 20,),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 10),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Expanded(
-                                      child: SizedBox(
-                                        height: 50,
-                                        child: TextButton(
-                                            style: ElevatedButton.styleFrom(
-                                                elevation: 0,
-                                                padding: const EdgeInsets.all(5),
-                                                backgroundColor: primaryColor,
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(15)
-                                                )
-                                            ),
-                                            onPressed: ()
-                                            {
-                                              if (_formKey.currentState!.validate() && forgotPasswordController.isEmailValid.isTrue) {
-                                                forgotPasswordController.resetPassword();
-                                              }
-                                            },
-                                            child: Text('save password'.tr,style: const TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 18))),
-                                      ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: SizedBox(
+                                      height: 50,
+                                      child: TextButton(
+                                          style: ElevatedButton.styleFrom(
+                                              elevation: 0,
+                                              padding: const EdgeInsets.all(5),
+                                              backgroundColor: primaryColor,
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(15)
+                                              )
+                                          ),
+                                          onPressed: ()
+                                          {
+                                            if (_formKey.currentState!.validate() && forgotPasswordController.isEmailValid.isTrue) {
+                                              forgotPasswordController.resetPassword();
+                                            }
+                                          },
+                                          child: Text('save password'.tr,style: const TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 18))),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               )
                             ]
                         ),
