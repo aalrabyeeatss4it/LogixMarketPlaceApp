@@ -1,6 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../theme/colors.dart';
+void showCopyToast() {
+  Get.rawSnackbar(
+    maxWidth: 170,
+    snackPosition: SnackPosition.BOTTOM,
+    backgroundColor: Colors.white,
+    borderRadius: 20,
+    borderColor: blackLightColor,
+    margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+    padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 12),
+    messageText: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset("icons/copied.png", width: 20,),
+        const SizedBox(width: 8),
+        Text('Copied code'.tr,style: const TextStyle(fontWeight: FontWeight.w900),),
+      ],
+    ),
+    duration: const Duration(seconds: 2),
+  );
+}
+
 void showLoading() {
   Get.dialog(
     const Center(child: CircularProgressIndicator()),

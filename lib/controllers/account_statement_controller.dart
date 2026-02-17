@@ -32,7 +32,6 @@ class AccountStatementController extends GetxController{
   }
   void showDebitBottomSheetIfNeeded() {
     bool alreadyShown = box.read(debitPopupShown) ?? false;
-
     if (balance.value.debit > 0 && !alreadyShown) {
       box.write(debitPopupShown, true);
       Get.bottomSheet(
@@ -56,24 +55,41 @@ class AccountStatementController extends GetxController{
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              const Icon(Icons.warning_amber_rounded,size: 60,color: Colors.red),
-              Text('pending debit'.tr,style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold)),
+              Image.asset("icons/wallet.png",width: 60,),
+              SizedBox(height: 10,),
+              Text('pending debit desc'.tr,style: const TextStyle(fontSize: 20,fontWeight: FontWeight.w900)),
               const SizedBox(height: 10),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    '${balance.value.debit.toStringAsFixed(2)} ',
-                    style: const TextStyle(fontSize: 22,fontWeight: FontWeight.bold,color: Colors.red
-                    ),
+              Card(
+                color: primaryColor.withOpacity(0.05),
+                elevation: 0,
+                shape: RoundedRectangleBorder(borderRadius: const BorderRadius.all(Radius.circular(10)),side: BorderSide(color: primaryColor.withOpacity(0.2),width: 01)),
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    children: [
+
+                      Text('pending debit'.tr,style: const TextStyle(color: Colors.grey,fontSize: 20,fontWeight: FontWeight.bold)),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '${balance.value.debit.toStringAsFixed(2)} ',
+                            style: const TextStyle(fontSize: 28,fontWeight: FontWeight.bold,color: primaryColor
+                            ),
+                          ),
+                          Image.asset('icons/riyal.png' ,width: 20,color: Colors.black),
+                        ],
+                      ),
+                    ],
                   ),
-                  Image.asset('icons/riyal.png' ,width: 16,color: Colors.red),
-                ],
+                ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 25),
 
               SizedBox(
+                height: 50,
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () => Get.back(),
@@ -82,9 +98,20 @@ class AccountStatementController extends GetxController{
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
                   ),
-                  child: Text("ok".tr, style: const TextStyle(fontSize: 16),),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset("icons/credit.png", width: 25,),
+                      SizedBox(width: 10,),
+                      Text('show payment methods'.tr, style: const TextStyle(fontSize: 20),),
+                    ],
+                  ),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.all(12),
+                child: TextButton(onPressed: (){}, child: Text('later'.tr, style: TextStyle(color: Colors.black, fontSize: 24),)),
+              )
             ],
           ),
         ),

@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:logix_market_place/common/dialogs/bottom_sheets.dart';
 import 'package:logix_market_place/features/product_detail/attribute_card.dart';
 import 'package:logix_market_place/features/product_detail/product_file_slider.dart';
 
@@ -131,23 +133,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                         Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                          // Expanded(
-                          //   child: Row(
-                          //     mainAxisAlignment: MainAxisAlignment.center,
-                          //     children: [
-                          //       Image.asset('icons/dots.png', height: 10),
-                          //     ],
-                          //   ),
-                          // ),
-                              Row(
-                                children: [
-                                  Text(_productController.product.value.getProductCode(),
-                                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
-                                      softWrap: true,
-                                      overflow: TextOverflow.visible,
-                                      maxLines: null),
-                                ],
-                              ),
+                              Expanded(child: SizedBox()),
                           Row(
                             children: [
                               Obx((){
@@ -174,8 +160,48 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                               ),
                             ],
                           ),
-                        ])
+                        ]),
+
                       ]),
+                    ),
+                  ),
+
+                  InkWell(
+                    onTap: () async {
+                      await Clipboard.setData(
+                        ClipboardData(text: _productController.product.value.getProductCode()),
+                      );
+                      showCopyToast();
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Card(
+                        elevation: 0,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 8),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text('product code'.tr,
+                                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900, color: grayBorderColor3),
+                                        softWrap: true,
+                                        overflow: TextOverflow.visible,
+                                        maxLines: null),
+                                    const SizedBox(width: 10,)
+,                                    Text(_productController.product.value.getProductCode(),
+                                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900, color: grayBorderColor3),
+                                        softWrap: true,
+                                        overflow: TextOverflow.visible,
+                                        maxLines: null),
+                                  ],
+                                ),
+                                Image.asset("icons/copy.png", width: 25,)
+                              ]
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                   Padding(

@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:logix_market_place/common/api_paths.dart';
 
 class TransModel{
@@ -37,7 +38,12 @@ class TransModel{
       'description': description
     };
   }
-  String? getPrintUrl(String userID,String token){
+
+  String getTransNo(){
+    if(transNo == null || transNo!.isEmpty || transNo! == "0") return "";
+    return "Id".tr+(transNo??"");
+  }
+    String? getPrintUrl(String userID,String token){
     print("userID:"+userID);
     print("token:"+token);
     print("docTypeId:"+docTypeId.toString());

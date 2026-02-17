@@ -93,7 +93,7 @@ class _AccountStatementScreenState extends State<AccountStatementScreen>{
                       ),
                     ),
                     Container(
-                      decoration: BoxDecoration(color: unpaidColor,borderRadius: BorderRadius.circular(8)),
+                      decoration: BoxDecoration(color: secondaryColor,borderRadius: BorderRadius.circular(8)),
                       child: SizedBox(
                         width: 170.w,
                         child: Padding(

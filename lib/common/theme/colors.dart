@@ -15,6 +15,7 @@ const successActionColor = Color(0xFF12B76A);
 const grayBorderColor = Color(0xFFA8A8A8);
 const grayBorderColor1 = Color(0xFFD1D5DB);
 const grayBorderColor2 = Color(0xFFF6F6F6);
+const grayBorderColor3 = Color(0xFF242424);
 const errorColor = Color(0xFFD92D20);
 const unAvailableColor = Color(0xFFC2070B);
 const remainingColor = Color(0xFF312684);

@@ -55,7 +55,6 @@ Map<String, String> english = {
   'credit limit': 'Credit limit',
   'balance': "Credit Balance",
   'debit': "Debit",
-  'pending debit': "You have a pending debit of ",
   'order again': 'Order again',
   'order detail': 'Order detail',
   'order no': 'Order no',
@@ -169,5 +168,6 @@ Map<String, String> english = {
   'adding new address': "Adding new address",
   'confirm location': 'Confirm location',
   'select location': 'Select location',
+  'pending debit': "Due amount",
   'ok': 'Ok',
 };

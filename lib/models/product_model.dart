@@ -122,7 +122,7 @@ class ProductModel {
 
   String getProductCode(){
     if(productCode == null || productCode == "") return "";
-    return "كود الصنف: ${productCode!}";
+    return productCode!;
   }
 }
 class Attribute {
