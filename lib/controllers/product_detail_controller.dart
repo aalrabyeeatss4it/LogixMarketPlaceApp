@@ -4,6 +4,7 @@ import 'package:share_plus/share_plus.dart';
 import '../common/api_paths.dart';
 import '../common/storage/local_storage.dart';
 import '../models/product_model.dart';
+import '../models/product_offer.dart';
 import '../services/product_detail_service.dart';
 import 'login_controller.dart';
 
@@ -14,23 +15,54 @@ class ProductDetailController extends GetxController {
         name: '',
         desc: '',
         basePrice: 0,
+          offerPrice: 0,
         vat: 0,
         unitId: 0,
         discountPercentage: 0,
         categoryId: 0,
         thumbPath: '',
           productCode: '',
-          inventoryBalance: 0
+          inventoryBalance: 0,
+          offers: []
       )
   );
   RxBool loading = true.obs;
   RxInt quantity = 1.obs;
   void setQty(int qty){
     quantity.value = qty;
+    updateSelectedOffer(qty);
+  }
+  RxInt selectedOfferId = 0.obs;
+  void updateSelectedOffer(int quantity) {
+    ProductOffer? offer;
+
+    if (product.value.offers.isNotEmpty) {
+      offer = product.value.offers.firstWhere(
+            (o) => quantity >= o.qtyFrom && quantity <= o.qtyTo,
+        orElse: () => displayOffers.first,
+      );
+      selectedOfferId.value = offer.id;
+    } else {
+      selectedOfferId.value = 0;
+    }
+    print("selectedOfferId.value:"+selectedOfferId.value.toString());
+  }
+
+  List<ProductOffer> get displayOffers {
+    final baseOffer = ProductOffer(
+      id: 0,
+      productId: product.value.id,
+      qtyFrom: 1,
+      qtyTo: 1,
+      price:  double.parse(product.value.basePriceIncludeVat.toStringAsFixed(2)),
+    );
+
+    return [baseOffer, ...product.value.offers];
   }
   void updateProduct(int qty, ProductModel p){
     quantity.value = qty;
     product.value.basePrice.value = p.basePrice.value;
+    product.value.offerPrice.value = p.offerPrice.value;
     product.value.discountPercentage.value = p.discountPercentage.value;
   }
   late final ProductDetailService productDetailService;

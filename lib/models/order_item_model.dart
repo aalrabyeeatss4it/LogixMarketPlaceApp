@@ -11,7 +11,8 @@ class OrderItemModel{
   String? productName;
   String? thumbPath;
 
-  double get priceIncludeVat => price + ((vat * price) / 100);
+  double get getVat =>  (vat * price) / 100;
+  double get priceIncludeVat => price + getVat;
   String get getQuantity => double.parse(quantity.toString()).toStringAsFixed(0);
 
   //Display Helpers

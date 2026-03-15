@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../common/nav/app_bar_custom.dart';
 import '../../common/nav/bottom_nav_bar_custom.dart';
 import '../../controllers/product_controller.dart';
+import '../../controllers/product_filter_controller.dart';
 import '../product_filter/product_filter_widget.dart';
 import '../product_filter/product_sort_widget.dart';
 import 'category_product_card.dart';
@@ -16,11 +17,13 @@ class CategoryDetailScreen extends StatefulWidget {
 
 class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
   final ProductController productController = Get.put(ProductController());
+  final ProductFilterController filterController = Get.put(ProductFilterController());
   late final int categoryId;
   late final String categoryName;
   @override
   void initState() {
     super.initState();
+    filterController.resetFilters();
     final args = Get.arguments as Map<String, dynamic>;
     categoryId = args['categoryId'];
     categoryName = args['categoryName'];

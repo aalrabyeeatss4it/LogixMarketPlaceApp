@@ -26,26 +26,7 @@ class OrderSummaryCard extends StatelessWidget{
                   Text('products'.tr,style: TextStyle(fontSize: 16)),
                   Row(
                     children: [
-                      Text(order.getSubTotal,style: const TextStyle(fontSize: 16),),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4),
-                        child: Image.asset('icons/riyal.png' ,width: 12,),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 18.0,vertical: 2),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Text('vat'.tr,style: TextStyle(fontSize: 16)),
-                  Row(
-                    children: [
-                      Text(order.getVat,style: const TextStyle(fontSize: 16),),
+                      Text(order.getSubTotalWithoutDelivery,style: const TextStyle(fontSize: 16),),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 4),
                         child: Image.asset('icons/riyal.png' ,width: 12,),
@@ -66,9 +47,28 @@ class OrderSummaryCard extends StatelessWidget{
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 4.0,vertical: 8),
-                        child: Text(order.deliveryFee?? "0",style: TextStyle(fontSize: 16),),
+                        child: Text(order.getDeliveryFee,style: const TextStyle(fontSize: 16),),
                       ),
                       Image.asset('icons/riyal.png' ,width: 12,)
+                    ],
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 2),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Text('vat'.tr,style: TextStyle(fontSize: 16)),
+                  Row(
+                    children: [
+                      Text(order.getVat,style: const TextStyle(fontSize: 16),),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        child: Image.asset('icons/riyal.png' ,width: 12,),
+                      )
                     ],
                   )
                 ],
@@ -80,7 +80,7 @@ class OrderSummaryCard extends StatelessWidget{
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Text('state'.tr,style: TextStyle(fontSize: 16),),
+                  Text('state'.tr,style: const TextStyle(fontSize: 16),),
                   Card(
                       shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10))

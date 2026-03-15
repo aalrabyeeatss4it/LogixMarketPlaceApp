@@ -38,7 +38,12 @@ void showFailureBottomSheet({required VoidCallback onConfirm,String? errorMessag
   Get.bottomSheet(
       Container(
         width: double.infinity,
-        padding: const EdgeInsets.only(top: 20,left: 20,right: 20),
+        padding: EdgeInsets.only(
+          left: 20,
+          right: 20,
+          top: 20,
+          bottom: 20 + MediaQuery.of(Get.context!).viewPadding.bottom,
+        ),
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
@@ -79,7 +84,12 @@ void showFailureBottomSheet({required VoidCallback onConfirm,String? errorMessag
 void showSuccessOrderBottomSheet({ required VoidCallback onConfirm}) {
   Get.bottomSheet(
       Container(
-        padding: const EdgeInsets.only(top: 20,left: 20,right: 20),
+        padding: EdgeInsets.only(
+          left: 20,
+          right: 20,
+          top: 20,
+          bottom: 20 + MediaQuery.of(Get.context!).viewPadding.bottom,
+        ),
         decoration: const BoxDecoration(
           color: primaryColor,
           borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
@@ -155,7 +165,12 @@ void showSuccessBottomSheet({required VoidCallback onConfirm,String? message}) {
   Get.bottomSheet(
       Container(
         width: double.infinity,
-        padding: const EdgeInsets.only(top: 20,left: 20,right: 20),
+        padding: EdgeInsets.only(
+          left: 20,
+          right: 20,
+          top: 20,
+          bottom: 20 + MediaQuery.of(Get.context!).viewPadding.bottom,
+        ),
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
@@ -196,7 +211,12 @@ void showSuccessBottomSheet({required VoidCallback onConfirm,String? message}) {
 void showOrderConfirmBottomSheet({required String title,required String buttonLabel,required VoidCallback onConfirm}) {
   Get.bottomSheet(
     Container(
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.only(
+        left: 20,
+        right: 20,
+        top: 20,
+        bottom: 20 + MediaQuery.of(Get.context!).viewPadding.bottom,
+      ),
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.vertical(top: Radius.circular(25)),

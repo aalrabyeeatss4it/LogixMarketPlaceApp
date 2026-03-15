@@ -1,6 +1,10 @@
 import 'package:logix_market_place/common/storage/local_storage.dart';
 
-const baseUrl = 'https://localhost:44362/api/v1';
+// const baseUrl = "http://10.0.2.2:5014/api/v1";
+// const baseUrl = 'http://localhost:5014/api/v1';
+const baseUrl = 'http://192.168.100.67:5014/api/v1';
+// const baseUrl = 'https://localhost:44362/api/v1';
+// const baseUrl = 'https://localhost:7171/api/v1';
 // const baseUrl = 'https://api.ecommerce.logix-erp.com/api/v1';
 // const baseUrl = 'https://api.ecommerce.qasserlaura.net/api/v1';
 const categoriesPath = '/categories';
@@ -13,7 +17,10 @@ const recentlyArrivedPath = '/products/recently-arrived';
 const mostRequestedPath = '/products/most-requested';
 const relatedPath = '/products/related/{id}';
 const ordersPath = '/orders';
+const shipmentPath = '/shipment';
+const deliveryInfoPath = '/shipment/deliveryInfo';
 const opportunityPath = '/opportunity';
+const productRequestPath = '/product-request';
 const accountStatementPath = '/orders/account-statement';
 const balancePath = '/orders/balance';
 const invoicesPath = '/sale-invoices';
@@ -34,7 +41,7 @@ const guestRelatedProductsByIdPath = '/guest/products/related/';
 erpUrl() {
   // return "https://www.qasserlaura.net";
   return "http://localhost:8082";
-  return "https://erp.ss4it.com.sa";
+  // return "https://erp.ss4it.com.sa";
 }
 
 advertisementErpUrl() {
@@ -44,8 +51,8 @@ advertisementErpUrl() {
     }
   }
   return "https://www.qasserlaura.net";
-  return "http://localhost:8082";
-  return "https://erp.ss4it.com.sa";
+  // return "http://localhost:8082";
+  // return "https://erp.ss4it.com.sa";
 }
 
 imagesDirPath() {

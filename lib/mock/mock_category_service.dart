@@ -53,4 +53,10 @@ class MockCategoryService implements CategoryService{
     throw UnimplementedError();
   }
 
+  @override
+  Future<Response> deleteData(String path, Map<String, dynamic> json) {
+    // TODO: implement deleteData
+    throw UnimplementedError();
+  }
+
 }

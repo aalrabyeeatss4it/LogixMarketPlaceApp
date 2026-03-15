@@ -12,6 +12,7 @@ class MockProductService implements ProductService {
           id: 1,
           categoryId: 1,
           basePrice: 126.5,
+          offerPrice: 126.5,
           productCode: 'Pro-01',
           vat: 15,
           unitId: 15,
@@ -26,6 +27,7 @@ class MockProductService implements ProductService {
           categoryId: 1,
           productCode: 'Pro-01',
           basePrice: 126.5,
+          offerPrice: 126.5,
           vat: 15,
           unitId: 15,
           // preDiscountPrice: 200,
@@ -38,6 +40,7 @@ class MockProductService implements ProductService {
           id: 3,
           categoryId: 1,
           basePrice: 126.5,
+          offerPrice: 126.5,
           vat: 15,
           unitId: 15,
           productCode: 'Pro-01',
@@ -52,6 +55,7 @@ class MockProductService implements ProductService {
           categoryId: 1,
           productCode: 'Pro-01',
           basePrice: 126.5,
+          offerPrice: 126.5,
           vat: 15,
           unitId: 15,
           // preDiscountPrice: 240,
@@ -64,6 +68,7 @@ class MockProductService implements ProductService {
           id: 5,
           categoryId: 1,
           basePrice: 126.5,
+          offerPrice: 126.5,
           vat: 15,
           unitId: 15,
           productCode: 'Pro-01',
@@ -84,6 +89,7 @@ class MockProductService implements ProductService {
           categoryId: 1,
           productCode: 'Pro-01',
           basePrice: 126.5,
+          offerPrice: 126.5,
           vat: 15,
           unitId: 15,
           // preDiscountPrice: 300,
@@ -96,6 +102,7 @@ class MockProductService implements ProductService {
           id: 2,
           categoryId: 1,
           basePrice: 126.5,
+          offerPrice: 126.5,
           vat: 15,
           unitId: 15,
           // preDiscountPrice: 200,
@@ -110,6 +117,7 @@ class MockProductService implements ProductService {
           categoryId: 1,
           productCode: 'Pro-01',
           basePrice: 126.5,
+          offerPrice: 126.5,
           vat: 15,
           unitId: 15,
           // preDiscountPrice: 450,
@@ -122,6 +130,7 @@ class MockProductService implements ProductService {
           id: 4,
           categoryId: 1,
           basePrice: 126.5,
+          offerPrice: 126.5,
           vat: 15,
           unitId: 15,
           productCode: 'Pro-01',
@@ -136,6 +145,7 @@ class MockProductService implements ProductService {
           categoryId: 1,
           productCode: 'Pro-01',
           basePrice: 126.5,
+          offerPrice: 126.5,
           vat: 15,
           unitId: 15,
           // preDiscountPrice: 250,
@@ -189,6 +199,12 @@ class MockProductService implements ProductService {
   @override
   Future<Response> putData(String path, Map<String, dynamic> json) {
     // TODO: implement putData
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Response> deleteData(String path, Map<String, dynamic> json) {
+    // TODO: implement deleteData
     throw UnimplementedError();
   }
 }

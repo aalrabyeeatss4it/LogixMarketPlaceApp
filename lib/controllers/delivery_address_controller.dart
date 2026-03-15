@@ -3,6 +3,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../common/dialogs/bottom_sheets.dart';
 import '../models/delivery_address_model.dart';
@@ -26,10 +27,6 @@ class DeliveryAddressController extends GetxController {
   final mobileNoController = TextEditingController();
   final recipientNameController = TextEditingController();
   final closestPlaceController = TextEditingController();
-
-
-  RxBool isDefaultAddress = false.obs;
-
   TextEditingController regionNameController = TextEditingController();
   TextEditingController districtNameController = TextEditingController();
   TextEditingController streetNameController = TextEditingController();
@@ -37,8 +34,7 @@ class DeliveryAddressController extends GetxController {
   TextEditingController buildingNoController = TextEditingController();
 
   var isLoading = false.obs;
-  int page = 1;
-  bool hasMore = true;
+  RxBool isDefaultAddress = false.obs;
 
   ScrollController scroll = ScrollController();
 
@@ -65,20 +61,18 @@ class DeliveryAddressController extends GetxController {
   }
 
   Future<void> getAddresses() async {
-    if(isLoading.value || !hasMore) return;
+    if(isLoading.value) return;
     isLoading.value = true;
     try{
-      String filters = "page=$page";
       var serviceResult = await service.getAddresses();
       print("getAddresses");
       if(serviceResult is SuccessStatus<List<DeliveryAddressModel>>){
         print("getAddresses");
-        if(serviceResult.data!.isEmpty){
-          hasMore = false;
-        }
-        else{
+        if(serviceResult.data!.isNotEmpty){
+          addresses.clear();
           addresses.addAll(serviceResult.data!);
-          page++;
+          DeliveryAddressModel? _defaultAddress = addresses.firstWhereOrNull((a)=> a.isDefault == true);
+          defaultAddress.value = _defaultAddress;
         }
       }
     }
@@ -107,6 +101,25 @@ class DeliveryAddressController extends GetxController {
       if (serviceResult is SuccessStatus) {
         Get.back();
         showSuccessBottomSheet(onConfirm: () {  });
+
+        getAddresses();
+      } else if (serviceResult is FailureStatus) {
+        showFailureBottomSheet(onConfirm: () {  },errorMessage: serviceResult.errorMessage);
+      }
+    }
+    catch(ex){
+      print("ex="+ex.toString());
+    }
+  }
+
+  Future<void> removeAddress() async {
+    try{
+      var serviceResult = await service.removeAddress(address.value);
+      if (serviceResult is SuccessStatus) {
+        Get.back();
+        showSuccessBottomSheet(onConfirm: () {  });
+
+        getAddresses();
       } else if (serviceResult is FailureStatus) {
         showFailureBottomSheet(onConfirm: () {  },errorMessage: serviceResult.errorMessage);
       }
@@ -127,6 +140,7 @@ class DeliveryAddressController extends GetxController {
       if (serviceResult is SuccessStatus) {
         Get.back();
         showSuccessBottomSheet(onConfirm: () {  });
+        getAddresses();
       } else if (serviceResult is FailureStatus) {
         showFailureBottomSheet(onConfirm: () {  },errorMessage: serviceResult.errorMessage);
       }

@@ -100,7 +100,7 @@ class HomeScreenState extends State<HomeScreen> {
                       return Center(child: Text("No products".tr));
                     }
                     return SizedBox(
-                      height: 390,
+                      height: 450,
                       child: ListView.builder(
                           controller: productController.scroll,
                           shrinkWrap: true,

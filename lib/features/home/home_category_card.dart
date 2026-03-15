@@ -49,36 +49,15 @@ class HomeCategoryCard extends StatelessWidget{
                                 httpHeaders: {
                                   "token": tokenController.ssoToken.value
                                 },
+                                fit: BoxFit.contain,
+                                width: double.infinity,
                                 memCacheWidth: (myWidth * MediaQuery.of(context).devicePixelRatio).toInt(),
                                 maxWidthDiskCache: 1200,
                                 fadeInDuration: const Duration(milliseconds: 200),
                                 fadeOutDuration: const Duration(milliseconds: 200),
                                 placeholder: (_, __) => Image.asset("assets/placeholder_3x1.png", fit: BoxFit.cover),
                                 errorWidget: (_, __, ___) => Image.asset("assets/placeholder_3x1.png", fit: BoxFit.cover),
-                                fit: BoxFit.contain,
-                                width: double.infinity,
                               ),
-                              // Image.network(
-                              //   category.getThumbPath(),
-                              //   fit: BoxFit.cover,
-                              //   loadingBuilder: (context, child, loadingProgress) {
-                              //     if (loadingProgress == null) return child; // image loaded
-                              //     return Center(
-                              //       child: CircularProgressIndicator(
-                              //         value: loadingProgress.expectedTotalBytes != null
-                              //             ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1)
-                              //             : null,
-                              //       ),
-                              //     );
-                              //   },
-                              //   errorBuilder: (context, error, stackTrace) {
-                              //     // return default image if network image fails
-                              //     return Image.asset(
-                              //       'assets/logo.png',
-                              //       fit: BoxFit.cover,
-                              //     );
-                              //   },
-                              // )
                             ),
                           ),
                         ),

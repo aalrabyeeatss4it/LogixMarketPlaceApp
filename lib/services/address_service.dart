@@ -34,4 +34,12 @@ class AddressService extends MyService {
     print("response.body"+response.body);
     return FailureStatus(errorMessage: response.body);
   }
+  Future<ServiceResult<dynamic>> removeAddress(DeliveryAddressModel address) async {
+    Response response = await deleteData(addressesPath,address.toJson());
+    if (response.statusCode == 200) {
+      return SuccessStatus();
+    }
+    print("response.body"+response.body);
+    return FailureStatus(errorMessage: response.body);
+  }
 }

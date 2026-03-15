@@ -58,7 +58,7 @@ class _AccountInfoScreenState extends State<AccountInfoScreen>{
                   LabeledWidget(label: 'customer no'.tr,hint: 'fill customer no'.tr,editController: controller.customerNoController),
                   LabeledWidget(label: 'customer name'.tr,hint: 'fill customer name'.tr,editController: controller.customerNameController),
                   LabeledWidget(label: 'tax no'.tr,hint: 'fill tax no'.tr,editController: controller.taxNoController),
-                  LabeledWidget(label: 'mobile no'.tr,hint: 'fill mobile no'.tr,editController: controller.mobileNoController),
+                  LabeledWidget(label: 'mobile no'.tr,hint: 'fill mobile no'.tr,editController: controller.mobileNoController, isTextDirectionLtr: true),
                   LabeledWidget(label: 'email'.tr,hint: 'fill email'.tr,editController: controller.emailController),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 20),
@@ -119,10 +119,11 @@ class _AccountInfoScreenState extends State<AccountInfoScreen>{
 }
 
 class LabeledWidget extends StatelessWidget{
-  const LabeledWidget({super.key, required this.editController, required this.label, required this.hint});
+  const LabeledWidget({super.key, required this.editController, required this.label, required this.hint, this.isTextDirectionLtr = false});
   final TextEditingController editController;
   final String label;
   final String hint;
+  final bool isTextDirectionLtr;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -138,6 +139,7 @@ class LabeledWidget extends StatelessWidget{
             height: 65.h,
             child: TextFormField(
               enabled: false,
+              textDirection: (isTextDirectionLtr==true)?TextDirection.ltr:TextDirection.rtl,
               controller: editController,
               decoration: InputDecoration(
                   hintText: hint,

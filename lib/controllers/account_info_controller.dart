@@ -30,7 +30,7 @@ class AccountInfoController extends GetxController {
     firstNameController.text = (box.read(firstNameIndex))?? "";
     lastNameController.text = (box.read(lastNameIndex))?? "";
     emailController.text = (box.read(emailIndex))?? "";
-    customerNoController.text = (box.read(customerIDIndex))?? "";
+    customerNoController.text = (box.read(customerCodeIndex))?? "";
     customerNameController.text = (box.read(customerNameIndex))?? "";
     taxNoController.text = (box.read(customerTaxNoIndex))?? "";
     mobileNoController.text = (box.read(customerPhoneIndex))?? "";

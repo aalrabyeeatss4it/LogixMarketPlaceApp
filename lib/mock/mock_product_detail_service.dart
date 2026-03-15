@@ -23,6 +23,7 @@ class MockProductDetailService implements ProductDetailService {
         id: productID,
         categoryId: 1,
         basePrice: 6.5,
+        offerPrice: 6.5,
         vat: 15,
         unitId: 15,
         // preDiscountPrice: 500,
@@ -43,6 +44,7 @@ class MockProductDetailService implements ProductDetailService {
           id: 1,
           categoryId: 1,
           basePrice: 6.5,
+          offerPrice: 6.5,
           vat: 15,
           unitId: 15,
           productCode: 'Pro-01',
@@ -55,6 +57,7 @@ class MockProductDetailService implements ProductDetailService {
           id: 2,
           categoryId: 1,
           basePrice: 6.5,
+          offerPrice: 6.5,
           productCode: 'Pro-01',
           vat: 15,
           unitId: 15,
@@ -90,6 +93,12 @@ class MockProductDetailService implements ProductDetailService {
   @override
   Future<Response> putData(String path, Map<String, dynamic> json) {
     // TODO: implement putData
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Response> deleteData(String path, Map<String, dynamic> json) {
+    // TODO: implement deleteData
     throw UnimplementedError();
   }
 }

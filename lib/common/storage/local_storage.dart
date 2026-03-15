@@ -8,6 +8,7 @@ const String userIdIndex = "userIdIndex";
 const String userNameIndex = "userNameIndex";
 const String pwdIndex = "pwdIndex";
 const String customerIDIndex = "customerIDIndex";
+const String customerCodeIndex = "customerCodeIndex";
 const String customerNameIndex = "customerNameIndex";
 const String customerPhoneIndex = "customerPhoneIndex";
 const String customerTaxNoIndex = "customerTaxNoIndex";

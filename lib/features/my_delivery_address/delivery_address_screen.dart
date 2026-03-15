@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../common/nav/app_bar_custom.dart';
 import '../../common/nav/page_routes.dart';
+import '../../common/theme/colors.dart';
 import '../../controllers/delivery_address_controller.dart';
 
 class DeliveryAddressScreen extends StatefulWidget{
@@ -65,16 +66,16 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
                                     boxShadow: [
                                       BoxShadow(
                                         color: Colors.black.withOpacity(0.15),
-                                        blurRadius: 8,
+                                        blurRadius: 2,
                                         spreadRadius: 1,
-                                        offset: const Offset(4, 4),
+                                        // offset: const Offset(4, 4),
                                       ),
                                     ],
                                   ),
                                   child: Padding(
                                       padding: const EdgeInsets.all(8),
                                       child: Obx(() {
-                                        if (addressController.isLoading.value && addressController.page==1) {
+                                        if (addressController.isLoading.value) {
                                           return const Center(child: CircularProgressIndicator());
                                         }
                                         if (addressController.addresses.isEmpty) {
@@ -87,31 +88,59 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
                                             itemCount: addressController.addresses.length+1,
                                             itemBuilder: (BuildContext context, int index) {
                                               if(index < addressController.addresses.length){
-                                                return InkWell(
-                                                  onTap: () {
-                                                    Get.toNamed(RouteNames.editAddressPage, arguments: addressController.addresses[index]);
-                                                  },
-                                                  child: Row(
-                                                      children: [
-                                                        const SizedBox(width: 10,),
-                                                        Expanded(
-                                                          child: Column(
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                            children: [
-                                                              Text(addressController.addresses[index].fullAddress?? "", style: const TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
-                                                              const SizedBox(height: 10,),
-                                                              Text("${'mobile no'.tr}${addressController.addresses[index].mobileNo}",style: const TextStyle(fontSize: 16,color: Colors.grey),)
-                                                            ],
+                                                return Container(
+                                                  margin: const EdgeInsets.symmetric(vertical: 6),
+                                                  padding: const EdgeInsets.all(12),
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius: BorderRadius.circular(14),
+                                                    border: Border.all(
+                                                      color: (addressController.addresses[index].isDefault == true)? primaryColor: Colors.grey.shade300,
+                                                      width: 0.6,
+                                                    ),
+                                                    boxShadow: (addressController.addresses[index].isDefault == true)? [
+                                                      BoxShadow(
+                                                        color: primaryColor.withOpacity(0.15),
+                                                        blurRadius: 8,
+                                                        spreadRadius: 1,
+                                                      )
+                                                    ]
+                                                        : [],
+                                                  ),
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      Get.toNamed(RouteNames.editAddressPage, arguments: addressController.addresses[index]);
+                                                    },
+                                                    child: Row(
+                                                        children: [
+                                                          const SizedBox(width: 10,),
+                                                          Expanded(
+                                                            child: Column(
+                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                              children: [
+                                                                Text(addressController.addresses[index].fullAddress?? "", style: const TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
+                                                                const SizedBox(height: 10,),
+                                                                Row(
+                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                  children: [
+                                                                    Text("${'mobile no'.tr}${addressController.addresses[index].mobileNo}",style: const TextStyle(fontSize: 16,color: Colors.grey),),
+                                                                    (addressController.addresses[index].isDefault == true)?Container(decoration:BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(20)),child: Padding(
+                                                                      padding: const EdgeInsets.only(left:8, right: 8,bottom: 4.0),
+                                                                      child: Text('my main address'.tr,style: const TextStyle(fontSize: 14,color: Colors.white),),
+                                                                    )): SizedBox()
+                                                                  ],
+                                                                ),
+                                                              ],
+                                                            ),
                                                           ),
-                                                        ),
-                                                        Image.asset("icons/arrow.png",color: Colors.black,width: 7,),
-                                                        const SizedBox(width: 10,),
-                                                      ]
+                                                          Image.asset("icons/arrow.png",color: Colors.black,width: 7,),
+                                                        ]
+                                                    ),
                                                   ),
                                                 );
                                               }
                                               else{
-                                                return (addressController.hasMore  && addressController.isLoading.value)?
+                                                return (addressController.isLoading.value)?
                                                 const Padding(
                                                     padding: EdgeInsets.all(16),
                                                     child: Center(child: CircularProgressIndicator())

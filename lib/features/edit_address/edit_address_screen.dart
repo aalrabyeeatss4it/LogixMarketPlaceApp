@@ -59,7 +59,25 @@ class _EditAddressScreenState extends State<EditAddressScreenV2> {
                     ),
                     // _field('address label'.tr, controller.labelCtrl, (v) => address.label = v),
                     SizedBox(height: 16.h),
-                    SectionTitleCard(title: 'delivery address'.tr, fontSize: 18,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        SectionTitleCard(title: 'delivery address'.tr, fontSize: 18,),
+                        TextButton(
+                            onPressed: () {
+                              controller.removeAddress();
+                            },
+                            child: Text(
+                                'remove address'.tr,
+                                style: const TextStyle(
+                                  color: removeColor,
+                                  decoration: TextDecoration.underline,
+                                )
+                            )
+                        )
+                      ],
+                    ),
                     SizedBox(height: 16.h),
                     _field('region'.tr, controller.regionCtrl, (v) => controller.address.value.regionName = v),
                     _field('city'.tr, controller.cityCtrl, (v) => address.cityName = v),

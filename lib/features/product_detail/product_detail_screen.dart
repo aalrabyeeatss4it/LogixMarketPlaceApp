@@ -17,6 +17,7 @@ import '../../controllers/fav_controller.dart';
 import '../../controllers/product_detail_controller.dart';
 import '../../controllers/token_controller.dart';
 import '../../models/cart_item_model.dart';
+import '../../models/product_offer.dart';
 import '../home/home_product_card.dart';
 
 class ProductDetailScreen extends StatefulWidget {
@@ -92,8 +93,8 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                           softWrap: true,
                           overflow: TextOverflow.visible,
                           maxLines: null),
-                      Text(_productController.product.value.desc,
-                          style: const TextStyle(fontSize: 14), softWrap: true, overflow: TextOverflow.visible, maxLines: null)
+                      // Text(_productController.product.value.desc,
+                      //     style: const TextStyle(fontSize: 14), softWrap: true, overflow: TextOverflow.visible, maxLines: null)
                     ]),
                   ),
                   Card(
@@ -133,7 +134,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                         Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Expanded(child: SizedBox()),
+                              const Expanded(child: SizedBox()),
                           Row(
                             children: [
                               Obx((){
@@ -178,7 +179,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                       child: Card(
                         elevation: 0,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 8),
+                          padding: const EdgeInsets.symmetric(horizontal: 8,),
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -189,15 +190,22 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                                         softWrap: true,
                                         overflow: TextOverflow.visible,
                                         maxLines: null),
-                                    const SizedBox(width: 10,)
-,                                    Text(_productController.product.value.getProductCode(),
+                                    const SizedBox(width: 10,),
+                                    Text(_productController.product.value.getProductCode(),
                                         style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900, color: grayBorderColor3),
                                         softWrap: true,
                                         overflow: TextOverflow.visible,
                                         maxLines: null),
                                   ],
                                 ),
-                                Image.asset("icons/copy.png", width: 25,)
+                                IconButton(
+                                    onPressed: () async {
+                                      await Clipboard.setData(
+                                        ClipboardData(text: _productController.product.value.getProductCode()),
+                                      );
+                                      showCopyToast();
+                                    },
+                                    icon: Image.asset("icons/copy.png", width: 25,))
                               ]
                           ),
                         ),
@@ -217,12 +225,37 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                       Text(_productController.product.value.getPreDiscountPrice(),
                           style: const TextStyle(fontSize: 16,color: Colors.grey,decoration: TextDecoration.lineThrough)),
                       (_productController.product.value.isAvailable(_productController.quantity.value)==1)?
-                       Text('available'.tr, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: successColor)):
+                       Text('available'.tr, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: successColor)):
                       (_productController.product.value.isAvailable(_productController.quantity.value)==-1)?
-                       Text('in available'.tr, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)):
-                      Text('${'available quantity'.tr}${_productController.product.value.inventoryBalance}', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)),
+                       Text('in available'.tr, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)):
+                      Text('${'available quantity'.tr}${_productController.product.value.inventoryBalance}', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)),
+                      if(_productController.product.value.offers.isNotEmpty)
+                      Column(
+                        children: [
+                          const SizedBox(height: 10,),
+                          Row(
+                            children: [
+                              Image.asset("icons/offers.png", width: 25,),
+                              const SizedBox(width: 10,),
+                              Text('buy more get more'.tr, style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18), )
+                            ],
+                          ),
+                          ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: _productController.displayOffers.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                final offer = _productController.displayOffers[index];
+                                final isCheapestOffer = index != 0 && _productController.product.value.isCheapestOffer(index - 1);
+                                final isSelectedOffer = _productController.selectedOfferId.value == offer.id;
+                                return offerCard(added, offer, isCheapestOffer, item, isSelectedOffer);
+                              })
+                        ],
+                      ),
                       const Divider(),
-                      Text('product details'.tr, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
+                      Text('product details'.tr, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
+                      Text(_productController.product.value.desc, style: const TextStyle(fontSize: 18)),
+
                       (_productController.product.value.attributes != null)
                           ? Column(
                               children: [
@@ -230,7 +263,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                Text('specifications'.tr, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+                                Text('specifications'.tr, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
                               ],
                             )
                           : const SizedBox(),
@@ -246,8 +279,8 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                       (_productController.relatedProducts.isNotEmpty)?
                       Column(
                               children: [
-                                Divider(),
-                                Text('related products'.tr, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
+                                const Divider(),
+                                Text('related products'.tr, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
                               ],
                             )
                           : const SizedBox(),
@@ -257,7 +290,6 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                     padding: EdgeInsets.all(16.w),
                     child: Obx(() {
                       if (_productController.relatedProducts.isEmpty) {
-                        // return const Center(child: CircularProgressIndicator());
                         return const Center(child: SizedBox());
                       }
                       return SizedBox(
@@ -454,6 +486,107 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
           )
       );
     }
+    );
+  }
+  Widget offerCard(bool added,ProductOffer offer, bool isCheapestOffer,CartItemModel? item, bool isSelectedOffer){
+    return InkWell(
+      onTap: () async {
+        if (!added) {
+          _productController.setQty(offer.qtyFrom);
+        }
+        else{
+          await cartController.setQuantity(offer.qtyFrom,item!);
+          _productController.updateProduct(cartController.getQty(_productController.product.value.id),item.product);
+        }
+      },
+      child: Padding(
+        padding: EdgeInsets.all(10),
+        child: Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: isSelectedOffer ? Colors.green : Colors.grey, width: isSelectedOffer ? 2 : 1),
+                borderRadius: BorderRadius.circular(15),
+                color: isSelectedOffer ? Colors.green.withOpacity(0.1) : Colors.white,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Row(
+                      children: [
+                        Radio(value: offer.id, groupValue: _productController.selectedOfferId.value, onChanged: (val) async {
+                          if (!added) {
+                            _productController.setQty(offer.qtyFrom);
+                          }
+                          else{
+                            await cartController.setQuantity(offer.qtyFrom,item!);
+                            _productController.updateProduct(cartController.getQty(_productController.product.value.id),item.product);
+                          }
+                        }),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(offer.getOfferRange(), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900,),textDirection: TextDirection.ltr,),
+                                const SizedBox(width: 5,),
+                                Text('piece'.tr, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900)),
+                              ],
+                            ),
+                            (offer.id==0)?
+                            Text('base price'.tr, style: const TextStyle(fontSize: 14, color: Colors.grey, fontWeight: FontWeight.bold)):
+                            Text(offer.getOfferMessage(_productController.product.value.basePriceIncludeVat), style: const TextStyle(fontSize: 12, color: offerGreenColor, fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                      ],
+                    ),
+
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text(offer.getOfferPrice(), style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w900, color: primaryColor)),
+                            const SizedBox(width: 5,),
+                            Text(offer.getOfferPriceUnit(), style: const TextStyle(fontSize: 12)),
+                          ],
+                        ),
+                      ],
+                    ),
+
+                  ],
+                ),
+              ),
+            ),
+            if (isCheapestOffer)
+              Positioned(
+                top: 0,
+                left: 0,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  decoration: const BoxDecoration(
+                    color: cheapestColor,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
+                    ),
+                  ),
+                  child: const Text(
+                    '🔥 الأكثر توفيرًا',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ),
     );
   }
 }

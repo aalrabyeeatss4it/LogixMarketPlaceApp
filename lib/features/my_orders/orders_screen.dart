@@ -45,7 +45,6 @@ class _OrdersScreenState extends State<OrdersScreen> {
               ),
               Expanded(
                 child: Obx(() {
-
                   if (orderController.isLoading.value && orderController.page==1) {
                     return const Center(child: CircularProgressIndicator());
                   }
@@ -62,7 +61,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                           return OrderCard(order: orderController.orders[index],);
                         }
                         else{
-                          return orderController.hasMore?
+                          return (orderController.hasMore  && orderController.isLoading.value)?
                           const Padding(
                               padding: EdgeInsets.all(16),
                               child: Center(child: CircularProgressIndicator())

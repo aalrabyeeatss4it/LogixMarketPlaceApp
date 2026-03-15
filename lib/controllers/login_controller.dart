@@ -41,6 +41,7 @@ class LoginController extends GetxController{
       box.write(lastNameIndex, userModel.lastName);
       box.write(emailIndex, userModel.email);
       box.write(customerIDIndex, userModel.customerID);
+      box.write(customerCodeIndex, userModel.customerCode);
       box.write(customerNameIndex, userModel.customerName);
       box.write(customerPhoneIndex, userModel.customerPhone);
       box.write(customerTaxNoIndex, userModel.customerTaxNo);

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -23,22 +24,13 @@ class CartController extends GetxController {
 
   void loadCart() {
     var itemsJson = box.read("cart");
-    var tot = 0.0;
-    var subTot = 0.0;
-    var totVat = 0.0;
     if (itemsJson != null) {
       final List decoded = jsonDecode(itemsJson);
-      items.assignAll(decoded.map((e) {
-        var item = CartItemModel.fromJson(e);
-        tot += item.product.priceIncludeVat * item.quantity.value;
-        subTot += item.product.discountedBasePrice * item.quantity.value;
-        totVat += item.product.vatValue * item.quantity.value;
-        return item;
-      }).toList());
-      total.value = tot;
-      totalVat.value = totVat;
-      subTotal.value = subTot;
-      print("totalVat:$totalVat");
+      items.assignAll(decoded.map((e) =>CartItemModel.fromJson(e)).toList());
+      calcTotal();
+      if (kDebugMode) {
+        print("totalVat:$totalVat");
+      }
     }
   }
 
@@ -103,8 +95,7 @@ class CartController extends GetxController {
     if(item.product.inventoryBalance.value > item.quantity.value){
       item.quantity.value = item.quantity.value + 1;
       var p = await productDetailService.getProduct(item.product.id, item.quantity.value);
-      item.product.basePrice.value = p!.basePrice.value;
-      item.product.discountPercentage.value = p.discountPercentage.value;
+      item.product.updatePrices(p!);
       saveCart();
     }
   }
@@ -113,8 +104,7 @@ class CartController extends GetxController {
     if(item.product.inventoryBalance.value > qty){
       item.quantity.value = qty;
       var p = await productDetailService.getProduct(item.product.id, qty);
-      item.product.basePrice.value = p!.basePrice.value;
-      item.product.discountPercentage.value = p.discountPercentage.value;
+      item.product.updatePrices(p!);
       saveCart();
     }
   }
@@ -125,8 +115,7 @@ class CartController extends GetxController {
     } else {
       item.quantity.value = item.quantity.value - 1;
       var p = await productDetailService.getProduct(item.product.id, item.quantity.value);
-      item.product.basePrice.value = p!.basePrice.value;
-      item.product.discountPercentage.value = p.discountPercentage.value;
+      item.product.updatePrices(p!);
     }
     saveCart();
   }

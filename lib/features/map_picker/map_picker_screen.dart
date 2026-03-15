@@ -16,30 +16,36 @@ class _MapPickerScreenState extends State<MapPickerScreen> {
 
   final DeliveryAddressController controller = Get.find<DeliveryAddressController>();
   GoogleMapController? _mapController;
-
+  bool _locationPermissionGranted = false;
   @override
   void initState() {
     super.initState();
+    _initLocation();
   }
 
-  // Automatically get device location
-  Future<void> _setCurrentLocation() async {
+  Future<void> _initLocation() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return;
-    }
+    if (!serviceEnabled) return;
 
     LocationPermission permission = await Geolocator.checkPermission();
+
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) return;
     }
-    if (permission == LocationPermission.deniedForever) return;
 
+    if (permission == LocationPermission.denied ||
+        permission == LocationPermission.deniedForever) {
+      return;
+    }
+    setState(() {
+      _locationPermissionGranted = true;
+    });
     Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     LatLng current = LatLng(position.latitude, position.longitude);
     controller.updateLocation(current);
-    _mapController?.animateCamera(CameraUpdate.newLatLng(current));
+    if (_mapController != null) {
+      _mapController!.animateCamera(CameraUpdate.newLatLng(current));
+    }
   }
 
   @override
@@ -58,7 +64,6 @@ class _MapPickerScreenState extends State<MapPickerScreen> {
                   ),
                   onMapCreated: (mapController) {
                     _mapController = mapController;
-                    _setCurrentLocation();
                   },
                   onTap: controller.updateLocation,
                   markers: {
@@ -69,8 +74,8 @@ class _MapPickerScreenState extends State<MapPickerScreen> {
                       onDragEnd: controller.updateLocation,
                     ),
                   },
-                  myLocationEnabled: true,
-                  myLocationButtonEnabled: true,
+                  myLocationEnabled: _locationPermissionGranted,
+                  myLocationButtonEnabled: _locationPermissionGranted,
                 );
               }),
             ),

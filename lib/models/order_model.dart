@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
+import 'package:logix_market_place/models/shipment_info_model.dart';
 
+import 'delivery_fee_model.dart';
 import 'order_item_model.dart';
 
 class OrderModel{
@@ -10,7 +12,8 @@ class OrderModel{
   String? remaining;
   String? orderId;
   String? orderCode;
-  String? shipmentMethod;
+  String? shipmentMethodId;
+  String? shipmentCompanyId;
   String? trackingId;
   String? paymentMethod;
   String? paymentMethodId;
@@ -18,7 +21,9 @@ class OrderModel{
   String? deliveryAddressId;
   String? expectedDeliveryDate;
   String? deliveryDate;
+  ShipmentInfoModel? shipmentInfo;
   RxBool selected= false.obs;
+  RxBool isExpanded = true.obs;
   List<OrderItemModel>? items;
 
   OrderModel({
@@ -27,7 +32,8 @@ class OrderModel{
     this.total,
     this.orderId,
     this.orderCode,
-    this.shipmentMethod,
+    this.shipmentMethodId,
+    this.shipmentCompanyId,
     this.trackingId,
     this.paymentMethod,
     this.paymentMethodId,
@@ -38,10 +44,47 @@ class OrderModel{
     this.paid,
     this.remaining,
     this.items,
+    this.shipmentInfo,
   });
   get getTotal => (total!=null && total!= "")? double.tryParse(total!)?.toStringAsFixed(2):"";
   get getSubTotal => (subTotal!=null && subTotal!= "")? double.tryParse(subTotal!)?.toStringAsFixed(2):"";
   get getVat => (total!=null && total!= "" && subTotal!=null && subTotal!= "")? ( double.tryParse(total!)! - double.tryParse(subTotal!)!).toStringAsFixed(2):"";
+  get getSubTotalWithoutDelivery {
+    if(subTotal!=null && subTotal!= ""){
+      double subTot= 0;
+      subTot = double.tryParse(subTotal!)!;
+      OrderItemModel? deliveryFeeItem = getDeliveryItem();
+      if(deliveryFeeItem!=null){
+        subTot = subTot -  deliveryFeeItem.price;
+      }
+      return subTot.toStringAsFixed(2);
+    }
+    else{
+      return "";
+    }
+  }
+  get getDeliveryFee {
+    if(subTotal!=null && subTotal!= ""){
+      double deliveryFee= 0;
+      OrderItemModel? deliveryFeeItem = getDeliveryItem();
+      if(deliveryFeeItem!=null){
+        deliveryFee = deliveryFeeItem.price;
+      }
+      return deliveryFee.toStringAsFixed(2);
+    }
+    else{
+      return "";
+    }
+  }
+  OrderItemModel? getDeliveryItem(){
+    for(var item in items!){
+      if(item.productId==shipmentInfo?.feeProductId){
+        return item;
+      }
+    }
+    return null;
+  }
+
   factory OrderModel.fromJson(Map<String, dynamic> json) {
     return OrderModel(
       subTotal: json['subTotal']?.toString() ?? '0',
@@ -49,7 +92,8 @@ class OrderModel{
       total: json['total']?.toString() ?? '0',
       orderId: json['orderId']?.toString() ?? '',
       orderCode: json['orderCode']?.toString() ?? '',
-      shipmentMethod: json['shipmentMethod']?.toString() ?? '',
+      shipmentMethodId: json['shipmentMethod']?.toString() ?? '',
+      shipmentCompanyId: json['shipmentCompany']?.toString() ?? '',
       trackingId: json['trackingId']?.toString() ?? '',
       paymentMethod: json['paymentMethod']?.toString() ?? '',
       paymentMethodId: json['paymentMethodId']?.toString() ?? '',
@@ -59,6 +103,7 @@ class OrderModel{
       deliveryDate: json['deliveryDate']?.toString() ?? '',
       paid: json['paid']?.toString() ?? '',
       remaining: json['remaining']?.toString() ?? '',
+      shipmentInfo: ShipmentInfoModel.fromJson(json['shipmentInfo']),
       items: (json['items'] as List<dynamic>?)
           ?.map((e) => OrderItemModel.fromJson(e))
           .toList() ??
@@ -75,7 +120,8 @@ class OrderModel{
       'deliveryFee': deliveryFee,
       'total': total,
       'orderId': orderId,
-      'shipmentMethod': shipmentMethod,
+      'shipmentMethodId': shipmentMethodId,
+      'shipmentCompanyId': shipmentCompanyId,
       'trackingId': trackingId,
       'paymentMethod': paymentMethod,
       'orderStatus': orderStatus,

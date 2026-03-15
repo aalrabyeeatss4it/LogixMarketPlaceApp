@@ -36,7 +36,12 @@ class AccountStatementController extends GetxController{
       box.write(debitPopupShown, true);
       Get.bottomSheet(
         Container(
-          padding: const EdgeInsets.all(20),
+          padding: EdgeInsets.only(
+            left: 20,
+            right: 20,
+            top: 20,
+            bottom: 20 + MediaQuery.of(Get.context!).viewPadding.bottom,
+          ),
           decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.vertical(
@@ -102,7 +107,7 @@ class AccountStatementController extends GetxController{
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset("icons/credit.png", width: 25,),
-                      SizedBox(width: 10,),
+                      const SizedBox(width: 10,),
                       Text('show payment methods'.tr, style: const TextStyle(fontSize: 20),),
                     ],
                   ),
@@ -110,7 +115,12 @@ class AccountStatementController extends GetxController{
               ),
               Padding(
                 padding: const EdgeInsets.all(12),
-                child: TextButton(onPressed: (){}, child: Text('later'.tr, style: TextStyle(color: Colors.black, fontSize: 24),)),
+                child: TextButton(
+                    onPressed: (){
+                      Get.back();
+                    },
+                    child: Text('later'.tr, style: const TextStyle(color: Colors.black, fontSize: 24),)
+                ),
               )
             ],
           ),
