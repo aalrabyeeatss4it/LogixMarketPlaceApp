@@ -92,7 +92,7 @@ Map<String, String> arabic = {
   'order subtotal': 'إجمالي الطلب الفرعي',
   'pay': 'تابع للدفع الآمن',
   'No categories': "لايوجد تصنيفات",
-  'No products': "No products",
+  'No products': "لايوجد منتجات",
   'new email': "البريد الالكتروني الجديد",
   'fill in email': 'ادخل البريد الالكتروني',
   'fill in new email': 'ادخل البريد الالكتروني الجديد..',

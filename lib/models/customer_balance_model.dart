@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 class CustomerBalanceModel {
   String? creditBalance;

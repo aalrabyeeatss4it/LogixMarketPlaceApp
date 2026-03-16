@@ -133,7 +133,7 @@ class ChangeEmailScreen   extends StatelessWidget{
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 80),
         child: SizedBox(
           height: 60,
           child: TextButton(

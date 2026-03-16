@@ -79,7 +79,7 @@ class ChangeLangScreen   extends StatelessWidget{
 
                   const Expanded(child: SizedBox()),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 80),
                     child: SizedBox(
                       height: 60,
                       child: TextButton(

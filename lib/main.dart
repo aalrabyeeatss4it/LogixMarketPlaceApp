@@ -1,6 +1,6 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -22,14 +22,17 @@ void main() async {
   HttpOverrides.global = MyHttpOverrides();
   await GetStorage.init();
   box.remove(debitPopupShown);
-  final deepLinkService = DeepLinkService();
+  DeepLinkService? deepLinkService;
+  if (!kIsWeb) {
+    deepLinkService = DeepLinkService();
+  }
 
   runApp(MyApp(deepLinkService: deepLinkService));
 }
 
 class MyApp  extends StatefulWidget {
-  const MyApp({super.key, required this.deepLinkService});
-  final DeepLinkService deepLinkService;
+  const MyApp({super.key, this.deepLinkService});
+  final DeepLinkService? deepLinkService;
 
   @override
   State<StatefulWidget> createState() => _MyAppState();
@@ -45,14 +48,14 @@ class _MyAppState  extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    widget.deepLinkService.init();
+    widget.deepLinkService?.init();
     // testDeepLink();
   }
 
   void testDeepLink() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final testUri = Uri.parse("https://market.logix-erp.com/p/12345");
-      widget.deepLinkService.handleDeepLink(testUri);
+      widget.deepLinkService?.handleDeepLink(testUri);
     });
   }
 
@@ -85,7 +88,7 @@ class _MyAppState  extends State<MyApp> {
   }
   @override
   void dispose() {
-    widget.deepLinkService.dispose();
+    widget.deepLinkService?.dispose();
     super.dispose();
   }
 
