@@ -134,7 +134,12 @@ class _AccountStatementScreenState extends State<AccountStatementScreen>{
                       itemCount: statementController.transModel.length + 1,
                       itemBuilder: (BuildContext context, int index) {
                         if(index < statementController.transModel.length){
-                          return TransactionCard(trans: statementController.transModel[index],ssoToken: tokenController.ssoToken.value,);
+                          if(statementController.transModel[index].docTypeId=="" || (statementController.transModel[index].docTypeId=="1" || statementController.transModel[index].docTypeId=="14")){
+                            return TransactionCard(trans: statementController.transModel[index],ssoToken: tokenController.ssoToken.value);
+                          }
+                          else{
+                            return const SizedBox();
+                          }
                         }
                         else{
                           return (statementController.hasMore && statementController.isLoading.value)?

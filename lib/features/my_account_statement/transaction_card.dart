@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:logix_market_place/features/my_account_statement/pdf_viewer_screen.dart';
 import 'package:logix_market_place/models/trans_model.dart';
@@ -93,7 +94,7 @@ class _TransactionCardState extends State<TransactionCard> {
                 ],
               ),
             ),
-            (widget.trans.docTypeId!="")?
+            (widget.trans.docTypeId!="" && (widget.trans.docTypeId=="1" || widget.trans.docTypeId=="14"))?
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 15),
               child: Row(
@@ -109,9 +110,27 @@ class _TransactionCardState extends State<TransactionCard> {
                           onPressed: () async {
                             String? reportUrl = widget.trans.getPrintUrl(box.read(userIdIndex), widget.ssoToken);
                             if(reportUrl!=null){
-                              await pdfController.loadPdf(reportUrl);
-                              if(pdfController.fileBytes.value != null && pdfController.fileBytes.value!.isNotEmpty) {
-                                await Printing.layoutPdf(onLayout: (_) async => pdfController.fileBytes.value!);
+                              try{
+                                await pdfController.loadPdf(reportUrl);
+                                final bytes = pdfController.fileBytes.value;
+                                if (bytes == null || bytes.isEmpty) {
+                                  Fluttertoast.showToast(msg: "Empty file");
+                                  return;
+                                }
+                                if(pdfController.fileBytes.value != null && pdfController.fileBytes.value!.isNotEmpty) {
+                                  // ✅ Validate PDF header
+                                  final header = String.fromCharCodes(bytes.take(5));
+                                  if (!header.startsWith('%PDF')) {
+                                    Fluttertoast.showToast(msg: "Invalid PDF file");
+                                    return;
+                                  }
+                                  await Printing.layoutPdf(onLayout: (_) async => pdfController.fileBytes.value!);
+                                }
+                              }
+                              catch(ex){
+                                Fluttertoast.showToast(
+                                  msg: "Print failed",
+                                );
                               }
                             }
                           },
@@ -140,10 +159,18 @@ class _TransactionCardState extends State<TransactionCard> {
                         onPressed: () async {
                           String? reportUrl = widget.trans.getPrintUrl(box.read(userIdIndex), widget.ssoToken);
                           if(reportUrl!=null){
-                            await pdfController.loadPdf(reportUrl);
-                            if(pdfController.fileBytes.value != null && pdfController.fileBytes.value!.isNotEmpty) {
-                              await Printing.sharePdf(bytes: pdfController.fileBytes.value!,filename: 'pdf_report.pdf');
+                            try{
+                              await pdfController.loadPdf(reportUrl);
+                              if(pdfController.fileBytes.value != null && pdfController.fileBytes.value!.isNotEmpty) {
+                                await Printing.sharePdf(bytes: pdfController.fileBytes.value!,filename: 'pdf_report.pdf');
+                              }
                             }
+                            catch(ex){
+                              Fluttertoast.showToast(
+                                msg: "Print failed",
+                              );
+                            }
+
                           }
                         },
                         style: ElevatedButton.styleFrom(

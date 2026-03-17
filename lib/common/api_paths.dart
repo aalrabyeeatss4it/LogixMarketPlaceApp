@@ -39,8 +39,13 @@ const guestProductsByIdPath = '/guest/products/';
 const guestRelatedProductsByIdPath = '/guest/products/related/';
 
 erpUrl() {
-  // return "https://www.qasserlaura.net";
-  return "http://localhost:8082";
+  if (isLoggedIn()) {
+    if (box.read(userNameIndex) == 'logixtest@ssit.net.sa') {
+      return "https://test.logix-erp.com";
+    }
+  }
+  return "https://www.qasserlaura.net";
+  // return "http://localhost:8082";
   // return "https://erp.ss4it.com.sa";
 }
 
@@ -50,8 +55,8 @@ advertisementErpUrl() {
       return "https://test.logix-erp.com/";
     }
   }
-  // return "https://www.qasserlaura.net";
-  return "http://localhost:8082";
+  return "https://www.qasserlaura.net";
+  // return "http://localhost:8082";
   // return "https://erp.ss4it.com.sa";
 }
 

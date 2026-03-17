@@ -213,5 +213,9 @@ Map<String, String> english = {
   'rial': "SAR ",
   'cheapest': " 🔥 Best value",
   'base price': "Base price",
+  "New update": "New update available!",
+  "Please update": "Please update to version {version}.",
+  "UPDATE": "UPDATE",
+  "LATER": "LATER",
   'welcome1': "Welcome",
 };

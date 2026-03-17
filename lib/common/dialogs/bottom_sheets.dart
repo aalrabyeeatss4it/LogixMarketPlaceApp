@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:new_version_plus/new_version_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../theme/colors.dart';
 void showCopyToast() {
   Get.rawSnackbar(
@@ -277,5 +279,53 @@ void showOrderConfirmBottomSheet({required String title,required String buttonLa
       ),
     ),
     isScrollControlled: true,
+  );
+}
+
+class AppLoader {
+  static bool _isOpen = false;
+
+  static void show() {
+    if (_isOpen) return;
+
+    _isOpen = true;
+
+    Get.dialog(
+      Center(
+        child: Container(
+          padding: const EdgeInsets.all(25),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: const CircularProgressIndicator(),
+        ),
+      ),
+      barrierDismissible: false,
+      barrierColor: Colors.black26,
+    );
+  }
+
+  static void hide() {
+    if (_isOpen) {
+      Get.back();
+      _isOpen = false;
+    }
+  }
+}
+void showForceUpdateDialog(BuildContext context, String appStoreUrl) {
+  showDialog(
+    barrierDismissible: false, // user cannot dismiss
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text('Update Required'),
+      content: Text('Please update the app to continue using it.'),
+      actions: [
+        TextButton(
+          onPressed: () => launchUrl(Uri.parse(appStoreUrl)),
+          child: Text('Update'),
+        ),
+      ],
+    ),
   );
 }

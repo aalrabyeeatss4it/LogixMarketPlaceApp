@@ -168,6 +168,7 @@ class OrderController extends GetxController{
     if(isLoading.value) return;
     try {
       isLoading.value = true;
+      AppLoader.show();
       var order = OrderModel();
       order.paymentMethod = paymentMethod.value.toString();
       order.deliveryAddressId = deliveryAddressId.value.toString();
@@ -178,6 +179,7 @@ class OrderController extends GetxController{
 
       order.items = cartController.items.map((item) => OrderItemModel.fromCartItem(item)).toList();
       var serviceResult = await service.createOrder(order);
+      AppLoader.hide();
       if (serviceResult is SuccessStatus<String>) {
         Get.back();
         cartController.clearCart();
@@ -198,7 +200,7 @@ class OrderController extends GetxController{
       }
     }
     catch(ex){
-      isLoading.value = false;
+      AppLoader.hide();
     }
     finally {
       isLoading.value = false;
@@ -206,7 +208,7 @@ class OrderController extends GetxController{
   }
 
   Future<OrderModel?> getOrder(String orderId) async {
-    isLoading.value = true;
+    // isLoading.value = true;
     try{
       var serviceResult = await service.getOrder(orderId);
       if(serviceResult is SuccessStatus<OrderModel>){
@@ -217,10 +219,10 @@ class OrderController extends GetxController{
       }
     }
     catch(ex){
-      isLoading.value = false;
+      // isLoading.value = false;
     }
     finally {
-      isLoading.value = false;
+      // isLoading.value = false;
     }
     return null;
   }

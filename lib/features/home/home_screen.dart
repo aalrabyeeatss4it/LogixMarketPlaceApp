@@ -6,6 +6,7 @@ import 'package:logix_market_place/controllers/product_controller.dart';
 import 'package:logix_market_place/features/home/home_category_card.dart';
 import 'package:logix_market_place/features/home/home_product_card.dart';
 import 'package:logix_market_place/common/widgets/section_title_card.dart';
+import 'package:new_version_plus/new_version_plus.dart';
 import '../../common/exit_wrapper.dart';
 import '../../common/nav/app_bar_custom.dart';
 import '../../common/nav/bottom_nav_bar_custom.dart';
@@ -27,10 +28,37 @@ class HomeScreenState extends State<HomeScreen> {
   final ProductController productController = Get.put(ProductController());
   final CartController cartController = Get.find<CartController>();
   final AccountStatementController statementController = Get.put(AccountStatementController());
+  void _manualCheck() async {
+    final newVersionPlus = NewVersionPlus(
+      androidId: "com.logix_erp.marketplace",
+      iOSId: "com.logix_erp.marketplace",
+    );
+
+    final status = await newVersionPlus.getVersionStatus();
+    if (!mounted) return;
+    if (status != null && status.canUpdate) {
+      // You can check versions
+      print("Installed: ${status.localVersion}");
+      print("Store: ${status.storeVersion}");
+      print("Update link: ${status.appStoreLink}");
+
+      // Show custom dialog
+      newVersionPlus.showUpdateDialog(
+        context: context,
+        versionStatus: status,
+        dialogTitle: "New update".tr,
+        dialogText: "Please update".tr.replaceAll("{version}", status.storeVersion),
+        updateButtonText: "UPDATE".tr,
+        dismissButtonText: "LATER".tr,
+        allowDismissal: true
+      );
+    }
+  }
 
   @override
   void initState() {
     super.initState();
+    _manualCheck();
     productController.getRecentlyArrived();
     productController.getMostRequested();
     categoryController.getAll();

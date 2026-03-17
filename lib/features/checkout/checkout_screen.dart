@@ -337,7 +337,7 @@ class _CheckoutScreenState extends State<CheckoutScreen>{
                                     borderRadius: BorderRadius.circular(10)
                                 )
                             ),
-                            onPressed: () {
+                            onPressed: orderController.isLoading.value? null : () {
                               if (!orderController.validateCheckout()) {
                                 return;
                               }
@@ -433,7 +433,8 @@ class _CheckoutScreenState extends State<CheckoutScreen>{
       ),
     );
   }
-    Widget shipmentMethodCard(String label, String iconId, int myValue, List<ShipmentCompanyModel> shipmentCompanies){
+
+  Widget shipmentMethodCard(String label, String iconId, int myValue, List<ShipmentCompanyModel> shipmentCompanies){
 
       bool isSelected = orderController.shipmentMethod.value == myValue;
     return Padding(
@@ -558,26 +559,6 @@ class _CheckoutScreenState extends State<CheckoutScreen>{
                         ],
                       ),
                     )),
-                    // Wrap(
-                    //   children: [
-                    //     Padding(
-                    //       padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 4),
-                    //       child: Text("choose company".tr, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-                    //     ),
-                    //     Obx(() => SizedBox(
-                    //       height: 120.h,
-                    //       child: ListView.builder(
-                    //         scrollDirection: Axis.horizontal,
-                    //         padding: const EdgeInsets.symmetric(horizontal: 8),
-                    //         itemCount: orderController.shipmentCompanies.length,
-                    //         itemBuilder: (context, index) {
-                    //           var company = orderController.shipmentCompanies[index];
-                    //           return Obx(()=> shipmentCompanyCard(company.getIconPath(),company.id, company.name));
-                    //         },
-                    //       ),
-                    //     )),
-                    //   ]
-                    // ),
                 ],
               )
           )
