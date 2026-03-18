@@ -8,6 +8,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  video_player: ^2.5.1
   new_version_plus: 0.0.11
   printing: ^5.13.1
   path_provider: any

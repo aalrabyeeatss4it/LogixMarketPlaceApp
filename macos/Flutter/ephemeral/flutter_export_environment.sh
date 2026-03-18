@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=/Users/logix/flutter"
-export "FLUTTER_APPLICATION_PATH=/Users/logix/Documents/My-Workspace/LogixMarketPlaceApp"
+export "FLUTTER_ROOT=D:\IDEs\flutter_3.22.1\flutter"
+export "FLUTTER_APPLICATION_PATH=D:\ss4it\Repos\Apps\LogixMarketPlaceApp"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
 export "FLUTTER_BUILD_NAME=1.0.16"
