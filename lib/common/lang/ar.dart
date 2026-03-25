@@ -173,8 +173,7 @@ Map<String, String> arabic = {
   'ok': 'موافق',
   'pending debit desc': "يوجد مبلغ مستحق على حسابك",
   'forget password': "نسيت كلمة المرور؟",
-  'fill in email to reset':
-      "أدخل البريد الإلكتروني المرتبط بحسابك لإعادة تعيين كلمة المرور",
+  'fill in email to reset': "أدخل البريد الإلكتروني المرتبط بحسابك لإعادة تعيين كلمة المرور",
   'send otp': "إرسال كود التحقق",
   'back to login': "العودة إلى تسجيل الدخول",
   'fill in otp': 'أدخل رمز التحقق',
@@ -218,5 +217,8 @@ Map<String, String> arabic = {
   "Please update": "يرجى تحديث التطبيق إلى الإصدار {version}.",
   "UPDATE": "تحديث",
   "LATER": "لاحقًا",
+  'Cancel': "تراجع",
+  'order confirm msg': 'هل تريد تأكيد إرسال الطلب؟',
+  'send': "إرسال",
   'welcome1': "مرحباً",
 };

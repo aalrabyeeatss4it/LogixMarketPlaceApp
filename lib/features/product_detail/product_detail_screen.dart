@@ -39,21 +39,20 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
     super.initState();
     final args = Get.arguments as Map<String, dynamic>;
     productId = args['productId'];
-
-    // WidgetsBinding.instance.addPostFrameCallback((_) => _loadProduct());
     tokenController.getToken();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _loadProduct();
-      for (var file in _productController.product.value.files!) {
-        final url = file.getFilePath(tokenController.ssoToken.value);
-        precacheImage(
-          CachedNetworkImageProvider(
-            url,
-            cacheKey: file.id.toString(),
-          ),
-          context,
-        );
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await _loadProduct();
+      if(_productController.product.value.files != null){
+        for (var file in _productController.product.value.files!) {
+          final url = file.getFilePath(tokenController.ssoToken.value);
+          precacheImage(
+            CachedNetworkImageProvider(
+              url,
+              cacheKey: file.id.toString(),
+            ),
+            context,
+          );
+        }
       }
     });
   }

@@ -36,6 +36,22 @@ void hideLoading() {
     Get.back();
   }
 }
+void showForceUpdateDialog(BuildContext context, String appStoreUrl) {
+  showDialog(
+    barrierDismissible: false, // user cannot dismiss
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text('Update Required'),
+      content: Text('Please update the app to continue using it.'),
+      actions: [
+        TextButton(
+          onPressed: () => launchUrl(Uri.parse(appStoreUrl)),
+          child: Text('Update'),
+        ),
+      ],
+    ),
+  );
+}
 void showFailureBottomSheet({required VoidCallback onConfirm,String? errorMessage}) {
   Get.bottomSheet(
       Container(
@@ -263,7 +279,7 @@ void showOrderConfirmBottomSheet({required String title,required String buttonLa
                       children: [
                         Text(
                             buttonLabel,
-                            style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 16)
+                            style: const TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 16)
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 20.0),
@@ -271,6 +287,94 @@ void showOrderConfirmBottomSheet({required String title,required String buttonLa
                         )
                       ],
                     )
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
+    ),
+    isScrollControlled: true,
+  );
+}
+void showActionConfirmBottomSheet({required String title,required String buttonLabel,required VoidCallback onConfirm}) {
+  Get.bottomSheet(
+    Container(
+      padding: EdgeInsets.only(
+        left: 20,
+        right: 20,
+        top: 20,
+        bottom: 20 + MediaQuery.of(Get.context!).viewPadding.bottom,
+      ),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            height: 4,
+            width: 40,
+            margin: const EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
+          Text(
+            title,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 30),
+          Row(
+            children: [
+              Expanded(
+                child: OutlinedButton(
+                  onPressed: () {
+                    Get.back(); // close sheet
+                  },
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    side: BorderSide(color: Colors.grey.shade400),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: Text("Cancel".tr,style: const TextStyle(fontSize: 16)),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () {
+                    Get.back(); // close first
+                    onConfirm(); // then execute
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: primaryColor,
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        buttonLabel,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -312,20 +416,4 @@ class AppLoader {
       _isOpen = false;
     }
   }
-}
-void showForceUpdateDialog(BuildContext context, String appStoreUrl) {
-  showDialog(
-    barrierDismissible: false, // user cannot dismiss
-    context: context,
-    builder: (context) => AlertDialog(
-      title: Text('Update Required'),
-      content: Text('Please update the app to continue using it.'),
-      actions: [
-        TextButton(
-          onPressed: () => launchUrl(Uri.parse(appStoreUrl)),
-          child: Text('Update'),
-        ),
-      ],
-    ),
-  );
 }

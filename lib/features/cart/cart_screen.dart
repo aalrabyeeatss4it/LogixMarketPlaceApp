@@ -66,7 +66,7 @@ class CartScreen extends StatelessWidget{
                                 itemBuilder: (BuildContext context, int index) {
                                   return CartProductCard(cartItem: cartController.items[index]);
                                 }
-                                ),
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               mainAxisSize: MainAxisSize.max,

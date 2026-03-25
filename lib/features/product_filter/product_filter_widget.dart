@@ -32,8 +32,8 @@ class ProductFilterWidget extends StatelessWidget{
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(),
-                  Text('filters'.tr,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                  const SizedBox(),
+                  Text('filters'.tr,style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
                   IconButton(
                     icon: const Icon(Icons.close),
                     onPressed: () {
@@ -42,9 +42,9 @@ class ProductFilterWidget extends StatelessWidget{
                   ),
                 ],
               ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Text('product code',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 12),
+                child: Text('product code'.tr,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
               ),
               Container(
                   decoration: BoxDecoration(

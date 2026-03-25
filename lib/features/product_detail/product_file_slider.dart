@@ -17,7 +17,7 @@ class ProductFileSlider extends StatefulWidget {
   State<StatefulWidget> createState() => _ProductFileSliderState();
 }
 class _ProductFileSliderState extends State<ProductFileSlider>{
-
+  bool _initialized = false;
   final TokenController tokenController = Get.put(TokenController());
   final ProductFileController controller = Get.put(ProductFileController());
   List<VideoPlayerController?> videoControllers = [];
@@ -25,12 +25,14 @@ class _ProductFileSliderState extends State<ProductFileSlider>{
   void initState() {
     super.initState();
     tokenController.getToken();
-    _initVideoControllers();
+    // _initVideoControllers();
   }
 
   void _initVideoControllers() {
+    videoControllers.clear();
     for (var file in widget.files!) {
       final url = file.getFilePath(tokenController.ssoToken.value);
+      print("INIT VIDEO: $url");
       if (_isVideo(url)) {
         Uri uri = Uri.parse(url);
         VideoPlayerController controller = VideoPlayerController.networkUrl(
@@ -38,7 +40,10 @@ class _ProductFileSliderState extends State<ProductFileSlider>{
           videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true),
         );
         controller.initialize().then((_) {
-          setState(() {}); // refresh when video is ready
+          setState(() {});
+          print("VIDEO INITIALIZED: $url");
+        }).catchError((e) {
+          print("VIDEO INIT ERROR: $url -> $e"); // catch errors
         });
         videoControllers.add(controller);
       } else {
@@ -75,6 +80,10 @@ class _ProductFileSliderState extends State<ProductFileSlider>{
         );
       }
 
+      if (!_initialized) {
+        _initVideoControllers();
+        _initialized = true;
+      }
       return  SizedBox(
         width: myWidth,
         height: myWidth * 0.45,
@@ -97,7 +106,11 @@ class _ProductFileSliderState extends State<ProductFileSlider>{
                     final url = fileList[index].getFilePath(tokenController.ssoToken.value);
                     final videoController = videoControllers[index];
 
+                    print("videoController:${videoController != null }");
+                    print("videoController isInitialized:${ videoController?.value.isInitialized}");
+                    print("videoController:"+url);
                     if (videoController != null && videoController.value.isInitialized) {
+                      print("is videoController:");
                       return GestureDetector(
                         onTap: () {
                           if (videoController.value.isPlaying) {
