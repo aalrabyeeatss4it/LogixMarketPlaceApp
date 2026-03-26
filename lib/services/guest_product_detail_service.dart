@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:logix_market_place/common/api_paths.dart';
 import 'package:logix_market_place/models/product_model.dart';
-import 'package:logix_market_place/services/my_service.dart';
 import 'package:logix_market_place/services/product_detail_service.dart';
 
 class GuestProductDetailService extends ProductDetailService {

@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +9,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:logix_market_place/common/nav/page_routes.dart';
 import 'package:logix_market_place/common/theme/colors.dart';
 import 'package:logix_market_place/controllers/login_controller.dart';
+import 'package:logix_market_place/services/notification_service.dart';
 import 'common/dynamic_links/deep_link_service.dart';
 import 'common/lang/app_translations.dart';
 import 'common/localization/localization_controller.dart';
@@ -15,12 +18,13 @@ import 'controllers/app_bindings.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // SystemChrome.setEnabledSystemUIMode(
-  //   SystemUiMode.edgeToEdge,
-  // );
+  await Firebase.initializeApp();
+  await GetStorage.init();
+
+  await NotificationService.init();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   HttpOverrides.global = MyHttpOverrides();
-  await GetStorage.init();
   box.remove(debitPopupShown);
   DeepLinkService? deepLinkService;
   if (!kIsWeb) {
@@ -101,4 +105,9 @@ class MyHttpOverrides extends HttpOverrides {
     client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
     return client;
   }
+}
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  print("Background message: ${message.messageId}");
 }
