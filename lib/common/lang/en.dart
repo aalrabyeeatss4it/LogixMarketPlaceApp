@@ -217,5 +217,8 @@ Map<String, String> english = {
   "Please update": "Please update to version {version}.",
   "UPDATE": "UPDATE",
   "LATER": "LATER",
+  'Cancel': "Cancel",
+  'order confirm msg': 'Are you sure you want to send the order?',
+  'send': "Send",
   'welcome1': "Welcome",
 };

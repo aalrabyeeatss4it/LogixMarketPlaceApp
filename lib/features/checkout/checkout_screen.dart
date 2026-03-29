@@ -46,6 +46,8 @@ class _CheckoutScreenState extends State<CheckoutScreen>{
                       SizedBox(height: 16.h),
                       SectionTitleCard(title: 'checkout'.tr),
                       SizedBox(height: 25.h),
+                      SectionTitleCard(title: 'delivery address'.tr,fontSize: 14),
+                      SizedBox(height: 10.h),
                       Obx(() {
                         final defaultAddress = orderController.deliveryAddress.value;
                         bool isAddressMissing = defaultAddress == null || defaultAddress.id==null;
@@ -63,73 +65,37 @@ class _CheckoutScreenState extends State<CheckoutScreen>{
                           padding: const EdgeInsets.all(8),
                           margin: const EdgeInsets.symmetric(horizontal: 8),
                           child: isAddressMissing? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              Text(
+                              if(orderController.addressErrorMessage.value.isNotEmpty)Text(
                                 orderController.addressErrorMessage.value,
                                 style: const TextStyle(
                                   color: Colors.red,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              const SizedBox(height: 8),
-                              SectionTitleCard(
-                                title: 'delivery address'.tr,
-                                fontSize: 14,
+                              // SectionTitleCard(title: 'delivery address'.tr,fontSize: 14),
+                              InkWell(
+                                onTap: () async {
+                                  var result = await Get.to(() => const ChooseDeliveryAddressList());
+                                  if (result != null) {
+                                    if (result != null && result is DeliveryAddressModel) {
+                                      orderController.deliveryAddress.value = result;
+                                      orderController.deliveryAddressId.value = result.id ?? 0;
+                                    }
+                                  }
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                                  child: Text('update address'.tr,style: const TextStyle(fontSize: 16,color: Colors.indigo,decoration: TextDecoration.underline,)),
+                                ),
                               ),
-                              TextButton(
-                                  onPressed: () {
-                                    Get.toNamed(RouteNames.newAddressPage);
-                                  },
-                                  child: Text(
-                                      'adding new address'.tr,
-                                      style: const TextStyle(
-                                        color: Colors.indigo,
-                                        decoration: TextDecoration.underline,
-                                      )
-                                  )
-                              )
                             ],
                           ): addressCard(defaultAddress),
                         );
                       }),
                       SizedBox(height: 25.h),
                       SectionTitleCard(title: 'payment method'.tr),
-                      // Padding(
-                      //   padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 2),
-                      //   child: Obx(()=>
-                      //      Card(
-                      //       elevation: 0,
-                      //       color: Colors.white,
-                      //       shape: RoundedRectangleBorder(
-                      //           borderRadius: BorderRadius.circular(15),
-                      //           side: const BorderSide(color: grayBorderColor1,width: 1)
-                      //       ),
-                      //       child: Padding(
-                      //         padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 4),
-                      //         child: Row(
-                      //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //           children: [
-                      //             Row(
-                      //               children: [
-                      //                 Image.asset("icons/apple-pay.png",height: 35,),
-                      //                 SizedBox(width: 5),
-                      //                 const Text("Apple Pay")
-                      //               ],
-                      //             ),
-                      //             Radio(
-                      //                 value: 1,
-                      //                 groupValue: orderController.paymentMethod.value,
-                      //                 onChanged: (val) {
-                      //                   if(val!=null) orderController.paymentMethod.value = val;
-                      //                 }
-                      //                 )
-                      //           ],
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 2),
                         child: Obx(()=>
@@ -165,22 +131,22 @@ class _CheckoutScreenState extends State<CheckoutScreen>{
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 6),
-                        child: Row(
-                          children: [
-                            Image.asset("icons/add-card.png",height: 35,width: 30,),
-                            const SizedBox(width: 5),
-                            const Text("أضف بطاقة فيزا / ائتمان",
-                              style: TextStyle(
-                                color: primaryColor,
-                                decoration: TextDecoration.underline,
-                                fontSize: 16
-                              )
-                            )
-                          ],
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 6),
+                      //   child: Row(
+                      //     children: [
+                      //       Image.asset("icons/add-card.png",height: 35,width: 30,),
+                      //       const SizedBox(width: 5),
+                      //       const Text("أضف بطاقة فيزا / ائتمان",
+                      //         style: TextStyle(
+                      //           color: primaryColor,
+                      //           decoration: TextDecoration.underline,
+                      //           fontSize: 16
+                      //         )
+                      //       )
+                      //     ],
+                      //   ),
+                      // ),
                       Obx(() => Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -605,7 +571,6 @@ class _CheckoutScreenState extends State<CheckoutScreen>{
             ),
           ),
         ),
-
         InkWell(
           onTap: () async {
             var result = await Get.to(() => const ChooseDeliveryAddressList());

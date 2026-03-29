@@ -8,10 +8,12 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:logix_market_place/models/product_model.dart';
 
+import '../../common/dialogs/bottom_sheets.dart';
 import '../../common/nav/page_routes.dart';
 import '../../common/theme/colors.dart';
 import '../../controllers/cart_controller.dart';
 import '../../controllers/fav_controller.dart';
+import '../../controllers/opportunity_controller.dart';
 import '../../models/cart_item_model.dart';
 
 class CategoryProductCard extends StatelessWidget {
@@ -19,6 +21,8 @@ class CategoryProductCard extends StatelessWidget {
   ProductModel product;
   final CartController cartController = Get.find<CartController>();
   final FavController favController = Get.find<FavController>();
+  final OpportunityController opportunityController = Get.put(OpportunityController());
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -128,12 +132,37 @@ class CategoryProductCard extends StatelessWidget {
                                         mainAxisAlignment: MainAxisAlignment.end,
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
-
                                           Obx(() {
-                                            bool added = cartController.inCart(
-                                                product.id);
-                                            CartItemModel? item = cartController
-                                                .getItem(product.id);
+                                            bool added = cartController.inCart(product.id);
+                                            CartItemModel? item = cartController.getItem(product.id);
+                                            if(product.isAvailable(1) == -1){
+                                              return SizedBox(
+                                                  child: Container(
+                                                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                                                      child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+                                                        Padding(
+                                                          padding: const EdgeInsets.all(8.0),
+                                                          child: InkWell(
+                                                            onTap: (){
+                                                              showActionConfirmBottomSheet(title: 'order confirm msg'.tr, buttonLabel: 'send'.tr, onConfirm: () {
+                                                                opportunityController.requestToProvide(product);
+                                                              });
+                                                            },
+                                                            child: Container(
+                                                              padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 30),
+                                                              decoration: const BoxDecoration(
+                                                                  color: secondaryColor,
+                                                                  borderRadius: BorderRadius.all(Radius.circular(20))
+                                                              ),
+                                                              child: Text('request to provide'.tr, style: const TextStyle(color: Colors.white),),
+                                                            ),
+                                                          ),
+                                                        )
+                                                      ]
+                                                      )
+                                                  )
+                                              );
+                                            }
                                             if (added) {
                                               return Padding(
                                                 padding: const EdgeInsets.all(

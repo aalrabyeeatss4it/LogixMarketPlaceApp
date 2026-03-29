@@ -40,8 +40,10 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
                       children: [
                         Text('delivery addresses'.tr, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900)),
                         TextButton(
-                            onPressed: () {
-                              Get.toNamed(RouteNames.newAddressPage);
+                            onPressed: () async {
+                              await Get.toNamed(RouteNames.newAddressPage);
+
+                              addressController.getAddresses();
                             },
                             child: Text(
                                 'adding new address'.tr,
@@ -108,8 +110,9 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
                                                         : [],
                                                   ),
                                                   child: InkWell(
-                                                    onTap: () {
-                                                      Get.toNamed(RouteNames.editAddressPage, arguments: addressController.addresses[index]);
+                                                    onTap: () async {
+                                                      await Get.toNamed(RouteNames.editAddressPage, arguments: addressController.addresses[index]);
+
                                                     },
                                                     child: Row(
                                                         children: [

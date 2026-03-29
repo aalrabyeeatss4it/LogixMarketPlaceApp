@@ -5,6 +5,7 @@ import 'package:logix_market_place/controllers/fav_controller.dart';
 import 'package:logix_market_place/models/cart_item_model.dart';
 import 'package:logix_market_place/models/product_model.dart';
 
+import '../../common/dialogs/bottom_sheets.dart';
 import '../../common/nav/page_routes.dart';
 import '../../common/theme/colors.dart';
 import '../../controllers/cart_controller.dart';
@@ -138,7 +139,10 @@ class HomeProductCard extends StatelessWidget {
                               ),
                             ): InkWell(
                               onTap: (){
-                                opportunityController.requestToProvide(product);
+                                showActionConfirmBottomSheet(title: 'order confirm msg'.tr, buttonLabel: 'send'.tr, onConfirm: () {
+                                  opportunityController.requestToProvide(product);
+                                });
+
                               },
                               child: Container(
                                 padding: const EdgeInsets.all(8),

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:logix_market_place/common/theme/colors.dart';
 import 'package:logix_market_place/controllers/token_controller.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:video_player/video_player.dart';
 import '../../controllers/announcement_controller.dart';
 import '../../controllers/product_file_controller.dart';
 import '../../models/product_image_model.dart';
@@ -16,19 +17,55 @@ class ProductFileSlider extends StatefulWidget {
   State<StatefulWidget> createState() => _ProductFileSliderState();
 }
 class _ProductFileSliderState extends State<ProductFileSlider>{
-
+  bool _initialized = false;
   final TokenController tokenController = Get.put(TokenController());
   final ProductFileController controller = Get.put(ProductFileController());
-
+  List<VideoPlayerController?> videoControllers = [];
   @override
   void initState() {
     super.initState();
     tokenController.getToken();
+    // _initVideoControllers();
+  }
+
+  void _initVideoControllers() {
+    videoControllers.clear();
+    for (var file in widget.files!) {
+      final url = file.getFilePath(tokenController.ssoToken.value);
+      print("INIT VIDEO: $url");
+      if (_isVideo(url)) {
+        Uri uri = Uri.parse(url);
+        VideoPlayerController controller = VideoPlayerController.networkUrl(
+          uri,
+          videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true),
+        );
+        controller.initialize().then((_) {
+          setState(() {});
+          print("VIDEO INITIALIZED: $url");
+        }).catchError((e) {
+          print("VIDEO INIT ERROR: $url -> $e"); // catch errors
+        });
+        videoControllers.add(controller);
+      } else {
+        videoControllers.add(null); // placeholder for images
+      }
+    }
+  }
+
+  bool _isVideo(String url) {
+    final ext = url.split('.').last.toLowerCase();
+    return ['mp4', 'mov', 'webm'].contains(ext);
+  }
+  @override
+  void dispose() {
+    for (var controller in videoControllers) {
+      controller?.dispose();
+    }
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    print("ProductFileSlider"+widget.files!.length.toString());
     if (widget.files != null && widget.files!.isEmpty) {
       return const Center();
     }
@@ -43,6 +80,10 @@ class _ProductFileSliderState extends State<ProductFileSlider>{
         );
       }
 
+      if (!_initialized) {
+        _initVideoControllers();
+        _initialized = true;
+      }
       return  SizedBox(
         width: myWidth,
         height: myWidth * 0.45,
@@ -63,46 +104,78 @@ class _ProductFileSliderState extends State<ProductFileSlider>{
                   itemCount: fileList.length,
                   itemBuilder: (context, index, realIndex) {
                     final url = fileList[index].getFilePath(tokenController.ssoToken.value);
-                    print("file.url"+url);
-                    return Container(
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: GestureDetector(
-                          onTap: () {
-                            Get.to(() => Scaffold(
-                              backgroundColor: Colors.black,
-                              body: Center(
-                                child: PhotoView(
-                                  imageProvider: CachedNetworkImageProvider(
-                                    url,
-                                    headers: {"token": tokenController.ssoToken.value},
-                                  ),
-                                  minScale: PhotoViewComputedScale.contained,
-                                  maxScale: PhotoViewComputedScale.covered * 3,
-                                  backgroundDecoration: const BoxDecoration(color: Colors.black),
-                                ),
-                              ),
-                            ));
-                          },
-                          child: CachedNetworkImage(
-                            cacheKey: fileList[index].id.toString(),
-                            imageUrl: url,
-                            httpHeaders: {
-                              "token": tokenController.ssoToken.value
-                            },
-                            memCacheWidth: (myWidth * MediaQuery.of(context).devicePixelRatio).toInt(),
-                            maxWidthDiskCache: 1200,
-                            fadeInDuration: const Duration(milliseconds: 200),
-                            fadeOutDuration: const Duration(milliseconds: 200),
-                            placeholder: (_, __) => Image.asset("assets/placeholder_3x1.png", fit: BoxFit.cover),
-                            errorWidget: (_, __, ___) => Image.asset("assets/placeholder_3x1.png", fit: BoxFit.cover),
-                            fit: BoxFit.contain,
-                            width: double.infinity,
+                    final videoController = videoControllers[index];
+
+                    print("videoController:${videoController != null }");
+                    print("videoController isInitialized:${ videoController?.value.isInitialized}");
+                    print("videoController:"+url);
+                    if (videoController != null && videoController.value.isInitialized) {
+                      print("is videoController:");
+                      return GestureDetector(
+                        onTap: () {
+                          if (videoController.value.isPlaying) {
+                            videoController.pause();
+                          } else {
+                            videoController.play();
+                          }
+                          setState(() {});
+                        },
+                        child: AspectRatio(
+                          aspectRatio: videoController.value.aspectRatio,
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              VideoPlayer(videoController),
+                              if (!videoController.value.isPlaying)
+                                const Icon(Icons.play_circle_outline, size: 60, color: Colors.white70),
+                            ],
                           ),
                         ),
-                      ),
-                    );
+                      );
+                    } else {
+                      return Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10)),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: GestureDetector(
+                            onTap: () {
+                              Get.to(() =>
+                                  Scaffold(
+                                    backgroundColor: Colors.black,
+                                    body: Center(
+                                      child: PhotoView(
+                                        imageProvider: CachedNetworkImageProvider(
+                                          url,
+                                          headers: {
+                                            "token": tokenController.ssoToken.value
+                                          },
+                                        ),
+                                        minScale: PhotoViewComputedScale.contained,
+                                        maxScale: PhotoViewComputedScale.covered * 3,
+                                        backgroundDecoration: const BoxDecoration(color: Colors.black)),
+                                    ),
+                                  ));
+                            },
+                            child: CachedNetworkImage(
+                              cacheKey: fileList[index].id.toString(),
+                              imageUrl: url,
+                              httpHeaders: {
+                                "token": tokenController.ssoToken.value
+                              },
+                              memCacheWidth: (myWidth * MediaQuery.of(context).devicePixelRatio).toInt(),
+                              maxWidthDiskCache: 1200,
+                              fadeInDuration: const Duration(milliseconds: 200),
+                              fadeOutDuration: const Duration(milliseconds: 200),
+                              placeholder: (_, __) => Image.asset("assets/placeholder_3x1.png",fit: BoxFit.cover),
+                              errorWidget: (_, __, ___) => Image.asset("assets/placeholder_3x1.png",fit: BoxFit.cover),
+                              fit: BoxFit.contain,
+                              width: double.infinity,
+                            ),
+                          ),
+                        ),
+                      );
+                    }
                   }
               ),
               Positioned(

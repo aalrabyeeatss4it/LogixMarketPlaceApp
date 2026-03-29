@@ -1,13 +1,14 @@
 name: logix_market_place
 description: "logix market place app"
 publish_to: 'none'
-version: 1.0.16+16
+version: 1.0.18+18
 
 environment:
   sdk: '>=3.4.1 <4.0.0'
 dependencies:
   flutter:
     sdk: flutter
+  video_player: ^2.5.1
   new_version_plus: 0.0.11
   printing: ^5.13.1
   path_provider: any
@@ -31,6 +32,9 @@ dependencies:
   google_maps_flutter: ^2.5.0
   geocoding: ^2.1.0
   geolocator: ^10.1.0
+  firebase_core: ^4.6.0
+  firebase_messaging: ^16.1.3
+  flutter_local_notifications: ^18.0.1
 
 
 dev_dependencies:

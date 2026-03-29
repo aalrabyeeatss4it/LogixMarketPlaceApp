@@ -37,6 +37,7 @@ const guestCategoriesPath = '/guest/categories';
 const guestProductsPath = '/guest/products';
 const guestProductsByIdPath = '/guest/products/';
 const guestRelatedProductsByIdPath = '/guest/products/related/';
+const sendFcmTokenPath = '/notifications/save-fcm-token';
 
 erpUrl() {
   if (isLoggedIn()) {

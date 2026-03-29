@@ -42,6 +42,18 @@ class _ChooseDeliveryAddressListState extends State<ChooseDeliveryAddressList> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Text('choose address'.tr, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900)),
+                        TextButton(
+                            onPressed: () {
+                              Get.toNamed(RouteNames.newAddressPage);
+                            },
+                            child: Text(
+                                'adding new address'.tr,
+                                style: const TextStyle(
+                                  color: Colors.indigo,
+                                  decoration: TextDecoration.underline,
+                                )
+                            )
+                        )
                       ],
                     ),
                   ),
