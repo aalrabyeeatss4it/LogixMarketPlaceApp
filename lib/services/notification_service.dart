@@ -1,6 +1,9 @@
 import 'dart:convert';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart';
 import 'package:logix_market_place/services/service_result.dart';
@@ -41,7 +44,7 @@ class NotificationService {
     // Foreground
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print('Foreground message: ${message.notification?.title}');
-      _showNotification(message);
+      //_showNotification(message);
     });
 
     // Background (app in background)
@@ -106,4 +109,45 @@ class NotificationService {
     return FailureStatus(errorMessage: 'حدث خطأ اثناء تنفيذ الطلب، الرجاء المحاولة مرة اخرى.');
     }
 
+}
+
+class DefaultFirebaseOptions {
+  static FirebaseOptions get currentPlatform {
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.android:
+        return android;
+      case TargetPlatform.iOS:
+        return ios;
+
+      case TargetPlatform.windows:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for windows - '
+              'you can reconfigure this by running the FlutterFire CLI again.',
+        );
+      case TargetPlatform.linux:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for linux - '
+              'you can reconfigure this by running the FlutterFire CLI again.',
+        );
+      default:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions are not supported for this platform.',
+        );
+    }
+  }
+
+  static const FirebaseOptions android = FirebaseOptions(
+    apiKey: 'AIzaSyD5BpERBaGwMlJNwPC7Z7DHWzeec2uTrw0',
+    appId: '1:477894708482:android:430c94dede884103f0861b',
+    messagingSenderId: '477894708482',
+    projectId: 'logix-market-place',
+    storageBucket: 'logix-ss-ea7d1.appspot.com',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyD5BpERBaGwMlJNwPC7Z7DHWzeec2uTrw0',
+    appId: '1:477894708482:ios:34d0df5dd7142d7ff0861b',
+    messagingSenderId: '477894708482',
+    projectId: 'logix-market-place',
+  );
 }

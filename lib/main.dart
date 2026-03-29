@@ -18,11 +18,14 @@ import 'controllers/app_bindings.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+      name: "Logix-Market-Place",
+      options: DefaultFirebaseOptions.currentPlatform
+  );
   await GetStorage.init();
 
   await NotificationService.init();
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   HttpOverrides.global = MyHttpOverrides();
   box.remove(debitPopupShown);
