@@ -14,6 +14,7 @@ import '../../common/storage/local_storage.dart';
 import '../../common/theme/colors.dart';
 import '../../controllers/cart_controller.dart';
 import '../../controllers/fav_controller.dart';
+import '../../controllers/opportunity_controller.dart';
 import '../../controllers/product_detail_controller.dart';
 import '../../controllers/token_controller.dart';
 import '../../models/cart_item_model.dart';
@@ -30,6 +31,7 @@ class ProductDetailScreen extends StatefulWidget {
 class ProductDetailScreenState extends State<ProductDetailScreen> {
   late final int productId;
   final ProductDetailController _productController = Get.put(ProductDetailController());
+  final OpportunityController opportunityController = Get.put(OpportunityController());
   final CartController cartController = Get.find<CartController>();
   final FavController favController = Get.find<FavController>();
 
@@ -312,6 +314,36 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
               actionRow:  Obx(() {
                 if(_productController.product.value.id == 0 || !isLoggedIn()){
                   return const SizedBox();
+                }
+                if(_productController.product.value.isAvailable(1) == -1){
+                  return SizedBox(
+                      child: Container(
+                        color: Colors.white,
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: InkWell(
+                              onTap: (){
+                                showActionConfirmBottomSheet(title: 'order confirm msg'.tr, buttonLabel: 'send'.tr, onConfirm: () {
+                                  opportunityController.requestToProvide(_productController.product.value);
+                                });
+
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 30),
+                                decoration: const BoxDecoration(
+                                    color: secondaryColor,
+                                    borderRadius: BorderRadius.all(Radius.circular(20))
+                                ),
+                                child: Text('request to provide'.tr, style: const TextStyle(color: Colors.white),),
+                              ),
+                            ),
+                          )
+                        ]
+                        )
+                      )
+                  );
                 }
                 return SizedBox(
                   child: Container(

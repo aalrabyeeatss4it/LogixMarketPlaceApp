@@ -109,6 +109,7 @@ class _TransactionCardState extends State<TransactionCard> {
                           ElevatedButton(
                           onPressed: () async {
                             String? reportUrl = widget.trans.getPrintUrl(box.read(userIdIndex), widget.ssoToken);
+                            print("reportUrl:"+reportUrl.toString());
                             if(reportUrl!=null){
                               try{
                                 await pdfController.loadPdf(reportUrl);

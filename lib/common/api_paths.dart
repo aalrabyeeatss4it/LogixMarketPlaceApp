@@ -1,12 +1,12 @@
 import 'package:logix_market_place/common/storage/local_storage.dart';
 
 // const baseUrl = "http://10.0.2.2:5014/api/v1";
-const baseUrl = 'http://localhost:5014/api/v1';
+// const baseUrl = 'http://localhost:5014/api/v1';
 // const baseUrl = 'http://192.168.100.67:5014/api/v1';
 // const baseUrl = 'https://localhost:44362/api/v1';
 // const baseUrl = 'https://localhost:7171/api/v1';
 // const baseUrl = 'https://api.ecommerce.logix-erp.com/api/v1';
-// const baseUrl = 'https://api.ecommerce.qasserlaura.net/api/v1';
+const baseUrl = 'https://api.ecommerce.qasserlaura.net/api/v1';
 const categoriesPath = '/categories';
 const announcementsPath = '/announcements';
 const productsPath = '/products';

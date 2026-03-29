@@ -54,6 +54,7 @@ class NotificationService {
     RemoteMessage? initialMessage = await FirebaseMessaging.instance.getInitialMessage();
     if (initialMessage != null) {
       print('Terminated state notification: ${initialMessage.notification?.title}');
+      _showNotification(initialMessage);
     }
   }
 
