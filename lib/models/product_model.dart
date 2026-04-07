@@ -55,7 +55,7 @@ class ProductModel {
         name: json['name'],
         desc: json['desc'],
         basePrice: json['price'],
-        offerPrice: json['offerPrice'],
+        offerPrice: (json['offerPrice'] as num).toDouble(),
         vat: json['vaT_Rate']??0,
         unitId: json['unitId'],
         discountPercentage: json['discountPercentage'],
@@ -109,7 +109,7 @@ class ProductModel {
   //Computed Values
   double get lastPrice {
     if(offerPrice.value > 0){
-      return (offerPrice.value*100)/(100+vat);
+      return offerPrice.value;
     }
     else{
       return basePrice.value;
@@ -165,7 +165,7 @@ class ProductModel {
       productId: id,
       qtyFrom: 1,
       qtyTo: 1,
-      price:  double.parse(basePriceIncludeVat.toStringAsFixed(2)),
+      price:  double.parse(basePrice.value.toStringAsFixed(2)),
     );
 
     return [baseOffer, ...offers];

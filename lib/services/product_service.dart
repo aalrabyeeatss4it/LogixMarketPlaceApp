@@ -46,13 +46,4 @@ class ProductService extends MyService{
     }
     return [];
   }
-
-  Future<List<ProductModel>> getByCategory(String filters) async {
-    Response response  = await getData("$recentlyArrivedPath?$filters");
-    if(response.statusCode == 200){
-      var list = ProductModel.fromJsonList(jsonDecode(response.body));
-      return list;
-    }
-    return [];
-  }
 }

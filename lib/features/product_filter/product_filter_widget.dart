@@ -37,7 +37,7 @@ class ProductFilterWidget extends StatelessWidget{
                   IconButton(
                     icon: const Icon(Icons.close),
                     onPressed: () {
-                      Get.back(); // closes the bottom sheet
+                      Get.back();
                     },
                   ),
                 ],

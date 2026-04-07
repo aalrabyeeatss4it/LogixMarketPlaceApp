@@ -31,19 +31,19 @@ class CategoryProductCard extends StatelessWidget {
       if (item != null) {
         product = item.product;
       }
-      return InkWell(
-        onTap: (){
-          Get.toNamed(RouteNames.productDetailPage, arguments: {
-            'productId': product.id,
-          });
-        },
-        child: Card(
-            child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
+      return Card(
+          child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    InkWell(
+                      onTap: (){
+                        Get.toNamed(RouteNames.productDetailPage, arguments: {
+                          'productId': product.id,
+                        });
+                      },
+                      child: SizedBox(
                           width: 120,
                           height: 120,
                           child: Card(
@@ -71,222 +71,233 @@ class CategoryProductCard extends StatelessWidget {
                               )
                           )
                       ),
-                      Expanded(
-                          child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0),
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(product.productCode!,maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
-                                    Text(product.name, style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w700),
-                                        softWrap: true,
-                                        overflow: TextOverflow.visible,
-                                        maxLines: null
-                                    ),
+                    ),
+                    Expanded(
+                        child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8.0),
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  InkWell(
+                                    onTap: (){
+                                      Get.toNamed(RouteNames.productDetailPage, arguments: {
+                                        'productId': product.id,
+                                      });
+                                    },
+                                    child: Column(
+                                      children: [
+                                        Text(product.productCode!,maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+                                        Text(product.name, style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w700),
+                                            softWrap: true,
+                                            overflow: TextOverflow.visible,
+                                            maxLines: null
+                                        ),
 
-                                    // const Row(
-                                    //     mainAxisSize: MainAxisSize.min,
-                                    //     mainAxisAlignment: MainAxisAlignment.start,
-                                    //     children: [
-                                    //       Text('الخيارات:'),
-                                    //       SizedBox(width: 5),
-                                    //       Text('2 مقاسات', style: TextStyle(fontSize: 16,color: primaryColor)),
-                                    //     ]
-                                    // ),
-                                    Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          Text(product.getDiscountRate(),style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w700,color: secondaryColor)),
-                                          Text(product.getPriceIncludeVat,style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w700,color: primaryColor)),
-                                          (product.getPriceIncludeVat!="")?Image.asset('icons/riyal.png' ,width: 12,): SizedBox(),
-                                        ]
+                                        // const Row(
+                                        //     mainAxisSize: MainAxisSize.min,
+                                        //     mainAxisAlignment: MainAxisAlignment.start,
+                                        //     children: [
+                                        //       Text('الخيارات:'),
+                                        //       SizedBox(width: 5),
+                                        //       Text('2 مقاسات', style: TextStyle(fontSize: 16,color: primaryColor)),
+                                        //     ]
+                                        // ),
+                                        Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              Text(product.getDiscountRate(),style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w700,color: secondaryColor)),
+                                              Text(product.getPriceIncludeVat,style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w700,color: primaryColor)),
+                                              (product.getPriceIncludeVat!="")?Image.asset('icons/riyal.png' ,width: 12,): SizedBox(),
+                                            ]
+                                        ),
+                                        Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisAlignment: MainAxisAlignment
+                                                .start,
+                                            children: [
+                                              Text(product.getPreDiscountPrice(),
+                                                  style: const TextStyle(fontSize: 14,
+                                                    color: Colors.grey,
+                                                    decoration: TextDecoration
+                                                        .lineThrough,)),
+                                            ]
+                                        ),
+                                        (added)? Row(children: [
+                                          (product.isAvailable(item!.quantity.value)==1)?
+                                          Text('available'.tr, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: successColor)):
+                                          Text('available quantity'.tr+product.inventoryBalance.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)),
+                                        ])
+                                            :SizedBox(),
+                                        Row(children: [
+                                          (product.isAvailable((item!=null)?item.quantity.value:1)==-1)?
+                                          Text('in available'.tr, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)):
+                                          const SizedBox()
+                                        ]),
+                                      ],
                                     ),
-                                    Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .start,
-                                        children: [
-                                          Text(product.getPreDiscountPrice(),
-                                              style: const TextStyle(fontSize: 14,
-                                                color: Colors.grey,
-                                                decoration: TextDecoration
-                                                    .lineThrough,)),
-                                        ]
-                                    ),
-                                    (added)? Row(children: [
-                                      (product.isAvailable(item!.quantity.value)==1)?
-                                      Text('available'.tr, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: successColor)):
-                                      Text('available quantity'.tr+product.inventoryBalance.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)),
-                                    ])
-                                        :SizedBox(),
-                                    Row(children: [
-                                      (product.isAvailable((item!=null)?item.quantity.value:1)==-1)?
-                                      Text('in available'.tr, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: unAvailableColor)):
-                                      const SizedBox()
-                                    ]),
-                                    Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Obx(() {
-                                            bool added = cartController.inCart(product.id);
-                                            CartItemModel? item = cartController.getItem(product.id);
-                                            if(product.isAvailable(1) == -1){
-                                              return SizedBox(
-                                                  child: Container(
-                                                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                                                      child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-                                                        Padding(
-                                                          padding: const EdgeInsets.all(8.0),
-                                                          child: InkWell(
-                                                            onTap: (){
-                                                              showActionConfirmBottomSheet(title: 'order confirm msg'.tr, buttonLabel: 'send'.tr, onConfirm: () {
-                                                                opportunityController.requestToProvide(product);
-                                                              });
-                                                            },
-                                                            child: Container(
-                                                              padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 30),
-                                                              decoration: const BoxDecoration(
-                                                                  color: secondaryColor,
-                                                                  borderRadius: BorderRadius.all(Radius.circular(20))
-                                                              ),
-                                                              child: Text('request to provide'.tr, style: const TextStyle(color: Colors.white),),
-                                                            ),
-                                                          ),
-                                                        )
-                                                      ]
-                                                      )
-                                                  )
-                                              );
-                                            }
-                                            if (added) {
-                                              return Padding(
-                                                padding: const EdgeInsets.all(
-                                                    4.0),
+                                  ),
+                                  Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Obx(() {
+                                          bool added = cartController.inCart(product.id);
+                                          CartItemModel? item = cartController.getItem(product.id);
+                                          if(product.isAvailable(1) == -1){
+                                            return SizedBox(
                                                 child: Container(
-                                                  width: 210.w,
-                                                  height: 40,
-                                                  decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                          width: 1.5,
-                                                          color: secondaryColor),
-                                                      borderRadius: BorderRadius
-                                                          .circular(20)
-                                                  ),
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment
-                                                        .spaceBetween,
-                                                    children: [
-                                                      InkWell(
-                                                        onTap: () {
-                                                          cartController
-                                                              .decrementQuantity(
-                                                              item);
-                                                        },
-                                                        child: Padding(
-                                                          padding: const EdgeInsets
-                                                              .symmetric(
-                                                              horizontal: 8.0),
-                                                          child: Image.asset(
-                                                            (item!.quantity
-                                                                .value <= 1)
-                                                                ? 'icons/trash.png'
-                                                                : 'icons/minus.png',
-                                                            width: 20,),
-                                                        ),
-                                                      ),
-                                                      Obx(() =>
-                                                          Text(item.quantity.value
-                                                              .toString())),
-                                                      InkWell(
-                                                        onTap: () {
-                                                          cartController
-                                                              .incrementQuantity(
-                                                              item);
-                                                        },
-                                                        child: Padding(
-                                                          padding: const EdgeInsets
-                                                              .symmetric(
-                                                              horizontal: 8.0),
-                                                          child: Image.asset(
-                                                            'icons/plus.png',
-                                                            width: 20,),
+                                                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                                                    child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+                                                      Padding(
+                                                        padding: const EdgeInsets.all(8.0),
+                                                        child: InkWell(
+                                                          onTap: (){
+                                                            showActionConfirmBottomSheet(title: 'order confirm msg'.tr, buttonLabel: 'send'.tr, onConfirm: () {
+                                                              opportunityController.requestToProvide(product);
+                                                            });
+                                                          },
+                                                          child: Container(
+                                                            padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 30),
+                                                            decoration: const BoxDecoration(
+                                                                color: secondaryColor,
+                                                                borderRadius: BorderRadius.all(Radius.circular(20))
+                                                            ),
+                                                            child: Text('request to provide'.tr, style: const TextStyle(color: Colors.white),),
+                                                          ),
                                                         ),
                                                       )
-                                                    ],
-                                                  ),
-                                                ),
-                                              );
-                                            }
-                                            return ElevatedButton(
-                                                onPressed: () {
-                                                  if (!added) {
-                                                    CartItemModel item = CartItemModel(
-                                                        product: product);
-                                                    cartController.addItem(item);
-                                                  }
-                                                },
-                                                style: ElevatedButton.styleFrom(
-                                                    backgroundColor: primaryColor,
-                                                    foregroundColor: Colors.white,
-                                                    shape: RoundedRectangleBorder(
-                                                        borderRadius: BorderRadius
-                                                            .circular(10)
+                                                    ]
                                                     )
-                                                ),
-                                                child: Text('add to cart'.tr)
+                                                )
                                             );
                                           }
-                                          ),
-                                          const SizedBox(width: 10),
-                                          SizedBox(
-                                              width: 50,
-                                              child: Obx(() {
-                                                bool added = favController.inFav(
-                                                    product.id);
-                                                return ElevatedButton(
-                                                    onPressed: () {
-                                                      if (added) {
-                                                        favController.removeById(
-                                                            product.id);
-                                                      }
-                                                      else {
-                                                        favController.addItem(
-                                                            product);
-                                                      }
-                                                    },
-                                                    style: ElevatedButton
-                                                        .styleFrom(
+                                          if (added) {
+                                            return Padding(
+                                              padding: const EdgeInsets.all(
+                                                  4.0),
+                                              child: Container(
+                                                width: 210.w,
+                                                height: 40,
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        width: 1.5,
+                                                        color: secondaryColor),
+                                                    borderRadius: BorderRadius
+                                                        .circular(20)
+                                                ),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment
+                                                      .spaceBetween,
+                                                  children: [
+                                                    InkWell(
+                                                      onTap: () {
+                                                        cartController
+                                                            .decrementQuantity(
+                                                            item);
+                                                      },
+                                                      child: Padding(
                                                         padding: const EdgeInsets
-                                                            .all(5),
-                                                        backgroundColor: secondaryColor,
-                                                        shape: RoundedRectangleBorder(
-                                                            borderRadius: BorderRadius
-                                                                .circular(10)
-                                                        )
+                                                            .symmetric(
+                                                            horizontal: 8.0),
+                                                        child: Image.asset(
+                                                          (item!.quantity
+                                                              .value <= 1)
+                                                              ? 'icons/trash.png'
+                                                              : 'icons/minus.png',
+                                                          width: 20,),
+                                                      ),
                                                     ),
-                                                    child: Image.asset(added
-                                                        ? 'icons/fav-checked.png'
-                                                        : 'icons/fav.png',
-                                                      width: 30,)
-                                                );
-                                              }
-                                              )
-                                          )
-                                        ]
-                                    )
-                                  ]
-                              )
-                          )
-                      )
-                    ]
-                )
-            )
-        ),
+                                                    Obx(() =>
+                                                        Text(item.quantity.value
+                                                            .toString())),
+                                                    InkWell(
+                                                      onTap: () {
+                                                        cartController
+                                                            .incrementQuantity(
+                                                            item);
+                                                      },
+                                                      child: Padding(
+                                                        padding: const EdgeInsets
+                                                            .symmetric(
+                                                            horizontal: 8.0),
+                                                        child: Image.asset(
+                                                          'icons/plus.png',
+                                                          width: 20,),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          }
+                                          return ElevatedButton(
+                                              onPressed: () {
+                                                if (!added) {
+                                                  CartItemModel item = CartItemModel(
+                                                      product: product);
+                                                  cartController.addItem(item);
+                                                }
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                  backgroundColor: primaryColor,
+                                                  foregroundColor: Colors.white,
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius
+                                                          .circular(10)
+                                                  )
+                                              ),
+                                              child: Text('add to cart'.tr)
+                                          );
+                                        }
+                                        ),
+                                        const SizedBox(width: 10),
+                                        SizedBox(
+                                            width: 50,
+                                            child: Obx(() {
+                                              bool added = favController.inFav(
+                                                  product.id);
+                                              return ElevatedButton(
+                                                  onPressed: () {
+                                                    if (added) {
+                                                      favController.removeById(
+                                                          product.id);
+                                                    }
+                                                    else {
+                                                      favController.addItem(
+                                                          product);
+                                                    }
+                                                  },
+                                                  style: ElevatedButton
+                                                      .styleFrom(
+                                                      padding: const EdgeInsets
+                                                          .all(5),
+                                                      backgroundColor: secondaryColor,
+                                                      shape: RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius
+                                                              .circular(10)
+                                                      )
+                                                  ),
+                                                  child: Image.asset(added
+                                                      ? 'icons/fav-checked.png'
+                                                      : 'icons/fav.png',
+                                                    width: 30,)
+                                              );
+                                            }
+                                            )
+                                        )
+                                      ]
+                                  )
+                                ]
+                            )
+                        )
+                    )
+                  ]
+              )
+          )
       );
     });
   }

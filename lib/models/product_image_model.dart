@@ -13,6 +13,10 @@ class ProductImageModel{
     );
   }
 
+  bool get isVideo {
+    final ext = imagePath.split('.').last.toLowerCase();
+    return ['mp4', 'mov', 'webm'].contains(ext);
+  }
   static List<ProductImageModel> fromJsonList(List<dynamic>? jsonList) {
     try{
       if(jsonList == null) return [];

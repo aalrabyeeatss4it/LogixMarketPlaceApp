@@ -145,7 +145,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyD5BpERBaGwMlJNwPC7Z7DHWzeec2uTrw0',
+    apiKey: 'AIzaSyAjKN1JUKyAakM_xjGt_2nghfNDXvm7HtE',
     appId: '1:477894708482:ios:34d0df5dd7142d7ff0861b',
     messagingSenderId: '477894708482',
     projectId: 'logix-market-place',

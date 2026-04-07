@@ -22,8 +22,13 @@ class ProductOffer {
     );
   }
 
+  double get priceIncludeVat => price + ((15 * price) / 100);
   String getOfferPrice(){
     return '$price';
+  }
+
+  String getOfferPriceIncludeVat(){
+    return priceIncludeVat.toStringAsFixed(2);
   }
 
   String getOfferPriceUnit(){
@@ -45,7 +50,7 @@ class ProductOffer {
     if(id==0){
       return 'base price'.tr;
     }
-    return '${'get'.tr} ${(basePrice-price).toStringAsFixed(0)} ${'rial'.tr}${'per piece'.tr}';
+    return '${'get'.tr} ${(basePrice-priceIncludeVat).toStringAsFixed(2)} ${'rial'.tr}${'per piece'.tr}';
   }
 
   static List<ProductOffer> fromJsonList(List<dynamic>? jsonList) {

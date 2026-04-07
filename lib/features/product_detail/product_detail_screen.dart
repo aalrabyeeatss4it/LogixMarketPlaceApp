@@ -31,9 +31,9 @@ class ProductDetailScreen extends StatefulWidget {
 class ProductDetailScreenState extends State<ProductDetailScreen> {
   late final int productId;
   final ProductDetailController _productController = Get.put(ProductDetailController());
+  final FavController favController = Get.find<FavController>();
   final OpportunityController opportunityController = Get.put(OpportunityController());
   final CartController cartController = Get.find<CartController>();
-  final FavController favController = Get.find<FavController>();
 
   final TokenController tokenController = Get.put(TokenController());
   @override
@@ -87,22 +87,18 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                 children: [
                   Padding(
                     padding: EdgeInsets.all(16.w),
-                    child: Wrap(children: [
-                      const SizedBox(height: 10),
-                      Text(_productController.product.value.name,
-                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
-                          softWrap: true,
-                          overflow: TextOverflow.visible,
-                          maxLines: null),
-                      // Text(_productController.product.value.desc,
-                      //     style: const TextStyle(fontSize: 14), softWrap: true, overflow: TextOverflow.visible, maxLines: null)
-                    ]),
+                    child: Text(_productController.product.value.name,
+                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
+                        softWrap: true,
+                        overflow: TextOverflow.visible,
+                        maxLines: null
+                    ),
                   ),
                   Card(
                     elevation: 0,
                     shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.zero)),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      padding: const EdgeInsets.symmetric(vertical: 2.0),
                       child: Column(children: [
                         (_productController.product.value.files != null && _productController.product.value.files!.isNotEmpty)?
                         ProductFileSlider(files: _productController.product.value.files):
@@ -132,37 +128,37 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                                   },
                                 ))
                         ),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Expanded(child: SizedBox()),
-                          Row(
-                            children: [
-                              Obx((){
-                                bool favAdded = favController.inFav(_productController.product.value.id);
-                                return InkWell(
-                                    onTap: (){
-                                      if(favAdded){
-                                        favController.removeById(_productController.product.value.id);
-                                      }
-                                      else{
-                                        favController.addItem(_productController.product.value);
-                                      }
-                                    },
-                                    child: Image.asset(favAdded? 'icons/fav-checked.png' : 'icons/fav.png', width: 25,color: Colors.black,)
-                                );
-                              }
-                              ),
-                              const SizedBox(width: 5),
-                              InkWell(
-                                  onTap: () async {
-                                    await _productController.shareProductLink();
-                                  },
-                                  child: Image.asset('icons/share.png', height: 25)
-                              ),
-                            ],
-                          ),
-                        ]),
+                        // Row(
+                        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //     children: [
+                        //       const Expanded(child: SizedBox()),
+                        //       Row(
+                        //         children: [
+                        //           Obx((){
+                        //             bool favAdded = favController.inFav(_productController.product.value.id);
+                        //             return InkWell(
+                        //                 onTap: (){
+                        //                   if(favAdded){
+                        //                     favController.removeById(_productController.product.value.id);
+                        //                   }
+                        //                   else{
+                        //                     favController.addItem(_productController.product.value);
+                        //                   }
+                        //                 },
+                        //                 child: Image.asset(favAdded? 'icons/fav-checked.png' : 'icons/fav.png', width: 25,color: Colors.black,)
+                        //             );
+                        //           }
+                        //           ),
+                        //           const SizedBox(width: 5),
+                        //           InkWell(
+                        //               onTap: () async {
+                        //                 await _productController.shareProductLink();
+                        //               },
+                        //               child: Image.asset('icons/share.png', height: 25)
+                        //           ),
+                        //         ],
+                        //       ),
+                        // ]),
 
                       ]),
                     ),
@@ -580,7 +576,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                       children: [
                         Row(
                           children: [
-                            Text(offer.getOfferPrice(), style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w900, color: primaryColor)),
+                            Text(offer.getOfferPriceIncludeVat(), style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w900, color: primaryColor)),
                             const SizedBox(width: 5,),
                             Text(offer.getOfferPriceUnit(), style: const TextStyle(fontSize: 12)),
                           ],

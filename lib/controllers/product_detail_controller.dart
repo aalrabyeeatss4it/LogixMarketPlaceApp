@@ -54,7 +54,7 @@ class ProductDetailController extends GetxController {
       productId: product.value.id,
       qtyFrom: 1,
       qtyTo: 1,
-      price:  double.parse(product.value.basePriceIncludeVat.toStringAsFixed(2)),
+      price:  double.parse(product.value.basePrice.value.toStringAsFixed(2)),
     );
 
     return [baseOffer, ...product.value.offers];

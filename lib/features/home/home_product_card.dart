@@ -382,7 +382,7 @@ class HomeProductCard extends StatelessWidget {
           ),
           Row(
             children: [
-              Text(offer.getOfferPrice(), style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w900, color: offerColor)),
+              Text(offer.getOfferPriceIncludeVat(), style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w900, color: offerColor)),
               const SizedBox(width: 5,),
               Text(offer.getOfferPriceCurrency(), style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w900, color: offerColor)),
             ],
