@@ -1,8 +1,17 @@
+import '../common/storage/local_storage.dart';
+
 class ShipmentMethodModel {
   int code;
   String name;
   String? name2;
 
+  String get getName {
+    if(getLanguage()=="ar") {
+      return name;
+    } else {
+      return name2?? name;
+    }
+  }
   ShipmentMethodModel({ required this.code, required this.name,this.name2});
 
   factory ShipmentMethodModel.fromJson(Map<String, dynamic> json) {

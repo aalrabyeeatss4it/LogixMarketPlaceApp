@@ -22,7 +22,7 @@ class HomeCategoryCard extends StatelessWidget{
                 // (route) => route.settings.name == RouteNames.homePage,
             arguments: {
             'categoryId': category.id,
-            'categoryName': category.nameAr
+            'categoryName': category.getName
           });
       },
       child: Card(
@@ -77,7 +77,7 @@ class HomeCategoryCard extends StatelessWidget{
                   SizedBox(
                     width: 80,
                     child: Text(
-                      category.nameAr,
+                      category.getName,
                       style: Theme.of(context).textTheme.titleSmall,
                       textAlign: TextAlign.center,
                       softWrap: true,

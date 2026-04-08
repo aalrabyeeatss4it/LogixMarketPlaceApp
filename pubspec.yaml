@@ -1,7 +1,7 @@
 name: logix_market_place
 description: "logix market place app"
 publish_to: 'none'
-version: 1.0.18+18
+version: 1.0.20+20
 
 environment:
   sdk: '>=3.4.1 <4.0.0'

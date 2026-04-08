@@ -28,8 +28,8 @@ class MockFavService implements FavService {
           productCode: 'Pro-01',
           // preDiscountPrice: 500,
           discountPercentage: 10,
-          name:
-              'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
+          name: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
+          nameEn: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
           desc:
               'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
           thumbPath: 'assets_mock/product1.png', inventoryBalance: 0),
@@ -44,6 +44,7 @@ class MockFavService implements FavService {
           // preDiscountPrice: 500,
           discountPercentage: 10,
           name: 'خلّاط مغسلة مرتفع – أسود مطفي',
+          nameEn: 'خلّاط مغسلة مرتفع – أسود مطفي',
           desc: 'خلّاط مغسلة مرتفع – أسود مطفي',
           thumbPath: 'assets_mock/product2.png', inventoryBalance: 0)
     ];

@@ -30,6 +30,7 @@ class MockProductDetailService implements ProductDetailService {
         discountPercentage: 12,
         productCode: 'Pro-01',
         name: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع',
+        nameEn: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع',
         desc:
             'تصميم عصري أنيق ومقاوم للصدأ مصنوع من خامات عالية الجودة لمقاومة الصدأ والتآكل، مع طبقة تشطيب ذهبية تحافظ على اللمعان لفترة طويلة. التصميم العصري بخطوطه المستقيمة يضيف لمسة جمالية راقية تناسب الحمامات الحديثة والكلاسيكية على حد سواء.',
         thumbPath: 'assets_mock/product1.png',
@@ -51,6 +52,7 @@ class MockProductDetailService implements ProductDetailService {
           // preDiscountPrice: 500,
           discountPercentage: 12,
           name: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
+          nameEn: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
           desc: 'خلّاط مغسلة مرتفع فاخر باللون الذهبي اللامع – تصميم عصري أنيق ومقاوم للصدأ ..',
           thumbPath: 'assets_mock/product1.png', inventoryBalance: 0),
       ProductModel(
@@ -64,6 +66,7 @@ class MockProductDetailService implements ProductDetailService {
           // preDiscountPrice: 300,
           discountPercentage: 12,
           name: 'خلّاط مغسلة مرتفع – أسود مطفي',
+          nameEn: 'خلّاط مغسلة مرتفع – أسود مطفي',
           desc: 'خلّاط مغسلة مرتفع – أسود مطفي',
           thumbPath: 'assets_mock/product2.png', inventoryBalance: 0)
     ];
@@ -80,25 +83,21 @@ class MockProductDetailService implements ProductDetailService {
 
   @override
   Future<Response> postData(String path, Map<String, dynamic> json) {
-    // TODO: implement postData
     throw UnimplementedError();
   }
 
   @override
   Future<Response> postLogin(String path, Map<String, dynamic> json) {
-    // TODO: implement postLogin
     throw UnimplementedError();
   }
 
   @override
   Future<Response> putData(String path, Map<String, dynamic> json) {
-    // TODO: implement putData
     throw UnimplementedError();
   }
 
   @override
   Future<Response> deleteData(String path, Map<String, dynamic> json) {
-    // TODO: implement deleteData
     throw UnimplementedError();
   }
 }

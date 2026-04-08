@@ -75,7 +75,7 @@ class CartProductCard extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(cartItem.product.name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700), softWrap: true,
+                          Text(cartItem.product.getName, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700), softWrap: true,
                             overflow: TextOverflow.visible,
                             maxLines: null
                           ),

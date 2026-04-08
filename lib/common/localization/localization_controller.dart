@@ -1,5 +1,6 @@
+import 'dart:core';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:logix_market_place/common/storage/local_storage.dart';
 import 'package:flutter/material.dart';
 
 class LocalizationController extends GetxController {
@@ -13,23 +14,19 @@ class LocalizationController extends GetxController {
 
   void setLocale() async {
     String? code = await getLanguage();
-    if (code != null) {
-      locale.value = getLocaleFromCode(code);
-      Get.updateLocale(locale.value);
-    }
+    locale.value = getLocaleFromCode(code);
+    Get.updateLocale(locale.value);
   }
 
-  Future<String?> getLanguage() async {
-    final prefs = await SharedPreferences.getInstance();
-    String? code = prefs.getString('preferred_language');
-    return code;
+  Future<String> getLanguage() async {
+    String? code = box.read("preferred_language");
+    return code?? "ar";
   }
 
   void changeLanguage(String langCode) async {
     locale.value = getLocaleFromCode(langCode);
     Get.updateLocale(locale.value);
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('preferred_language', langCode);
+    box.write("preferred_language", langCode);
   }
 
   Locale getLocaleFromCode(String code) {

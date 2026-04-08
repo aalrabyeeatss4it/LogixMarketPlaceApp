@@ -1,5 +1,7 @@
 import 'package:logix_market_place/common/api_paths.dart';
 
+import '../common/storage/local_storage.dart';
+
 class CategoryModel {
   int id;
   String nameAr;
@@ -32,11 +34,20 @@ class CategoryModel {
       'thumbPath': thumbPath
     };
   }
-  String getThumbPath(){
-    String path = thumbPath??"no_image.jpg";
-    if(path.isEmpty){
+
+  String get getName {
+    if (getLanguage() == "ar") {
+      return nameAr;
+    } else {
+      return nameEn ?? nameAr;
+    }
+  }
+
+  String getThumbPath() {
+    String path = thumbPath ?? "no_image.jpg";
+    if (path.isEmpty) {
       path = "no_image.jpg";
     }
-    return erpUrl()+imagesDirPath()+path;
+    return erpUrl() + imagesDirPath() + path;
   }
 }

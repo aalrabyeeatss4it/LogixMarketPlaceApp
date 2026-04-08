@@ -5,12 +5,14 @@ import 'package:logix_market_place/models/product_image_model.dart';
 import 'package:logix_market_place/models/product_offer.dart';
 
 import '../common/api_paths.dart';
+import '../common/storage/local_storage.dart';
 
 class ProductModel {
   int id;
   int categoryId;
   int unitId;
   String name;
+  String? nameEn;
   String? productCode;
   RxDouble basePrice = 0.0.obs;
   RxDouble offerPrice = 0.0.obs;
@@ -29,6 +31,7 @@ class ProductModel {
         required this.categoryId,
         required this.unitId,
         required this.name,
+        required this.nameEn,
         required this.desc,
         required this.thumbPath,
         required this.vat,
@@ -48,11 +51,19 @@ class ProductModel {
     this.discountPercentage.value = discountPercentage;
   }
 
+  String get getName {
+    if(getLanguage()=="ar") {
+      return name;
+    } else {
+      return nameEn?? name;
+    }
+  }
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
         id: json['id'],
         categoryId: json['categoryId'],
         name: json['name'],
+        nameEn: json['nameEn'],
         desc: json['desc'],
         basePrice: json['price'],
         offerPrice: (json['offerPrice'] as num).toDouble(),
@@ -84,6 +95,7 @@ class ProductModel {
       'id': id,
       'categoryId': categoryId,
       'name': name,
+      'nameEn': nameEn,
       'vaT_Rate': vat,
       'unitId': unitId,
       'desc': desc,

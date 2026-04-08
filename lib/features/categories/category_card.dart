@@ -16,7 +16,7 @@ class CategoryCard extends StatelessWidget{
       onTap: (){
         Get.toNamed(RouteNames.categoryDetailPage, arguments: {
           'categoryId': category.id,
-          'categoryName': category.nameAr
+          'categoryName': category.getName
         });
       },
       child: Padding(
@@ -57,7 +57,7 @@ class CategoryCard extends StatelessWidget{
             ),
             Flexible(
               child: Text(
-                category.nameAr,
+                category.getName,
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w800,

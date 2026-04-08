@@ -28,7 +28,7 @@ class OpportunityController extends GetxController {
   }
 
   Future<void> requestToProvide(ProductModel product) async {
-    OpportunityModel opportunityModel = OpportunityModel(productId: product.id,unitId: product.unitId,productName: product.name);
+    OpportunityModel opportunityModel = OpportunityModel(productId: product.id,unitId: product.unitId,productName: product.getName);
     var serviceResult = await provideService.createRequest(opportunityModel);
     if(serviceResult is SuccessStatus<String>){
       Get.back();

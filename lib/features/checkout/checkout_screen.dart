@@ -159,7 +159,7 @@ class _CheckoutScreenState extends State<CheckoutScreen>{
                               itemBuilder: (BuildContext context, int index) {
                                 var shipmentMethod= orderController.shipmentMethods[index];
                                 return Obx(() => shipmentMethodCard(
-                                    shipmentMethod.name,
+                                    shipmentMethod.getName,
                                     shipmentMethod.code.toString(),
                                     shipmentMethod.code,orderController.shipmentCompanies
                                 ),

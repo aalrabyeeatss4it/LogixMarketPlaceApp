@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logix_market_place/common/theme/colors.dart';
@@ -27,24 +30,43 @@ class _ProductFileSliderState extends State<ProductFileSlider>{
     tokenController.getToken();
     // _initVideoControllers();
   }
+  Future<File> downloadVideo(String url) async {
+    final client = HttpClient()
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
 
-  void _initVideoControllers() {
+    final request = await client.getUrl(Uri.parse(url));
+    final response = await request.close();
+
+    final bytes = await consolidateHttpClientResponseBytes(response);
+
+    final file = File('${Directory.systemTemp.path}/video.mp4');
+    await file.writeAsBytes(bytes);
+
+    return file;
+  }
+  Future<void> _initVideoControllers() async {
     videoControllers.clear();
     for (var file in widget.files!) {
       final url = file.getFilePath(tokenController.ssoToken.value);
       print("INIT VIDEO: $url");
       if (_isVideo(url)) {
-        Uri uri = Uri.parse(url);
-        VideoPlayerController controller = VideoPlayerController.networkUrl(
-          uri,
-          videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true),
-        );
+        final file = await downloadVideo(url);
+
+        VideoPlayerController controller = VideoPlayerController.file(file);
+
         controller.initialize().then((_) {
           setState(() {});
           print("VIDEO INITIALIZED: $url");
         }).catchError((e) {
           print("VIDEO INIT ERROR: $url -> $e"); // catch errors
         });
+
+        // Uri uri = Uri.parse(url);
+        // VideoPlayerController controller = VideoPlayerController.networkUrl(
+        //   uri,
+        //   videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true),
+        // );
         videoControllers.add(controller);
       } else {
         videoControllers.add(null); // placeholder for images
@@ -85,8 +107,7 @@ class _ProductFileSliderState extends State<ProductFileSlider>{
         _initialized = true;
       }
       return  SizedBox(
-        width: myWidth,
-        height: myWidth * 0.45,
+        width: myWidth,height: myWidth * 3 / 4,
         child: Stack(
             fit: StackFit.expand,
             children: [
@@ -98,6 +119,11 @@ class _ProductFileSliderState extends State<ProductFileSlider>{
                     disableCenter: true,
                     autoPlayInterval: const Duration(seconds: 10),
                     onPageChanged: (index, reason) {
+                      for (var c in videoControllers) {
+                        if (c != null && c.value.isInitialized) {
+                          c.pause();
+                        }
+                      }
                       controller.setCurrentIndex(index);
                     },
                   ),

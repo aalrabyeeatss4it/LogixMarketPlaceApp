@@ -13,6 +13,7 @@ class ProductDetailController extends GetxController {
       ProductModel(
         id: 0,
         name: '',
+          nameEn: '',
         desc: '',
         basePrice: 0,
           offerPrice: 0,

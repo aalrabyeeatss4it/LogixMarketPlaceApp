@@ -88,7 +88,7 @@ class CategoryProductCard extends StatelessWidget {
                                     child: Column(
                                       children: [
                                         Text(product.productCode!,maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
-                                        Text(product.name, style: const TextStyle(
+                                        Text(product.getName, style: const TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w700),
                                             softWrap: true,

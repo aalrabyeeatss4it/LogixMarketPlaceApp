@@ -20,3 +20,8 @@ isLoggedIn() {
   var token = box.read(tokenIndex);
   return (token != null);
 }
+
+String getLanguage() {
+  String? code = box.read("preferred_language");
+  return code?? "ar";
+}

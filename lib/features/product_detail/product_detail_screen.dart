@@ -87,7 +87,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                 children: [
                   Padding(
                     padding: EdgeInsets.all(16.w),
-                    child: Text(_productController.product.value.name,
+                    child: Text(_productController.product.value.getName,
                         style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
                         softWrap: true,
                         overflow: TextOverflow.visible,
