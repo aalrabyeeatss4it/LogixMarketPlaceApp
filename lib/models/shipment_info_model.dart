@@ -1,4 +1,5 @@
 import '../common/api_paths.dart';
+import '../common/storage/local_storage.dart';
 import 'delivery_address_model.dart';
 
 class ShipmentInfoModel {
@@ -14,6 +15,13 @@ class ShipmentInfoModel {
   String? iconPath;
   DeliveryAddressModel? deliveryAddress;
 
+  String get getName {
+    if(getLanguage()=="ar") {
+      return methodName??"";
+    } else {
+      return methodName2?? methodName?? "";
+    }
+  }
   ShipmentInfoModel({
     this.methodId,
     this.methodName,

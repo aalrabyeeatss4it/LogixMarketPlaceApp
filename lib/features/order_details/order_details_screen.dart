@@ -160,13 +160,14 @@ class OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                   Text('delivery method'.tr,style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w900)),
                                   SizedBox(
                                       height: 50,
+                                      width: 190,
                                       child:
                                       Center(
                                           child: Row(
                                             children: [
                                               Image.asset("icons/shipment${order.shipmentInfo!.methodId}.png", width: 20,color: Colors.black,),
                                               SizedBox(width: 8),
-                                              Text(order.shipmentInfo!.methodName??"",style: const TextStyle(fontSize: 12,fontWeight: FontWeight.bold)
+                                              Text(order.shipmentInfo!.getName??"",style: const TextStyle(fontSize: 12,fontWeight: FontWeight.bold)
                                               ),
                                             ],
                                           )
