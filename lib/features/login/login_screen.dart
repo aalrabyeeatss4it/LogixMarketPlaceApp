@@ -139,18 +139,18 @@ class LoginScreen extends StatelessWidget{
                         ),
                       ),
                       const SizedBox(height: 10,),
-                      InkWell(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('don''t you have account'.tr,style: const TextStyle(decoration: TextDecoration.underline,color: Colors.grey,fontSize: 16,fontWeight: FontWeight.bold)),
-                              Text('create new account'.tr,style: const TextStyle(decoration: TextDecoration.underline,color: primaryAccentColor,fontSize: 16,fontWeight: FontWeight.bold)),
-                            ],
-                          ),
-                          onTap: (){
-
-                          }
-                      ),
+                      // InkWell(
+                      //     child: Row(
+                      //       mainAxisAlignment: MainAxisAlignment.center,
+                      //       children: [
+                      //         Text('don''t you have account'.tr,style: const TextStyle(decoration: TextDecoration.underline,color: Colors.grey,fontSize: 16,fontWeight: FontWeight.bold)),
+                      //         Text('create new account'.tr,style: const TextStyle(decoration: TextDecoration.underline,color: primaryAccentColor,fontSize: 16,fontWeight: FontWeight.bold)),
+                      //       ],
+                      //     ),
+                      //     onTap: (){
+                      //
+                      //     }
+                      // ),
                     ]
                 ),
               )

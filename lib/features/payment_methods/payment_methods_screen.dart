@@ -34,18 +34,18 @@ class PaymentMethodsScreen extends StatelessWidget {
                                 children: [
                                   Image.asset('icons/pay-card.png', width: 45,),
                                   Text('empty payment methods'.tr,style: const TextStyle(fontWeight: FontWeight.w800,fontSize: 16),),
-                                  TextButton(
-                                      onPressed: () {
-                                        // Get.toNamed('/secondPage');
-                                      },
-                                      child: Text(
-                                          'add payment method'.tr,
-                                          style: const TextStyle(
-                                            color: Colors.indigo,
-                                            decoration: TextDecoration.underline,
-                                          )
-                                      )
-                                  )
+                                  // TextButton(
+                                  //     onPressed: () {
+                                  //       // Get.toNamed('/secondPage');
+                                  //     },
+                                  //     child: Text(
+                                  //         'add payment method'.tr,
+                                  //         style: const TextStyle(
+                                  //           color: Colors.indigo,
+                                  //           decoration: TextDecoration.underline,
+                                  //         )
+                                  //     )
+                                  // )
                                 ]
                             )
                         )
