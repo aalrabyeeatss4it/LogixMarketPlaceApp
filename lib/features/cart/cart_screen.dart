@@ -47,7 +47,7 @@ class CartScreen extends StatelessWidget{
                                         'Start adding items'.tr,
                                         style: const TextStyle(
                                           color: Colors.indigo,
-                                          decoration: TextDecoration.underline,
+                                          // decoration: TextDecoration.underline,
                                         ),
                                       ),
                                     )

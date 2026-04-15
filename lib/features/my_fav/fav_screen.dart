@@ -35,18 +35,18 @@ Widget build(BuildContext context) {
                       children: [
                         Image.asset('icons/empty-fav.png', width: 45,),
                         Text('empty fav'.tr,style: const TextStyle(fontWeight: FontWeight.w800,fontSize: 16),),
-                        TextButton(
-                          onPressed: () {
-                            // Get.toNamed('/secondPage');
-                          },
-                          child: Text(
-                            'Start adding items'.tr,
-                            style: const TextStyle(
-                              color: Colors.indigo,
-                              decoration: TextDecoration.underline,
-                            )
-                          )
-                        )
+                        // TextButton(
+                        //   onPressed: () {
+                        //     // Get.toNamed('/secondPage');
+                        //   },
+                        //   child: Text(
+                        //     'Start adding items'.tr,
+                        //     style: const TextStyle(
+                        //       color: Colors.indigo,
+                        //       decoration: TextDecoration.underline,
+                        //     )
+                        //   )
+                        // )
                       ]
                     )
                   )

@@ -18,13 +18,13 @@ import 'controllers/app_bindings.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-      name: "Logix-Market-Place",
-      options: DefaultFirebaseOptions.currentPlatform
-  );
+  // await Firebase.initializeApp(
+  //     name: "Logix-Market-Place",
+  //     options: DefaultFirebaseOptions.currentPlatform
+  // );
   await GetStorage.init();
 
-  await NotificationService.init();
+  // await NotificationService.init();
   // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   HttpOverrides.global = MyHttpOverrides();
