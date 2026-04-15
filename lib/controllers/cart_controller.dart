@@ -58,19 +58,20 @@ class CartController extends GetxController {
   Future<bool> addItem(CartItemModel item) async {
     if(inCart(item.product.id)) return false;
     if(!isLoggedIn()) {
-      Get.snackbar(
-        'Almost there',
-        'Log in to continue adding items to your cart',
-        snackPosition: SnackPosition.BOTTOM,
-        colorText: Colors.black,
-        mainButton: TextButton(
-          onPressed: () => Get.toNamed('/login'),
-          child: const Text(
-            'LOGIN',
-            style: TextStyle(color: Colors.black),
-          ),
-        ),
-      );
+      Get.toNamed('/login');
+      // Get.snackbar(
+      //   'Almost there',
+      //   'Log in to continue adding items to your cart',
+      //   snackPosition: SnackPosition.BOTTOM,
+      //   colorText: Colors.black,
+      //   mainButton: TextButton(
+      //     onPressed: () => Get.toNamed('/login'),
+      //     child: const Text(
+      //       'LOGIN',
+      //       style: TextStyle(color: Colors.black),
+      //     ),
+      //   ),
+      // );
       return false;
     }
     if(item.product.inventoryBalance.value > 0){
