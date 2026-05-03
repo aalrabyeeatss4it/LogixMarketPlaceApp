@@ -60,31 +60,31 @@ class _AccountInfoScreenState extends State<AccountInfoScreen>{
                   LabeledWidget(label: 'tax no'.tr,hint: 'fill tax no'.tr,editController: controller.taxNoController),
                   LabeledWidget(label: 'mobile no'.tr,hint: 'fill mobile no'.tr,editController: controller.mobileNoController, isTextDirectionLtr: true),
                   LabeledWidget(label: 'email'.tr,hint: 'fill email'.tr,editController: controller.emailController),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 20),
-                    child: SizedBox(
-                      height: 60,
-                      child: TextButton(
-                          style: ElevatedButton.styleFrom(
-                              elevation: 0,
-                              padding: const EdgeInsets.all(5),
-                              backgroundColor: redColor.withOpacity(0.1),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)
-                              )
-                          ),
-                          onPressed: () {
-                            // loginController.logout();
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('remove account'.tr,style: TextStyle(color: redColor,fontWeight: FontWeight.w700,fontSize: 18))
-                            ],
-                          )
-                      ),
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 20),
+                  //   child: SizedBox(
+                  //     height: 60,
+                  //     child: TextButton(
+                  //         style: ElevatedButton.styleFrom(
+                  //             elevation: 0,
+                  //             padding: const EdgeInsets.all(5),
+                  //             backgroundColor: redColor.withOpacity(0.1),
+                  //             shape: RoundedRectangleBorder(
+                  //                 borderRadius: BorderRadius.circular(10)
+                  //             )
+                  //         ),
+                  //         onPressed: () {
+                  //           // loginController.logout();
+                  //         },
+                  //         child: Row(
+                  //           mainAxisAlignment: MainAxisAlignment.center,
+                  //           children: [
+                  //             Text('remove account'.tr,style: TextStyle(color: redColor,fontWeight: FontWeight.w700,fontSize: 18))
+                  //           ],
+                  //         )
+                  //     ),
+                  //   ),
+                  // ),
                 ]
             )
         ),
